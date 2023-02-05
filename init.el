@@ -96,9 +96,6 @@
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; Some own Keymaps
-(global-set-key (kbd "M-r") 'compile)
-
 ;; 
 (use-package general
   :after evil
@@ -392,11 +389,31 @@
   ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
   (setq dired-open-extensions '(("png" . "feh")
                                 ("mkv" . "mpv"))))
+
+;; MORE KEYMAPS
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "H" 'dired-hide-dotfiles-mode))
+(defun add-to-map(keys func)
+  "Add a keybinding in evil mode from keys to func."
+  (define-key evil-normal-state-map (kbd keys) func)
+  (define-key evil-motion-state-map (kbd keys) func))
+
+(add-to-map "<SPC>" nil)
+(add-to-map "<SPC> f" 'find-file)
+(add-to-map "<SPC> S" 'save-buffer)
+(add-to-map "<SPC> s h" 'split-window-below)
+(add-to-map "<SPC> s s" 'split-window-right)
+(add-to-map "<SPC> s c" 'delete-window)
+(add-to-map "<SPC> j" 'windmove-down)
+(add-to-map "<SPC> k" 'windmove-up)
+(add-to-map "<SPC> h" 'windmove-left)
+(add-to-map "<SPC> l" 'windmove-right)
+(add-to-map "<SPC> r" 'compile)
+(add-to-map "<SPC> e" 'dired)
+(add-to-map "<SPC> g" 'magit)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
