@@ -391,6 +391,17 @@
                                 ("mkv" . "mpv"))))
 
 ;; MORE KEYMAPS
+
+(defun my/zoom-in ()
+  "Increase font size by 10 points"
+  (interactive)
+  (set-face-attribute 'default nil :height (+ (face-attribute 'default :height) 10)))
+
+(defun my/zoom-out ()
+  "Decrease font size by 10 points"
+  (interactive)
+  (set-face-attribute 'default nil :height (- (face-attribute 'default :height) 10)))
+
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
@@ -414,6 +425,10 @@
 (add-to-map "<SPC> r" 'compile)
 (add-to-map "<SPC> e" 'dired)
 (add-to-map "<SPC> g" 'magit)
+(add-to-map "<tab>" 'next-buffer)
+(add-to-map "S-<tab>" 'previous-buffer)
+(add-to-map "C->" 'my/zoom-in)
+(add-to-map "C-<" 'my/zoom-out)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
