@@ -127,8 +127,14 @@
   :config
   (evil-collection-init))
 
-;; Icons
-(use-package all-the-icons)
+;; Doom Themes
+(use-package doom-themes
+  :init (load-theme 'doom-one t))
+
+;; Doom Modeline
+(use-package doom-modeline
+  :init (doom-modeline-mode 1)
+  :custom ((doom-modeline-height 15)))
 
 ;; Display Keymaps
 (use-package which-key
@@ -357,7 +363,6 @@
   (with-eval-after-load 'esh-opt
     (setq eshell-destroy-buffer-when-process-dies t)
     (setq eshell-visual-commands '("htop" "zsh" "vim")))
-
   (eshell-git-prompt-use-theme 'powerline))
 
 ;; File Explorer
@@ -372,8 +377,6 @@
     "l" 'dired-single-buffer))
 (use-package dired-single
   :commands (dired dired-jump))
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
 (use-package dired-open
   :commands (dired dired-jump)
   :config
@@ -399,17 +402,18 @@
 (add-to-map "<SPC> s h" 'split-window-below)
 (add-to-map "<SPC> s s" 'split-window-right)
 (add-to-map "<SPC> s c" 'delete-window)
-(add-to-map "<SPC> j" 'windmove-down)
-(add-to-map "<SPC> k" 'windmove-up)
-(add-to-map "<SPC> h" 'windmove-left)
-(add-to-map "<SPC> l" 'windmove-right)
 (add-to-map "<SPC> r" 'compile)
 (add-to-map "<SPC> e" 'dired)
 (add-to-map "<SPC> g" 'magit)
-(add-to-map "M-<tab>" 'next-buffer)
-(add-to-map "M-S-<tab>" 'previous-buffer)
-(add-to-map "C->" 'text-scale-increase)
-(add-to-map "C-<" 'text-scale-decrease)
+(add-to-map "<SPC> n" 'next-buffer)
+(add-to-map "<SPC> p" 'previous-buffer)
+(add-to-map "<SPC> b" 'buffer-menu)
+(add-to-map "C->" 'text-scale-decrease)
+(add-to-map "C-<" 'text-scale-increase)
+(add-to-map "C-j" 'windmove-down)
+(add-to-map "C-k" 'windmove-up)
+(add-to-map "C-h" 'windmove-left)
+(add-to-map "C-l" 'windmove-right)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
@@ -419,9 +423,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("afa47084cb0beb684281f480aa84dab7c9170b084423c7f87ba755b15f6776ef" "30dc9873c16a0efb187bb3f8687c16aae46b86ddc34881b7cae5273e56b97580" "bfc0b9c3de0382e452a878a1fb4726e1302bf9da20e69d6ec1cd1d5d82f61e3d" "dde643b0efb339c0de5645a2bc2e8b4176976d5298065b8e6ca45bc4ddf188b7" "02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" default))
+   '("be84a2e5c70f991051d4aaf0f049fa11c172e5d784727e0b525565bb1533ec78" "a138ec18a6b926ea9d66e61aac28f5ce99739cf38566876dc31e29ec8757f6e2" "c865644bfc16c7a43e847828139b74d1117a6077a845d16e71da38c8413a5aaa" "6945dadc749ac5cbd47012cad836f92aea9ebec9f504d32fe89a956260773ca4" "adaf421037f4ae6725aa9f5654a2ed49e2cd2765f71e19a7d26a454491b486eb" "56044c5a9cc45b6ec45c0eb28df100d3f0a576f18eef33ff8ff5d32bac2d9700" "5f128efd37c6a87cd4ad8e8b7f2afaba425425524a68133ac0efd87291d05874" "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" "afa47084cb0beb684281f480aa84dab7c9170b084423c7f87ba755b15f6776ef" "30dc9873c16a0efb187bb3f8687c16aae46b86ddc34881b7cae5273e56b97580" "bfc0b9c3de0382e452a878a1fb4726e1302bf9da20e69d6ec1cd1d5d82f61e3d" "dde643b0efb339c0de5645a2bc2e8b4176976d5298065b8e6ca45bc4ddf188b7" "02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" default))
  '(package-selected-packages
-   '(json-mode flycheck dired-hide-dotfiles dired-open all-the-icons-dired dired-single eshell-git-prompt vterm eterm-256color rainbow-delimiters evil-nerd-commenter forge magit counsel-projectile projectile company-box company pyvenv python-mode typescript-mode lsp-ivy lsp-treemacs lsp-ui lsp-mode visual-fill-column which-key use-package no-littering ivy-rich ivy-prescient hydra helpful general evil-collection doom-themes counsel command-log-mode auto-package-update all-the-icons))
+   '(doom-modeline json-mode flycheck dired-hide-dotfiles dired-open dired-single eshell-git-prompt vterm eterm-256color rainbow-delimiters evil-nerd-commenter forge magit counsel-projectile projectile company-box company pyvenv python-mode typescript-mode lsp-ivy lsp-treemacs lsp-ui lsp-mode visual-fill-column which-key use-package no-littering ivy-rich ivy-prescient hydra helpful general evil-collection doom-themes counsel auto-package-update))
  '(warning-suppress-types '((emacs))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
