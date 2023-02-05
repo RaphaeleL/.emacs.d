@@ -32,10 +32,10 @@
 ;; Initialize use-package on non-Linux platforms
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
-
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Auto Update
 (use-package auto-package-update
   :custom
   (auto-package-update-interval 7)
@@ -45,17 +45,12 @@
   (auto-package-update-maybe)
   (auto-package-update-at-time "09:00"))
 
-;; NOTE: If you want to move everything out of the ~/.emacs.d folder
-;; reliably, set `user-emacs-directory` before loading no-littering!
-;(setq user-emacs-directory "~/.cache/emacs")
-
+;; Help keeping ~/.emacs.d clean
 (use-package no-littering)
-
-;; no-littering doesn't set this by default so we must place
-;; auto save files in the same path as it uses for sessions
 (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
 
+;; Startup Messages
 (setq inhibit-startup-message t)
 
 ;; Change UI
@@ -68,14 +63,9 @@
 ;; Set up the visible bell
 (setq visible-bell t)
 
+;; Line Numbers
 (column-number-mode)
 (global-display-line-numbers-mode t)
-
-;; Set Transparency
-;; (set-frame-parameter (selected-frame) 'alpha efs/frame-transparency)
-;; (add-to-list 'default-frame-alist `(alpha . ,efs/frame-transparency))
-;; (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
@@ -88,7 +78,7 @@
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; 
+;; More convenient key definitions in emacs 
 (use-package general
   :after evil
   :config
@@ -120,8 +110,6 @@
 
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
-
-;; 
 (use-package evil-collection
   :after evil
   :config
@@ -129,9 +117,7 @@
 
 ;; Doom Themes
 (use-package doom-themes
-  :init (load-theme 'doom-one t))
-
-;; Doom Modeline
+  :init (load-theme 'doom-one-light t))
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
@@ -144,7 +130,7 @@
   (which-key-mode)
   (setq which-key-idle-delay 1))
 
-;; 
+;; Auto Completion Engine
 (use-package ivy
   :diminish
   :bind (("C-s" . swiper)
@@ -162,14 +148,12 @@
          ("C-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
-
-;; 
 (use-package ivy-rich
   :after ivy
   :init
   (ivy-rich-mode 1))
 
-;; 
+;; Auto Completion
 (use-package counsel
   :bind (("C-M-j" . 'counsel-switch-buffer)
          :map minibuffer-local-map
@@ -179,7 +163,7 @@
   :config
   (counsel-mode 1))
 
-;; 
+;; Auto Completion
 (use-package ivy-prescient
   :after counsel
   :custom
@@ -189,7 +173,7 @@
   ;(prescient-persist-mode 1)
   (ivy-prescient-mode 1))
 
-;; Man Pages for Emacs
+;; Manual Pages for Emacs
 (use-package helpful
   :commands (helpful-callable helpful-variable helpful-command helpful-key)
   :custom
@@ -201,31 +185,25 @@
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
 
-;; 
-(use-package hydra
-  :defer t)
-
 ;; MacOS Dired Stuff
 (when (string= system-type "darwin")
   (setq dired-use-ls-dired t
         insert-directory-program "/usr/local/bin/gls"
         dired-listing-switches "-aBhl --group-directories-first"))
 
-;; 
+;; Make Emacs bindings that stick around
+(use-package hydra
+  :defer t)
 (defhydra hydra-dired (:exit t)
   "dired"
   ("w" (dired "~/Downloads") "Downloads")
   ("d" (dired "~/Documents") "Documents"))
 (global-set-key (kbd "C-c C-d") 'hydra-dired/body)
-
-;; 
 (defhydra hydra-text-scale (:timeout 4)
   "scale text"
   ("j" text-scale-increase "in")
   ("k" text-scale-decrease "out")
   ("f" nil "finished" :exit t))
-
-;; 
 (efs/leader-keys
   "ts" '(hydra-text-scale/body :which-key "scale text"))
 
@@ -233,8 +211,6 @@
 (defun efs/lsp-mode-setup ()
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
   (lsp-headerline-breadcrumb-mode))
-
-;; LSP Mode
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :hook (lsp-mode . efs/lsp-mode-setup)
@@ -242,35 +218,20 @@
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
   :config
   (lsp-enable-which-key-integration t))
-
-;; LSP UI
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-position 'bottom))
-
-;; LSP Filetree
-(use-package lsp-treemacs
-  :after lsp)
-
-;; 
 (use-package lsp-ivy
   :after lsp)
 
-;; TS Mode
-(use-package typescript-mode
-  :mode "\\.ts\\'"
-  :hook (typescript-mode . lsp-deferred)
-  :config
-  (setq typescript-indent-level 2))
-
-;; C Mode
+;; C LSP 
 (add-hook 'c-mode-hook 'lsp)
 
-;; C++ Mode
+;; C++ LSP 
 (add-hook 'c++-mode-hook 'lsp)
 
-;; Python Mode
+;; Python LSP 
 (use-package python-mode
   :ensure t
   :hook (python-mode . lsp-deferred)
@@ -284,7 +245,7 @@
   :config
   (pyvenv-mode 1))
 
-;;
+;; Text Completion
 (use-package company
   :after lsp-mode
   :hook (lsp-mode . company-mode)
@@ -295,12 +256,10 @@
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
-
-;;
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-;; 
+;; project interaction
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
@@ -313,7 +272,7 @@
     (setq projectile-project-search-path '("~/Projects/Code")))
   (setq projectile-switch-project-action #'projectile-dired))
 
-;; 
+;; ivy UI for Projectile
 (use-package counsel-projectile
   :after projectile
   :config (counsel-projectile-mode))
@@ -329,8 +288,6 @@
   :commands term
   :config
   (setq explicit-shell-file-name "bash") ;; Change this to zsh, etc
-
-  ;; Shell Prompt 
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
 ;; Terminal Colors
@@ -339,17 +296,11 @@
 
 ;; Emacs Shell
 (defun efs/configure-eshell ()
-  ;; Save command history when commands are entered
   (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
-
-  ;; Truncate buffer for performance
   (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
-
-  ;; Bind some useful keys for evil-mode
   (evil-define-key '(normal insert visual) eshell-mode-map (kbd "C-r") 'counsel-esh-history)
   (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'eshell-bol)
   (evil-normalize-keymaps)
-
   (setq eshell-history-size         10000
         eshell-buffer-maximum-lines 10000
         eshell-hist-ignoredups t
@@ -359,7 +310,6 @@
 (use-package eshell
   :hook (eshell-first-time-mode . efs/configure-eshell)
   :config
-
   (with-eval-after-load 'esh-opt
     (setq eshell-destroy-buffer-when-process-dies t)
     (setq eshell-visual-commands '("htop" "zsh" "vim")))
@@ -380,22 +330,68 @@
 (use-package dired-open
   :commands (dired dired-jump)
   :config
-  ;; Doesn't work as expected!
-  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
-  (setq dired-open-extensions '(("png" . "feh")
-                                ("mkv" . "mpv"))))
+  (setq dired-open-extensions '(("png" . "feh") ("mkv" . "mpv"))))
 
-;; MORE KEYMAPS
+;; Org Mode 
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+(defun efs/org-font-setup ()
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+  (dolist (face '((org-level-1 . 1.2)
+                  (org-level-2 . 1.1)
+                  (org-level-3 . 1.05)
+                  (org-level-4 . 1.0)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :weight 'regular :height (cdr face)))
+  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
+  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+  (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
+(defun efs/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (visual-line-mode 1))
+(use-package org
+  :pin org
+  :commands (org-capture org-agenda)
+  :hook (org-mode . efs/org-mode-setup)
+  :config
+    (setq org-ellipsis " ▾")
+    (setq org-agenda-start-with-log-mode t)
+    (setq org-log-done 'time)
+    (setq org-log-into-drawer t)
+    (efs/org-font-setup)
+ )
+(defun efs/org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+(use-package visual-fill-column
+  :hook (org-mode . efs/org-mode-visual-fill))
+
+;; Own Keymaps 
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "H" 'dired-hide-dotfiles-mode))
 (defun add-to-map(keys func)
-  "Add a keybinding in evil mode from keys to func."
   (define-key evil-normal-state-map (kbd keys) func)
   (define-key evil-motion-state-map (kbd keys) func))
-
 (add-to-map "<SPC>" nil)
 (add-to-map "<SPC> f" 'find-file)
 (add-to-map "<SPC> S" 'save-buffer)
@@ -403,7 +399,7 @@
 (add-to-map "<SPC> s s" 'split-window-right)
 (add-to-map "<SPC> s c" 'delete-window)
 (add-to-map "<SPC> r" 'compile)
-(add-to-map "<SPC> e" 'dired)
+(add-to-map "<SPC> d" 'dired)
 (add-to-map "<SPC> g" 'magit)
 (add-to-map "<SPC> n" 'next-buffer)
 (add-to-map "<SPC> p" 'previous-buffer)
@@ -415,9 +411,16 @@
 (add-to-map "C-h" 'windmove-left)
 (add-to-map "C-l" 'windmove-right)
 
+
+
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
 (custom-set-variables
+
+ ;; ======================================================================== 
+ ;; ======================================================================== 
+ ;; ======================================================================== 
+ 
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
@@ -425,7 +428,7 @@
  '(custom-safe-themes
    '("be84a2e5c70f991051d4aaf0f049fa11c172e5d784727e0b525565bb1533ec78" "a138ec18a6b926ea9d66e61aac28f5ce99739cf38566876dc31e29ec8757f6e2" "c865644bfc16c7a43e847828139b74d1117a6077a845d16e71da38c8413a5aaa" "6945dadc749ac5cbd47012cad836f92aea9ebec9f504d32fe89a956260773ca4" "adaf421037f4ae6725aa9f5654a2ed49e2cd2765f71e19a7d26a454491b486eb" "56044c5a9cc45b6ec45c0eb28df100d3f0a576f18eef33ff8ff5d32bac2d9700" "5f128efd37c6a87cd4ad8e8b7f2afaba425425524a68133ac0efd87291d05874" "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" "afa47084cb0beb684281f480aa84dab7c9170b084423c7f87ba755b15f6776ef" "30dc9873c16a0efb187bb3f8687c16aae46b86ddc34881b7cae5273e56b97580" "bfc0b9c3de0382e452a878a1fb4726e1302bf9da20e69d6ec1cd1d5d82f61e3d" "dde643b0efb339c0de5645a2bc2e8b4176976d5298065b8e6ca45bc4ddf188b7" "02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" default))
  '(package-selected-packages
-   '(doom-modeline json-mode flycheck dired-hide-dotfiles dired-open dired-single eshell-git-prompt vterm eterm-256color rainbow-delimiters evil-nerd-commenter forge magit counsel-projectile projectile company-box company pyvenv python-mode typescript-mode lsp-ivy lsp-treemacs lsp-ui lsp-mode visual-fill-column which-key use-package no-littering ivy-rich ivy-prescient hydra helpful general evil-collection doom-themes counsel auto-package-update))
+   '(doom-modeline json-mode flycheck dired-hide-dotfiles dired-open dired-single eshell-git-prompt vterm eterm-256color rainbow-delimiters evil-nerd-commenter forge magit counsel-projectile projectile company-box company pyvenv python-mode lsp-ivy lsp-ui lsp-mode visual-fill-column which-key use-package no-littering ivy-rich ivy-prescient hydra helpful general evil-collection doom-themes counsel auto-package-update))
  '(warning-suppress-types '((emacs))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
