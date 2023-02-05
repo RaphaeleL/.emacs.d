@@ -99,7 +99,7 @@
 ;; Some own Keymaps
 (global-set-key (kbd "M-r") 'compile)
 
-;; ???
+;; 
 (use-package general
   :after evil
   :config
@@ -132,13 +132,16 @@
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
 
+;; 
 (use-package evil-collection
   :after evil
   :config
   (evil-collection-init))
 
+;; Icons
 (use-package all-the-icons)
 
+;; Display Keymaps
 (use-package which-key
   :defer 0
   :diminish which-key-mode
@@ -146,6 +149,7 @@
   (which-key-mode)
   (setq which-key-idle-delay 1))
 
+;; 
 (use-package ivy
   :diminish
   :bind (("C-s" . swiper)
@@ -164,11 +168,13 @@
   :config
   (ivy-mode 1))
 
+;; 
 (use-package ivy-rich
   :after ivy
   :init
   (ivy-rich-mode 1))
 
+;; 
 (use-package counsel
   :bind (("C-M-j" . 'counsel-switch-buffer)
          :map minibuffer-local-map
@@ -178,6 +184,7 @@
   :config
   (counsel-mode 1))
 
+;; 
 (use-package ivy-prescient
   :after counsel
   :custom
@@ -187,6 +194,7 @@
   ;(prescient-persist-mode 1)
   (ivy-prescient-mode 1))
 
+;; Man Pages for Emacs
 (use-package helpful
   :commands (helpful-callable helpful-variable helpful-command helpful-key)
   :custom
@@ -198,26 +206,31 @@
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
 
+;; 
 (use-package hydra
   :defer t)
 
+;; MacOS Dired Stuff
 (when (string= system-type "darwin")
   (setq dired-use-ls-dired t
         insert-directory-program "/usr/local/bin/gls"
         dired-listing-switches "-aBhl --group-directories-first"))
 
+;; 
 (defhydra hydra-dired (:exit t)
   "dired"
   ("w" (dired "~/Downloads") "Downloads")
   ("d" (dired "~/Documents") "Documents"))
 (global-set-key (kbd "C-c C-d") 'hydra-dired/body)
 
+;; 
 (defhydra hydra-text-scale (:timeout 4)
   "scale text"
   ("j" text-scale-increase "in")
   ("k" text-scale-decrease "out")
   ("f" nil "finished" :exit t))
 
+;; 
 (efs/leader-keys
   "ts" '(hydra-text-scale/body :which-key "scale text"))
 
@@ -226,6 +239,7 @@
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
   (lsp-headerline-breadcrumb-mode))
 
+;; LSP Mode
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :hook (lsp-mode . efs/lsp-mode-setup)
@@ -234,26 +248,34 @@
   :config
   (lsp-enable-which-key-integration t))
 
+;; LSP UI
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-position 'bottom))
 
+;; LSP Filetree
 (use-package lsp-treemacs
   :after lsp)
 
+;; 
 (use-package lsp-ivy
   :after lsp)
 
+;; TS Mode
 (use-package typescript-mode
   :mode "\\.ts\\'"
   :hook (typescript-mode . lsp-deferred)
   :config
   (setq typescript-indent-level 2))
 
+;; C Mode
 (add-hook 'c-mode-hook 'lsp)
+
+;; C++ Mode
 (add-hook 'c++-mode-hook 'lsp)
 
+;; Python Mode
 (use-package python-mode
   :ensure t
   :hook (python-mode . lsp-deferred)
@@ -261,14 +283,13 @@
   (dap-python-debugger 'debugpy)
   :config
   (require 'dap-python))
-
 (setq lsp-pyls-server-command "/opt/homebrew/Caskroom/miniforge/base/bin/pylsp")
-
 (use-package pyvenv
   :after python-mode
   :config
   (pyvenv-mode 1))
 
+;;
 (use-package company
   :after lsp-mode
   :hook (lsp-mode . company-mode)
@@ -280,9 +301,11 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
 
+;;
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+;; 
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
@@ -295,50 +318,31 @@
     (setq projectile-project-search-path '("~/Projects/Code")))
   (setq projectile-switch-project-action #'projectile-dired))
 
+;; 
 (use-package counsel-projectile
   :after projectile
   :config (counsel-projectile-mode))
 
+;; Git Client
 (use-package magit
   :commands magit-status
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-;; NOTE: Make sure to configure a GitHub token before using this package!
-;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
-;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
-(use-package forge
-  :after magit)
-
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
-
+;; Terminal
 (use-package term
   :commands term
   :config
   (setq explicit-shell-file-name "bash") ;; Change this to zsh, etc
-  ;;(setq explicit-zsh-args '())         ;; Use 'explicit-<shell>-args for shell-specific args
 
-  ;; Match the default Bash shell prompt.  Update this if you have a custom prompt
+  ;; Shell Prompt 
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
+;; Terminal Colors
 (use-package eterm-256color
   :hook (term-mode . eterm-256color-mode))
 
-(use-package vterm
-  :commands vterm
-  :config
-  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")  ;; Set this to match your custom shell prompt
-  ;;(setq vterm-shell "zsh")                       ;; Set this to customize the shell to launch
-  (setq vterm-max-scrollback 10000))
-
-(when (eq system-type 'windows-nt)
-  (setq explicit-shell-file-name "powershell.exe")
-  (setq explicit-powershell.exe-args '()))
-
+;; Emacs Shell
 (defun efs/configure-eshell ()
   ;; Save command history when commands are entered
   (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
@@ -355,10 +359,8 @@
         eshell-buffer-maximum-lines 10000
         eshell-hist-ignoredups t
         eshell-scroll-to-bottom-on-input t))
-
 (use-package eshell-git-prompt
   :after eshell)
-
 (use-package eshell
   :hook (eshell-first-time-mode . efs/configure-eshell)
   :config
@@ -369,6 +371,7 @@
 
   (eshell-git-prompt-use-theme 'powerline))
 
+;; File Explorer
 (use-package dired
   :ensure nil
   :commands (dired dired-jump)
@@ -378,13 +381,10 @@
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer))
-
 (use-package dired-single
   :commands (dired dired-jump))
-
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
-
 (use-package dired-open
   :commands (dired dired-jump)
   :config
@@ -392,7 +392,6 @@
   ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
   (setq dired-open-extensions '(("png" . "feh")
                                 ("mkv" . "mpv"))))
-
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
