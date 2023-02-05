@@ -1,7 +1,3 @@
-;; Default Font-Size Variables
-(defvar efs/default-font-size 180)
-(defvar efs/default-variable-font-size 180)
-
 ;; Answer with y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -88,10 +84,6 @@
                 treemacs-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-;; Font
-(set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
-(set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -391,17 +383,6 @@
                                 ("mkv" . "mpv"))))
 
 ;; MORE KEYMAPS
-
-(defun my/zoom-in ()
-  "Increase font size by 10 points"
-  (interactive)
-  (set-face-attribute 'default nil :height (+ (face-attribute 'default :height) 10)))
-
-(defun my/zoom-out ()
-  "Decrease font size by 10 points"
-  (interactive)
-  (set-face-attribute 'default nil :height (- (face-attribute 'default :height) 10)))
-
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
@@ -425,10 +406,10 @@
 (add-to-map "<SPC> r" 'compile)
 (add-to-map "<SPC> e" 'dired)
 (add-to-map "<SPC> g" 'magit)
-(add-to-map "<tab>" 'next-buffer)
-(add-to-map "S-<tab>" 'previous-buffer)
-(add-to-map "C->" 'my/zoom-in)
-(add-to-map "C-<" 'my/zoom-out)
+(add-to-map "M-<tab>" 'next-buffer)
+(add-to-map "M-S-<tab>" 'previous-buffer)
+(add-to-map "C->" 'text-scale-increase)
+(add-to-map "C-<" 'text-scale-decrease)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
