@@ -54,10 +54,10 @@
 (setq inhibit-startup-message t)
 
 ;; Change UI
-(scroll-bar-mode -1)        ; Disable visible scrollbar
+;;(scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
-(set-fringe-mode 10)        ; Give some breathing room
+;;(set-fringe-mode 10)        ; Give some breathing room
 (menu-bar-mode -1)            ; Disable the menu bar
 
 ;; Set up the visible bell
@@ -118,6 +118,8 @@
 ;; Doom Themes
 (use-package doom-themes
   :init (load-theme 'doom-one-light t))
+
+;; Doom Modeline 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
@@ -153,7 +155,7 @@
   :init
   (ivy-rich-mode 1))
 
-;; Auto Completion
+;; a collection of Ivy-enhanced versions of common Emacs commands.
 (use-package counsel
   :bind (("C-M-j" . 'counsel-switch-buffer)
          :map minibuffer-local-map
@@ -163,7 +165,7 @@
   :config
   (counsel-mode 1))
 
-;; Auto Completion
+;; Fast and intuitive frequency-and-recency-based sorting and filtering for Ivy
 (use-package ivy-prescient
   :after counsel
   :custom
@@ -191,7 +193,7 @@
         insert-directory-program "/usr/local/bin/gls"
         dired-listing-switches "-aBhl --group-directories-first"))
 
-;; Make Emacs bindings that stick around
+;; Make bindings that stick around
 (use-package hydra
   :defer t)
 (defhydra hydra-dired (:exit t)
@@ -211,6 +213,7 @@
 (defun efs/lsp-mode-setup ()
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
   (lsp-headerline-breadcrumb-mode))
+;; LSP Mode
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :hook (lsp-mode . efs/lsp-mode-setup)
@@ -218,10 +221,12 @@
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
   :config
   (lsp-enable-which-key-integration t))
+;; LSP UI
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-position 'bottom))
+;; LSP Auto Completion
 (use-package lsp-ivy
   :after lsp)
 
@@ -268,11 +273,11 @@
   ("C-c p" . projectile-command-map)
   :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/Projects/Code")
-    (setq projectile-project-search-path '("~/Projects/Code")))
+  (when (file-directory-p "~/Developer")
+    (setq projectile-project-search-path '("~/Developer")))
   (setq projectile-switch-project-action #'projectile-dired))
 
-;; ivy UI for Projectile
+;; Ivy UI for Projects 
 (use-package counsel-projectile
   :after projectile
   :config (counsel-projectile-mode))
@@ -287,7 +292,7 @@
 (use-package term
   :commands term
   :config
-  (setq explicit-shell-file-name "bash") ;; Change this to zsh, etc
+  (setq explicit-shell-file-name "zsh") ;; Change this to zsh, etc
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
 ;; Terminal Colors
@@ -404,6 +409,7 @@
 (add-to-map "<SPC> n" 'next-buffer)
 (add-to-map "<SPC> p" 'previous-buffer)
 (add-to-map "<SPC> b" 'buffer-menu)
+(add-to-map "<SPC> k" 'kill-current-buffer)
 (add-to-map "C->" 'text-scale-decrease)
 (add-to-map "C-<" 'text-scale-increase)
 (add-to-map "C-j" 'windmove-down)
@@ -411,22 +417,15 @@
 (add-to-map "C-h" 'windmove-left)
 (add-to-map "C-l" 'windmove-right)
 
-
-
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
 (custom-set-variables
-
- ;; ======================================================================== 
- ;; ======================================================================== 
- ;; ======================================================================== 
- 
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("be84a2e5c70f991051d4aaf0f049fa11c172e5d784727e0b525565bb1533ec78" "a138ec18a6b926ea9d66e61aac28f5ce99739cf38566876dc31e29ec8757f6e2" "c865644bfc16c7a43e847828139b74d1117a6077a845d16e71da38c8413a5aaa" "6945dadc749ac5cbd47012cad836f92aea9ebec9f504d32fe89a956260773ca4" "adaf421037f4ae6725aa9f5654a2ed49e2cd2765f71e19a7d26a454491b486eb" "56044c5a9cc45b6ec45c0eb28df100d3f0a576f18eef33ff8ff5d32bac2d9700" "5f128efd37c6a87cd4ad8e8b7f2afaba425425524a68133ac0efd87291d05874" "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" "afa47084cb0beb684281f480aa84dab7c9170b084423c7f87ba755b15f6776ef" "30dc9873c16a0efb187bb3f8687c16aae46b86ddc34881b7cae5273e56b97580" "bfc0b9c3de0382e452a878a1fb4726e1302bf9da20e69d6ec1cd1d5d82f61e3d" "dde643b0efb339c0de5645a2bc2e8b4176976d5298065b8e6ca45bc4ddf188b7" "02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" default))
+   '("7a424478cb77a96af2c0f50cfb4e2a88647b3ccca225f8c650ed45b7f50d9525" "be84a2e5c70f991051d4aaf0f049fa11c172e5d784727e0b525565bb1533ec78" "a138ec18a6b926ea9d66e61aac28f5ce99739cf38566876dc31e29ec8757f6e2" "c865644bfc16c7a43e847828139b74d1117a6077a845d16e71da38c8413a5aaa" "6945dadc749ac5cbd47012cad836f92aea9ebec9f504d32fe89a956260773ca4" "adaf421037f4ae6725aa9f5654a2ed49e2cd2765f71e19a7d26a454491b486eb" "56044c5a9cc45b6ec45c0eb28df100d3f0a576f18eef33ff8ff5d32bac2d9700" "5f128efd37c6a87cd4ad8e8b7f2afaba425425524a68133ac0efd87291d05874" "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" "afa47084cb0beb684281f480aa84dab7c9170b084423c7f87ba755b15f6776ef" "30dc9873c16a0efb187bb3f8687c16aae46b86ddc34881b7cae5273e56b97580" "bfc0b9c3de0382e452a878a1fb4726e1302bf9da20e69d6ec1cd1d5d82f61e3d" "dde643b0efb339c0de5645a2bc2e8b4176976d5298065b8e6ca45bc4ddf188b7" "02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" default))
  '(package-selected-packages
    '(doom-modeline json-mode flycheck dired-hide-dotfiles dired-open dired-single eshell-git-prompt vterm eterm-256color rainbow-delimiters evil-nerd-commenter forge magit counsel-projectile projectile company-box company pyvenv python-mode lsp-ivy lsp-ui lsp-mode visual-fill-column which-key use-package no-littering ivy-rich ivy-prescient hydra helpful general evil-collection doom-themes counsel auto-package-update))
  '(warning-suppress-types '((emacs))))
