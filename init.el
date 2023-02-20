@@ -1,24 +1,8 @@
 ;; Answer with y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
-
+ 
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
-
-;; MacOS Keyboard
-(setq default-input-method "MacOSX")
-(setq mac-command-modifier 'meta
-      mac-option-modifier nil
-      mac-allow-anti-aliasing t
-      mac-command-key-is-meta t)
-
-;; Display Startup Time
-(defun efs/display-startup-time ()
-  (message "Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time
-                     (time-subtract after-init-time before-init-time)))
-           gcs-done))
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
 
 ;; Initialize package sources
 (require 'package)
@@ -55,8 +39,8 @@
 
 ;; Change UI
 ;;(scroll-bar-mode -1)        ; Disable visible scrollbar
-(tool-bar-mode -1)          ; Disable the toolbar
-(tooltip-mode -1)           ; Disable tooltips
+(tool-bar-mode -1)            ; Disable the toolbar
+(tooltip-mode -1)             ; Disable tooltips
 ;;(set-fringe-mode 10)        ; Give some breathing room
 (menu-bar-mode -1)            ; Disable the menu bar
 
@@ -65,6 +49,8 @@
 
 ;; Line Numbers
 (column-number-mode)
+;;(global-display-line-numbers-mode 1)
+;;(setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 
 ;; Disable line numbers for some modes
@@ -114,15 +100,6 @@
   :after evil
   :config
   (evil-collection-init))
-
-;; Doom Themes
-(use-package doom-themes
-  :init (load-theme 'doom-one-light t))
-
-;; Doom Modeline 
-(use-package doom-modeline
-  :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
 
 ;; Display Keymaps
 (use-package which-key
@@ -210,13 +187,13 @@
   "ts" '(hydra-text-scale/body :which-key "scale text"))
 
 ;; LSP
-(defun efs/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (lsp-headerline-breadcrumb-mode))
+;;(defun efs/lsp-mode-setup ()
+;;  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+;;  (lsp-headerline-breadcrumb-mode))
 ;; LSP Mode
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook (lsp-mode . efs/lsp-mode-setup)
+  ;;:hook (lsp-mode . efs/lsp-mode-setup)
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
   :config
@@ -337,57 +314,6 @@
   :config
   (setq dired-open-extensions '(("png" . "feh") ("mkv" . "mpv"))))
 
-;; Org Mode 
-(use-package org-bullets
-  :hook (org-mode . org-bullets-mode)
-  :custom
-  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-(defun efs/org-font-setup ()
-  (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-  (dolist (face '((org-level-1 . 1.2)
-                  (org-level-2 . 1.1)
-                  (org-level-3 . 1.05)
-                  (org-level-4 . 1.0)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
-                  (org-level-7 . 1.1)
-                  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :weight 'regular :height (cdr face)))
-  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
-  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
-  (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
-(defun efs/org-mode-setup ()
-  (org-indent-mode)
-  (variable-pitch-mode 1)
-  (visual-line-mode 1))
-(use-package org
-  :pin org
-  :commands (org-capture org-agenda)
-  :hook (org-mode . efs/org-mode-setup)
-  :config
-    (setq org-ellipsis " ▾")
-    (setq org-agenda-start-with-log-mode t)
-    (setq org-log-done 'time)
-    (setq org-log-into-drawer t)
-    (efs/org-font-setup)
- )
-(defun efs/org-mode-visual-fill ()
-  (setq visual-fill-column-width 100
-        visual-fill-column-center-text t)
-  (visual-fill-column-mode 1))
-(use-package visual-fill-column
-  :hook (org-mode . efs/org-mode-visual-fill))
-
 ;; Own Keymaps 
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
@@ -410,12 +336,44 @@
 (add-to-map "<SPC> p" 'previous-buffer)
 (add-to-map "<SPC> b" 'buffer-menu)
 (add-to-map "<SPC> k" 'kill-current-buffer)
-(add-to-map "C->" 'text-scale-decrease)
-(add-to-map "C-<" 'text-scale-increase)
+;;(add-to-map "C->" 'text-scale-decrease)
+;;(add-to-map "C-<" 'text-scale-increase)
 (add-to-map "C-j" 'windmove-down)
 (add-to-map "C-k" 'windmove-up)
 (add-to-map "C-h" 'windmove-left)
 (add-to-map "C-l" 'windmove-right)
+
+;; MacOS Keyboard
+(setq default-input-method "MacOSX")
+(setq mac-command-modifier 'meta
+      mac-option-modifier nil
+      mac-allow-anti-aliasing t
+      mac-command-key-is-meta t)
+;; Umlaute
+(set-keyboard-coding-system 'iso-latin-1)
+;; alt is meta
+(set-keyboard-coding-system 'iso-latin-1)
+;; keymaps
+(if (eq system-type 'darwin)
+    (if (eq window-system 'mac)
+	(progn
+	  (setq mac-keyboard-text-encoding kTextEncodingISOLatin1)
+	  (latin1-display 'latin-9))
+      (if (eq window-system 'nil)
+	  (progn
+	    (global-set-key "\M-l" '(lambda () (interactive) (insert "@")))
+	    (global-set-key "\M-5" '(lambda () (interactive) (insert "[")))
+	    (global-set-key "\M-6" '(lambda () (interactive) (insert "]")))
+	    (global-set-key "\M-7" '(lambda () (interactive) (insert "|")))
+	    (global-set-key "\M-/" '(lambda () (interactive) (insert "\\")))
+	    (global-set-key "\M-8" '(lambda () (interactive) (insert "{")))
+	    (global-set-key "\M-9" '(lambda () (interactive) (insert "}")))
+	    (global-set-key "\M-n" '(lambda () (interactive) (insert "~")))
+	    ))))
+;; kj Escape key
+(setq key-chord-two-keys-delay 0.5)
+(key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
+(key-chord-mode 1)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
@@ -427,7 +385,7 @@
  '(custom-safe-themes
    '("7a424478cb77a96af2c0f50cfb4e2a88647b3ccca225f8c650ed45b7f50d9525" "be84a2e5c70f991051d4aaf0f049fa11c172e5d784727e0b525565bb1533ec78" "a138ec18a6b926ea9d66e61aac28f5ce99739cf38566876dc31e29ec8757f6e2" "c865644bfc16c7a43e847828139b74d1117a6077a845d16e71da38c8413a5aaa" "6945dadc749ac5cbd47012cad836f92aea9ebec9f504d32fe89a956260773ca4" "adaf421037f4ae6725aa9f5654a2ed49e2cd2765f71e19a7d26a454491b486eb" "56044c5a9cc45b6ec45c0eb28df100d3f0a576f18eef33ff8ff5d32bac2d9700" "5f128efd37c6a87cd4ad8e8b7f2afaba425425524a68133ac0efd87291d05874" "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" "afa47084cb0beb684281f480aa84dab7c9170b084423c7f87ba755b15f6776ef" "30dc9873c16a0efb187bb3f8687c16aae46b86ddc34881b7cae5273e56b97580" "bfc0b9c3de0382e452a878a1fb4726e1302bf9da20e69d6ec1cd1d5d82f61e3d" "dde643b0efb339c0de5645a2bc2e8b4176976d5298065b8e6ca45bc4ddf188b7" "02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" default))
  '(package-selected-packages
-   '(doom-modeline json-mode flycheck dired-hide-dotfiles dired-open dired-single eshell-git-prompt vterm eterm-256color rainbow-delimiters evil-nerd-commenter forge magit counsel-projectile projectile company-box company pyvenv python-mode lsp-ivy lsp-ui lsp-mode visual-fill-column which-key use-package no-littering ivy-rich ivy-prescient hydra helpful general evil-collection doom-themes counsel auto-package-update))
+   '(key-chord json-mode flycheck dired-hide-dotfiles dired-open dired-single eshell-git-prompt vterm eterm-256color rainbow-delimiters evil-nerd-commenter forge magit counsel-projectile projectile company-box company pyvenv python-mode lsp-ivy lsp-ui lsp-mode visual-fill-column which-key use-package no-littering ivy-rich ivy-prescient hydra helpful general evil-collection counsel auto-package-update))
  '(warning-suppress-types '((emacs))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
