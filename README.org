@@ -1,4 +1,4 @@
-#+title: Emacs From Scratch
+#+title: Emacs
 #+author: Raphaele Salvatore Licciardo
 
 Emacs ?? Where is my Vim? 
