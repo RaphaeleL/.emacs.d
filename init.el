@@ -1,161 +1,229 @@
-;; Initialisiert Paketverwaltung
-(require 'package)
+;; ---------------------------------------------------------------------------------
+;; -------- Appearance -------------------------------------------------------------
+;; ---------------------------------------------------------------------------------
 
-;; Einstellungen
-(setq user-full-name "Raphaele Salvatore Licciardo, B.Sc."
-      user-mail-address "raphaele.salvatore@outlook.de"
-      display-line-numbers-type 'relative ;; Relative Zeilen Nummber
-      global-display-line-numbers-mode t  ;; Zeilen Nummern
-      mac-command-modifier 'meta ;; Deutsche MacOS Tastatur
-      mac-option-modifier 'none
-      default-input-method "MacOSX"
-      make-backup-files nil ;; Verhindert das Erstellen von Backup-Dateien
-      auto-save-default nil ;; Verhindert das Erstellen von automatisch gespeicherten Dateien
-      package-enable-at-startup nil ;; Paketverwaltung
-      ring-bell-function 'ignore ;; Keine Klingel mehr
-)
+;; No Startup Message
+(setq inhibit-startup-message t)
+(setq initial-scratch-message "\n\n\n")
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+;; Cleanup the UI
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(set-fringe-mode 0)
+(menu-bar-mode -1)
+(spacious-padding-mode 1)
 
+;; Theme
+(load-theme 'modus-operandi-tinted t)
+
+;; Treesitter
+(require 'tree-sitter)
+(require 'tree-sitter-hl)
+(require 'tree-sitter-langs)
+(require 'tree-sitter-debug)
+(require 'tree-sitter-query)
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
+;; Font
+(defun get-default-font ()
+  (cond
+   ((eq system-type 'windows-nt) "Iosevka-14")
+   ((eq system-type 'darwin) "Iosevka-14")
+   ((eq system-type 'gnu/linux) "Iosevka-14")))
+
+(add-to-list 'default-frame-alist `(font . ,(get-default-font)))
+
+;; Ido Mode for Files
+(ido-mode 1)
+(ido-everywhere 1)
+
+;; Package Manager
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-;; Aktualisiert die Paketdatenbank, falls sie noch nicht vorhanden ist
-(unless package-archive-contents
-  (package-refresh-contents))
+;; Ido Mode for M-x
+(require 'smex)
+(smex-initialize)
 
-;; Installiert use-package, falls es noch nicht vorhanden ist
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-;; Benutzen Sie Paketverwaltung für alle weiteren Pakete
-(require 'use-package)
-(setq use-package-always-ensure t) ;; Automatisches Herunterladen und Installieren fehlender Pakete
+;; Relative Line Numbering
+(global-display-line-numbers-mode t)
 
-;; File Explorer
-(if (executable-find "gls")
-    (setq insert-directory-program "gls"))
-(use-package dired
-  :ensure nil
-  :commands (dired dired-jump)
-  :custom ((dired-listing-switches "-agho --group-directories-first")))
+;; Bigger Font
+(set-face-attribute 'default nil :height 130)
 
-;; Lädt und konfiguriert evil
-(use-package evil
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  :config
-  (evil-mode 1)
-  (add-to-list 'evil-emacs-state-modes 'dired-mode)
-  )
+;; Window Size
+(when window-system (set-frame-size (selected-frame) 120 39))
 
-;; Git Client verwenden
-(use-package magit
-  :ensure t)
+;; Disable Backup and Autosave Settings
+(setq make-backup-files nil)
+(setq auto-save-default nil)
 
-;; Automatischen schließen von Klammern und co.
-(use-package smartparens
-  :ensure t
-  :init
-  (smartparens-global-mode))
+;; ---------------------------------------------------------------------------------
+;; -------- Tastatur ---------------------------------------------------------------
+;; ---------------------------------------------------------------------------------
 
-;; Themes
-(use-package doom-themes
-  :ensure t
-  :preface (defvar region-fg nil) ; this prevents a weird bug with doom themes
-  ;;:init (load-theme 'doom-one t)
-  )
+;; Deutsche Mac Tastatur
+(if (eq system-type 'darwin)
+    (setq mac-command-modifier 'meta
+	  mac-option-modifier 'none
+	  default-input-method "MacOSX"))
 
-;; yes / no Fragen abkürzen 
-(fset 'yes-or-no-p 'y-or-n-p)
+;; ---------------------------------------------------------------------------------
+;; -------- Shortcuts --------------------------------------------------------------
+;; ---------------------------------------------------------------------------------
 
-;; LSP Mode
-(use-package lsp-mode
-  :ensure t
-  :hook ((python-mode c-mode c++-mode) . lsp)
-  :commands lsp)
+;; Dired
+(dired-preview-global-mode 1)
+(global-set-key (kbd "C-x d") 'dired)
 
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
+;; Magit
+(global-set-key (kbd "C-x g") 'magit-status)
 
-(use-package lsp-python-ms
-  :ensure t
-  :init (setq lsp-python-ms-auto-install-server t)
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-python-ms)
-                          (lsp))))  ; or lsp-deferred
+;; Buffer Navigation
+(global-set-key (kbd "C-<tab>") 'next-buffer)
+(global-set-key (kbd "C-S-<tab>") 'previous-buffer)
+(global-set-key (kbd "C-c l") 'buffer-menu)
+(global-set-key (kbd "C-c s") 'switch-to-buffer)
 
-(use-package ccls
-  :ensure t
-  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (lsp))))  ; or lsp-deferred
+;; Window Navigation
+(global-set-key (kbd "C-x h") 'windmove-left)
+(global-set-key (kbd "C-x l") 'windmove-right)
+(global-set-key (kbd "C-x k") 'windmove-up)
+(global-set-key (kbd "C-x j") 'windmove-down)
 
-(use-package company
-  :ensure t
-  :init (add-hook 'after-init-hook 'global-company-mode))
+;; Close window
+(global-set-key (kbd "C-x 0") 'delete-window)
+(global-set-key (kbd "C-x 1") 'delete-other-windows)
 
-;; Shortcuts
-(defun increase-font-size ()
-  (interactive)
-  (text-scale-increase 1))
+;; Compile
+(global-set-key (kbd "C-x m") 'compile)
 
-(defun decrease-font-size ()
-  (interactive)
-  (text-scale-decrease 1))
+;; Copy and Paste
+(require 'simpleclip)
+(simpleclip-mode 1)
+(global-set-key (kbd "C-x b") 'simpleclib-cut)
+(global-set-key (kbd "C-x v") 'simpleclip-copy)
+(global-set-key (kbd "C-x p") 'simpleclip-paste)
 
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode)
-  (which-key-add-key-based-replacements "SPC w" "Window")
-  (which-key-add-key-based-replacements "SPC b" "Buffer")
-  (which-key-add-key-based-replacements "SPC w r" "Enlarge horiz. split")
-  (which-key-add-key-based-replacements "SPC w l" "Shrink horiz. split")
-  (which-key-add-key-based-replacements "SPC w u" "Enlarge vert. split")
-  (which-key-add-key-based-replacements "SPC w d" "Shrink vert horizontally"))
+;; Multi Cursor
+(require 'multiple-cursors)
+(global-set-key (kbd "C-<") 'mc/mtark-next-like-this)
+(global-set-key (kbd "C->") 'mc/mark-previous-like-this)
 
-(use-package general
-  :ensure t
-  :config
-  (general-create-definer my-leader-def
-    :states '(normal visual)
-    :prefix "SPC"
-    :global-prefix "C-SPC")
-  
-  (my-leader-def
-    "." 'dired
-    "b i" 'buffer-menu
-    "b b" 'switch-to-buffer
-    "b p" 'previous-buffer
-    "b n" 'next-buffer
-    "b k" 'kill-this-buffer
-    "b s" 'save-buffer
-    "w v" 'split-window-right
-    "w s" 'split-window-below
-    "w w" 'other-window
-    "w q" 'delete-window
-    "w +" 'enlarge-window
-    "w -" 'shrink-window
-    "w r" 'enlarge-window-horizontally
-    "w l" 'shrink-window-horizontally
-    "w u" 'enlarge-window-horizontally
-    "w d" 'shrink-window-horizontally
-))
+;; Font Size
+(global-set-key (kbd "M-+") (lambda () (interactive) (text-scale-increase 1)))
+(global-set-key (kbd "M--") (lambda () (interactive) (text-scale-decrease 1)))
 
-(global-set-key (kbd "M-+") 'increase-font-size)
-(global-set-key (kbd "M--") 'decrease-font-size)
+;; Kill Current Buffer
+(global-set-key (kbd "C-c k") (lambda () (interactive) (kill-current-buffer)))
+
+;; Terminal
+(global-set-key (kbd "C-c t") (lambda () (interactive) (vterm)))
+
+;; Which Key
+(require 'which-key)
+(which-key-mode)
+(which-key-setup-side-window-right)
+
+;; Move Text
+(require 'move-text)
+(global-set-key (kbd "M-p") 'move-text-up)
+(global-set-key (kbd "M-n") 'move-text-down)
+
+;; ---------------------------------------------------------------------------------
+;; -------- LSP --------------------------------------------------------------------
+;; ---------------------------------------------------------------------------------
+
+(set-fringe-mode 0)
+
+(setq package-selected-packages '(lsp-mode yasnippet helm-lsp
+    projectile hydra flycheck company avy helm-xref))
+
+(when (cl-find-if-not #'package-installed-p package-selected-packages)
+  (package-refresh-contents)
+  (mapc #'package-install package-selected-packages))
+
+(add-hook 'c-mode-hook 'lsp)
+(add-hook 'c++-mode-hook 'lsp)
+(add-hook 'python-mode-hook 'lsp)
+(add-hook 'lisp-mode-hook 'lsp)
+(add-hook 'bash-mode-hook 'lsp)
+
+;; TODO: Add more LSPs
+;; - https://emacs-lsp.github.io/lsp-mode/page/lsp-cmake/
+;; - CMake
+;; - Make
+;; - Java
+;; - JS/TS
+
+(setq lsp-headerline-breadcrumb-enable nil)
+
+(setq gc-cons-threshold (* 100 1024 1024)
+      read-process-output-max (* 1024 1024)
+      treemacs-space-between-root-nodes nil
+      company-idle-delay 0.0
+      company-minimum-prefix-length 1
+      lsp-idle-delay 0.1)
+
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+  (yas-global-mode))
+
+;; ---------------------------------------------------------------------------------
+;; -------- Modeline ---------------------------------------------------------------
+;; ---------------------------------------------------------------------------------
+
+(column-number-mode t)
+
+(defun simple-mode-line-render (left right)
+  "Return a string of `window-width' length.
+Containing LEFT, and RIGHT aligned respectively."
+  (let ((available-width
+	 (- (window-total-width)
+	    (+ (length (format-mode-line left))
+	       (length (format-mode-line right))))))
+    (append left
+	    (list (format (format "%%%ds" available-width) ""))
+	    right)))
+
+(setq-default
+ mode-line-format
+ '((:eval
+    (simple-mode-line-render
+     ;; Left.
+     (quote ("%e "
+	     mode-line-buffer-identification
+	     " %l : %c"
+	     evil-mode-line-tag
+	     "[%*]"))
+     ;; Right.
+     (quote ("%p "
+	     mode-line-frame-identification
+	     mode-line-modes
+	     mode-line-misc-info))))))
+
+;; ---------------------------------------------------------------------------------
+;; ---------------------------------------------------------------------------------
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("a6713be6bfeae396adac720d62f46cef70c38b31e1c87aad9e57f2d60732f237"
+     "aed3a896c4ea7cd7603f7a242fe2ab21f1539ab4934347e32b0070a83c9ece01"
+     "3cbfdfce26469ddf69164b28d07852cc0f09a7b4b14d25ca40b34369db7e1664"
+     "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7"
+     default))
  '(package-selected-packages
-   '(doom-themes smartparens magit use-package lsp-ui lsp-python-ms lsp-java lsp-ivy helm-lsp evil ccls)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(put 'dired-find-alternate-file 'disabled nil)
+   '(avy bash-completion company flycheck helm-lsp helm-xref hydra
+	 jupyter lsp-mode projectile rust-mode tree-sitter
+	 tree-sitter-langs vterm yasnippet)))
+(custom-set-faces )
