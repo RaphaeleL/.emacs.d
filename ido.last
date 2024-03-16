@@ -1,0 +1,133 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/Users/raphaele/Projects/padwise/apps/desktop/" . "src-tauri/")
+ ("/Users/raphaele/Projects/padwise/" . "apps/")
+ ("/Users/raphaele/Projects/ElectricLoadForecast/" . "data/")
+ ("/Users/raphaele/Projects/CryptoForecast/" . "src/")
+ ("/Users/raphaele/Desktop/" . "Bewerbungen/")
+ ("/Users/" . "raphaele/")
+ ("/Users/raphaele/Projects/dotfiles/" . "alacritty/")
+ ("/Users/raphaele/.emacs.d/" . "auto-save-list/")
+ ("/Users/raphaele/Projects/tinygrad/tinygrad/" . "nn/")
+ ("/Users/raphaele/Projects/tinygrad/" . "tinygrad/")
+ ("/Users/raphaele/Projects/Bewerbung/" . "Lebenslauf/")
+ ("/Users/raphaele/Projects/" . "GPRNN/")
+ ("/Users/raphaele/" . "bwSyncShare/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/Users/raphaele/.emacs.d/"
+ "/Users/raphaele/Projects/GPRNN/"
+ "/Users/raphaele/"
+ "/Users/raphaele/bwSyncShare/"
+ "/Users/raphaele/Projects/Bewerbung/"
+ "/Users/raphaele/Projects/CryptoForecast/src/"
+ "/Users/raphaele/Projects/neovim/"
+ "/Users/raphaele/Projects/CryptoForecast/"
+ "/Users/raphaele/Projects/padwise/apps/desktop/src-tauri/"
+ "/Users/raphaele/Projects/"
+ "/Users/raphaele/Projects/Bewerbung/Lebenslauf/"
+ "/Users/raphaele/Projects/dotfiles/"
+ "/Users/raphaele/Projects/LicenseChecker/"
+ "/Users/raphaele/Projects/ElectricLoadForecast/"
+ "/Users/raphaele/Desktop/"
+ "/Users/raphaele/Desktop/Bewerbungen/"
+ "/Users/raphaele/.emacs.d/my-modules/"
+ "/Users/raphaele/Projects/tinygrad/tinygrad/"
+ "/Users/raphaele/Projects/Bewerbung/Bewerbung/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "init.el"
+ "README.md"
+ "hyperparameter.py"
+ "Emacs-Keybinds.txt"
+ "run.sh"
+ "main.py"
+ "forecast.py"
+ "compile.c"
+ "build.rs"
+ "lebenslauf.tex"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/Users/raphaele/.emacs.d/" (26101 39783 958967 968000) ".git/" "README.org" "elpa/" ".gitignore" "init.el" "auto-save-list/" "transient/" "tramp" "smex-items" "init.el~" "ido.last" "snippets/" "../" "./")
+
+ ("/Users/raphaele/" (26101 39786 92455 301000) ".bash_history" ".gitconfig" ".cache/" ".python_history" "Downloads/" ".bash_profile" ".vscode/" ".hushlogin" ".anydesk/" "Documents/" ".npm/" ".pnpm-state/" ".keras/" ".tldrc/" ".Trash/" ".profile" "Applications/" "Movies/" ".ssh/" ".rustup/" ".ideavimrc" "Public/" "Google Drive/" ".bash_sessions/" ".android/" ".cargo/" ".emacs.d/" "Zotero/" ".lesshst" ".matplotlib/" "Library/" "Desktop/" ".ipython/" "bwSyncShare/" "Pictures/" "Projects/" ".local/" ".zshrc" ".CFUserTextEncoding" ".yarnrc" ".DS_Store" "go/" ".vim/" ".expo/" ".yarn/" "Music/" ".config/" "../" "./")
+
+ ("/Users/raphaele/.emacs.d/auto-save-list/" (26101 39503 805347 958000) "../" "./")
+
+ ("/Users/raphaele/Projects/GPRNN/" (26099 20505 623646 780000) ".idea/" "main.py" ".git/" ".#main.py" "layer.py" "utils.py" ".gitignore" "own_torch/" "README.md" "__pycache__/" "batch_parallelism.py" ".DS_Store" "proof/" "../" "./")
+
+ ("/Users/raphaele/Desktop/" (26097 38418 0 0) "Bewerbungen/" ".DS_Store" "../" "./")
+
+ ("/Users/raphaele/bwSyncShare/" (26097 36396 80516 484000) "Emacs-Keybinds.txt" ".sync_21a111ccdc25.db" "PadWise-Trading/" ".sync_21a111ccdc25.db-wal" ".DS_Store" ".sync_21a111ccdc25.db-shm" "Promotion/" "../" "./")
+
+ ("/Users/raphaele/Desktop/Bewerbungen/" (26096 34328 0 0) "Bewerbungen.xlsx" "../" "./")
+
+ ("/Users/raphaele/Projects/LicenseChecker/" (26088 26004 32047 198000) ".git/" "license_cache.csv" ".github/" ".gitignore" "README.md" "check_licenses.py" "requirements.txt" ".DS_Store" "../" "./")
+
+ ("/Users/raphaele/Projects/Bewerbung/Lebenslauf/" (26089 35509 944234 5000) "russell.cls" "fonts/" "cv/" "cv.tex" ".DS_Store" "lebenslauf.tex" "../" "./")
+
+ ("/Users/raphaele/Projects/padwise/apps/desktop/src-tauri/" (26089 46067 702038 129000) "src/" "icons/" ".gitignore" "build.rs" "Cargo.lock" "target/" ".DS_Store" "tauri.conf.json" "Cargo.toml" "../" "./")
+
+ ("/Users/raphaele/Projects/neovim/" (26089 48588 828029 371000) "src/" ".stylua.toml" "MAINTAIN.md" "LICENSE.txt" ".git/" ".mailmap" ".luacov" ".cirrus.yml" ".gitattributes" ".github/" ".clang-format" "scripts/" "BSDmakefile" "BUILD.md" "CONTRIBUTING.md" ".gitignore" ".luarc.json" "CMakePresets.json" "README.md" ".editorconfig" "contrib/" "INSTALL.md" "cmake.packaging/" "runtime/" ".clang-tidy" ".luacheckrc" "Makefile" "cmake/" "test/" ".DS_Store" "CMakeLists.txt" "cmake.deps/" ".styluaignore" "cmake.config/" ".clangd" ".git-blame-ignore-revs" "../" "./")
+
+ ("/Users/raphaele/Projects/" (26096 21640 919638 891000) "padwise/" "neovim/" "GPRNN/" "LoadForecast/" "LicenseChecker/" "Bewerbung/" "Dissertation/" "KenkyoWebsite/" "ElectricLoadForecast/" "CryptoForecast/" "tinygrad/" "Pinterest/" "dotfiles/" ".DS_Store" "fidelo/" "llm/" "../" "./")
+
+ ("/Users/raphaele/Projects/CryptoForecast/" (26089 46582 747768 33000) "src/" ".idea/" "studies.py" "data/" "main.py" ".vscode/" ".git/" "venv/" "scripts/" ".gitignore" "README.md" "__pycache__/" "requirements.txt" ".DS_Store" "../" "./")
+
+ ("/Users/raphaele/Projects/Bewerbung/" (26089 46584 865030 821000) ".git/" "Bewerbung/" ".gitignore" "compile" "README.md" "Anlagen/" "run.sh" "bewerbung.pdf" "lebenslauf.pdf" "Lebenslauf/" ".DS_Store" "compile.c" "../" "./")
+
+ ("/Users/raphaele/Projects/CryptoForecast/src/" (26089 46374 353656 110000) "utils.py" "__pycache__/" "models.py" "forecast.py" "../" "./")
+
+ ("/Users/raphaele/Projects/padwise/apps/desktop/" (25965 53364 875931 163000) "src/" "postcss.config.js" "vite.config.ts" "tsconfig.json" "src-tauri/" "package.json" "public/" "node_modules/" "dist/" ".DS_Store" "index.html" "tsconfig.node.json" "pnpm-lock.yaml" "../" "./")
+
+ ("/Users/raphaele/Projects/padwise/apps/" (25956 16615 235088 896000) "landing_page/" "desktop/" "desktop-free/" ".DS_Store" "../" "./")
+
+ ("/Users/raphaele/Projects/padwise/" (26040 36449 999984 257000) "apps/" "installer/" ".git/" "packages/" "scripts/" ".gitignore" "README.md" ".DS_Store" "NoteMark/" "../" "./")
+
+ ("/Users/raphaele/Projects/fidelo/react-native/" (26089 45697 407283 105000) "App.js" "assets/" "package.json" "babel.config.js" "yarn.lock" ".#App.js" "node_modules/" "app.json" ".DS_Store" ".expo/" "../" "./")
+
+ ("/Users/raphaele/Projects/ElectricLoadForecast/data/" (26028 60035 138201 536000) "weather_features.csv" "energy_dataset.csv" "jbks2rcwyj-1/" "../" "./")
+
+ ("/Users/raphaele/Projects/ElectricLoadForecast/" (26029 7529 869113 206000) "data/" ".git/" ".gitignore" "README.md" "requirements.txt" ".DS_Store" "jbks2rcwyj-1/" "../" "./")
+
+ ("/Users/raphaele/Projects/dotfiles/.git/" (26088 11157 679306 220000) "FETCH_HEAD" "COMMIT_EDITMSG" "packed-refs" "index" "refs/" "hooks/" "description" "logs/" "info/" "HEAD" "objects/" "config" "ORIG_HEAD" ".DS_Store" "../" "./")
+
+ ("/Users/raphaele/Projects/KenkyoWebsite/" (25896 13516 753747 772000) "src/" ".git/" "build/" "tsconfig.json" "package.json" "package-lock.json" ".gitignore" "public/" "README.md" "node_modules/" "LICENSE" ".DS_Store" "../" "./")
+
+ ("/Users/raphaele/Projects/KenkyoWebsite/src/" (25894 48497 220488 266000) "App.scss" "components/" "App.tsx" "index.tsx" "../" "./")
+
+ ("/Users/raphaele/Projects/KenkyoWebsite/src/components/" (25894 48497 220286 932000) "Header/" "Pages/" "LandingPage/" "Sponsoren/" "Utils/" "Content/" "FloatingElement/" "Footer/" "../" "./")
+
+ ("/Users/raphaele/Projects/KenkyoWebsite/src/components/Header/" (25894 48497 218733 589000) "Header.tsx" "Logo.tsx" "MenuItems.tsx" "LogoName.tsx" "../" "./")
+
+ ("/Users/raphaele/Projects/dotfiles/" (26086 63233 313561 995000) "git/" "vscode/" "zsh/" ".git/" "kitty/" "hotkey/" "tmux/" "iterm2/" ".gitignore" "README.md" "rectangle/" "bash/" "emacs/" ".gitmodules" "brew/" "shell/" "nvim/" ".DS_Store" "macos/" "alacritty/" "vim/" "../" "./")
+
+ ("/Users/raphaele/.emacs.d/my-modules/" (26087 9600 937195 762000) "prot-modeline.el" "prot-common.el" "../" "./")
+
+ ("/Users/raphaele/Projects/dotfiles/alacritty/" (25833 46033 254732 248000) "alacritty.yml" "../" "./")
+
+ ("/Users/raphaele/Projects/Bewerbung/Bewerbung/" (26080 10591 539141 844000) "packages.tex" "settings.tex" ".DS_Store" "bewerbung.tex" "../" "./")
+
+ ("/Users/raphaele/Projects/tinygrad/tinygrad/" (26086 47629 316197 590000) "helpers.py" "lazy.py" "ops.py" "tensor.py" "codegen/" "__pycache__/" "__init__.py" "realize.py" "runtime/" "features/" "mlops.py" "graph.py" "device.py" "jit.py" "nn/" ".DS_Store" "shape/" "renderer/" "../" "./")
+
+ ("/Users/raphaele/Projects/tinygrad/tinygrad/nn/" (25976 45363 891455 760000) "state.py" "optim.py" "__pycache__/" "__init__.py" "../" "./")
+
+ ("/Users/raphaele/Projects/tinygrad/" (25976 45363 882534 560000) "disassemblers/" ".git/" "build/" ".github/" "strip_whitespace.sh" "ruff.toml" "examples/" "CONTRIBUTING.md" "extra/" ".gitignore" "run_multibackend.sh" "setup.py" "mypy.ini" "README.md" "openpilot/" ".editorconfig" "docs/" "tinygrad.egg-info/" "weights/" ".tokeignore" "tinygrad/" ".pre-commit-config.yaml" ".pytest_cache/" "test/" "LICENSE" "pytest.ini" ".DS_Store" "sz.py" ".pylintrc" "push_pypi.sh" "../" "./")
+
+ ("/Users/raphaele/Projects/fidelo/" (26081 37323 904840 478000) ".git/" "tauri/" "react-native/" ".DS_Store" "../" "./")
+
+ ("/Users/" (26032 46630 249293 668000) "raphaele/" "Shared/" ".localized" "../" "./")
+
+ ("/Users/raphaele/Projects/Bewerbung/Anlagen/" (26077 42005 947251 971000) "Abitur.pdf" "Bescheinigung Abschluss Licciardo Master.pdf" "Master.jpeg" "Master_Noten.pdf" "Studienverlaufsbescheinigung.pdf" "Abschlusszeugnis.pdf" "Master.pdf" "Master_Noten.HEIC" "Notenstand_Master.pdf" "Bild.pdf" "Zeugniss_Bachelor.pdf" "Bild.JPG" ".DS_Store" "Titelbescheinigung.pdf" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t
