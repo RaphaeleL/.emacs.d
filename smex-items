@@ -2,18 +2,18 @@
 ;; ----- smex-history -----
 (
  package-install
+ org-mode
+ eval-buffer
+ comment-line
+ magit
  package-refresh-contents
  global-set-key
- comment-line
- tabify
- whitespace-cleanup
- format-write-file
 )
 
 ;; ----- smex-data -----
 (
  (package-list-packages . 1)
- (package-install . 34)
+ (package-install . 36)
  (isearch-query-replace . 1)
  (package-refresh-contents . 2)
  (which-key-setup-side-window-right . 1)
@@ -32,7 +32,7 @@
  (lsp-find-definition . 8)
  (lsp-lens-show . 1)
  (lsp-find-references . 1)
- (magit . 20)
+ (magit . 21)
  (git-commit-cc . 1)
  (magit-push . 2)
  (search-forward . 4)
@@ -47,7 +47,7 @@
  (spacious-padding-mode . 4)
  (comment-box . 2)
  (uncomment-region . 1)
- (org-mode . 4)
+ (org-mode . 5)
  (dired-prev-subdir . 1)
  (dired . 2)
  (dired-preview-mode . 5)
@@ -57,7 +57,7 @@
  (magit-commit . 1)
  (vertico-mode . 1)
  (package-delete . 1)
- (comment-line . 6)
+ (comment-line . 7)
  (LaTeX-mode . 1)
  (latex-mode . 1)
  (js-mode . 1)
@@ -74,4 +74,5 @@
  (tabify . 1)
  (global-set-key . 2)
  (vterm . 2)
+ (eval-buffer . 3)
 )
