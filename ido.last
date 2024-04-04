@@ -24,8 +24,9 @@
 
 ;; ----- ido-work-directory-list -----
 (
- "c:/Users/lira0003/AppData/Roaming/"
  "c:/Users/lira0003/AppData/Roaming/.emacs.d/"
+ "c:/Users/lira0003/bwSyncShare/"
+ "c:/Users/lira0003/AppData/Roaming/"
  "/Users/raphaele/.emacs.d/"
  "/Users/raphaele/Projects/GPRNN/"
  "/Users/raphaele/"
@@ -50,6 +51,7 @@
 ;; ----- ido-work-file-list -----
 (
  "init.el"
+ "Notizen.docx"
  "README.md"
  "hyperparameter.py"
  "Emacs-Keybinds.txt"
@@ -58,14 +60,19 @@
  "forecast.py"
  "compile.c"
  "build.rs"
- "lebenslauf.tex"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("c:/Users/lira0003/AppData/Roaming/.emacs.d/" (26126 27620 0 0) "transient/" "tramp" "snippets/" "smex-items" "README.org" "init.el" "ido.last" "elpa/" ".gitignore" ".git/" "../" "./")
+ ("c:/Users/lira0003/AppData/Roaming/.emacs.d/" (26126 32536 0 0) "transient/" "tramp" "snippets/" "smex-items" "server/" "README.org" "init.el" "ido.last" "elpa/" "auto-save-list/" ".gitignore" ".git/" "../" "./")
 
- ("c:/Users/lira0003/AppData/Roaming/" (26126 27285 0 0) "Zotero/" "Zoom/" "Python/" "npm/" "Notion/" "Mozilla/" "Microsoft/" "message-20231221-121240~" "message-20231221-121240" "Mattermost/" "lazygit/" "jupyter/" "JetBrains/" "hpqLog/" "HP/" "go/" "Electron/" "Docker Desktop/" "Docker/" "com.adobe.dunamis/" "Code/" "bwSyncShare/" "backup-emacs-origin/" "Adobe/" ".emacs.d/" "../" "./")
+ ("c:/Users/lira0003/AppData/Roaming/Electron/" (26115 56752 0 0) "WebStorage/" "Session Storage/" "Service Worker/" "Preferences" "Network/" "logs/" "Local Storage/" "Local State" "GPUCache/" "extensions/" "DawnCache/" "databases/" "Code Cache/" "Cache/" "blob_storage/" "../" "./")
+
+ ("c:/Users/lira0003/bwSyncShare/" (26126 28022 0 0) "Notizen.docx" "Desktop.ini" "2_Lehre/" "1_Forschung/" "0_Organisation/" ".sync_21a111ccdc25.db-wal" ".sync_21a111ccdc25.db-shm" ".sync_21a111ccdc25.db" ".nextcloudsync.log" "../" "./")
+
+ ("c:/Users/lira0003/Projects/" (26126 26857 0 0) "torchbraid/" "openmuc/" "openems/" "lightnet/" "LayerParallelLearning/" "hka-aqm-data/" "GPRNN/" "ElectricLoadForecast/" "Dissertation/" "CryptoForecast/" "CopyLeft_Detector/" "Cheatsheet/" ".emacs.d/" "../" "./")
+
+ ("c:/Users/lira0003/AppData/Roaming/" (26126 27711 0 0) "Zotero/" "Zoom/" "Python/" "npm/" "Notion/" "Mozilla/" "Microsoft/" "message-20231221-121240~" "message-20231221-121240" "Mattermost/" "lazygit/" "jupyter/" "JetBrains/" "hpqLog/" "HP/" "go/" "Electron/" "Docker Desktop/" "Docker/" "com.adobe.dunamis/" "Code/" "bwSyncShare/" "Adobe/" ".emacs.d/" "../" "./")
 
  ("c:/Users/lira0003/AppData/" (25970 4983 0 0) "Roaming/" "LocalLow/" "Local/" "../" "./")
 
