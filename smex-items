@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ goto-line
+ fringe-mode
+ magit
+ eval-buffer
  package-install
  org-mode
- eval-buffer
  comment-line
- magit
- package-refresh-contents
- global-set-key
 )
 
 ;; ----- smex-data -----
@@ -25,14 +25,14 @@
  (whitespace-cleanup . 12)
  (load-theme . 19)
  (linum-relative-mode . 2)
- (goto-line . 3)
+ (goto-line . 4)
  (describe-font . 1)
  (emacs-lisp-mode . 2)
  (emacs-lisp-mode-menu . 1)
  (lsp-find-definition . 8)
  (lsp-lens-show . 1)
  (lsp-find-references . 1)
- (magit . 21)
+ (magit . 22)
  (git-commit-cc . 1)
  (magit-push . 2)
  (search-forward . 4)
@@ -53,7 +53,7 @@
  (dired-preview-mode . 5)
  (dired-preview-global-mode . 1)
  (switch-to-buffer . 1)
- (fringe-mode . 2)
+ (fringe-mode . 3)
  (magit-commit . 1)
  (vertico-mode . 1)
  (package-delete . 1)
@@ -74,5 +74,5 @@
  (tabify . 1)
  (global-set-key . 2)
  (vterm . 2)
- (eval-buffer . 3)
+ (eval-buffer . 4)
 )

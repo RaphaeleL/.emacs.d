@@ -64,7 +64,7 @@
 
 ;; ----- ido-dir-file-cache -----
 (
- ("c:/Users/lira0003/AppData/Roaming/.emacs.d/" (26126 32536 0 0) "transient/" "tramp" "snippets/" "smex-items" "server/" "README.org" "init.el" "ido.last" "elpa/" "auto-save-list/" ".gitignore" ".git/" "../" "./")
+ ("c:/Users/lira0003/AppData/Roaming/.emacs.d/" (26126 33925 0 0) "transient/" "tramp" "snippets/" "smex-items" "server/" "README.org" "init.el" "ido.last" "elpa/" "auto-save-list/" ".gitignore" ".git/" "../" "./")
 
  ("c:/Users/lira0003/AppData/Roaming/Electron/" (26115 56752 0 0) "WebStorage/" "Session Storage/" "Service Worker/" "Preferences" "Network/" "logs/" "Local Storage/" "Local State" "GPUCache/" "extensions/" "DawnCache/" "databases/" "Code Cache/" "Cache/" "blob_storage/" "../" "./")
 

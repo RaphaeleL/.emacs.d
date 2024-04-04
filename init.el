@@ -10,12 +10,12 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
-(set-fringe-mode 0)
+(set-fringe-mode -1)
 (menu-bar-mode -1)
 (spacious-padding-mode 1)
 
 ;; Modeline
-(column-number-mode t)
+(column-number-mode 1)
 
 (defun simple-mode-line-render (left right)
   "Return a string of `window-width' length.
@@ -45,7 +45,7 @@ Containing LEFT, and RIGHT aligned respectively."
 	     mode-line-misc-info))))))
 
 ;; Theme
-(load-theme 'modus-operandi-tinted t)
+(load-theme 'modus-operandi-tinted 1)
 
 ;; Font
 (defun get-default-font ()
@@ -82,7 +82,7 @@ Containing LEFT, and RIGHT aligned respectively."
  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; Line Numbering
-(global-display-line-numbers-mode t)
+(global-display-line-numbers-mode 1)
 ;; (setq display-line-numbers-type 'relative) ;; this breaks my finger, lol.
 
 ;; Bigger Font
@@ -124,7 +124,7 @@ Containing LEFT, and RIGHT aligned respectively."
 (setq hscroll-margin 1)
 
 ;; Pixel Scroll Precision Mode
-(pixel-scroll-precision-mode 1))
+(pixel-scroll-precision-mode 1)
 
 ;; Prettify Symbols
 (global-prettify-symbols-mode 1)
