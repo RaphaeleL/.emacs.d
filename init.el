@@ -57,13 +57,13 @@ Containing LEFT, and RIGHT aligned respectively."
 (add-to-list 'default-frame-alist `(font . ,(get-default-font)))
 
 ;; Treesitter
-;; (require 'tree-sitter)
-;; (require 'tree-sitter-hl)
-;; (require 'tree-sitter-langs)
-;; (require 'tree-sitter-debug)
-;; (require 'tree-sitter-query)
-;; (global-tree-sitter-mode)
-;; (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+(require 'tree-sitter)
+(require 'tree-sitter-hl)
+(require 'tree-sitter-langs)
+(require 'tree-sitter-debug)
+(require 'tree-sitter-query)
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 
 ;; Ido Mode for Files
 (ido-mode 1)
@@ -83,6 +83,7 @@ Containing LEFT, and RIGHT aligned respectively."
 
 ;; Line Numbering
 (global-display-line-numbers-mode t)
+;; (setq display-line-numbers-type 'relative) ;; this breaks my finger, lol.
 
 ;; Bigger Font
 (set-face-attribute 'default nil :height 130)
@@ -105,11 +106,10 @@ Containing LEFT, and RIGHT aligned respectively."
 	  default-input-method "MacOSX"))
 
 ;; ---------------------------------------------------------------------------------
-;; -------- Plugin Settings --------------------------------------------------------
+;; -------- Some Basic (Plugin-) Settings ------------------------------------------
 ;; ---------------------------------------------------------------------------------
 
-;; Smooth Scroll
-;; Vertical Scroll
+;; Smooth Scroll - Vertical
 (setq scroll-step 1)
 (setq scroll-margin 1)
 (setq scroll-conservatively 101)
@@ -119,13 +119,12 @@ Containing LEFT, and RIGHT aligned respectively."
 (setq fast-but-imprecise-scrolling nil)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
 (setq mouse-wheel-progressive-speed nil)
-;; Horizontal Scroll
+;; Smooth Scroll - Horizontal
 (setq hscroll-step 1)
 (setq hscroll-margin 1)
 
 ;; Pixel Scroll Precision Mode
-(when (version<= "29.1" emacs-version)
-  (pixel-scroll-precision-mode 1))
+(pixel-scroll-precision-mode 1))
 
 ;; Prettify Symbols
 (global-prettify-symbols-mode 1)
@@ -147,26 +146,18 @@ Containing LEFT, and RIGHT aligned respectively."
   :bind
   (("C-x C-j" . dired-jump))
   :custom
-  ;; Always delete and copy recursively
   (dired-listing-switches "-lah")
   (dired-recursive-deletes 'always)
   (dired-recursive-copies 'always)
-  ;; Auto refresh Dired, but be quiet about it
   (global-auto-revert-non-file-buffers t)
   (auto-revert-verbose nil)
-  ;; Quickly copy/move file in Dired
   (dired-dwim-target t)
-  ;; Move files to trash when deleting
   (delete-by-moving-to-trash t)
-  ;; Load the newest version of a file
   (load-prefer-newer t)
-  ;; Detect external file changes and auto refresh file
   (auto-revert-use-notify nil)
-  (auto-revert-interval 3) ; Auto revert every 3 sec
+  (auto-revert-interval 3)
   :config
-  ;; Enable global auto-revert
   (global-auto-revert-mode t)
-  ;; Reuse same dired buffer, to prevent numerous buffers while navigating in dired
   (put 'dired-find-alternate-file 'disabled nil)
   :hook
   (dired-mode . (lambda ()
@@ -175,20 +166,15 @@ Containing LEFT, and RIGHT aligned respectively."
                   (local-set-key (kbd "^")
                                  (lambda () (interactive) (find-alternate-file ".."))))))
 
-
-;; ---------------------------------------------------------------------------------
-;; -------- Basic Settings ---------------------------------------------------------
-;; ---------------------------------------------------------------------------------
-
-;; Defer Garbage Collection
-(setq gc-cons-threshold 100000000)
-
 ;; Disable package-enable-at-startup
 (setq package-enable-at-startup nil)
 
 ;; Unset file-name-handler-alist
 (defvar file-name-handler-alist-original file-name-handler-alist)
 (setq file-name-handler-alist nil)
+
+;; Defer Garbage Collection
+(setq gc-cons-threshold 100000000)
 
 ;; Garbage Collection
 (defvar better-gc-cons-threshold 134217728 ; 128mb
@@ -365,7 +351,7 @@ If you experience freezing, decrease this.  If you experience stuttering, increa
  '(custom-safe-themes
    '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9" "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4" default))
  '(package-selected-packages
-   '(tree-sitter ein smooth-scroll doom-modeline doom-themes vterm olivetti json-rpc editorconfig vundo solarized-theme moody go-mode magit csv-mode simpleclip move-text smex avy company flycheck helm-lsp helm-xref hydra jupyter lsp-mode projectile yasnippet)))
+   '(tree-sitter-langs tree-sitter ein smooth-scroll doom-modeline doom-themes vterm olivetti json-rpc editorconfig vundo solarized-theme moody go-mode magit csv-mode simpleclip move-text smex avy company flycheck helm-lsp helm-xref hydra jupyter lsp-mode projectile yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

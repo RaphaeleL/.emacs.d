@@ -13,7 +13,7 @@
 ;; ----- smex-data -----
 (
  (package-list-packages . 1)
- (package-install . 36)
+ (package-install . 37)
  (isearch-query-replace . 1)
  (package-refresh-contents . 2)
  (which-key-setup-side-window-right . 1)
