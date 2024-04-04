@@ -313,6 +313,9 @@ If you experience freezing, decrease this.  If you experience stuttering, increa
 ;; Mark Whole Buffer
 (global-set-key (kbd "C-c a") 'mark-whole-buffer)
 
+;; Magit
+(global-set-key (kbd "C-x g") 'magit)
+
 ;; ---------------------------------------------------------------------------------
 ;; -------- LSP --------------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
@@ -362,7 +365,7 @@ If you experience freezing, decrease this.  If you experience stuttering, increa
  '(custom-safe-themes
    '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9" "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4" default))
  '(package-selected-packages
-   '(ein smooth-scroll doom-modeline doom-themes vterm olivetti json-rpc editorconfig vundo solarized-theme moody go-mode magit csv-mode simpleclip move-text smex avy company flycheck helm-lsp helm-xref hydra jupyter lsp-mode projectile yasnippet)))
+   '(tree-sitter ein smooth-scroll doom-modeline doom-themes vterm olivetti json-rpc editorconfig vundo solarized-theme moody go-mode magit csv-mode simpleclip move-text smex avy company flycheck helm-lsp helm-xref hydra jupyter lsp-mode projectile yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
