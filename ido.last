@@ -2,6 +2,11 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("c:/Users/lira0003/AppData/Roaming/" . ".emacs.d/")
+ ("c:/Users/lira0003/AppData/" . "Roaming/")
+ ("c:/Users/lira0003/" . "AppData/")
+ ("c:/Users/" . "lira0003/")
+ ("c:/" . "Users/")
  ("/Users/raphaele/Projects/padwise/apps/desktop/" . "src-tauri/")
  ("/Users/raphaele/Projects/padwise/" . "apps/")
  ("/Users/raphaele/Projects/ElectricLoadForecast/" . "data/")
@@ -19,6 +24,8 @@
 
 ;; ----- ido-work-directory-list -----
 (
+ "c:/Users/lira0003/AppData/Roaming/"
+ "c:/Users/lira0003/AppData/Roaming/.emacs.d/"
  "/Users/raphaele/.emacs.d/"
  "/Users/raphaele/Projects/GPRNN/"
  "/Users/raphaele/"
@@ -56,6 +63,20 @@
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("c:/Users/lira0003/AppData/Roaming/.emacs.d/" (26126 27620 0 0) "transient/" "tramp" "snippets/" "smex-items" "README.org" "init.el" "ido.last" "elpa/" ".gitignore" ".git/" "../" "./")
+
+ ("c:/Users/lira0003/AppData/Roaming/" (26126 27285 0 0) "Zotero/" "Zoom/" "Python/" "npm/" "Notion/" "Mozilla/" "Microsoft/" "message-20231221-121240~" "message-20231221-121240" "Mattermost/" "lazygit/" "jupyter/" "JetBrains/" "hpqLog/" "HP/" "go/" "Electron/" "Docker Desktop/" "Docker/" "com.adobe.dunamis/" "Code/" "bwSyncShare/" "backup-emacs-origin/" "Adobe/" ".emacs.d/" "../" "./")
+
+ ("c:/Users/lira0003/AppData/" (25970 4983 0 0) "Roaming/" "LocalLow/" "Local/" "../" "./")
+
+ ("c:/Users/lira0003/" (26115 59258 0 0) "Zotero/" "Vorlagen/" "Videos/" "Startmenü/" "SendTo/" "Searches/" "Saved Games/" "Recent/" "Projects/" "Pictures/" "OneDrive - bwstaff/" "OneDrive/" "ntuser.ini" "NTUSER.DAT{a2332f18-cdbf-11ec-8680-002248483d79}.TMContainer00000000000000000002.regtrans-ms" "NTUSER.DAT{a2332f18-cdbf-11ec-8680-002248483d79}.TMContainer00000000000000000001.regtrans-ms" "NTUSER.DAT{a2332f18-cdbf-11ec-8680-002248483d79}.TM.blf" "ntuser.dat.LOG2" "ntuser.dat.LOG1" "NTUSER.DAT" "Netzwerkumgebung/" "Music/" "Lokale Einstellungen/" "Links/" "go/" "Favorites/" "Eigene Dateien/" "eclipse-workspace/" "eclipse/" "Druckumgebung/" "Downloads/" "Documents/" "Desktop/" "Cookies/" "Contacts/" "bwSyncShare/" "AppData/" "Anwendungsdaten/" ".vscode/" ".vivaldi_reporting_data" ".ssh/" ".p2/" ".ms-ad/" ".matplotlib/" ".m2/" ".lesshst" ".keras/" ".jupyter/" ".ipython/" ".gitconfig" ".eclipse/" ".docker/" ".config/" ".chocolatey/" ".cache/" ".bnd/" ".bash_history" "../" "./")
+
+ ("c:/Users/" (25970 5184 0 0) "Public/" "lira0003/" "desktop.ini" "Default User/" "Default/" "All Users/" "../" "./")
+
+ ("c:/Program Files/" (26115 59843 0 0) "WSL/" "WindowsPowerShell/" "WindowsApps/" "Windows Sidebar/" "Windows Photo Viewer/" "Windows NT/" "Windows Media Player/" "Windows Mail/" "Windows Defender Advanced Threat Protection/" "Windows Defender/" "Uninstall Information/" "nodejs/" "MySQL/" "ModifiableWindowsApps/" "Microsoft Update Health Tools/" "Microsoft OneDrive/" "Microsoft Office 15/" "Microsoft Office/" "Microsoft/" "Mattermost/" "Internet Explorer/" "Google/" "Go/" "Git/" "Gemeinsame Dateien/" "Emacs/" "Docker/" "desktop.ini" "Common Files/" "CMake/" "bwSyncShare/" "AMD/" "Adobe/" "7-Zip/" "../" "./")
+
+ ("c:/Program Files/Emacs/" (25988 7379 0 0) "Uninstall.exe" "emacs-29.1/" "emacs-29.0.92/" "../" "./")
+
  ("/Users/raphaele/.emacs.d/" (26101 39783 958967 968000) ".git/" "README.org" "elpa/" ".gitignore" "init.el" "auto-save-list/" "transient/" "tramp" "smex-items" "init.el~" "ido.last" "snippets/" "../" "./")
 
  ("/Users/raphaele/" (26101 39786 92455 301000) ".bash_history" ".gitconfig" ".cache/" ".python_history" "Downloads/" ".bash_profile" ".vscode/" ".hushlogin" ".anydesk/" "Documents/" ".npm/" ".pnpm-state/" ".keras/" ".tldrc/" ".Trash/" ".profile" "Applications/" "Movies/" ".ssh/" ".rustup/" ".ideavimrc" "Public/" "Google Drive/" ".bash_sessions/" ".android/" ".cargo/" ".emacs.d/" "Zotero/" ".lesshst" ".matplotlib/" "Library/" "Desktop/" ".ipython/" "bwSyncShare/" "Pictures/" "Projects/" ".local/" ".zshrc" ".CFUserTextEncoding" ".yarnrc" ".DS_Store" "go/" ".vim/" ".expo/" ".yarn/" "Music/" ".config/" "../" "./")

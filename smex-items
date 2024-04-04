@@ -1,8 +1,8 @@
 
 ;; ----- smex-history -----
 (
- vterm
  package-install
+ package-refresh-contents
  global-set-key
  comment-line
  tabify
@@ -13,9 +13,9 @@
 ;; ----- smex-data -----
 (
  (package-list-packages . 1)
- (package-install . 26)
+ (package-install . 34)
  (isearch-query-replace . 1)
- (package-refresh-contents . 1)
+ (package-refresh-contents . 2)
  (which-key-setup-side-window-right . 1)
  (term . 8)
  (rc/set-up-whitespace-handling . 1)
