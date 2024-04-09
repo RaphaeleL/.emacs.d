@@ -1,21 +1,21 @@
 
 ;; ----- smex-history -----
 (
- vterm
+ goto-line
+ fringe-mode
+ magit
+ eval-buffer
  package-install
- global-set-key
+ org-mode
  comment-line
- tabify
- whitespace-cleanup
- format-write-file
 )
 
 ;; ----- smex-data -----
 (
  (package-list-packages . 1)
- (package-install . 26)
+ (package-install . 37)
  (isearch-query-replace . 1)
- (package-refresh-contents . 1)
+ (package-refresh-contents . 2)
  (which-key-setup-side-window-right . 1)
  (term . 8)
  (rc/set-up-whitespace-handling . 1)
@@ -25,14 +25,14 @@
  (whitespace-cleanup . 12)
  (load-theme . 19)
  (linum-relative-mode . 2)
- (goto-line . 3)
+ (goto-line . 4)
  (describe-font . 1)
  (emacs-lisp-mode . 2)
  (emacs-lisp-mode-menu . 1)
  (lsp-find-definition . 8)
  (lsp-lens-show . 1)
  (lsp-find-references . 1)
- (magit . 20)
+ (magit . 22)
  (git-commit-cc . 1)
  (magit-push . 2)
  (search-forward . 4)
@@ -47,17 +47,17 @@
  (spacious-padding-mode . 4)
  (comment-box . 2)
  (uncomment-region . 1)
- (org-mode . 4)
+ (org-mode . 5)
  (dired-prev-subdir . 1)
  (dired . 2)
  (dired-preview-mode . 5)
  (dired-preview-global-mode . 1)
  (switch-to-buffer . 1)
- (fringe-mode . 2)
+ (fringe-mode . 3)
  (magit-commit . 1)
  (vertico-mode . 1)
  (package-delete . 1)
- (comment-line . 6)
+ (comment-line . 7)
  (LaTeX-mode . 1)
  (latex-mode . 1)
  (js-mode . 1)
@@ -74,4 +74,5 @@
  (tabify . 1)
  (global-set-key . 2)
  (vterm . 2)
+ (eval-buffer . 4)
 )
