@@ -126,7 +126,7 @@
 ;; Terminal
 (global-set-key (kbd "C-c t") (lambda () (interactive) (vterm)))
 
-;; Which Key
+g;; Which Key
 (require 'which-key)
 (which-key-mode)
 (which-key-setup-side-window-right)
@@ -136,8 +136,14 @@
 (global-set-key (kbd "M-p") 'move-text-up)
 (global-set-key (kbd "M-n") 'move-text-down)
 
+;; Selection
+(global-set-key (kbd "M-f") 'mark-word)
+(global-set-key (kbd "M-a") 'mark-page)
+(global-set-key (kbd "M-d") 'mark-defun)
+(global-set-key (kbd "M-s") 'mark-paragraph)
+
 ;; ---------------------------------------------------------------------------------
-;; -------- LSP --------------------------------------------------------------------
+;; -------- lsp --------------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
 
 (set-fringe-mode 0)
@@ -155,12 +161,12 @@
 (add-hook 'lisp-mode-hook 'lsp)
 (add-hook 'bash-mode-hook 'lsp)
 
-;; TODO: Add more LSPs
+;; todo: add more lsps
 ;; - https://emacs-lsp.github.io/lsp-mode/page/lsp-cmake/
-;; - CMake
-;; - Make
-;; - Java
-;; - JS/TS
+;; - cmake
+;; - make
+;; - java
+;; - js/ts
 
 (setq lsp-headerline-breadcrumb-enable nil)
 
@@ -176,14 +182,14 @@
   (yas-global-mode))
 
 ;; ---------------------------------------------------------------------------------
-;; -------- Modeline ---------------------------------------------------------------
+;; -------- modeline ---------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
 
 (column-number-mode t)
 
 (defun simple-mode-line-render (left right)
-  "Return a string of `window-width' length.
-Containing LEFT, and RIGHT aligned respectively."
+  "return a string of `window-width' length.
+containing left, and right aligned respectively."
   (let ((available-width
 	 (- (window-total-width)
 	    (+ (length (format-mode-line left))
@@ -196,13 +202,13 @@ Containing LEFT, and RIGHT aligned respectively."
  mode-line-format
  '((:eval
     (simple-mode-line-render
-     ;; Left.
+     ;; left.
      (quote ("%e "
 	     mode-line-buffer-identification
 	     " %l : %c"
 	     evil-mode-line-tag
 	     "[%*]"))
-     ;; Right.
+     ;; right.
      (quote ("%p "
 	     mode-line-frame-identification
 	     mode-line-modes
@@ -212,10 +218,10 @@ Containing LEFT, and RIGHT aligned respectively."
 ;; ---------------------------------------------------------------------------------
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by custom.
+ ;; if you edit it by hand, you could mess it up, so be careful.
+ ;; your init file should contain only one such instance.
+ ;; if there is more than one, they won't work right.
  '(custom-safe-themes
    '("a6713be6bfeae396adac720d62f46cef70c38b31e1c87aad9e57f2d60732f237"
      "aed3a896c4ea7cd7603f7a242fe2ab21f1539ab4934347e32b0070a83c9ece01"
