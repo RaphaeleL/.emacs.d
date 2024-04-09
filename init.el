@@ -14,208 +14,6 @@
 (menu-bar-mode -1)
 (spacious-padding-mode 1)
 
-<<<<<<< HEAD
-;; Theme
-(load-theme 'modus-operandi-tinted t)
-
-;; Treesitter
-(require 'tree-sitter)
-(require 'tree-sitter-hl)
-(require 'tree-sitter-langs)
-(require 'tree-sitter-debug)
-(require 'tree-sitter-query)
-(global-tree-sitter-mode)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-
-;; Font
-(defun get-default-font ()
-  (cond
-   ((eq system-type 'windows-nt) "Iosevka-14")
-   ((eq system-type 'darwin) "Iosevka-14")
-   ((eq system-type 'gnu/linux) "Iosevka-14")))
-
-(add-to-list 'default-frame-alist `(font . ,(get-default-font)))
-
-;; Ido Mode for Files
-(ido-mode 1)
-(ido-everywhere 1)
-
-;; Package Manager
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-
-;; Ido Mode for M-x
-(require 'smex)
-(smex-initialize)
-
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-;; Relative Line Numbering
-(global-display-line-numbers-mode t)
-
-;; Bigger Font
-(set-face-attribute 'default nil :height 130)
-
-;; Window Size
-(when window-system (set-frame-size (selected-frame) 120 39))
-
-;; Disable Backup and Autosave Settings
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-
-;; ---------------------------------------------------------------------------------
-;; -------- Tastatur ---------------------------------------------------------------
-;; ---------------------------------------------------------------------------------
-
-;; Deutsche Mac Tastatur
-(if (eq system-type 'darwin)
-    (setq mac-command-modifier 'meta
-	  mac-option-modifier 'none
-	  default-input-method "MacOSX"))
-
-;; ---------------------------------------------------------------------------------
-;; -------- Shortcuts --------------------------------------------------------------
-;; ---------------------------------------------------------------------------------
-
-;; Dired
-(dired-preview-global-mode 1)
-(global-set-key (kbd "C-x d") 'dired)
-
-;; Magit
-(global-set-key (kbd "C-x g") 'magit-status)
-
-;; Buffer Navigation
-(global-set-key (kbd "C-<tab>") 'next-buffer)
-(global-set-key (kbd "C-S-<tab>") 'previous-buffer)
-(global-set-key (kbd "C-c l") 'buffer-menu)
-(global-set-key (kbd "C-c s") 'switch-to-buffer)
-
-;; Window Navigation
-(global-set-key (kbd "C-x h") 'windmove-left)
-(global-set-key (kbd "C-x l") 'windmove-right)
-(global-set-key (kbd "C-x k") 'windmove-up)
-(global-set-key (kbd "C-x j") 'windmove-down)
-
-;; Close window
-(global-set-key (kbd "C-x 0") 'delete-window)
-(global-set-key (kbd "C-x 1") 'delete-other-windows)
-
-;; Compile
-(global-set-key (kbd "C-x m") 'compile)
-
-;; Copy and Paste
-(require 'simpleclip)
-(simpleclip-mode 1)
-(global-set-key (kbd "C-x b") 'simpleclib-cut)
-(global-set-key (kbd "C-x v") 'simpleclip-copy)
-(global-set-key (kbd "C-x p") 'simpleclip-paste)
-
-;; Multi Cursor
-(require 'multiple-cursors)
-(global-set-key (kbd "C-<") 'mc/mtark-next-like-this)
-(global-set-key (kbd "C->") 'mc/mark-previous-like-this)
-
-;; Font Size
-(global-set-key (kbd "M-+") (lambda () (interactive) (text-scale-increase 1)))
-(global-set-key (kbd "M--") (lambda () (interactive) (text-scale-decrease 1)))
-
-;; Kill Current Buffer
-(global-set-key (kbd "C-c k") (lambda () (interactive) (kill-current-buffer)))
-
-;; Terminal
-(global-set-key (kbd "C-c t") (lambda () (interactive) (vterm)))
-
-g;; Which Key
-(require 'which-key)
-(which-key-mode)
-(which-key-setup-side-window-right)
-
-;; Move Text
-(require 'move-text)
-(global-set-key (kbd "M-p") 'move-text-up)
-(global-set-key (kbd "M-n") 'move-text-down)
-
-;; Selection
-(global-set-key (kbd "M-f") 'mark-word)
-(global-set-key (kbd "M-a") 'mark-page)
-(global-set-key (kbd "M-d") 'mark-defun)
-(global-set-key (kbd "M-s") 'mark-paragraph)
-
-;; ---------------------------------------------------------------------------------
-;; -------- lsp --------------------------------------------------------------------
-;; ---------------------------------------------------------------------------------
-
-(set-fringe-mode 0)
-
-(setq package-selected-packages '(lsp-mode yasnippet helm-lsp
-    projectile hydra flycheck company avy helm-xref))
-
-(when (cl-find-if-not #'package-installed-p package-selected-packages)
-  (package-refresh-contents)
-  (mapc #'package-install package-selected-packages))
-
-(add-hook 'c-mode-hook 'lsp)
-(add-hook 'c++-mode-hook 'lsp)
-(add-hook 'python-mode-hook 'lsp)
-(add-hook 'lisp-mode-hook 'lsp)
-(add-hook 'bash-mode-hook 'lsp)
-
-;; todo: add more lsps
-;; - https://emacs-lsp.github.io/lsp-mode/page/lsp-cmake/
-;; - cmake
-;; - make
-;; - java
-;; - js/ts
-
-(setq lsp-headerline-breadcrumb-enable nil)
-
-(setq gc-cons-threshold (* 100 1024 1024)
-      read-process-output-max (* 1024 1024)
-      treemacs-space-between-root-nodes nil
-      company-idle-delay 0.0
-      company-minimum-prefix-length 1
-      lsp-idle-delay 0.1)
-
-(with-eval-after-load 'lsp-mode
-  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
-  (yas-global-mode))
-
-;; ---------------------------------------------------------------------------------
-;; -------- modeline ---------------------------------------------------------------
-;; ---------------------------------------------------------------------------------
-
-;; Modeline
-(column-number-mode 1)
-
-(defun simple-mode-line-render (left right)
-  "return a string of `window-width' length.
-containing left, and right aligned respectively."
-  (let ((available-width
-	 (- (window-total-width)
-	    (+ (length (format-mode-line left))
-	       (length (format-mode-line right))))))
-    (append left
-	    (list (format (format "%%%ds" available-width) ""))
-	    right)))
-
-(setq-default
- mode-line-format
- '((:eval
-    (simple-mode-line-render
-     ;; left.
-     (quote ("%e "
-	     mode-line-buffer-identification
-	     " %l : %c"
-	     evil-mode-line-tag
-	     "[%*]"))
-     ;; right.
-     (quote ("%p "
-	     mode-line-frame-identification
-	     mode-line-modes
-	     mode-line-misc-info))))))
-
 ;; Theme
 (load-theme 'modus-operandi-tinted 1)
 
@@ -514,18 +312,21 @@ containing left, and right aligned respectively."
 ;; ---------------------------------------------------------------------------------
 
 (custom-set-variables
- ;; custom-set-variables was added by custom.
- ;; if you edit it by hand, you could mess it up, so be careful.
- ;; your init file should contain only one such instance.
- ;; if there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9" "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4" default))
- '(package-selected-packages
-   '(tree-sitter-langs tree-sitter ein smooth-scroll doom-modeline doom-themes vterm olivetti json-rpc editorconfig vundo solarized-theme moody go-mode magit csv-mode simpleclip move-text smex avy company flycheck helm-lsp helm-xref hydra jupyter lsp-mode projectile yasnippet)))
+   '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14"
+     "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7"
+     "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3"
+     "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9"
+     "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4"
+     default))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
- )
+)
