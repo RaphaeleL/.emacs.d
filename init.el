@@ -269,6 +269,13 @@
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit)
 
+
+;; Selection
+(global-set-key (kbd "M-f") 'mark-word)
+(global-set-key (kbd "M-a") 'mark-page)
+(global-set-key (kbd "M-d") 'mark-defun)
+(global-set-key (kbd "M-s") 'mark-paragraph)
+
 ;; ---------------------------------------------------------------------------------
 ;; -------- LSP --------------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
