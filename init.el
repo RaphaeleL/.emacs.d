@@ -14,36 +14,6 @@
 (menu-bar-mode -1)
 (spacious-padding-mode 1)
 
-;; Modeline
-(column-number-mode 1)
-
-(defun simple-mode-line-render (left right)
-  "Return a string of `window-width' length.
-Containing LEFT, and RIGHT aligned respectively."
-  (let ((available-width
-	 (- (window-total-width)
-	    (+ (length (format-mode-line left))
-	       (length (format-mode-line right))))))
-    (append left
-	    (list (format (format "%%%ds" available-width) ""))
-	    right)))
-
-(setq-default
- mode-line-format
- '((:eval
-    (simple-mode-line-render
-     ;; Left.
-     (quote ("%e "
-	     mode-line-buffer-identification
-	     " %l : %c"
-	     evil-mode-line-tag
-	     "[%*]"))
-     ;; Right.
-     (quote ("%p "
-	     mode-line-frame-identification
-	     mode-line-modes
-	     mode-line-misc-info))))))
-
 ;; Theme
 (load-theme 'modus-operandi-tinted 1)
 
@@ -178,9 +148,7 @@ Containing LEFT, and RIGHT aligned respectively."
 
 ;; Garbage Collection
 (defvar better-gc-cons-threshold 134217728 ; 128mb
-  "The default value to use for `gc-cons-threshold'.
-
-If you experience freezing, decrease this.  If you experience stuttering, increase this.")
+  "The default value to use for `gc-cons-threshold'. If you experience freezing, decrease this.  If you experience stuttering, increase this.")
 
 (add-hook 'emacs-startup-hook
           (lambda ()
@@ -348,13 +316,16 @@ If you experience freezing, decrease this.  If you experience stuttering, increa
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9" "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4" default))
- '(package-selected-packages
-   '(tree-sitter-langs tree-sitter ein smooth-scroll doom-modeline doom-themes vterm olivetti json-rpc editorconfig vundo solarized-theme moody go-mode magit csv-mode simpleclip move-text smex avy company flycheck helm-lsp helm-xref hydra jupyter lsp-mode projectile yasnippet)))
+   '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14"
+     "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7"
+     "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3"
+     "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9"
+     "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4"
+     default))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
- )
+)
