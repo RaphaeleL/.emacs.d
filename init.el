@@ -89,7 +89,7 @@ Containing LEFT, and RIGHT aligned respectively."
 (set-face-attribute 'default nil :height 130)
 
 ;; Window Size
-(when window-system (set-frame-size (selected-frame) 120 39))
+(when window-system (set-frame-size (selected-frame) 120 30))
 
 ;; Disable Backup and Autosave Settings
 (setq make-backup-files nil)
@@ -209,7 +209,6 @@ If you experience freezing, decrease this.  If you experience stuttering, increa
 ;; IBuffer
 (use-package ibuffer
   :ensure nil
-  :bind ("C-x C-b" . ibuffer)
   :init
   (use-package ibuffer-vc
     :commands (ibuffer-vc-set-filter-groups-by-vc-root)
