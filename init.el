@@ -199,6 +199,14 @@
 ;; -------- Shortcuts --------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
 
+(defun delete-current-line ()
+  "Delete (not kill) the current line."
+  (interactive)
+  (save-excursion
+    (delete-region
+     (progn (forward-visible-line 0) (point))
+     (progn (forward-visible-line 1) (point)))))
+
 ;; Simplify yes/no Prompts
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq use-dialog-box nil)
@@ -227,9 +235,11 @@
 (global-set-key (kbd "C-x 0") 'delete-window)
 (global-set-key (kbd "C-x 1") 'delete-other-windows)
 
-;; Commands
+;; Usefull Commands
 (global-set-key (kbd "C-x m") 'compile)
 (global-set-key (kbd "C-x c") 'shell-command)
+(global-set-key (kbd "C-x l") 'duplicate-line)
+(global-set-key (kbd "C-x k") 'delete-current-line)
 
 ;; Copy and Paste
 (require 'simpleclip)
