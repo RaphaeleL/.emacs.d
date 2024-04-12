@@ -227,8 +227,9 @@
 (global-set-key (kbd "C-x 0") 'delete-window)
 (global-set-key (kbd "C-x 1") 'delete-other-windows)
 
-;; Compile
+;; Commands
 (global-set-key (kbd "C-x m") 'compile)
+(global-set-key (kbd "C-x c") 'shell-command)
 
 ;; Copy and Paste
 (require 'simpleclip)
@@ -268,7 +269,6 @@
 
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit)
-
 
 ;; Selection
 (global-set-key (kbd "M-f") 'mark-word)
@@ -323,7 +323,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14"
+   '("e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7"
+     "9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14"
      "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7"
      "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3"
      "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9"
@@ -335,4 +336,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+
 )
