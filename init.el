@@ -240,14 +240,15 @@
 (global-set-key (kbd "C-x c") 'shell-command)
 (global-set-key (kbd "C-x l") 'duplicate-line)
 (global-set-key (kbd "C-x k") 'delete-current-line)
+(global-set-key (kbd "C-x j") 'join-line)
 
 ;; Copy and Paste
 (require 'simpleclip)
 (simpleclip-mode 1)
 (global-set-key (kbd "C-x v") 'simpleclip-copy)
 (global-set-key (kbd "C-x p") 'simpleclip-paste)
-(global-set-key (kbd "C-x C-v") 'simpleclip-copy)
-(global-set-key (kbd "C-x C-p") 'simpleclip-paste)
+(global-set-key (kbd "M-c") 'simpleclip-copy)
+(global-set-key (kbd "M-v") 'simpleclip-paste)
 
 ;; Multi Cursor
 (require 'multiple-cursors)
@@ -272,7 +273,7 @@
 (global-set-key (kbd "M-n") 'move-text-down)
 
 ;; Undo
-(global-set-key (kbd "C-c v") 'vundo)
+(global-set-key (kbd "M-z") 'undo)
 
 ;; Mark Whole Buffer
 (global-set-key (kbd "C-c a") 'mark-whole-buffer)
