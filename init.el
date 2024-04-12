@@ -17,11 +17,41 @@
 ;; Theme
 (load-theme 'modus-operandi-tinted 1)
 
+;; Modeline
+(column-number-mode 1)
+
+(defun simple-mode-line-render (left right)
+  "Return a string of `window-width' length.
+Containing LEFT, and RIGHT aligned respectively."
+  (let ((available-width
+	 (- (window-total-width)
+	    (+ (length (format-mode-line left))
+	       (length (format-mode-line right))))))
+    (append left
+	    (list (format (format "%%%ds" available-width) ""))
+	    right)))
+
+(setq-default
+ mode-line-format
+ '((:eval
+    (simple-mode-line-render
+     ;; Left.
+     (quote ("%e "
+	     mode-line-buffer-identification
+	     " %l : %c"
+	     evil-mode-line-tag
+	     "[%*]"))
+     ;; Right.
+     (quote ("%p "
+	     mode-line-frame-identification
+	     mode-line-modes
+	     mode-line-misc-info))))))
+
 ;; Font
 (defun get-default-font ()
   (cond
    ((eq system-type 'windows-nt) "Iosevka-12")
-   ((eq system-type 'darwin) "Iosevka-12")
+   ((eq system-type 'darwin) "Iosevka-14")
    ((eq system-type 'gnu/linux) "Iosevka-12")))
 
 (add-to-list 'default-frame-alist `(font . ,(get-default-font)))
@@ -218,6 +248,7 @@
 
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x C-g") 'magit-log-all)
 
 ;; Buffer Navigation
 (global-set-key (kbd "C-<tab>") 'next-buffer)
