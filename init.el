@@ -225,6 +225,11 @@ Containing LEFT, and RIGHT aligned respectively."
            (name 16 -1)
            " " filename))))
 
+(use-package super-save
+  :ensure t
+  :config
+  (super-save-mode +1))
+
 ;; ---------------------------------------------------------------------------------
 ;; -------- Shortcuts --------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
@@ -313,10 +318,14 @@ Containing LEFT, and RIGHT aligned respectively."
 (global-set-key (kbd "C-x g") 'magit)
 
 ;; Selection
-(global-set-key (kbd "M-f") 'mark-word)
+(global-set-key (kbd "M-w") 'mark-word)
 (global-set-key (kbd "M-a") 'mark-page)
-(global-set-key (kbd "M-d") 'mark-defun)
+(global-set-key (kbd "M-F") 'mark-defun)
 (global-set-key (kbd "M-s") 'mark-paragraph)
+
+;; Navigation
+(global-set-key (kbd "M-d") 'scroll-up)
+(global-set-key (kbd "M-u") 'scroll-down)
 
 ;; ---------------------------------------------------------------------------------
 ;; -------- LSP --------------------------------------------------------------------
@@ -365,14 +374,17 @@ Containing LEFT, and RIGHT aligned respectively."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7"
+   '("d77d6ba33442dd3121b44e20af28f1fae8eeda413b2c3d3b9f1315fbda021992"
+     "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7"
      "9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14"
      "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7"
      "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3"
      "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9"
      "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4"
      default))
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(## avy company flycheck helm-lsp helm-xref hydra lsp-mode projectile
+	yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -380,3 +392,4 @@ Containing LEFT, and RIGHT aligned respectively."
  ;; If there is more than one, they won't work right.
 
 )
+
