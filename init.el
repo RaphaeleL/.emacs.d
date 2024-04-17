@@ -22,17 +22,18 @@
 ;; Modeline
 (column-number-mode 1)
 
-(defun modeline-set-lighter (minor-mode lighter)
-  (when (assq minor-mode minor-mode-alist)
-    (setcar (cdr (assq minor-mode minor-mode-alist)) lighter)))
-
-(defun modeline-remove-lighter (minor-mode)
-  (modeline-set-lighter minor-mode ""))
+(use-package mood-line
+  :config
+  (mood-line-mode)
+  ;; Use pretty Fira Code-compatible glyphs
+  ;; :custom
+  ;; (mood-line-glyph-alist mood-line-glyphs-fira-code)
+)
 
 ;; Font
 (defun get-default-font ()
   (cond
-   ((eq system-type 'windows-nt) "Iosevka-12")
+   ((eq system-type 'windows-nt) "Iosevka-12") ;; IosevkaTermSlab NF-12
    ((eq system-type 'darwin) "Iosevka-14")
    ((eq system-type 'gnu/linux) "Iosevka-12")))
 
@@ -50,7 +51,6 @@
 (require 'tree-sitter-query)
 (global-tree-sitter-mode)
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-(modeline-remove-lighter 'tree-sitter-mode)
 
 ;; Ido Mode for Files
 (ido-mode 1)
@@ -216,7 +216,6 @@
   :ensure t
   :config
   (super-save-mode +1))
-(modeline-remove-lighter 'super-save-mode)
 
 ;; ---------------------------------------------------------------------------------
 ;; -------- Shortcuts --------------------------------------------------------------
@@ -353,8 +352,6 @@
                           (require 'lsp-pyright)
                           (lsp))))  ; or lsp-deferred
 
-(modeline-remove-lighter 'eldoc-mode)
-(modeline-remove-lighter 'yas-minor-mode)
 
 ;; ---------------------------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
@@ -367,11 +364,12 @@
  '(custom-safe-themes
    '("88f7ee5594021c60a4a6a1c275614103de8c1435d6d08cc58882f920e0cec65e" "7613ef56a3aebbec29618a689e47876a72023bbd1b8393efc51c38f5ed3f33d1" "d77d6ba33442dd3121b44e20af28f1fae8eeda413b2c3d3b9f1315fbda021992" "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" "9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9" "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4" default))
  '(package-selected-packages
-   '(hide-mode-line all-the-icons-nerd-fonts all-the-icons doom-modeline doom-themes vundo ## avy company flycheck helm-lsp helm-xref hydra lsp-mode projectile yasnippet)))
+   '(mood-line hide-mode-line all-the-icons-nerd-fonts all-the-icons doom-modeline doom-themes vundo ## avy company flycheck helm-lsp helm-xref hydra lsp-mode projectile yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+
 )
 
