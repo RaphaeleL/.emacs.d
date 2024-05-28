@@ -1,4 +1,44 @@
-; ---------------------------------------------------------------------------------
+;; ---------------------------------------------------------------------------------
+;; -------- Package Manager --------------------------------------------------------
+;; ---------------------------------------------------------------------------------
+
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+(defun ensure-package-installed (&rest packages)
+  "Assure every package is installed, ask for installation if it’s not.
+
+Return a list of installed packages or nil for every skipped package."
+  (mapcar
+   (lambda (package)
+     ;; (package-installed-p 'evil)
+     (if (package-installed-p package)
+         nil
+       (if (y-or-n-p (format "Package %s is missing. Install it? " package))
+           (package-install package)
+         package)))
+   packages))
+
+(or (file-exists-p package-user-dir)
+    (package-refresh-contents))
+
+(package-refresh-contents)
+
+(ensure-package-installed
+ 'spacious-padding
+ 'gruber-darker-theme
+ 'modus-themes
+ 'smex
+ 'simpleclip
+ 'multiple-cursors
+ 'move-text
+ 'mood-line
+ 'magit
+)
+
+;; activate installed packages
+; (package-initialize)
+
+;; ---------------------------------------------------------------------------------
 ;; -------- Appearance -------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
 
@@ -12,12 +52,10 @@
 (tooltip-mode -1)
 (set-fringe-mode -1)
 (menu-bar-mode -1)
-
 (spacious-padding-mode 1)
-(hide-mode-line-mode -1)
 
 ;; Theme
-(load-theme 'doom-one-light 1) ;; modus-operandi-tinted
+(load-theme 'modus-operandi-tinted 1)
 
 ;; Modeline
 (column-number-mode 1)
@@ -26,8 +64,8 @@
   :config
   (mood-line-mode)
   ;; Use pretty Fira Code-compatible glyphs
-  ;; :custom
-  ;; (mood-line-glyph-alist mood-line-glyphs-fira-code)
+  :custom
+  (mood-line-glyph-alist mood-line-glyphs-fira-code)
 )
 
 ;; Font
@@ -43,22 +81,12 @@
 (setq left-fringe-width 0)
 (setq right-fringe-width 0)
 
-;; Treesitter
-(require 'tree-sitter)
-(require 'tree-sitter-hl)
-(require 'tree-sitter-langs)
-(require 'tree-sitter-debug)
-(require 'tree-sitter-query)
-(global-tree-sitter-mode)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-
 ;; Ido Mode for Files
 (ido-mode 1)
 (ido-everywhere 1)
 
 ;; Package Manager
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
 
 ;; Ido Mode for M-x
 (require 'smex)
@@ -234,7 +262,7 @@
 (setq use-dialog-box nil)
 
 ;; Dired
-(dired-preview-global-mode 1)
+;; (dired-preview-global-mode 1)
 (global-set-key (kbd "C-x d") 'dired)
 (global-set-key (kbd "C-x C-d") 'dired)
 
@@ -362,14 +390,30 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("88f7ee5594021c60a4a6a1c275614103de8c1435d6d08cc58882f920e0cec65e" "7613ef56a3aebbec29618a689e47876a72023bbd1b8393efc51c38f5ed3f33d1" "d77d6ba33442dd3121b44e20af28f1fae8eeda413b2c3d3b9f1315fbda021992" "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" "9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9" "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4" default))
+   '("c7a926ad0e1ca4272c90fce2e1ffa7760494083356f6bb6d72481b879afce1f2" "0f76f9e0af168197f4798aba5c5ef18e07c926f4e7676b95f2a13771355ce850" "e27c9668d7eddf75373fa6b07475ae2d6892185f07ebed037eedf783318761d7" "88f7ee5594021c60a4a6a1c275614103de8c1435d6d08cc58882f920e0cec65e" "7613ef56a3aebbec29618a689e47876a72023bbd1b8393efc51c38f5ed3f33d1" "d77d6ba33442dd3121b44e20af28f1fae8eeda413b2c3d3b9f1315fbda021992" "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" "9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9" "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4" default))
  '(package-selected-packages
-   '(mood-line hide-mode-line all-the-icons-nerd-fonts all-the-icons doom-modeline doom-themes vundo ## avy company flycheck helm-lsp helm-xref hydra lsp-mode projectile yasnippet)))
+   '(magit gruber-darker-theme mood-line hide-mode-line all-the-icons-nerd-fonts all-the-icons doom-modeline doom-themes vundo ## avy company flycheck helm-lsp helm-xref hydra lsp-mode projectile yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
-)
+ '(fringe ((t :background "white")))
+ '(header-line ((t :box (:line-width 4 :color "grey90" :style nil))))
+ '(header-line-highlight ((t :box (:color "black"))))
+ '(keycast-key ((t)))
+ '(line-number ((t :background "white")))
+ '(mode-line ((t :box (:line-width 6 :color "grey75" :style nil))))
+ '(mode-line-active ((t :box (:line-width 6 :color "grey75" :style nil))))
+ '(mode-line-highlight ((t :box (:color "black"))))
+ '(mode-line-inactive ((t :box (:line-width 6 :color "grey90" :style nil))))
+ '(tab-bar-tab ((t :box (:line-width 4 :color "grey85" :style nil))))
+ '(tab-bar-tab-inactive ((t :box (:line-width 4 :color "grey75" :style nil))))
+ '(tab-line-tab ((t)))
+ '(tab-line-tab-active ((t)))
+ '(tab-line-tab-inactive ((t)))
+ '(vertical-border ((t :background "white" :foreground "white")))
+ '(window-divider ((t (:background "white" :foreground "white"))))
+ '(window-divider-first-pixel ((t (:background "white" :foreground "white"))))
+ '(window-divider-last-pixel ((t (:background "white" :foreground "white")))))
 
