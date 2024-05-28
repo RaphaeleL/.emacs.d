@@ -263,8 +263,9 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; Dired
 ;; (dired-preview-global-mode 1)
-(global-set-key (kbd "C-x d") 'dired)
+(global-set-key (kbd "C-x d") 'dired) 
 (global-set-key (kbd "C-x C-d") 'dired)
+(global-set-key (kbd "C-x .") 'dired)
 
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -277,21 +278,21 @@ Return a list of installed packages or nil for every skipped package."
 (global-set-key (kbd "C-c s") 'switch-to-buffer)
 
 ;; Window Navigation
-(global-set-key (kbd "C-x h") 'windmove-left)
-(global-set-key (kbd "C-x l") 'windmove-right)
-(global-set-key (kbd "C-x k") 'windmove-up)
-(global-set-key (kbd "C-x j") 'windmove-down)
+(global-set-key (kbd "C-x <left>") 'windmove-left)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
 
 ;; Close window
 (global-set-key (kbd "C-x 0") 'delete-window)
 (global-set-key (kbd "C-x 1") 'delete-other-windows)
 
 ;; Usefull Commands
-(global-set-key (kbd "C-x m") 'compile)
-(global-set-key (kbd "C-x c") 'shell-command)
-(global-set-key (kbd "C-x l") 'duplicate-line)
-(global-set-key (kbd "C-x k") 'delete-current-line)
-(global-set-key (kbd "C-x j") 'join-line)
+(global-set-key (kbd "C-c m") 'compile)
+(global-set-key (kbd "C-c c") 'shell-command)
+(global-set-key (kbd "C-c l") 'duplicate-line)
+(global-set-key (kbd "C-c d") 'delete-current-line)
+(global-set-key (kbd "C-c j") 'join-line)
 
 ;; Copy and Paste
 (require 'simpleclip)
@@ -300,10 +301,6 @@ Return a list of installed packages or nil for every skipped package."
 (global-set-key (kbd "C-x p") 'simpleclip-paste)
 (global-set-key (kbd "C-c C-c") 'simpleclip-copy)
 (global-set-key (kbd "C-c C-v") 'simpleclip-paste)
-(global-set-key (kbd "C-c c") 'simpleclip-copy)
-(global-set-key (kbd "C-c c") 'simpleclip-copy)
-(global-set-key (kbd "C-c c") 'simpleclip-copy)
-(global-set-key (kbd "C-c c") 'simpleclip-copy)
 (global-set-key (kbd "C-c c") 'simpleclip-copy)
 (global-set-key (kbd "C-c v") 'simpleclip-paste)
 
