@@ -290,7 +290,7 @@ Return a list of installed packages or nil for every skipped package."
 ;; Usefull Commands
 (global-set-key (kbd "C-c m") 'compile)
 (global-set-key (kbd "C-c c") 'shell-command)
-(global-set-key (kbd "C-c l") 'duplicate-line)
+(global-set-key (kbd "C-c n") 'duplicate-line)
 (global-set-key (kbd "C-c d") 'delete-current-line)
 (global-set-key (kbd "C-c j") 'join-line)
 
