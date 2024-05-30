@@ -52,17 +52,18 @@ Return a list of installed packages or nil for every skipped package."
 (tooltip-mode -1)
 (set-fringe-mode -1)
 (menu-bar-mode -1)
-(spacious-padding-mode 1)
+(spacious-padding-mode -1)
 
 ;; Theme
-(load-theme 'modus-operandi-tinted 1)
+;; (load-theme 'modus-operandi-tinted 1)
+(load-theme 'gruber-darker 1)
 
 ;; Modeline
 (column-number-mode 1)
 
 (use-package mood-line
   :config
-  (mood-line-mode)
+  (mood-line-mode -1)
   ;; Use pretty Fira Code-compatible glyphs
   :custom
   (mood-line-glyph-alist mood-line-glyphs-fira-code)
@@ -98,7 +99,7 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; Line Numbering
 (global-display-line-numbers-mode 1)
-;; (setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'relative)
 
 ;; Bigger Font
 (set-face-attribute 'default nil :height 130)
@@ -273,7 +274,7 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; Buffer Navigation
 (global-set-key (kbd "C-<tab>") 'next-buffer)
-(global-set-key (kbd "C-S-<tab>") 'previous-buffer)
+(global-set-key (kbd "C-<iso-lefttab>") 'previous-buffer)
 (global-set-key (kbd "C-c l") 'ibuffer)
 (global-set-key (kbd "C-c s") 'switch-to-buffer)
 
@@ -336,10 +337,6 @@ Return a list of installed packages or nil for every skipped package."
 (global-set-key (kbd "M-F") 'mark-defun)
 (global-set-key (kbd "M-s") 'mark-paragraph)
 
-;; Navigation
-(global-set-key (kbd "M-d") 'scroll-up)
-(global-set-key (kbd "M-u") 'scroll-down)
-
 ;; Line Numbers
 (global-set-key (kbd "C-x C-l") 'global-display-line-numbers-mode)
 
@@ -391,14 +388,29 @@ Return a list of installed packages or nil for every skipped package."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("c7a926ad0e1ca4272c90fce2e1ffa7760494083356f6bb6d72481b879afce1f2" "0f76f9e0af168197f4798aba5c5ef18e07c926f4e7676b95f2a13771355ce850" "e27c9668d7eddf75373fa6b07475ae2d6892185f07ebed037eedf783318761d7" "88f7ee5594021c60a4a6a1c275614103de8c1435d6d08cc58882f920e0cec65e" "7613ef56a3aebbec29618a689e47876a72023bbd1b8393efc51c38f5ed3f33d1" "d77d6ba33442dd3121b44e20af28f1fae8eeda413b2c3d3b9f1315fbda021992" "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" "9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" "4b026ac68a1aa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9" "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4" default))
+   '("c7a926ad0e1ca4272c90fce2e1ffa7760494083356f6bb6d72481b879afce1f2" "0f76f9e0af168197f4798aba5c5ef18e07c926f4e7676b95f2a13771355ce850" "e27c9668d7eddf75373fa6b07475ae2d6892185f07ebed037eedf783318761d7" "88f7ee5594021c60a4a6a1c275614103de8c1435d6d08cc58882f920e0cec65e" "7613ef56a3aebbec29618a689e47876a72023bbd1b8393efc51c38f5ed3f33d1" "d77d6ba33442dd3121b44e20af28f1fae8eeda413b2c3d3b9f1315fbda021992" "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" "9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" "4b026ac68a1vaa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9" "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4" default))
  '(package-selected-packages
-   '(magit gruber-darker-theme mood-line hide-mode-line all-the-icons-nerd-fonts all-the-icons doom-modeline doom-themes vundo ## avy company flycheck helm-lsp helm-xref hydra lsp-mode projectile yasnippet)))
+   '(format-all magit gruber-darker-theme mood-line hide-mode-line all-the-icons-nerd-fonts all-the-icons doom-modeline doom-themes vundo ## avy company flycheck helm-lsp helm-xref hydra lsp-mode projectile yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
-)
+ '(fringe (nil))
+ '(header-line (nil))
+ '(header-line-highlight (nil))
+ '(keycast-key (nil))
+ '(line-number (nil))
+ '(mode-line (nil))
+ '(mode-line-active (nil))
+ '(mode-line-highlight (nil))
+ '(mode-line-inactive (nil))
+ '(tab-bar-tab (nil))
+ '(tab-bar-tab-inactive (nil))
+ '(tab-line-tab (nil))
+ '(tab-line-tab-inactive (nil))
+ '(vertical-border (nil))
+ '(window-divider (nil))
+ '(window-divider-first-pixel (nil))
+ '(window-divider-last-pixel (nil)))
 
