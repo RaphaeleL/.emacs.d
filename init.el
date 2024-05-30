@@ -2,38 +2,39 @@
 ;; -------- Package Manager --------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-
-(defun ensure-package-installed (&rest packages)
-  "Assure every package is installed, ask for installation if it’s not.
-
-Return a list of installed packages or nil for every skipped package."
-  (mapcar
-   (lambda (package)
-     ;; (package-installed-p 'evil)
-     (if (package-installed-p package)
-         nil
-       (if (y-or-n-p (format "Package %s is missing. Install it? " package))
-           (package-install package)
-         package)))
-   packages))
-
-(or (file-exists-p package-user-dir)
-    (package-refresh-contents))
-
-(package-refresh-contents)
-
-(ensure-package-installed
- 'spacious-padding
- 'gruber-darker-theme
- 'modus-themes
- 'smex
- 'simpleclip
- 'multiple-cursors
- 'move-text
- 'mood-line
- 'magit
-)
+; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;
+; (defun ensure-package-installed (&rest packages)
+;   "Assure every package is installed, ask for installation if it’s not.
+;
+; Return a list of installed packages or nil for every skipped package."
+;   (mapcar
+;    (lambda (package)
+;      ;; (package-installed-p 'evil)
+;      (if (package-installed-p package)
+;          nil
+;        (if (y-or-n-p (format "Package %s is missing. Install it? " package))
+;            (package-install package)
+;          package)))
+;    packages))
+;
+; (or (file-exists-p package-user-dir)
+;     (package-refresh-contents))
+;
+; (package-refresh-contents)
+;
+; (ensure-package-installed
+;  'spacious-padding
+;  'gruber-darker-theme
+;  'modus-themes
+;  'smex
+;  'simpleclip
+;  'multiple-cursors
+;  'move-text
+;  'mood-line
+;  'magit
+;  'doom-themes
+; )
 
 ;; activate installed packages
 ; (package-initialize)
@@ -52,18 +53,19 @@ Return a list of installed packages or nil for every skipped package."
 (tooltip-mode -1)
 (set-fringe-mode -1)
 (menu-bar-mode -1)
-(spacious-padding-mode -1)
+(spacious-padding-mode 1)
 
 ;; Theme
-;; (load-theme 'modus-operandi-tinted 1)
-(load-theme 'gruber-darker 1)
+(load-theme 'modus-operandi-tinted 1)
+;; (load-theme 'gruber-darker 1)
+;; (load-theme 'doom-one 1)
 
 ;; Modeline
 (column-number-mode 1)
 
 (use-package mood-line
   :config
-  (mood-line-mode -1)
+  (mood-line-mode 1)
   ;; Use pretty Fira Code-compatible glyphs
   :custom
   (mood-line-glyph-alist mood-line-glyphs-fira-code)
@@ -344,39 +346,38 @@ Return a list of installed packages or nil for every skipped package."
 ;; -------- LSP --------------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
 
-(set-fringe-mode 0)
-
-(setq package-selected-packages '(lsp-mode yasnippet helm-lsp
-    projectile hydra flycheck company avy helm-xref))
-
-(when (cl-find-if-not #'package-installed-p package-selected-packages)
-  (package-refresh-contents)
-  (mapc #'package-install package-selected-packages))
-
-(add-hook 'c-mode-hook 'lsp)
-(add-hook 'c++-mode-hook 'lsp)
-(add-hook 'python-mode-hook 'lsp)
-(add-hook 'lisp-mode-hook 'lsp)
-(add-hook 'go-mode-hook 'lsp)
-
-(setq lsp-headerline-breadcrumb-enable nil)
-
-(setq gc-cons-threshold (* 100 1024 1024)
-      read-process-output-max (* 1024 1024)
-      treemacs-space-between-root-nodes nil
-      company-idle-delay 0.0
-      company-minimum-prefix-length 1
-      lsp-idle-delay 0.1)
-
-(with-eval-after-load 'lsp-mode
-  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
-  (yas-global-mode))
-
-(use-package lsp-pyright
-  :ensure t
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp))))  ; or lsp-deferred
+; (set-fringe-mode 0)
+;
+; (setq package-selected-packages '(lsp-mode yasnippet helm-lsp
+;     projectile hydra flycheck company avy helm-xref))
+;
+; (when (cl-find-if-not #'package-installed-p package-selected-packages)
+;   (package-refresh-contents)
+;   (mapc #'package-install package-selected-packages))
+;
+; ; (add-hook 'c-mode-hook 'lsp)
+; ; (add-hook 'c++-mode-hook 'lsp)
+; ; (add-hook 'python-mode-hook 'lsp)
+; ; (add-hook 'go-mode-hook 'lsp)
+;
+; (setq lsp-headerline-breadcrumb-enable nil)
+;
+; (setq gc-cons-threshold (* 100 1024 1024)
+;       read-process-output-max (* 1024 1024)
+;       treemacs-space-between-root-nodes nil
+;       company-idle-delay 0.0
+;       company-minimum-prefix-length 1
+;       lsp-idle-delay 0.1)
+;
+; (with-eval-after-load 'lsp-mode
+;   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+;   (yas-global-mode))
+;
+; (use-package lsp-pyright
+;   :ensure t
+;   :hook (python-mode . (lambda ()
+;                           (require 'lsp-pyright)
+;                           (lsp))))  ; or lsp-deferred
 
 
 ;; ---------------------------------------------------------------------------------
@@ -396,21 +397,5 @@ Return a list of installed packages or nil for every skipped package."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(fringe (nil))
- '(header-line (nil))
- '(header-line-highlight (nil))
- '(keycast-key (nil))
- '(line-number (nil))
- '(mode-line (nil))
- '(mode-line-active (nil))
- '(mode-line-highlight (nil))
- '(mode-line-inactive (nil))
- '(tab-bar-tab (nil))
- '(tab-bar-tab-inactive (nil))
- '(tab-line-tab (nil))
- '(tab-line-tab-inactive (nil))
- '(vertical-border (nil))
- '(window-divider (nil))
- '(window-divider-first-pixel (nil))
- '(window-divider-last-pixel (nil)))
+)
 
