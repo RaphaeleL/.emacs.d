@@ -260,7 +260,7 @@
 
 ;; Copy and Paste
 (require 'simpleclip)
-(simpleclip-mode 1))
+(simpleclip-mode 1)
 (global-set-key (kbd "C-c C-c") 'simpleclip-copy)
 (global-set-key (kbd "C-c C-v") 'simpleclip-paste)
 
