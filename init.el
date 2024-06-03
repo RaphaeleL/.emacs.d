@@ -245,7 +245,7 @@
 (global-set-key (kbd "C-<tab>") 'next-buffer)
 (global-set-key (kbd "C-<iso-lefttab>") 'previous-buffer)
 (global-set-key (kbd "C-c i") 'ibuffer)
-(global-set-key (kbd "C-c s") 'switch-to-buffer)
+(global-set-key (kbd "C-c l") 'switch-to-buffer)
 
 ;; Close window
 (global-set-key (kbd "C-c 0") 'delete-window)
@@ -253,7 +253,7 @@
 
 ;; Usefull Commands
 (global-set-key (kbd "C-c m") 'compile)
-(global-set-key (kbd "C-c c") 'shell-command)
+(global-set-key (kbd "C-c s") 'shell-command)
 (global-set-key (kbd "C-c n") 'duplicate-line)
 (global-set-key (kbd "C-c d") 'delete-current-line)
 (global-set-key (kbd "C-c j") 'join-line)
@@ -261,8 +261,8 @@
 ;; Copy and Paste
 (require 'simpleclip)
 (simpleclip-mode 1)
-(global-set-key (kbd "C-c C-c") 'simpleclip-copy)
-(global-set-key (kbd "C-c C-v") 'simpleclip-paste)
+(global-set-key (kbd "C-c c") 'simpleclip-copy)
+(global-set-key (kbd "C-c v") 'simpleclip-paste)
 
 ;; Multi Cursor
 (require 'multiple-cursors)
