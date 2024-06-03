@@ -248,25 +248,21 @@
 (global-set-key (kbd "C-c s") 'switch-to-buffer)
 
 ;; Close window
-(global-set-key (kbd "C-x 0") 'delete-window)
-(global-set-key (kbd "C-x 1") 'delete-other-windows)
+(global-set-key (kbd "C-c 0") 'delete-window)
+(global-set-key (kbd "C-c 1") 'delete-other-windows)
 
 ;; Usefull Commands
-(global-set-key (kbd "C-x m") 'compile)
-(global-set-key (kbd "C-x c") 'shell-command)
+(global-set-key (kbd "C-c m") 'compile)
+(global-set-key (kbd "C-c c") 'shell-command)
 (global-set-key (kbd "C-c n") 'duplicate-line)
 (global-set-key (kbd "C-c d") 'delete-current-line)
-(global-set-key (kbd "C-x j") 'join-line)
+(global-set-key (kbd "C-c j") 'join-line)
 
 ;; Copy and Paste
 (require 'simpleclip)
-(simpleclip-mode 1)
-(global-set-key (kbd "C-x v") 'simpleclip-copy)
-(global-set-key (kbd "C-x p") 'simpleclip-paste)
+(simpleclip-mode 1))
 (global-set-key (kbd "C-c C-c") 'simpleclip-copy)
 (global-set-key (kbd "C-c C-v") 'simpleclip-paste)
-(global-set-key (kbd "C-c c") 'simpleclip-copy)
-(global-set-key (kbd "C-c v") 'simpleclip-paste)
 
 ;; Multi Cursor
 (require 'multiple-cursors)
@@ -292,7 +288,7 @@
 (global-set-key (kbd "C-c a") 'mark-whole-buffer)
 
 ;; Magit
-(global-set-key (kbd "C-x g") 'magit)
+(global-set-key (kbd "C-c g") 'magit)
 
 ;; Selection
 (global-set-key (kbd "M-w") 'mark-word)
@@ -301,7 +297,7 @@
 (global-set-key (kbd "M-s") 'mark-paragraph)
 
 ;; Line Numbers
-(global-set-key (kbd "C-x C-l") 'global-display-line-numbers-mode)
+(global-set-key (kbd "C-c C-l") 'global-display-line-numbers-mode)
 
 ;; ---------------------------------------------------------------------------------
 ;; -------- LSP --------------------------------------------------------------------
