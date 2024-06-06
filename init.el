@@ -231,6 +231,9 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq use-dialog-box nil)
 
+;; Swaping / Transposing Words
+(global-set-key (kbd "C-c t") 'transpose-words)
+
 ;; Dired
 (global-set-key (kbd "C-c .") 'dired)
 (global-set-key (kbd "C-c d") 'dired)
