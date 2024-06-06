@@ -54,8 +54,8 @@
 (menu-bar-mode -1)
 
 ;; Theme
-;; (load-theme 'modus-operandi-tinted 1)
 (load-theme 'gruber-darker 1)
+;; (load-theme 'modus-operandi-tinted 1)
 ;; (load-theme 'doom-one 1)
 ;; (load-theme 'zenburn 1)
 
