@@ -321,42 +321,44 @@
 ;;               ("C-c f" . flymake-show-buffer-diagnostics)
 ;;               ("C-c r" . eglot-rename)))
 
-;; No Fringes
-(set-fringe-mode 0)
+;; ;; ---------------------------
 
-;; LSP Packages
-(setq package-selected-packages '(lsp-mode helm-lsp company
-   projectile hydra flycheck avy helm-xref yasnippet))
+;; ;; No Fringes
+;; (set-fringe-mode 0)
 
-;; Install them if they are not there
-(when (cl-find-if-not #'package-installed-p package-selected-packages)
-  (package-refresh-contents)
-  (mapc #'package-install package-selected-packages))
+;; ;; LSP Packages
+;; (setq package-selected-packages '(lsp-mode helm-lsp company
+;;    projectile hydra flycheck avy helm-xref yasnippet))
 
-;; No Breadcrumbs
-(setq lsp-headerline-breadcrumb-enable nil)
+;; ;; Install them if they are not there
+;; (when (cl-find-if-not #'package-installed-p package-selected-packages)
+;;   (package-refresh-contents)
+;;   (mapc #'package-install package-selected-packages))
 
-;; More Strange Shit tho :D
-(setq gc-cons-threshold (* 100 1024 1024)
-      read-process-output-max (* 1024 1024)
-      treemacs-space-between-root-nodes nil
-      company-idle-delay 0.0
-      company-minimum-prefix-length 1
-      lsp-idle-delay 0.1)
+;; ;; No Breadcrumbs
+;; (setq lsp-headerline-breadcrumb-enable nil)
 
-;; Python LSP Settings
-(use-package lsp-pyright
-  :ensure t
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp))))
+;; ;; More Strange Shit tho :D
+;; (setq gc-cons-threshold (* 100 1024 1024)
+;;       read-process-output-max (* 1024 1024)
+;;       treemacs-space-between-root-nodes nil
+;;       company-idle-delay 0.0
+;;       company-minimum-prefix-length 1
+;;       lsp-idle-delay 0.1)
 
-;; Activate the LSP
-(add-hook 'c-mode-hook 'lsp)
-(add-hook 'c++-mode-hook 'lsp)
-(add-hook 'python-mode-hook 'lsp)
-(add-hook 'go-mode-hook 'lsp)
-(add-hook 'rust-mode-hook 'lsp)
+;; ;; Python LSP Settings
+;; (use-package lsp-pyright
+;;   :ensure t
+;;   :hook (python-mode . (lambda ()
+;;                           (require 'lsp-pyright)
+;;                           (lsp))))
+
+;; ;; Activate the LSP
+;; (add-hook 'c-mode-hook 'lsp)
+;; (add-hook 'c++-mode-hook 'lsp)
+;; (add-hook 'python-mode-hook 'lsp)
+;; (add-hook 'go-mode-hook 'lsp)
+;; (add-hook 'rust-mode-hook 'lsp)
 
 ;; ---------------------------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
