@@ -5,9 +5,6 @@
 (use-package gruber-darker-theme
   :ensure t)
 
-(use-package smex
-  :ensure t)
-
 (use-package simpleclip
   :ensure t)
 
