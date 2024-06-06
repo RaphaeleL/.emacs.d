@@ -17,6 +17,12 @@
 (use-package magit
   :ensure t)
 
+(use-package rainbow-mode
+  :ensure t)
+
+(use-package smex
+  :ensure t)
+
 ;; Smooth Scroll - Vertical
 (setq scroll-step 1)
 (setq scroll-margin 1)
@@ -206,9 +212,9 @@
 (global-set-key (kbd "C-c t") 'transpose-words)
 
 ;; Dired
-(global-set-key (kbd "C-c .") 'dired)
-(global-set-key (kbd "C-c d") 'dired)
-(global-set-key (kbd "C-c C-d") 'dired)
+(global-set-key (kbd "C-x .") 'dired)
+(global-set-key (kbd "C-x d") 'dired)
+(global-set-key (kbd "C-x C-d") 'dired)
 
 ;; Magit
 (global-set-key (kbd "C-c g") 'magit-status)
@@ -274,24 +280,58 @@
 ;; -------- LSP --------------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
 
+;; (use-package python
+;;   :bind (:map python-ts-mode-map
+;;               ("<f5>" . recompile)
+;;               ("<f6>" . eglot-format))
+;;   :hook ((python-ts-mode . eglot-ensure)
+;;          (python-ts-mode . company-mode))
+;;   :mode (("\\.py\\'" . python-ts-mode)))
+
+;; (use-package c-mode
+;;   :bind (:map python-ts-mode-map
+;;               ("<f5>" . recompile)
+;;               ("<f6>" . eglot-format))
+;;   :hook ((c-ts-mode . eglot-ensure)
+;; 	 (c-ts-mode . company-mode))
+;;   :mode (("\\.c\\'" . c-ts-mode)))
+
+;; (use-package c++-mode
+;;   :bind (:map c++-ts-mode-map
+;;               ("<f5>" . recompile)
+;;               ("<f6>" . eglot-format))
+;;   :hook ((c++-ts-mode . eglot-ensure)
+;; 	 (c++-ts-mode . company-mode))
+;;   :mode (("\\.cpp\\'" . c++-ts-mode)))
+
+;; ;; TODO
+;; ;; - Rust
+;; ;; - Go
+
+;; (use-package company
+;;   :ensure t
+;;   :config
+;;   (setq company-idle-delay 0.1
+;;         company-minimum-prefix-length 1))
+
+;; (use-package eglot
+;;   :bind (:map eglot-mode-map
+;;               ("C-c d" . eldoc)
+;;               ("C-c a" . eglot-code-actions)
+;;               ("C-c f" . flymake-show-buffer-diagnostics)
+;;               ("C-c r" . eglot-rename)))
+
 ;; No Fringes
 (set-fringe-mode 0)
 
 ;; LSP Packages
-(setq package-selected-packages '(lsp-mode yasnippet helm-lsp
-    projectile hydra flycheck company avy helm-xref))
+(setq package-selected-packages '(lsp-mode helm-lsp company
+   projectile hydra flycheck avy helm-xref yasnippet))
 
 ;; Install them if they are not there
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
   (package-refresh-contents)
   (mapc #'package-install package-selected-packages))
-
-;; Activate the LSP
-(add-hook 'c-mode-hook 'lsp)
-(add-hook 'c++-mode-hook 'lsp)
-(add-hook 'python-mode-hook 'lsp)
-(add-hook 'go-mode-hook 'lsp)
-(add-hook 'rust-mode-hook 'lsp)
 
 ;; No Breadcrumbs
 (setq lsp-headerline-breadcrumb-enable nil)
@@ -311,6 +351,13 @@
                           (require 'lsp-pyright)
                           (lsp))))
 
+;; Activate the LSP
+(add-hook 'c-mode-hook 'lsp)
+(add-hook 'c++-mode-hook 'lsp)
+(add-hook 'python-mode-hook 'lsp)
+(add-hook 'go-mode-hook 'lsp)
+(add-hook 'rust-mode-hook 'lsp)
+
 ;; ---------------------------------------------------------------------------------
 ;; ---------------------------------------------------------------------------------
 
@@ -322,11 +369,16 @@
  '(custom-safe-themes
    '("f079ef5189f9738cf5a2b4507bcaf83138ad22d9c9e32a537d61c9aae25502ef" "c7a926ad0e1ca4272c90fce2e1ffa7760494083356f6bb6d72481b879afce1f2" "0f76f9e0af168197f4798aba5c5ef18e07c926f4e7676b95f2a13771355ce850" "e27c9668d7eddf75373fa6b07475ae2d6892185f07ebed037eedf783318761d7" "88f7ee5594021c60a4a6a1c275614103de8c1435d6d08cc58882f920e0cec65e" "7613ef56a3aebbec29618a689e47876a72023bbd1b8393efc51c38f5ed3f33d1" "d77d6ba33442dd3121b44e20af28f1fae8eeda413b2c3d3b9f1315fbda021992" "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" "9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" "4b026ac68a1vaa4d1a91879b64f54c2490b4ecad8b64de5b1865bca0addd053d9" "21e3d55141186651571241c2ba3c665979d1e886f53b2e52411e9e96659132d4" default))
  '(package-selected-packages
-   '(rainbow-mode rust-mode markdown-mode ## zenburn-theme yasnippet super-save smex simpleclip projectile multiple-cursors move-text mood-line magit lsp-pyright hydra hide-mode-line helm-xref helm-lsp gruber-darker-theme format-all flycheck doom-themes company avy)))
+   '(yasnippet company tree-sitter hydra go-mode rainbow-mode rust-mode markdown-mode ## zenburn-theme super-save smex simpleclip multiple-cursors move-text mood-line magit lsp-pyright hide-mode-line helm-xref helm-lsp gruber-darker-theme format-all doom-themes)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(company-preview ((t (:foreground "#c5c5f5"))))
+ '(company-preview-common ((t (:foreground "#c5c5f5" :background "#333333"))))
+ '(company-scrollbar-bg ((t (:background "#cccccc"))))
+ '(company-scrollbar-fg ((t (:background "#333333"))))
+ '(company-tooltip ((t (:background "#f2f2f2" :foreground "black"))))
+ '(company-tooltip-selection ((t (:background "#c5c5f5")))))
 
