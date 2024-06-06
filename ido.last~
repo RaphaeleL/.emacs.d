@@ -25,7 +25,6 @@
 ;; ----- ido-work-directory-list -----
 (
  "/home/lira0003/.emacs.d/"
- "/home/lira0003/"
  "c:/Users/lira0003/AppData/Roaming/.emacs.d/"
  "c:/Users/lira0003/bwSyncShare/"
  "c:/Users/lira0003/AppData/Roaming/"
@@ -53,24 +52,22 @@
 ;; ----- ido-work-file-list -----
 (
  "init.el"
- "ido.last"
- "test.py"
- "test.rs"
- "test.cpp"
- "test.c"
  "Notizen.docx"
  "README.md"
  "hyperparameter.py"
  "Emacs-Keybinds.txt"
+ "run.sh"
+ "main.py"
+ "forecast.py"
+ "compile.c"
+ "build.rs"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/home/lira0003/" (26209 39386 672665 84000) ".pki/" ".bnd/" "Documents/" "Pictures/" ".fonts/" ".emacs.d/" "Videos/" ".p2/" ".rustup/" "test.rs" ".swt/" ".gitconfig" ".zotero/" ".cargo/" ".ssh/" ".lesshst" ".sudo_as_admin_successful" ".cache/" ".stack/" ".bash_history" ".bashrc" ".npm/" ".nvm/" ".shutter/" ".ipython/" ".profile" ".config/" "Downloads/" "eclipse/" "Desktop/" "snap/" "bwSyncShare/" ".var/" ".m2/" "eclipse-workspace/" ".gtkrc-2.0" ".xinitrc" "Public/" ".#test.py" "test.c" "Zotero/" ".icons/" ".tmux.conf" "./" ".jupyter/" "Projects/" ".eclipse/" ".local/" "test.cpp" ".keras/" "test.py" "Music/" "../" ".gnupg/" "go/" ".meteostat/")
+ ("/home/lira0003/.emacs.d/" (26209 38312 795537 263000) ".gitignore" "games/" "auto-save-list/" "transient/" "tree-sitter/" ".git/" "smex-items" "ido.last" ".mc-lists.el" "tramp" "elpa/" "eln-cache/" "./" "init.el" "../" "README.org")
 
- ("/home/lira0003/.emacs.d/" (26209 39372 980693 531000) "ido.last~" ".gitignore" "auto-save-list/" "transient/" "tree-sitter/" ".git/" "smex-items" "ido.last" "snippets/" ".lsp-session-v1" "elpa/" "eln-cache/" "./" "init.el" "../" "README.org")
-
- ("/snap/emacs/2464/usr/bin/" (26173 55215 0 0) "zipdetails" "xsubpp" "x86_64-pc-linux-gnu-pkg-config" "x86_64-linux-gnu-strip" "x86_64-linux-gnu-strings" "x86_64-linux-gnu-size" "x86_64-linux-gnu-readelf" "x86_64-linux-gnu-ranlib" "x86_64-linux-gnu-objdump" "x86_64-linux-gnu-objcopy" "x86_64-linux-gnu-nm" "x86_64-linux-gnu-lto-dump-10" "x86_64-linux-gnu-ld.gold" "x86_64-linux-gnu-ld.bfd" "x86_64-linux-gnu-ld" "x86_64-linux-gnu-gprof" "x86_64-linux-gnu-gold" "x86_64-linux-gnu-gcov-tool-10" "x86_64-linux-gnu-gcov-dump-10" "x86_64-linux-gnu-gcov-10" "x86_64-linux-gnu-gcc-ranlib-10" "x86_64-linux-gnu-gcc-nm-10" "x86_64-linux-gnu-gcc-ar-10" "x86_64-linux-gnu-gcc-10" "x86_64-linux-gnu-g++-10" "x86_64-linux-gnu-elfedit" "x86_64-linux-gnu-dwp" "x86_64-linux-gnu-cpp-10" "x86_64-linux-gnu-c++filt" "x86_64-linux-gnu-as" "x86_64-linux-gnu-ar" "x86_64-linux-gnu-addr2line" "update-mime-database" "update-desktop-database" "udisksctl" "strip" "strings" "sprof" "splain" "sotruss" "size" "shasum" "select-default-iwrap" "rpcgen" "readelf" "ranlib" "ptargrep" "ptardiff" "ptar" "prove" "podselect" "podchecker" "pod2usage" "pod2text" "pod2man" "pod2html" "pl2pm" "pkg-config" "piconv" "perlthanks" "perlivp" "perldoc" "perlbug" "perl5.30-x86_64-linux-gnu" "pcre2-config" "pcre-config" "objdump" "objcopy" "nm" "mtrace" "m17n-db" "lto-dump-10" "lsof" "libnetcfg" "ld.gold" "ld.bfd" "ld" "json_pp" "ispell-wrapper" "instmodsh" "h2xs" "h2ph" "gtk-update-icon-cache" "gtester-report" "gtester" "gsettings" "gresource" "gprof" "gold" "gobject-query" "glib-mkenums" "glib-gettextize" "glib-genmarshal" "glib-compile-schemas" "glib-compile-resources" "gio-querymodules" "gio" "gencat" "gdbus-codegen" "gdbus" "gcov-tool-10" "gcov-dump-10" "gcov-10" "gcc-ranlib-10" "gcc-nm-10" "gcc-ar-10" "gcc-10" "gapplication" "g++-10" "fc-validate" "fc-scan" "fc-query" "fc-pattern" "fc-match" "fc-list" "fc-conflist" "fc-cat" "fc-cache" "etags" "encguess" "enc2xs" "emacsclient-wayland" "emacsclient-gtk" "emacsclient" "emacs-wayland" "emacs-gtk" "emacs-29.3" "emacs" "elfedit" "ebrowse" "dwp" "dotlockfile" "desktop-file-validate" "desktop-file-install" "desktop-file-edit" "ctags" "cpp-10" "cpan5.30-x86_64-linux-gnu" "cpan" "corelist" "c++filt" "as" "ar" "addr2line" "X11/" "../" "./")
+ ("/home/lira0003/" (26209 38087 872521 706000) ".pki/" ".bnd/" "Documents/" "Pictures/" ".fonts/" ".emacs.d/" "Videos/" ".p2/" ".rustup/" ".swt/" ".gitconfig" ".zotero/" ".cargo/" ".ssh/" ".lesshst" ".sudo_as_admin_successful" ".cache/" ".stack/" ".bash_history" ".bashrc" ".npm/" ".nvm/" ".shutter/" ".ipython/" ".profile" ".config/" "Downloads/" "eclipse/" "Desktop/" "snap/" "bwSyncShare/" ".var/" ".m2/" "eclipse-workspace/" ".gtkrc-2.0" ".xinitrc" "Public/" "Zotero/" ".icons/" ".tmux.conf" "./" ".jupyter/" "Projects/" ".eclipse/" ".local/" ".keras/" "Music/" "../" ".gnupg/" "go/" ".meteostat/")
 
  ("c:/Users/lira0003/AppData/Roaming/.emacs.d/" (26126 33925 0 0) "transient/" "tramp" "snippets/" "smex-items" "server/" "README.org" "init.el" "ido.last" "elpa/" "auto-save-list/" ".gitignore" ".git/" "../" "./")
 

@@ -1,21 +1,21 @@
 
 ;; ----- smex-history -----
 (
- goto-line
- fringe-mode
- magit
- eval-buffer
+ load-theme
+ package-delete
  package-install
- org-mode
- comment-line
+ rainbow-mode
+ rust-mode
+ treesit-install-language-grammar
+ python-ts-mode
 )
 
 ;; ----- smex-data -----
 (
  (package-list-packages . 1)
- (package-install . 37)
+ (package-install . 46)
  (isearch-query-replace . 1)
- (package-refresh-contents . 2)
+ (package-refresh-contents . 5)
  (which-key-setup-side-window-right . 1)
  (term . 8)
  (rc/set-up-whitespace-handling . 1)
@@ -23,7 +23,7 @@
  (kill-buffer . 2)
  (line-number-mode . 4)
  (whitespace-cleanup . 12)
- (load-theme . 19)
+ (load-theme . 22)
  (linum-relative-mode . 2)
  (goto-line . 4)
  (describe-font . 1)
@@ -49,25 +49,25 @@
  (uncomment-region . 1)
  (org-mode . 5)
  (dired-prev-subdir . 1)
- (dired . 2)
+ (dired . 3)
  (dired-preview-mode . 5)
  (dired-preview-global-mode . 1)
  (switch-to-buffer . 1)
  (fringe-mode . 3)
  (magit-commit . 1)
  (vertico-mode . 1)
- (package-delete . 1)
- (comment-line . 7)
+ (package-delete . 2)
+ (comment-line . 9)
  (LaTeX-mode . 1)
  (latex-mode . 1)
  (js-mode . 1)
  (tree-sitter-mode . 1)
- (rust-mode . 1)
+ (rust-mode . 2)
  (tree-sitter-hl-mode . 6)
  (rust-ts-mode . 1)
  (find-file . 1)
  (modus-themes-select . 1)
- (python-mode . 2)
+ (python-mode . 4)
  (magit-pull . 1)
  (find-grep . 1)
  (format-write-file . 1)
@@ -75,4 +75,9 @@
  (global-set-key . 2)
  (vterm . 2)
  (eval-buffer . 4)
+ (lsp-mode . 1)
+ (python-ts-mode . 1)
+ (treesit-install-language-grammar . 1)
+ (lsp-goto-type-definition . 1)
+ (rainbow-mode . 1)
 )
