@@ -5,12 +5,9 @@
 (load "~/.emacs.d/local/packages.el")
 (load "~/.emacs.d/local/keymaps.el")
 (load "~/.emacs.d/local/settings.el")
-(load "~/.emacs.d/local/helpers.el")
+(load "~/.emacs.d/local/utils.el")
 (load "~/.emacs.d/local/ui.el")
 (load "~/.emacs.d/local/lsp.el")
-
-;; ---------------------------------------------------------------------------------
-;; ---------------------------------------------------------------------------------
 
 (custom-set-variables
  '(custom-safe-themes
