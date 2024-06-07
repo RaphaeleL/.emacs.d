@@ -1,3 +1,8 @@
+(load "~/.emacs.d/local/rc.el")
+
+;; Theme
+(rc/require-theme 'gruber-darker)
+
 ;; No Startup Message
 (setq inhibit-startup-message t)
 (setq initial-scratch-message "")
