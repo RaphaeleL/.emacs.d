@@ -8,6 +8,7 @@ eln-cache/
 ido.last
 smex-items
 transient/
+eshell/
 
 *~
 *.elc
