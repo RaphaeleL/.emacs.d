@@ -3,6 +3,7 @@
 (add-to-list 'load-path "~/.emacs.d/local/")
 
 (load "~/.emacs.d/local/init.el")
+(load "~/.emacs.d/local/helpers.el")
 (load "~/.emacs.d/local/settings.el")
 (load "~/.emacs.d/local/ui.el")
 (load "~/.emacs.d/local/lsp.el")

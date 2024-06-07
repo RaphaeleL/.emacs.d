@@ -7,3 +7,4 @@
 (rc/require 'magit)
 (rc/require 'rainbow-mode)
 (rc/require 'smex)
+(rc/require 'mood-line)
