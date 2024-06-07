@@ -1,3 +1,14 @@
+(load "~/.emacs.d/local/rc.el")
+
+;; Require Packages
+(rc/require 'simpleclip)
+(rc/require 'multiple-cursors)
+(rc/require 'move-text)
+(rc/require 'magit)
+(rc/require 'rainbow-mode)
+(rc/require 'smex)
+(rc/require 'mood-line)
+
 ;; Dired
 (use-package dired
   :ensure nil

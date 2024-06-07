@@ -19,7 +19,8 @@
               ("<f5>" . recompile)
               ("<f6>" . eglot-format))
   :hook ((c++-ts-mode . eglot-ensure)
-	 (c++-ts-mode . company-mode))
+	 (c++-ts-mode . company-mode)
+	 (c++-ts-mode . c++-mode))
   :mode (("\\.cpp\\'" . c++-ts-mode)))
 
 ;; TODO
