@@ -9,6 +9,7 @@ ido.last
 smex-items
 transient/
 eshell/
+.mc-lists.el
 
 *~
 *.elc
