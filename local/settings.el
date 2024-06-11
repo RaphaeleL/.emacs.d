@@ -23,6 +23,10 @@
 (defvar file-name-handler-alist-original file-name-handler-alist)
 (setq file-name-handler-alist nil)
 
+;; Default Window Size
+(add-to-list 'default-frame-alist '(height . 30))
+(add-to-list 'default-frame-alist '(width . 95)) 
+
 ;; Defer Garbage Collection
 (setq gc-cons-threshold 100000000)
 
