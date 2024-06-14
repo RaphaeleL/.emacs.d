@@ -1,6 +1,9 @@
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+;; Default Dir
+(setq default-directory "~/")
+
 ;; Smooth Scroll - Vertical
 (setq scroll-step 1)
 (setq scroll-margin 1)
