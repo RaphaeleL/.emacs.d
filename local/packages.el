@@ -1,5 +1,10 @@
 (load "~/.emacs.d/local/rc.el")
 
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+(when (< emacs-major-version 27)
+  (package-initialize))
+
 ;; Require Packages
 (rc/require 'simpleclip)
 (rc/require 'multiple-cursors)
