@@ -10,10 +10,8 @@
 (rc/require 'multiple-cursors)
 (rc/require 'move-text)
 (rc/require 'magit)
-(rc/require 'rainbow-mode)
 (rc/require 'smex)
 (rc/require 'mood-line)
-(rc/require 'doom-themes)
 
 ;; Dired
 (use-package dired
