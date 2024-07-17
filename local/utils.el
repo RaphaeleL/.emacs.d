@@ -2,7 +2,7 @@
 (defun get-default-font ()
   (cond
    ((eq system-type 'windows-nt) "Iosevka-12")
-   ((eq system-type 'darwin) "Iosevka-14")
+   ((eq system-type 'darwin) "Iosevka-16")
    ((eq system-type 'gnu/linux) "Iosevka-12")))
 
 ;; Deutsche Mac Tastatur

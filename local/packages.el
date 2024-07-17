@@ -13,6 +13,7 @@
 (rc/require 'rainbow-mode)
 (rc/require 'smex)
 (rc/require 'mood-line)
+(rc/require 'doom-themes)
 
 ;; Dired
 (use-package dired

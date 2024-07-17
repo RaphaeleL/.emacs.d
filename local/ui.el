@@ -2,6 +2,7 @@
 
 ;; Theme
 (rc/require-theme 'gruber-darker)
+(set-background-color "#1e1e1e")
 
 ;; No Startup Message
 (setq inhibit-startup-message t)
