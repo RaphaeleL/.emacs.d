@@ -65,3 +65,7 @@
             (add-hook 'minibuffer-setup-hook #'gc-minibuffer-setup-hook)
             (add-hook 'minibuffer-exit-hook #'gc-minibuffer-exit-hook)))
 
+;; Store automatic customisation options elsewhere
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
