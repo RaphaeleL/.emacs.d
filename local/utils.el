@@ -11,3 +11,5 @@
 	  mac-option-modifier 'none
 	  default-input-method "MacOSX"))
 
+;; Enable mouse-support.
+(setq eat-enable-mouse t)

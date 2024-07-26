@@ -4,6 +4,9 @@
 (rc/require-theme 'gruber-darker)
 (set-background-color "#1e1e1e")
 
+;; No Fringes
+(set-fringe-mode 0)
+
 ;; No Startup Message
 (setq inhibit-startup-message t)
 (setq initial-scratch-message "")
@@ -13,9 +16,6 @@
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (menu-bar-mode -1)
-
-;; Theme
-(load-theme 'gruber-darker 1)
 
 ;; Mode Line
 (mood-line-mode 1)

@@ -8,6 +8,7 @@
 (load "~/.emacs.d/local/utils.el")
 (load "~/.emacs.d/local/ui.el")
 (load "~/.emacs.d/local/lsp.el")
+(load "~/.emacs.d/local/modes.el")
 
 
 (custom-set-variables
