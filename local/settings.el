@@ -1,3 +1,7 @@
+;; Resize Options
+(setq window-resize-pixelwise t)
+(setq frame-resize-pixelwise t)
+
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
