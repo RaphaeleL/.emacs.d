@@ -12,6 +12,8 @@
 (rc/require 'magit)
 (rc/require 'smex)
 (rc/require 'mood-line)
+(rc/require 'web-mode)
+(rc/require 'flycheck)
 
 ;; Dired
 (use-package dired

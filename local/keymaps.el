@@ -6,9 +6,6 @@
      (progn (forward-visible-line 0) (point))
      (progn (forward-visible-line 1) (point)))))
 
-;; Cua
-(cua-mode t)
-
 ;; Simplify yes/no Prompts
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq use-dialog-box nil)
