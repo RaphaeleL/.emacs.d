@@ -65,6 +65,9 @@
 ;; Magit
 (global-set-key (kbd "C-c g") 'magit)
 
+;; Better Compile
+(global-set-key (kbd "C-x m") 'compile)
+
 ;; Selection
 (global-set-key (kbd "M-w") 'mark-word)
 (global-set-key (kbd "M-a") 'mark-page)
