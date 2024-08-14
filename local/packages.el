@@ -14,6 +14,8 @@
 (rc/require 'mood-line)
 (rc/require 'web-mode)
 (rc/require 'flycheck)
+(rc/require 'modus-themes)
+(rc/require 'spacious-padding)
 
 ;; Dired
 (use-package dired
