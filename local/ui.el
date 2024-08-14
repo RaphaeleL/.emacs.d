@@ -1,24 +1,26 @@
 (load "~/.emacs.d/local/rc.el")
 
 ;; Theme
-(rc/require-theme 'gruber-darker)
-(set-background-color "#1e1e1e")
+;; (rc/require-theme 'gruber-darker)
+;; (set-background-color "#1e1e1e")
+(load-theme 'modus-operandi-tinted)
+
+;; Mode Line
+(mood-line-mode 1)
+(spacious-padding-mode 1)
 
 ;; No Fringes
 (set-fringe-mode 0)
 
 ;; No Startup Message
 (setq inhibit-startup-message t)
-(setq initial-scratch-message "")
+;; (setq initial-scratch-message "")
 
 ;; Cleanup the UI
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (menu-bar-mode -1)
-
-;; Mode Line
-(mood-line-mode 1)
 
 ;; Font
 (add-to-list 'default-frame-alist `(font . ,(get-default-font)))
