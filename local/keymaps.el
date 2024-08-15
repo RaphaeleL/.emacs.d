@@ -26,7 +26,7 @@
 (global-set-key (kbd "C-<tab>") 'next-buffer)
 (global-set-key (kbd "C-<iso-lefttab>") 'previous-buffer)
 (global-set-key (kbd "C-c i") 'ibuffer)
-(global-set-key (kbd "C-c l") 'switch-to-buffer)
+(global-set-key (kbd "C-c l") 'counsel-switch-buffer)  ;; switch-to-buffer
 
 ;; Close window
 (global-set-key (kbd "C-c 0") 'delete-window)

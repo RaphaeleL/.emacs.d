@@ -13,3 +13,11 @@
 
 ;; Enable mouse-support.
 (setq eat-enable-mouse t)
+
+;; Which Key
+(which-key-mode 1)
+
+;; Completion
+(vertico-mode 1)
+(marginalia-mode 1)
+(counsel-mode 1)

@@ -1,8 +1,6 @@
 (load "~/.emacs.d/local/rc.el")
 
 ;; Theme
-;; (rc/require-theme 'gruber-darker)
-;; (set-background-color "#1e1e1e")
 (load-theme 'modus-operandi-tinted)
 
 ;; Mode Line
@@ -25,19 +23,8 @@
 ;; Font
 (add-to-list 'default-frame-alist `(font . ,(get-default-font)))
 
-;; Ido Mode for Files
-(ido-mode 1)
-(ido-everywhere 1)
-
 ;; Package Manager
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-
-;; Ido Mode for M-x
-(smex-initialize)
-
-;; Line Numbering
-(global-display-line-numbers-mode 1)
-(setq display-line-numbers-type 'relative)
 
 ;; Bigger Font
 (set-face-attribute 'default nil :height 130)
@@ -49,3 +36,33 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
+;; Whitespace
+(use-package whitespace
+  :ensure nil
+  :bind
+  (("<f6>" . whitespace-mode)
+   ("C-c z" . delete-trailing-whitespace))
+  :config
+  (setq whitespace-style
+        '(face
+          tabs
+          spaces
+          tab-mark
+          space-mark
+          trailing
+          missing-newline-at-eof
+          space-after-tab::tab
+          space-after-tab::space
+          space-before-tab::tab
+          space-before-tab::space)))
+
+;; Line numbers on the side of the window
+(use-package display-line-numbers
+  :ensure nil
+  :bind
+  ("<f7>" . display-line-numbers-mode)
+  :config
+  (setq-default display-line-numbers-type 'relative)
+  (setq display-line-numbers-major-tick 0)
+  (setq display-line-numbers-minor-tick 0)
+  (setq-default display-line-numbers-widen t))
