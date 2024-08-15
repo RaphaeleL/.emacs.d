@@ -11,6 +11,13 @@
 	  mac-option-modifier 'none
 	  default-input-method "MacOSX"))
 
+;; Magit in Fullscreen
+(defun my-magit-status ()
+  "Don't split window."
+  (interactive)
+  (let ((pop-up-windows nil))
+    (call-interactively 'magit-status)))
+
 ;; Enable mouse-support.
 (setq eat-enable-mouse t)
 
