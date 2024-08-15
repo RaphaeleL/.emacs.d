@@ -19,8 +19,8 @@
 (global-set-key (kbd "C-x C-d") 'dired)
 
 ;; Magit
-(global-set-key (kbd "C-c g") 'my-magit-status)
-(global-set-key (kbd "C-c C-g") 'my-magit-log-all)
+(global-set-key (kbd "C-c g") 'magit-status)
+(global-set-key (kbd "C-c C-g") 'magit-log-all)
 
 ;; Buffer Navigation
 (global-set-key (kbd "C-<tab>") 'next-buffer)
