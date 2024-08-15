@@ -13,8 +13,8 @@
  '(package-selected-packages
    '(auctex company consult counsel flycheck fontaine magit marginalia
 	    markdown-mode modus-themes mood-line move-text
-	    multiple-cursors orderless simpleclip spacious-padding
-	    vertico web-mode)))
+	    multiple-cursors orderless rainbow-delimiters rainbow-mode
+	    simpleclip spacious-padding vertico web-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
