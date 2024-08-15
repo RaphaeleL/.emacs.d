@@ -10,7 +10,11 @@
      "e27c9668d7eddf75373fa6b07475ae2d6892185f07ebed037eedf783318761d7"
      "1ea82e39d89b526e2266786886d1f0d3a3fa36c87480fad59d8fab3b03ef576e"
      default))
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(auctex company consult counsel flycheck fontaine magit marginalia
+	    markdown-mode modus-themes mood-line move-text
+	    multiple-cursors orderless simpleclip spacious-padding
+	    vertico web-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

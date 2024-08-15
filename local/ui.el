@@ -12,7 +12,8 @@
 
 ;; No Startup Message
 (setq inhibit-startup-message t)
-;; (setq initial-scratch-message "")
+(setq initial-scratch-message "")
+(setq initial-major-mode 'text-mode)
 
 ;; Cleanup the UI
 (scroll-bar-mode -1)
