@@ -28,8 +28,8 @@
 (global-set-key (kbd "M-z") 'undo)
 
 ;; Shorter Versions of given Keymaps
-(global-set-key (kbd "C-.") 'find-file)
-(global-set-key (kbd "C-d") 'dired)
+(global-set-key (kbd "C-,") 'find-file)
+(global-set-key (kbd "C-.") 'dired)
 (global-set-key (kbd "C-g") 'magit)
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "C-c j") 'join-line)
