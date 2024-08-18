@@ -23,3 +23,4 @@
 (rc/require 'modus-themes)
 (rc/require 'spacious-padding)
 (rc/require 'rainbow-delimiters)
+(rc/require 'which-key)
