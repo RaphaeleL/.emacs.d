@@ -2,8 +2,12 @@
 (defun get-default-font ()
   (cond
    ((eq system-type 'windows-nt) "Iosevka-12")
-   ((eq system-type 'darwin) "Iosevka-16")
+   ((eq system-type 'darwin) "SF Mono-14")
    ((eq system-type 'gnu/linux) "Iosevka-12")))
+
+;; (set-face-attribute 'default nil :font "Iosevka-16")
+;; (set-face-attribute 'default nil :font "SF Mono-12")
+;; (set-face-attribute 'default nil :font "SF Mono-16" :width 'semi-condensed)
 
 ;; Deutsche Mac Tastatur
 (if (eq system-type 'darwin)
