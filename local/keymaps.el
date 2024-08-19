@@ -12,7 +12,8 @@
 (setq use-dialog-box nil)
 
 ;; Dired
-(define-key dired-mode-map (kbd "N") 'dired-create-empty-file)
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
 
 ;; Selection
 (global-set-key (kbd "M-w") 'mark-word)
