@@ -30,7 +30,7 @@
 ;; Shorter Versions of given Keymaps
 (global-set-key (kbd "C-,") 'find-file)
 (global-set-key (kbd "C-.") 'dired)
-(global-set-key (kbd "C-g") 'magit)
+;; (global-set-key (kbd "C-g") 'magit)
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "C-c j") 'join-line)
 (global-set-key (kbd "C-c n") 'duplicate-line)
