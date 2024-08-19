@@ -1,7 +1,7 @@
 (load "~/.emacs.d/local/rc.el")
 
 ;; Theme
-(load-theme 'modus-operandi-tinted)
+(load-theme 'modus-operandi)
 
 ;; Mode Line
 (mood-line-mode 1)

@@ -19,7 +19,7 @@
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+ ;; If there is more than one, they won't work right. 
  '(fringe ((t :background "#fbf7f0")))
  '(header-line ((t :box (:line-width 4 :color "#efe9dd" :style nil))))
  '(header-line-highlight ((t :box (:color "#000000"))))
