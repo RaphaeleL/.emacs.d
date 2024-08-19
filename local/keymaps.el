@@ -11,6 +11,9 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq use-dialog-box nil)
 
+;; Dired
+(define-key dired-mode-map (kbd "N") 'dired-create-empty-file)
+
 ;; Selection
 (global-set-key (kbd "M-w") 'mark-word)
 (global-set-key (kbd "M-a") 'mark-page)
