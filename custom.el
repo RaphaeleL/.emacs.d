@@ -11,8 +11,9 @@
  '(package-selected-packages
    '(auctex catppuccin-theme company consult counsel doom-themes flycheck
 	    magit marginalia markdown-mode modus-themes mood-line
-	    move-text multiple-cursors orderless rainbow-delimiters
-	    simpleclip spacious-padding vertico web-mode)))
+	    move-text multiple-cursors orderless perfect-margin
+	    rainbow-delimiters simpleclip spacious-padding vertico
+	    web-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

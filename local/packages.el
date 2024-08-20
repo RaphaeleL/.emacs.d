@@ -26,3 +26,4 @@
 (rc/require 'spacious-padding)
 (rc/require 'rainbow-delimiters)
 (rc/require 'doom-themes)
+(rc/require 'perfect-margin)
