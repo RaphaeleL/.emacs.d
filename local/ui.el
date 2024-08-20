@@ -5,6 +5,9 @@
 
 ;; Mode Line
 (mood-line-mode 1)
+
+;; Margin & Padding
+(perfect-margin-mode 0)
 (spacious-padding-mode 1)
 
 ;; No Fringes
