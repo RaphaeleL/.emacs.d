@@ -10,6 +10,7 @@
 (rc/require 'multiple-cursors)
 (rc/require 'move-text)
 (rc/require 'magit)
+(rc/require 'which-key)
 
 (rc/require 'vertico)
 (rc/require 'marginalia)
@@ -17,10 +18,11 @@
 (rc/require 'consult)
 (rc/require 'orderless)
 
-(rc/require 'mood-line)
 (rc/require 'web-mode)
 (rc/require 'flycheck)
+
+(rc/require 'mood-line)
 (rc/require 'modus-themes)
 (rc/require 'spacious-padding)
 (rc/require 'rainbow-delimiters)
-(rc/require 'which-key)
+(rc/require 'doom-themes)
