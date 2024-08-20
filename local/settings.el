@@ -31,8 +31,8 @@
 (setq file-name-handler-alist nil)
 
 ;; Default Window Size
-(add-to-list 'default-frame-alist '(height . 30))
-(add-to-list 'default-frame-alist '(width . 95)) 
+(add-to-list 'default-frame-alist '(height . 45))
+(add-to-list 'default-frame-alist '(width . 160)) 
 
 ;; Defer Garbage Collection
 (setq gc-cons-threshold 100000000)
