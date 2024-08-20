@@ -27,12 +27,6 @@
 ;; Package Manager
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
-;; Bigger Font
-;; (set-face-attribute 'default nil :height 130)
-
-;; Window Size
-;; (when window-system (set-frame-size (selected-frame) 120 60))
-
 ;; Disable Backup and Autosave Settings
 (setq make-backup-files nil)
 (setq auto-save-default nil)
