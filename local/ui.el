@@ -3,6 +3,10 @@
 ;; Theme
 (load-theme 'modus-operandi)
 
+;; Default Window Size
+(add-to-list 'default-frame-alist '(height . 45))
+(add-to-list 'default-frame-alist '(width . 160)) 
+
 ;; Mode Line
 (mood-line-mode 1)
 

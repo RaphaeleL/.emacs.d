@@ -8,31 +8,12 @@
 ;; Default Dir
 (setq default-directory "~/")
 
-;; Smooth Scroll - Vertical
-(setq scroll-step 1)
-(setq scroll-margin 1)
-(setq scroll-conservatively 101)
-(setq scroll-up-aggressively 0.01)
-(setq scroll-down-aggressively 0.01)
-(setq auto-window-vscroll nil)
-(setq fast-but-imprecise-scrolling nil)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-(setq mouse-wheel-progressive-speed nil)
-
-;; Smooth Scroll - Horizontal
-(setq hscroll-step 1)
-(setq hscroll-margin 1)
-
 ;; Disable package-enable-at-startup
 (setq package-enable-at-startup nil)
 
 ;; Unset file-name-handler-alist
 (defvar file-name-handler-alist-original file-name-handler-alist)
 (setq file-name-handler-alist nil)
-
-;; Default Window Size
-(add-to-list 'default-frame-alist '(height . 45))
-(add-to-list 'default-frame-alist '(width . 160)) 
 
 ;; Defer Garbage Collection
 (setq gc-cons-threshold 100000000)
