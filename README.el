@@ -255,8 +255,7 @@
 (add-hook 'c-mode-hook #'eglot-ensure)
 (add-hook 'c++-mode-hook #'eglot-ensure)
 
-(unless (package-installed-p 'company)
-  (package-install 'company))
+(rc/require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
 (with-eval-after-load 'company
