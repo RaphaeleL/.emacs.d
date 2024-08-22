@@ -1,5 +1,6 @@
 #+TITLE: My GNU Emacs Configuration
 #+AUTHOR: Raphaele Salvatore Licciardo, M.Sc.
+#+DESCRIPTION: Configuration for GNU Emacs.
 
 * Introduction
 
