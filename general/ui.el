@@ -1,4 +1,4 @@
-(load "~/.emacs.d/local/rc.el")
+(load "~/.emacs.d/general/rc.el")
 
 ;; Theme
 (load-theme 'modus-operandi)

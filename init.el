@@ -1,12 +1,11 @@
 (package-initialize)
 
-(add-to-list 'load-path "~/.emacs.d/local/")
+(add-to-list 'load-path "~/.emacs.d/general/")
 
-(load "~/.emacs.d/local/packages.el")
-(load "~/.emacs.d/local/keymaps.el")
-(load "~/.emacs.d/local/settings.el")
-(load "~/.emacs.d/local/utils.el")
-(load "~/.emacs.d/local/ui.el")
-(load "~/.emacs.d/local/lsp.el")
-(load "~/.emacs.d/local/modes.el")
-
+(load "~/.emacs.d/general/packages.el")
+(load "~/.emacs.d/general/keymaps.el")
+(load "~/.emacs.d/general/settings.el")
+(load "~/.emacs.d/general/utils.el")
+(load "~/.emacs.d/general/ui.el")
+(load "~/.emacs.d/general/lsp.el")
+(load "~/.emacs.d/general/modes.el")
