@@ -1,4 +1,4 @@
-(load "~/.emacs.d/local/rc.el")
+(load "~/.emacs.d/general/rc.el")
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
