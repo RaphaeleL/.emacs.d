@@ -5,11 +5,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7"
+   '("88f7ee5594021c60a4a6a1c275614103de8c1435d6d08cc58882f920e0cec65e"
+     "9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14"
+     "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7"
      "9a977ddae55e0e91c09952e96d614ae0be69727ea78ca145beea1aae01ac78d2"
      default))
  '(package-selected-packages
-   '(company counsel flycheck gruber-darker-theme magit marginalia
+   '(company counsel doom-themes flycheck gruber-darker-theme marginalia
 	     modus-themes mood-line move-text multiple-cursors
 	     orderless org-bullets perfect-margin simpleclip
 	     spacious-padding vertico web-mode)))
