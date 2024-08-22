@@ -87,6 +87,11 @@
 
 (rc/require 'mood-line)
 (mood-line-mode 1)
+;; (rc/require 'doom-modeline)
+;; (doom-modeline-mode 1)
+;; (setq doom-modeline-icons nil)
+;; (setq doom-modeline-major-mode-icon nil)
+;; (setq doom-modeline-buffer-encoding nil)
 
 (rc/require 'spacious-padding)
 (rc/require 'perfect-margin)
