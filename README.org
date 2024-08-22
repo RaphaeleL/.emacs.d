@@ -7,7 +7,18 @@
 This is my Configuration for GNU Emacs. 
 
 * Configuration 
-** Easier Handling 
+** Package  Handling 
+*** MELPA
+
+#+begin_src emacs-lisp
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(package-refresh-contents)
+(package-initialize)
+#+end_src
+
+*** Easier Package Handling
 
 Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/master/.emacs.rc/rc.el][Tsoding's Configuration]].
 
@@ -141,8 +152,10 @@ This section contains the User Interface settings for GNU Emacs.
 Choose a theme for GNU Emacs.
 
 #+begin_src emacs-lisp
-(rc/require 'modus-themes)
-(load-theme 'modus-operandi)
+;; (rc/require 'modus-themes)
+;; (load-theme 'modus-operandi)
+(rc/require 'doom-themes)
+(load-theme 'doom-one-light)
 #+end_src
 
 *** Default Window Size

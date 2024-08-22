@@ -1,3 +1,9 @@
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(package-refresh-contents)
+(package-initialize)
+
 (defvar rc/package-contents-refreshed nil)
 
 (defun rc/package-refresh-contents-once ()
@@ -71,8 +77,10 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-(rc/require 'modus-themes)
-(load-theme 'modus-operandi)
+;; (rc/require 'modus-themes)
+;; (load-theme 'modus-operandi)
+(rc/require 'doom-themes)
+(load-theme 'doom-one-light)
 
 (add-to-list 'default-frame-alist '(height . 45))
 (add-to-list 'default-frame-alist '(width . 160))
