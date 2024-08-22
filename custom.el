@@ -11,10 +11,11 @@
      "9a977ddae55e0e91c09952e96d614ae0be69727ea78ca145beea1aae01ac78d2"
      default))
  '(package-selected-packages
-   '(company counsel doom-themes flycheck gruber-darker-theme marginalia
-	     modus-themes mood-line move-text multiple-cursors
-	     orderless org-bullets perfect-margin simpleclip
-	     spacious-padding vertico web-mode)))
+   '(company counsel doom-modeline doom-themes flycheck
+	     gruber-darker-theme marginalia modus-themes mood-line
+	     move-text multiple-cursors orderless org-bullets
+	     perfect-margin simpleclip spacious-padding vertico
+	     web-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
