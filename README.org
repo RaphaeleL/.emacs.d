@@ -37,7 +37,12 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 #+end_src
 
 ** Settings
+
+This section contains the settings for GNU Emacs.
+
 *** Deutsche Mac Tastatur
+
+Enable the German Mac Keyboard Layout.
 
 #+begin_src emacs-lisp
 (if (eq system-type 'darwin)
@@ -48,6 +53,8 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 *** Resize Options
 
+Resize Windows and Frames pixelwise.
+
 #+begin_src emacs-lisp
 (setq window-resize-pixelwise t)
 (setq frame-resize-pixelwise t)
@@ -55,11 +62,15 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 *** Make ESC quit prompts
 
+Make the ESC key quit prompts.
+
 #+begin_src emacs-lisp
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 #+end_src
 
 *** Default Dir
+
+Set the default directory to the home directory.
 
 #+begin_src emacs-lisp
 (setq default-directory "~/")
@@ -67,11 +78,15 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 *** Disable package-enable-at-startup
 
+Disable package-enable-at-startup.
+
 #+begin_src emacs-lisp
 (setq package-enable-at-startup nil)
 #+end_src
 
 *** Unset file-name-handler-alist
+
+Unset file-name-handler-alist to speed up startup.
 
 #+begin_src emacs-lisp
 (defvar file-name-handler-alist-original file-name-handler-alist)
@@ -79,6 +94,8 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 #+end_src
 
 *** Garbage Collection
+
+Optimize garbage collection.
 
 #+begin_src emacs-lisp
 (setq gc-cons-threshold 100000000)
@@ -116,7 +133,12 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 #+end_src
 
 ** UI 
+
+This section contains the User Interface settings for GNU Emacs.
+
 *** Theme
+
+Choose a theme for GNU Emacs.
 
 #+begin_src emacs-lisp
 (rc/require 'modus-themes)
@@ -125,6 +147,8 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 *** Default Window Size
 
+Set the default window size.
+
 #+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(height . 45))
 (add-to-list 'default-frame-alist '(width . 160)) 
@@ -132,12 +156,16 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 *** Mode Line
 
+Set the mode line to be more informative.
+
 #+begin_src emacs-lisp
 (rc/require 'mood-line)
 (mood-line-mode 1)
 #+end_src
 
 *** Margin & Padding
+
+Set the margin and padding.
 
 #+begin_src emacs-lisp
 (rc/require 'spacious-padding)
@@ -148,11 +176,15 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 *** No Fringes
 
+Remove the fringes.
+
 #+begin_src emacs-lisp
 (set-fringe-mode 0)
 #+end_src
 
 *** No Startup Message
+
+Disable the startup message.
 
 #+begin_src emacs-lisp
 (setq inhibit-startup-message t)
@@ -162,6 +194,8 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 *** Cleanup the UI
 
+Remove the scroll bar, tool bar, tooltip, and menu bar.
+
 #+begin_src emacs-lisp
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -170,6 +204,8 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 #+end_src
 
 *** Font
+
+Set the default font.
 
 #+begin_src emacs-lisp
 (defun get-default-font ()
@@ -184,12 +220,16 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 *** Disable Backup and Autosave Settings
 
+Disable backup and autosave settings.
+
 #+begin_src emacs-lisp
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 #+end_src
 
 *** Whitespace
+
+Show whitespace characters.
 
 #+begin_src emacs-lisp
 (use-package whitespace
@@ -214,6 +254,8 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 *** Line numbers on the side of the window
 
+Show line numbers on the side of the window.
+
 #+begin_src emacs-lisp
 (use-package display-line-numbers
   :ensure nil
@@ -228,7 +270,11 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 *** Completion
 
+Customize the `M-X` completion.
+
 **** Vertico
+
+Enable Vertico for completion. It is a completion system that uses the minibuffer.
 
 #+begin_src emacs-lisp
 (rc/require 'vertico)
@@ -241,6 +287,8 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 ***** Orderless 
 
+Enable Orderless for completion. It is a completion style that uses fuzzy matching.
+
 #+begin_src emacs-lisp
 (rc/require 'orderless)
 (use-package orderless
@@ -251,6 +299,8 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 #+end_src
 
 **** Marginalia 
+
+Enable Marginalia for completion. It is a completion style that shows additional information in the minibuffer.
 
 #+begin_src emacs-lisp
 (rc/require 'marginalia)
@@ -265,6 +315,8 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 
 **** Counsel 
 
+Enable Counsel for completion. It is a completion system that uses the minibuffer.
+
 #+begin_src emacs-lisp
 (rc/require 'counsel)
 (use-package counsel
@@ -274,6 +326,9 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 #+end_src
 
 ** Keybindings 
+
+This section contains the keybindings for GNU Emacs.
+
 *** Helper Function
 
 #+begin_src emacs-lisp
@@ -422,6 +477,9 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 #+end_src
 
 ** LSP 
+
+This section contains the Language Server Protocol settings for GNU Emacs. So, we can use LSP features in Emacs like code completion, syntax checking, and more.
+
 *** LSP Support
 
 #+begin_src emacs-lisp
@@ -470,6 +528,9 @@ Handle Packages easier with `rc` from [[https://github.com/rexim/dotfiles/blob/m
 #+end_src
 
 ** Org Mode
+
+This section contains the settings for Org Mode.
+
 *** Enabling Org Bullets
 
 Org-bullets gives us attractive bullets rather than asterisks.
@@ -514,6 +575,8 @@ We want the same syntax highlighting in source blocks as in the native language 
 #+end_src
 
 *** Header Size 
+
+For each level of header, we want a different size.
 
 #+begin_src emacs-lisp
 (setq org-fontify-whole-heading-line t)
