@@ -97,7 +97,7 @@
 ; =============================================================================
 
 (rc/require 'doom-themes)
-(load-theme 'doom-one-light)
+(load-theme 'doom-one-light 1)
 
 (rc/require 'mood-line)
 (mood-line-mode 1)
@@ -126,6 +126,8 @@
    ((eq system-type 'gnu/linux) "Iosevka-12")))
 
 (add-to-list 'default-frame-alist `(font . ,(get-default-font)))
+
+(setq custom-safe-themes 1) 
 
 ; =============================================================================
 ; ===== Package Settings ======================================================
@@ -159,6 +161,12 @@
   (setq display-line-numbers-major-tick 0)
   (setq display-line-numbers-minor-tick 0)
   (setq-default display-line-numbers-widen t))
+
+(use-package dired
+  :ensure nil
+  :config
+  ()
+)
 
 ; =============================================================================
 ; ===== Completion Configuration ==============================================
@@ -305,14 +313,15 @@
 (rc/require 'flycheck)
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx?$" . web-mode))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" default)))
+   '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" default))
+ '(package-selected-packages
+   '(magit flycheck web-mode company which-key move-text simpleclip multiple-cursors counsel marginalia orderless vertico spacious-padding perfect-margin mood-line doom-themes)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
