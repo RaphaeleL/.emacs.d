@@ -309,6 +309,8 @@
 (add-hook 'c-mode-hook #'eglot-ensure)
 (add-hook 'c++-mode-hook #'eglot-ensure)
 
+(rc/require 'markdown-mode)
+
 (rc/require 'web-mode)
 (rc/require 'flycheck)
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
