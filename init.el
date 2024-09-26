@@ -56,6 +56,9 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
+(setq-default indent-tabs-mode t)
+(setq-default tab-width 4)
+
 ; =============================================================================
 ; ===== Garbage Collection ====================================================
 ; =============================================================================
@@ -168,9 +171,8 @@
   (setq dired-recursive-copies 'top)
   (setq dired-recursive-deletes 'top)
   (setq dired-dwim-target t)
-  (setq dired-listing-switches "-laGh1v --group-directories-first")
-  (setq ls-lisp-ignore-case t)
-)
+  (setq dired-listing-switches "-lah")
+  (setq ls-lisp-ignore-case t))
 
 ; =============================================================================
 ; ===== Completion Configuration ==============================================
@@ -325,29 +327,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14" default))
- '(package-selected-packages
-   '(magit flycheck web-mode company which-key move-text simpleclip multiple-cursors counsel marginalia orderless vertico spacious-padding perfect-margin mood-line doom-themes)))
+   '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14"
+	 default))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(fringe ((t :background "#fafafa")))
- '(header-line ((t :box (:line-width 4 :color "#e7e7e7" :style nil))))
- '(header-line-highlight ((t :box (:color "#383a42"))))
- '(keycast-key ((t)))
- '(line-number ((t :background "#fafafa")))
- '(mode-line ((t :box (:line-width 6 :color "#e7e7e7" :style nil))))
- '(mode-line-active ((t :box (:line-width 6 :color "#e7e7e7" :style nil))))
- '(mode-line-highlight ((t :box (:color "#383a42"))))
- '(mode-line-inactive ((t :box (:line-width 6 :color "#e1e1e1" :style nil))))
- '(tab-bar-tab ((t :box (:line-width 4 :color "#fafafa" :style nil))))
- '(tab-bar-tab-inactive ((t :box (:line-width 4 :color "#f0f0f0" :style nil))))
- '(tab-line-tab ((t)))
- '(tab-line-tab-active ((t)))
- '(tab-line-tab-inactive ((t)))
- '(vertical-border ((t :background "#fafafa" :foreground "#fafafa")))
- '(window-divider ((t (:background "#fafafa" :foreground "#fafafa"))))
- '(window-divider-first-pixel ((t (:background "#fafafa" :foreground "#fafafa"))))
- '(window-divider-last-pixel ((t (:background "#fafafa" :foreground "#fafafa")))))
+)
