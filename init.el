@@ -59,6 +59,35 @@
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 4)
 
+(rc/require 'magit)
+
+(setq whitespace-style
+      '(face
+        tabs
+        spaces
+        tab-mark
+        space-mark
+        trailing
+        missing-newline-at-eof
+        space-after-tab::tab
+        space-after-tab::space
+        space-before-tab::tab
+        space-before-tab::space))
+
+(defun rc/set-up-whitespace-handling ()
+  (interactive)
+  (whitespace-mode 1)
+  (add-to-list 'write-file-functions 'delete-trailing-whitespace))
+
+(add-hook 'c-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'c++-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'simpc-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'emacs-lisp-mode 'rc/set-up-whitespace-handling)
+(add-hook 'lua-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'rust-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'markdown-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'python-mode-hook 'rc/set-up-whitespace-handling)
+
 ; =============================================================================
 ; ===== Garbage Collection ====================================================
 ; =============================================================================
@@ -99,17 +128,12 @@
 ; ===== UI Configuration ======================================================
 ; =============================================================================
 
-(rc/require 'doom-themes)
-(load-theme 'doom-one-light 1)
-
 (rc/require 'mood-line)
 (mood-line-mode 1)
 
-(rc/require 'perfect-margin)
-(perfect-margin-mode 0)
-
-(rc/require 'spacious-padding)
-(spacious-padding-mode 1)
+; (rc/require-theme 'gruber-darker)
+(rc/require 'gruber-darker-theme)
+(load-theme 'gruber-darker 1)
 
 (set-fringe-mode 0)
 
@@ -136,34 +160,8 @@
 ; ===== Package Settings ======================================================
 ; =============================================================================
 
-(use-package whitespace
-  :ensure nil
-  :bind
-  (("<f6>" . whitespace-mode)
-   ("C-c z" . delete-trailing-whitespace))
-  :config
-  (setq whitespace-style
-        '(face
-          tabs
-          spaces
-          tab-mark
-          space-mark
-          trailing
-          missing-newline-at-eof
-          space-after-tab::tab
-          space-after-tab::space
-          space-before-tab::tab
-          space-before-tab::space)))
-
-(use-package display-line-numbers
-  :ensure nil
-  :bind
-  ("<f7>" . display-line-numbers-mode)
-  :config
-  (setq-default display-line-numbers-type 'relative)
-  (setq display-line-numbers-major-tick 0)
-  (setq display-line-numbers-minor-tick 0)
-  (setq-default display-line-numbers-widen t))
+(global-display-line-numbers-mode 1)
+(setq display-line-numbers-type 'relative)
 
 (use-package dired
   :ensure nil
@@ -178,34 +176,13 @@
 ; ===== Completion Configuration ==============================================
 ; =============================================================================
 
-(rc/require 'vertico)
-(use-package vertico
-    :ensure t
-    :config
-        (vertico-mode))
-(vertico-mode 1)
-
-(rc/require 'orderless)
-(use-package orderless
-  :ensure t
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
-
-(rc/require 'marginalia)
-(use-package marginalia
-    :bind (:map minibuffer-local-map
-            ("M-A" . marginalia-cycle))
-
-    :init
-        (marginalia-mode))
-(marginalia-mode 1)
-
-(rc/require 'counsel)
-(use-package counsel
-    :init
-        (counsel-mode))
-(counsel-mode 1)
+(rc/require 'smex 'ido-completing-read+)
+(require 'ido-completing-read+)
+(ido-mode 1)
+(ido-everywhere 1)
+(ido-ubiquitous-mode 1)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ; =============================================================================
 ; ===== Custom Keybindings ====================================================
@@ -282,7 +259,7 @@
 
 (rc/require 'which-key)
 (use-package which-key
-    :ensure nil ; built into Emacs 30
+    :ensure nil
     :hook (after-init . which-key-mode)
     :config
     (setq which-key-separator "  ")
@@ -321,6 +298,11 @@
 (rc/require 'flycheck)
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx?$" . web-mode))
+
+; =============================================================================
+; ===== Custom ================================================================
+; =============================================================================
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -335,4 +317,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
