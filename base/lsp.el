@@ -11,6 +11,9 @@
   (define-key eglot-mode-map (kbd "C-c C-r") 'eglot-rename)
   (define-key eglot-mode-map (kbd "C-c C-d") 'eldoc-doc-buffer))
 
+;; TODO: Remove inline hints in methods params
+;; add(a: 5, b: 2) --> add(5, 2)
+
 (add-hook 'python-mode-hook #'eglot-ensure)
 (add-hook 'c-mode-hook #'eglot-ensure)
 (add-hook 'c++-mode-hook #'eglot-ensure)

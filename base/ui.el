@@ -15,7 +15,7 @@
 (defun get-default-font ()
   (cond
    ((eq system-type 'windows-nt) "Iosevka-12")
-   ((eq system-type 'darwin) "Iosevka-18")
+   ((eq system-type 'darwin) "Iosevka-20")
    ((eq system-type 'gnu/linux) "Iosevka-12")))
 
 (add-to-list 'default-frame-alist `(font . ,(get-default-font)))
