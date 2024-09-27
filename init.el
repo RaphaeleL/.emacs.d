@@ -1,1 +1,2 @@
-(load "~/.emacs.d/templates/tsoding.el") ;; or choose 'doom'
+;; (load "~/.emacs.d/templates/tsoding.el")
+(load "~/.emacs.d/templates/doom.el")

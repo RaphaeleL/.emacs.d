@@ -8,6 +8,7 @@
 (load "~/.emacs.d/base/garbage.el")
 (load "~/.emacs.d/base/ui.el")
 (load "~/.emacs.d/base/base.el")
+(load "~/.emacs.d/base/mac.el")
 (load "~/.emacs.d/base/keymaps.el")
 (load "~/.emacs.d/base/lsp.el")
 (load "~/.emacs.d/base/custom.el")

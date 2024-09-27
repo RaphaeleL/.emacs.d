@@ -1,10 +1,5 @@
 (save-place-mode 1)
 
-(if (eq system-type 'darwin)
-    (setq mac-command-modifier 'meta
-	  mac-option-modifier 'none
-	  default-input-method "MacOSX"))
-
 (setq window-resize-pixelwise t)
 (setq frame-resize-pixelwise t)
 
