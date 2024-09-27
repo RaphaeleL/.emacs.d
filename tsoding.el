@@ -88,6 +88,10 @@
 (add-hook 'markdown-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'python-mode-hook 'rc/set-up-whitespace-handling)
 
+(if (window-system)
+	(set-frame-height (selected-frame) 45)
+    (set-frame-width (selected-frame) 150))
+
 ; =============================================================================
 ; ===== Garbage Collection ====================================================
 ; =============================================================================
