@@ -174,6 +174,10 @@
   (setq dired-listing-switches "-lah")
   (setq ls-lisp-ignore-case t))
 
+(if (window-system)
+	(set-frame-height (selected-frame) 45)
+    (set-frame-width (selected-frame) 150))
+
 ; =============================================================================
 ; ===== Completion Configuration ==============================================
 ; =============================================================================
