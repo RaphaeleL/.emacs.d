@@ -1,0 +1,17 @@
+(setq dired-recursive-copies 'top)
+(setq dired-recursive-deletes 'top)
+(setq dired-dwim-target t)
+(setq dired-listing-switches "-lah")
+(setq ls-lisp-ignore-case t)
+
+(setq which-key-separator "  ")
+(setq which-key-prefix-prefix "... ")
+(setq which-key-max-display-columns 3)
+(setq which-key-idle-delay 0.125)
+(setq which-key-idle-secondary-delay 0.25)
+(setq which-key-add-column-padding 1)
+(setq which-key-max-description-length 40)
+(which-key-mode t)
+
+(rc/require 'paredit)
+(paredit-mode 1)
