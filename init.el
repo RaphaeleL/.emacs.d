@@ -248,7 +248,6 @@
 (global-set-key (kbd "M-s") 'mark-paragraph)
 
 (global-set-key (kbd "C-c j") 'join-line)
-(global-set-key (kbd "C-c C-j") 'join-line)
 
 (global-set-key (kbd "M-z") 'undo)
 
