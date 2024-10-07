@@ -87,6 +87,11 @@
   (message "Pasted")
   (sit-for 1))
 
+(defun rc/colorize-compilation-buffer ()
+  (read-only-mode 'toggle)
+  (ansi-color-apply-on-region compilation-filter-start (point))
+  (read-only-mode 'toggle))
+
 ; ==================================================
 ; ===== PACKAGES ===================================
 ; ==================================================
@@ -249,22 +254,24 @@
 ; ===== HOOKS ======================================
 ; ==================================================
 
-(add-hook 'c-mode-hook           'eglot-ensure)
-(add-hook 'c++-mode-hook         'eglot-ensure)
-(add-hook 'python-mode-hook      'eglot-ensure)
+(add-hook 'c-mode-hook             'eglot-ensure)
+(add-hook 'c++-mode-hook           'eglot-ensure)
+(add-hook 'python-mode-hook        'eglot-ensure)
 
-(add-hook 'after-init-hook       'global-company-mode)
+(add-hook 'after-init-hook         'global-company-mode)
 
-(add-hook 'text-mode-hook        'rc/turn-on-paredit)
+(add-hook 'text-mode-hook          'rc/turn-on-paredit)
 
-(add-hook 'c-mode-hook           'rc/set-up-whitespace-handling)
-(add-hook 'c++-mode-hook         'rc/set-up-whitespace-handling)
-(add-hook 'simpc-mode-hook       'rc/set-up-whitespace-handling)
-(add-hook 'emacs-lisp-mode       'rc/set-up-whitespace-handling)
-(add-hook 'markdown-mode-hook    'rc/set-up-whitespace-handling)
-(add-hook 'text-mode-hook        'rc/set-up-whitespace-handling)
-(add-hook 'python-mode-hook      'rc/set-up-whitespace-handling)
-(add-hook 'emacs-lisp-mode-hook  'rc/set-up-whitespace-handling)
+(add-hook 'c-mode-hook             'rc/set-up-whitespace-handling)
+(add-hook 'c++-mode-hook           'rc/set-up-whitespace-handling)
+(add-hook 'simpc-mode-hook         'rc/set-up-whitespace-handling)
+(add-hook 'emacs-lisp-mode         'rc/set-up-whitespace-handling)
+(add-hook 'markdown-mode-hook      'rc/set-up-whitespace-handling)
+(add-hook 'text-mode-hook          'rc/set-up-whitespace-handling)
+(add-hook 'python-mode-hook        'rc/set-up-whitespace-handling)
+(add-hook 'emacs-lisp-mode-hook    'rc/set-up-whitespace-handling)
+
+(add-hook 'compilation-filter-hook 'rc/colorize-compilation-buffer)
 
 ; ==================================================
 ; ===== CUSTOM =====================================
