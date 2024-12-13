@@ -58,16 +58,16 @@
     (move-beginning-of-line 1)
     (forward-char column)))
 
-(defun rc/set-up-whitespace-handling ()
+(defun rc/on_save ()
   (interactive)
-  (whitespace-mode 1)
+;  (whitespace-mode 1)
   (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
 (defun rc/get-default-font ()
   (cond
-   ((eq system-type 'windows-nt) "Consolas-14")
+   ((eq system-type 'windows-nt) "Iosevka-14")
    ((eq system-type 'darwin) "Iosevka-20")
-   ((eq system-type 'gnu/linux) "Iosevka-20")))
+   ((eq system-type 'gnu/linux) "IosevkaNerdFont-12")))
 
 (defun rc/turn-on-paredit ()
   (interactive)
@@ -90,7 +90,8 @@
 (defun rc/colorize-compilation-buffer ()
   (read-only-mode 'toggle)
   (ansi-color-apply-on-region compilation-filter-start (point))
-  (read-only-mode 'toggle))
+  (read-only-mode 'toggle)
+)
 
 ; ==================================================
 ; ===== PACKAGES ===================================
@@ -101,11 +102,13 @@
 (rc/require 'company)
 (rc/require 'mood-line)
 (rc/require 'gruber-darker-theme)
+(rc/require 'modus-themes)
 (rc/require 'simpleclip)
 (rc/require 'move-text)
 (rc/require 'multiple-cursors)
 (rc/require 'paredit)
 (rc/require 'magit)
+(rc/require 'ansi-color)
 
 ; ==================================================
 ; ====== PACKAGE SETTINGS ==========================
@@ -114,7 +117,7 @@
 (setq dired-recursive-copies 'top)
 (setq dired-recursive-deletes 'top)
 (setq dired-dwim-target t)
-(setq dired-listing-switches "-lah")
+(setq dired-listing-switches "-laGh1v --group-directories-first")
 (setq ls-lisp-ignore-case t)
 
 (which-key-mode t)
@@ -139,6 +142,8 @@
       space-before-tab::tab
       space-before-tab::space))
 
+(setq compilation-scroll-output t)
+
 ; ==================================================
 ; ===== UI =========================================
 ; ==================================================
@@ -160,12 +165,18 @@
 
 (setq custom-safe-themes 1)
 
-(load-theme 'gruber-darker 1)
+;(load-theme 'gruber-darker 1)
+;(setq whitespace-mode 1)
+(load-theme 'modus-operandi 1)
+(set-face-attribute 'mode-line nil :box nil)
 
 (global-display-line-numbers-mode 1)
 (setq display-line-numbers-type 'relative)
 
 (fido-mode 1)
+
+(add-to-list 'default-frame-alist '(height . 40))
+(add-to-list 'default-frame-alist '(width . 120))
 
 ; ==================================================
 ; ===== BASIC SHIT =================================
@@ -188,18 +199,6 @@
 (setq-default tab-width 4)
 
 ; ==================================================
-; ===== MACOS STUFF ================================
-; ==================================================
-
-(if (eq system-type 'darwin)
-    (setq mac-command-modifier 'meta
-	  mac-option-modifier 'none
-	  default-input-method "MacOSX"))
-
-(if (eq system-type 'darwin)
-    (add-to-list 'exec-path "/opt/homebrew/bin/"))
-
-; ==================================================
 ; ===== KEYMAPS ====================================
 ; ==================================================
 
@@ -214,7 +213,7 @@
 (global-set-key (kbd "M-F") 'mark-defun)
 (global-set-key (kbd "M-s") 'mark-paragraph)
 
-(global-set-key (kbd "C-c j") 'join-line)
+(global-set-key (kbd "M-j") 'join-line)
 
 (global-set-key (kbd "M-z") 'undo)
 
@@ -224,12 +223,16 @@
 (global-set-key (kbd "C-c m") 'compile)
 (global-set-key (kbd "C-c s") 'shell-command)
 
-(global-set-key (kbd "M-+") (lambda () (interactive) (text-scale-increase 1)))
-(global-set-key (kbd "M--") (lambda () (interactive) (text-scale-decrease 1)))
+(global-set-key (kbd "C-´") (lambda () (interactive) (text-scale-increase 1)))
+(global-set-key (kbd "C-´") (lambda () (interactive) (text-scale-increase 1)))
+(global-set-key (kbd "C-+") (lambda () (interactive) (text-scale-increase 1)))
+(global-set-key (kbd "C--") (lambda () (interactive) (text-scale-decrease 1)))
 
 (global-set-key (kbd "C-c g") 'magit-status)
-(global-set-key (kbd "C-c C-g") 'magit-log-all)
+(global-set-key (kbd "C-c C-g") 'magit-log)
 
+(global-set-key (kbd "M-i") 'ibuffer)
+(global-set-key (kbd "M-l") 'switch-to-buffer)
 (global-set-key (kbd "C-c i") 'ibuffer)
 (global-set-key (kbd "C-c l") 'switch-to-buffer)
 
@@ -239,14 +242,18 @@
 (global-set-key (kbd "M-p") 'move-text-up)
 (global-set-key (kbd "M-n") 'move-text-down)
 
-(global-set-key (kbd "C-<") 'mc/mark-next-like-this)
-(global-set-key (kbd "C->") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-u") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-i") 'mc/mark-previous-like-this)
 (global-set-key (kbd "M-m") 'mc/mark-more-like-this-extended)
+
+(global-set-key (kbd "M-d") 'rc/duplicate-line)
+(global-set-key (kbd "M-r") 'rc/delete-line)
 
 ; ==================================================
 ; ===== LSP ========================================
 ; ==================================================
 
+(add-to-list 'exec-path "~/.local/bin")
 (with-eval-after-load 'company
   (setq company-backends '((company-capf company-dabbrev-code company-dabbrev))))
 
@@ -262,16 +269,22 @@
 
 (add-hook 'text-mode-hook          'rc/turn-on-paredit)
 
-(add-hook 'c-mode-hook             'rc/set-up-whitespace-handling)
-(add-hook 'c++-mode-hook           'rc/set-up-whitespace-handling)
-(add-hook 'simpc-mode-hook         'rc/set-up-whitespace-handling)
-(add-hook 'emacs-lisp-mode         'rc/set-up-whitespace-handling)
-(add-hook 'markdown-mode-hook      'rc/set-up-whitespace-handling)
-(add-hook 'text-mode-hook          'rc/set-up-whitespace-handling)
-(add-hook 'python-mode-hook        'rc/set-up-whitespace-handling)
-(add-hook 'emacs-lisp-mode-hook    'rc/set-up-whitespace-handling)
+(add-hook 'c-mode-hook             'rc/on_save)
+(add-hook 'c++-mode-hook           'rc/on_save)
+(add-hook 'simpc-mode-hook         'rc/on_save)
+(add-hook 'python-mode-hook        'rc/on_save)
+(add-hook 'markdown-mode-hook      'rc/on_save)
+(add-hook 'text-mode-hook          'rc/on_save)
+(add-hook 'emacs-lisp-mode-hook    'rc/on_save)
 
-(add-hook 'compilation-filter-hook 'rc/colorize-compilation-buffer)
+; ==================================================
+; ===== COLORIZE THE COMPILATION BUFFER ============
+; ==================================================
+
+(setq compilation-environment '("TERM=xterm-256color"))
+(defun my/advice-compilation-filter (f proc string)
+  (funcall f proc (xterm-color-filter string)))
+(advice-add 'compilation-filter :around #'my/advice-compilation-filter)
 
 ; ==================================================
 ; ===== CUSTOM =====================================
@@ -283,10 +296,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(magit multiple-cursors move-text simpleclip gruber-darker-theme)))
+   '(theme-changer yaml-mode jenkinsfile-mode xterm-color groovy-mode magit multiple-cursors move-text simpleclip gruber-darker-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
