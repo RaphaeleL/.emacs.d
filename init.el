@@ -130,7 +130,7 @@
 (setq dired-recursive-copies 'top)
 (setq dired-recursive-deletes 'top)
 (setq dired-dwim-target t)
-(setq dired-listing-switches "-laGh1v --group-directories-first")
+(setq dired-listing-switches "-laGh1Dv --group-directories-first")
 (setq ls-lisp-ignore-case t)
 
 (which-key-mode t)
