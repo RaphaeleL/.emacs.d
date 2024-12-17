@@ -65,7 +65,7 @@
 
 (defun rc/get-default-font ()
   (cond
-   ((eq system-type 'windows-nt) "Iosevka-14")
+   ((eq system-type 'windows-nt) "Iosevka-12")
    ((eq system-type 'darwin) "Iosevka-20")
    ((eq system-type 'gnu/linux) "IosevkaNerdFont-12")))
 
@@ -109,6 +109,19 @@
 (rc/require 'paredit)
 (rc/require 'magit)
 (rc/require 'ansi-color)
+
+; ==================================================
+; ====== SSH =======================================
+; ==================================================
+
+(setq tramp-default-method "ssh")
+(setq tramp-ssh-controlmaster-options "")
+(setq tramp-verbose 10)
+(defun open-devvm ()
+  "Open the CCMS README file via plink SSH."
+  (interactive)
+  (find-file "/plink:raliccia@10.26.15.66:/home/raliccia/"))
+(global-set-key (kbd "C-x C-r") 'open-devvm)
 
 ; ==================================================
 ; ====== PACKAGE SETTINGS ==========================
@@ -178,6 +191,18 @@
 (add-to-list 'default-frame-alist '(height . 40))
 (add-to-list 'default-frame-alist '(width . 120))
 
+(blink-cursor-mode 0)
+(setq x-stretch-cursor nil)
+
+(setq ring-bell-function 'ignore)
+
+(setq echo-keystrokes 0.01)
+
+(setq mouse-yank-at-point t)
+
+(setq window-resize-pixelwise t
+      frame-resize-pixelwise t)
+
 ; ==================================================
 ; ===== BASIC SHIT =================================
 ; ==================================================
@@ -242,8 +267,8 @@
 (global-set-key (kbd "M-p") 'move-text-up)
 (global-set-key (kbd "M-n") 'move-text-down)
 
-(global-set-key (kbd "C-u") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-i") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-next-like-this)
+(global-set-key (kbd "C->") 'mc/mark-previous-like-this)
 (global-set-key (kbd "M-m") 'mc/mark-more-like-this-extended)
 
 (global-set-key (kbd "M-d") 'rc/duplicate-line)
@@ -296,7 +321,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(theme-changer yaml-mode jenkinsfile-mode xterm-color groovy-mode magit multiple-cursors move-text simpleclip gruber-darker-theme)))
+   '(ssh theme-changer yaml-mode jenkinsfile-mode xterm-color groovy-mode magit multiple-cursors move-text simpleclip gruber-darker-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
