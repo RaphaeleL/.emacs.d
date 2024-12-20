@@ -60,7 +60,7 @@
 
 (defun rc/on_save ()
   (interactive)
-;  (whitespace-mode 1)
+  ;(whitespace-mode 1)
   (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
 (defun rc/get-default-font ()
@@ -103,12 +103,47 @@
 (rc/require 'mood-line)
 (rc/require 'gruber-darker-theme)
 (rc/require 'modus-themes)
+(rc/require 'doom-themes)
 (rc/require 'simpleclip)
 (rc/require 'move-text)
 (rc/require 'multiple-cursors)
 (rc/require 'paredit)
 (rc/require 'magit)
 (rc/require 'ansi-color)
+(rc/require 'vertico)
+(rc/require 'orderless)
+(rc/require 'marginalia)
+(rc/require 'counsel)
+
+; ==================================================
+; ====== MINIBUFFER ================================
+; ==================================================
+
+; (fido-mode 1)
+
+(use-package vertico
+    :ensure t
+    :config
+        (vertico-mode))
+(vertico-mode 1)
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package marginalia
+    :bind (:map minibuffer-local-map
+            ("M-A" . marginalia-cycle))
+    :init
+        (marginalia-mode))
+(marginalia-mode 1)
+
+(use-package counsel
+    :init
+        (counsel-mode))
+(counsel-mode 1)
 
 ; ==================================================
 ; ====== SSH =======================================
@@ -142,20 +177,38 @@
 (setq which-key-add-column-padding 1)
 (setq which-key-max-description-length 40)
 
-(setq whitespace-style
-    '(face
-      tabs
-      spaces
-      tab-mark
-      space-mark
-      trailing
-      missing-newline-at-eof
-      space-after-tab::tab
-      space-after-tab::space
-      space-before-tab::tab
-      space-before-tab::space))
+(use-package whitespace
+  :ensure nil
+  :bind
+  (("<f6>" . whitespace-mode)
+   ("C-c z" . delete-trailing-whitespace))
+  :config
+  (setq whitespace-style
+        '(face
+          tabs
+          spaces
+          tab-mark
+          space-mark
+          trailing
+          missing-newline-at-eof
+          space-after-tab::tab
+          space-after-tab::space
+          space-before-tab::tab
+          space-before-tab::space)))
 
 (setq compilation-scroll-output t)
+
+(use-package display-line-numbers
+  :ensure nil
+  :bind
+  ("<f7>" . display-line-numbers-mode)
+  :config
+  (setq-default display-line-numbers-type 'relative)
+  (setq display-line-numbers-major-tick 0)
+  (setq display-line-numbers-minor-tick 0)
+  (setq-default display-line-numbers-widen t)
+  :init
+  (global-display-line-numbers-mode 1))
 
 ; ==================================================
 ; ===== UI =========================================
@@ -178,15 +231,12 @@
 
 (setq custom-safe-themes 1)
 
-;(load-theme 'gruber-darker 1)
-;(setq whitespace-mode 1)
-(load-theme 'modus-operandi 1)
-(set-face-attribute 'mode-line nil :box nil)
+;(load-theme 'gruber-darker 0)
 
-(global-display-line-numbers-mode 1)
-(setq display-line-numbers-type 'relative)
+;(load-theme 'modus-operandi 1)
+;(set-face-attribute 'mode-line nil :box nil)
 
-(fido-mode 1)
+(load-theme 'doom-one-light 1)
 
 (add-to-list 'default-frame-alist '(height . 40))
 (add-to-list 'default-frame-alist '(width . 120))
@@ -321,7 +371,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ssh theme-changer yaml-mode jenkinsfile-mode xterm-color groovy-mode magit multiple-cursors move-text simpleclip gruber-darker-theme)))
+   '(doom-themes markdown-mode ssh theme-changer yaml-mode jenkinsfile-mode xterm-color groovy-mode magit multiple-cursors move-text simpleclip gruber-darker-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
