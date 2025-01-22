@@ -1,17 +1,29 @@
-(setq dired-recursive-copies 'top)
-(setq dired-recursive-deletes 'top)
-(setq dired-dwim-target t)
-(setq dired-listing-switches "-lah")
-(setq ls-lisp-ignore-case t)
+; ==================================================
+; ===== PACKAGES ===================================
+; ==================================================
 
-(setq which-key-separator "  ")
-(setq which-key-prefix-prefix "... ")
-(setq which-key-max-display-columns 3)
-(setq which-key-idle-delay 0.125)
-(setq which-key-idle-secondary-delay 0.25)
-(setq which-key-add-column-padding 1)
-(setq which-key-max-description-length 40)
-(which-key-mode t)
-
+(rc/require 'which-key)
+(rc/require 'simpleclip)
+(rc/require 'move-text)
+(rc/require 'multiple-cursors)
 (rc/require 'paredit)
-(paredit-mode 1)
+(rc/require 'magit)
+
+(rc/require 'eglot)
+(rc/require 'company)
+
+(rc/require 'mood-line)
+(rc/require 'gruber-darker-theme)
+(rc/require 'modus-themes)
+(rc/require 'doom-themes)
+(rc/require 'ansi-color)
+
+(rc/require 'vertico)
+(rc/require 'orderless)
+(rc/require 'marginalia)
+(rc/require 'counsel)
+
+(rc/require 'markdown-mode)
+; (rc/require 'yaml-mode)
+(rc/require 'dockerfile-mode)
+(rc/require 'jenkinsfile-mode)

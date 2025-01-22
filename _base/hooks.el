@@ -1,17 +1,23 @@
-(add-hook 'c-mode-hook           'rc/turn-on-paredit)
-(add-hook 'c++-mode-hook         'rc/turn-on-paredit)
-(add-hook 'simpc-mode-hook       'rc/turn-on-paredit)
-(add-hook 'emacs-lisp-mode       'rc/turn-on-paredit)
-(add-hook 'markdown-mode-hook    'rc/turn-on-paredit)
-(add-hook 'text-mode-hook        'rc/turn-on-paredit)
-(add-hook 'python-mode-hook      'rc/turn-on-paredit)
-(add-hook 'emacs-lisp-mode-hook  'rc/turn-on-paredit)
+; ==================================================
+; ===== HOOKS ======================================
+; ==================================================
 
-(add-hook 'c-mode-hook           'rc/set-up-whitespace-handling)
-(add-hook 'c++-mode-hook         'rc/set-up-whitespace-handling)
-(add-hook 'simpc-mode-hook       'rc/set-up-whitespace-handling)
-(add-hook 'emacs-lisp-mode       'rc/set-up-whitespace-handling)
-(add-hook 'markdown-mode-hook    'rc/set-up-whitespace-handling)
-(add-hook 'text-mode-hook        'rc/set-up-whitespace-handling)
-(add-hook 'python-mode-hook      'rc/set-up-whitespace-handling)
-(add-hook 'emacs-lisp-mode-hook  'rc/set-up-whitespace-handling)
+;; (add-hook 'c-mode-hook             'eglot-ensure)
+;; (add-hook 'c++-mode-hook           'eglot-ensure)
+;; (add-hook 'python-mode-hook        'eglot-ensure)
+
+(add-hook 'after-init-hook         'global-company-mode)
+
+(add-hook 'text-mode-hook          'rc/turn-on-paredit)
+
+(add-hook 'c-mode-hook             'rc/on_save)
+(add-hook 'c++-mode-hook           'rc/on_save)
+(add-hook 'simpc-mode-hook         'rc/on_save)
+(add-hook 'python-mode-hook        'rc/on_save)
+(add-hook 'markdown-mode-hook      'rc/on_save)
+(add-hook 'text-mode-hook          'rc/on_save)
+(add-hook 'emacs-lisp-mode-hook    'rc/on_save)
+(add-hook 'jenkinsfile-mode-hook   'rc/on_save)
+(add-hook 'dockerfile-mode-hook    'rc/on_save)
+(add-hook 'makefile-mode-hook      'rc/on_save)
+(add-hook 'rpm-spec-mode-hook      'rc/on_save)
