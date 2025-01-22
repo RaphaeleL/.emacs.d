@@ -1,3 +1,7 @@
-(setq custom-file "~/.emacs.d/base/output.el")
+; ==================================================
+; ===== CUSTOM =====================================
+; ==================================================
+
+(setq custom-file "~/.emacs.d/_base/output.el")
 (load custom-file)
 
