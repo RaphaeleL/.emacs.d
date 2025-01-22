@@ -9,7 +9,7 @@
 (load "~/.emacs.d/_base/ui.el")
 (load "~/.emacs.d/_base/base.el")
 (load "~/.emacs.d/_base/basic.el")
-(load "~/.emacs.d/_base/comp-buffer.el")
+; (load "~/.emacs.d/_base/comp-buffer.el")
 (load "~/.emacs.d/_base/package-settings.el")
 (load "~/.emacs.d/_base/mac.el")
 (load "~/.emacs.d/_base/keymaps.el")
