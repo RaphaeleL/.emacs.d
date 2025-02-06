@@ -25,9 +25,6 @@
 ; (load-theme 'doom-one-light 1)
 (load-theme 'gruber-darker t)
 
-(add-to-list 'default-frame-alist '(height . 40))
-(add-to-list 'default-frame-alist '(width . 120))
-
 (blink-cursor-mode 0)
 (setq x-stretch-cursor nil)
 
