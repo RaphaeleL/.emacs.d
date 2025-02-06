@@ -3,4 +3,5 @@
 	  mac-option-modifier 'none
 	  default-input-method "MacOSX"))
 
-
+(when (eq system-type 'darwin)
+  (setq insert-directory-program "/opt/homebrew/bin/gls"))
