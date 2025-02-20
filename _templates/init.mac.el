@@ -1,7 +1,3 @@
-;; ============================================================
-;; ========= Base Config ======================================
-;; ============================================================
-
 (load "~/.emacs.d/_base/melpa.el")
 (load "~/.emacs.d/_base/functions.el")
 (load "~/.emacs.d/_base/packages.el")
@@ -14,10 +10,5 @@
 (load "~/.emacs.d/_base/package-settings.el")
 (load "~/.emacs.d/_base/mac.el")
 (load "~/.emacs.d/_base/keymaps.el")
-; (load "~/.emacs.d/_base/lsp.el")
-; (load "~/.emacs.d/_base/ssh.el")
+(load "~/.emacs.d/_base/lsp.el")
 (load "~/.emacs.d/_base/custom.el")
-
-;; ============================================================
-;; ========= Custom Adjustments ===============================
-;; ============================================================
