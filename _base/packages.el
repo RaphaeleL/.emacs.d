@@ -26,3 +26,4 @@
 (rc/require 'markdown-mode)
 (rc/require 'dockerfile-mode)
 (rc/require 'jenkinsfile-mode)
+(rc/require 'web-mode)
