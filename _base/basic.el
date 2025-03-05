@@ -17,3 +17,9 @@
 
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 4)
+
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq use-dialog-box nil)
+
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
