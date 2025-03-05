@@ -16,7 +16,6 @@
 (rc/require 'gruber-darker-theme)
 (rc/require 'modus-themes)
 (rc/require 'doom-themes)
-(rc/require 'solarized-theme)
 (rc/require 'ansi-color)
 
 (rc/require 'vertico)
