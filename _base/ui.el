@@ -27,6 +27,7 @@
 (load-theme 'doom-solarized-light t)
 
 '(custom-set-faces
+ '(dired-directory ((t (:foreground "olive drab" :weight bold))))
  '(dired-header ((t (:foreground "base01" :background "base03" :weight normal))))
  '(magit-header-line ((t (:background "old lace" :foreground "slate gray" :weight bold))))
  '(magit-section-heading ((t (:extend t :foreground "black" :weight bold)))))
