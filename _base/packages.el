@@ -16,6 +16,7 @@
 (rc/require 'gruber-darker-theme)
 (rc/require 'modus-themes)
 (rc/require 'doom-themes)
+(rc/require 'solarized-theme)
 (rc/require 'ansi-color)
 
 (rc/require 'vertico)
@@ -24,6 +25,5 @@
 (rc/require 'counsel)
 
 (rc/require 'markdown-mode)
-; (rc/require 'yaml-mode)
 (rc/require 'dockerfile-mode)
 (rc/require 'jenkinsfile-mode)
