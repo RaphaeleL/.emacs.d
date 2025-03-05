@@ -91,10 +91,10 @@
 (defun rc/toggle-themes ()
   "Toggle between 'doom-one-light' and 'gruber-darker' themes."
   (interactive)
-  (if (member 'doom-one-light custom-enabled-themes)
+  (if (member 'solarized-light-high-contrast custom-enabled-themes)
       (progn
-        (disable-theme 'doom-one-light)
+        (disable-theme 'solarized-light-high-contrast)
         (load-theme 'gruber-darker t))
     (progn
       (disable-theme 'gruber-darker)
-      (load-theme 'doom-one-light t))))
+      (load-theme 'solarized-light-high-contrast t))))
