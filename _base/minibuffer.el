@@ -23,7 +23,7 @@
         (marginalia-mode))
 (marginalia-mode 1)
 
-(use-package counsel
-    :init
-        (counsel-mode))
-(counsel-mode 1)
+;; (use-package counsel
+;;     :init
+;;         (counsel-mode))
+;; (counsel-mode 1)
