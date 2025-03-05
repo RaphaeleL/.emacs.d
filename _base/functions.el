@@ -91,10 +91,10 @@
 (defun rc/toggle-themes ()
   "Toggle between themes."
   (interactive)
-  (if (member 'solarized-light custom-enabled-themes)
+  (if (member 'doom-solarized-light custom-enabled-themes)
       (progn
-        (disable-theme 'solarized-light)
+        (disable-theme 'doom-solarized-light)
         (load-theme 'gruber-darker t))
     (progn
       (disable-theme 'gruber-darker)
-      (load-theme 'solarized-light t))))
+      (load-theme 'doom-solarized-light t))))
