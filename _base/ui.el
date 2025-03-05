@@ -24,7 +24,7 @@
 ; (set-face-attribute 'mode-line nil :box nil)
 ; (load-theme 'doom-one-light 1)
 ; (load-theme 'gruber-darker t)
-(load-theme 'solarized-light-high-contrast t)
+(load-theme 'doom-solarized-light t)
 
 (blink-cursor-mode 0)
 (setq x-stretch-cursor nil)
