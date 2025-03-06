@@ -20,14 +20,15 @@
 (setq custom-safe-themes 1)
 
 ;; Load initial theme
-(load-theme 'gruber-darker f)
+; (load-theme 'gruber-darker t)
 (load-theme 'doom-solarized-light t)
 
 (when (eq (car custom-enabled-themes) 'doom-solarized-light)
   (custom-set-faces
    '(dired-directory ((t (:foreground "olive drab" :weight bold))))
+   '(shadow ((t (:foreground "light slate gray"))))
    '(dired-header ((t (:foreground "base01" :background "base03" :weight normal))))
-   '(magit-header-line ((t (:background "old lace" :foreground "slate gray" :weight bold))))
+   '(magit-header-line ((t (:background "old lace" :foreground "slate gray" :box (:line-width (3 . 3) :color "old lace") :weight bold))))
    '(magit-diff-hunk-heading ((t (:extend t :background "old lace" :foreground "medium purple" :weight bold))))
    '(magit-section-heading ((t (:extend t :foreground "black" :weight bold))))))
 
