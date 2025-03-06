@@ -46,6 +46,7 @@
 
 ;; Stuff i don't need daily, but i definitely want a shortcut for
 (global-set-key (kbd "<f3>")	'rc/toggle-themes)
+(global-set-key (kbd "<f1>")    (lambda () (interactive) (switch-to-buffer-other-window "*scratch*")))
 (global-set-key (kbd "<f2>")    (lambda () (interactive) (switch-to-buffer-other-window "*compilation*")))
 (global-set-key (kbd "<f4>")    (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
 ; (global-set-key (kbd "<f6>")    (lambda () (interactive) (whitespace-mode)))
