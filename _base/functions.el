@@ -98,3 +98,12 @@
     (progn
       (disable-theme 'gruber-darker)
       (load-theme 'doom-solarized-light t))))
+
+
+(defun rc/toggle-buffer (buffer-name)
+  "Toggle the visibility of the buffer named BUFFER-NAME in another window."
+  (interactive)
+  (let ((buffer (get-buffer buffer-name)))
+    (if (and buffer (get-buffer-window buffer))
+        (delete-window (get-buffer-window buffer))
+      (switch-to-buffer-other-window (get-buffer-create buffer-name)))))
