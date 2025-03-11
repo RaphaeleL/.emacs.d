@@ -94,11 +94,18 @@
   (if (member 'doom-solarized-light custom-enabled-themes)
       (progn
         (disable-theme 'doom-solarized-light)
-        (load-theme 'gruber-darker t))
+        (load-theme 'gruber-darker t)
+        (custom-set-faces)) ;; Reset to default faces
     (progn
       (disable-theme 'gruber-darker)
-      (load-theme 'doom-solarized-light t))))
-
+      (load-theme 'doom-solarized-light t)
+      (custom-set-faces
+       '(dired-directory ((t (:foreground "olive drab" :weight bold))))
+       '(shadow ((t (:foreground "light slate gray"))))
+       '(dired-header ((t (:foreground "base01" :background "base03" :weight normal))))
+       '(magit-header-line ((t (:background "old lace" :foreground "slate gray" :box (:line-width (3 . 3) :color "old lace") :weight bold))))
+       '(magit-diff-hunk-heading ((t (:extend t :background "old lace" :foreground "medium purple" :weight bold))))
+       '(magit-section-heading ((t (:extend t :foreground "black" :weight bold))))))))
 
 (defun rc/toggle-buffer (buffer-name)
   "Toggle the visibility of the buffer named BUFFER-NAME in another window."

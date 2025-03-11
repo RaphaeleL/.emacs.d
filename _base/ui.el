@@ -23,15 +23,6 @@
 ; (load-theme 'gruber-darker t)
 (load-theme 'doom-solarized-light t)
 
-(when (eq (car custom-enabled-themes) 'doom-solarized-light)
-  (custom-set-faces
-   '(dired-directory ((t (:foreground "olive drab" :weight bold))))
-   '(shadow ((t (:foreground "light slate gray"))))
-   '(dired-header ((t (:foreground "base01" :background "base03" :weight normal))))
-   '(magit-header-line ((t (:background "old lace" :foreground "slate gray" :box (:line-width (3 . 3) :color "old lace") :weight bold))))
-   '(magit-diff-hunk-heading ((t (:extend t :background "old lace" :foreground "medium purple" :weight bold))))
-   '(magit-section-heading ((t (:extend t :foreground "black" :weight bold))))))
-
 (blink-cursor-mode 0)
 (setq x-stretch-cursor nil)
 
