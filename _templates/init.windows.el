@@ -3,7 +3,6 @@
 (load "~/.emacs.d/_base/packages.el")
 ; (load "~/.emacs.d/_base/garbage.el")
 (load "~/.emacs.d/_base/ui.el")
-(load "~/.emacs.d/_base/base.el")
 (load "~/.emacs.d/_base/basic.el")
 ; (load "~/.emacs.d/_base/comp-buffer.el")
 (load "~/.emacs.d/_base/minibuffer.el")

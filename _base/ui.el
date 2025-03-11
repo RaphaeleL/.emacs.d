@@ -21,7 +21,9 @@
 
 ;; Load initial theme
 ; (load-theme 'gruber-darker t)
-(load-theme 'doom-solarized-light t)
+(load "~/.emacs.d/color-theme-sanityinc-solarized.el")
+(load-theme 'sanityinc-solarized-light t)
+(add-hook 'text-scale-mode-hook #'rc/update-line-number-font-size)
 
 (blink-cursor-mode 0)
 (setq x-stretch-cursor nil)

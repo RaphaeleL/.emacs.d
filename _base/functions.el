@@ -91,21 +91,15 @@
 (defun rc/toggle-themes ()
   "Toggle between themes."
   (interactive)
-  (if (member 'doom-solarized-light custom-enabled-themes)
+  (if (member 'sanityinc-solarized-light custom-enabled-themes)
       (progn
-        (disable-theme 'doom-solarized-light)
+        (disable-theme 'sanityinc-solarized-light)
         (load-theme 'gruber-darker t)
-        (custom-set-faces)) ;; Reset to default faces
+        (custom-set-faces))
     (progn
       (disable-theme 'gruber-darker)
-      (load-theme 'doom-solarized-light t)
-      (custom-set-faces
-       '(dired-directory ((t (:foreground "olive drab" :weight bold))))
-       '(shadow ((t (:foreground "light slate gray"))))
-       '(dired-header ((t (:foreground "base01" :background "base03" :weight normal))))
-       '(magit-header-line ((t (:background "old lace" :foreground "slate gray" :box (:line-width (3 . 3) :color "old lace") :weight bold))))
-       '(magit-diff-hunk-heading ((t (:extend t :background "old lace" :foreground "medium purple" :weight bold))))
-       '(magit-section-heading ((t (:extend t :foreground "black" :weight bold))))))))
+      (load-theme 'sanityinc-solarized-light t)
+      (custom-set-faces))))
 
 (defun rc/toggle-buffer (buffer-name)
   "Toggle the visibility of the buffer named BUFFER-NAME in another window."
@@ -114,3 +108,12 @@
     (if (and buffer (get-buffer-window buffer))
         (delete-window (get-buffer-window buffer))
       (switch-to-buffer-other-window (get-buffer-create buffer-name)))))
+
+(defun rc/update-line-number-font-size ()
+  "Update the font size of line numbers based on the current text scale."
+  (let ((base-height (face-attribute 'default :height))
+        (scale-factor (if (boundp 'text-scale-mode-amount)
+                          (expt text-scale-mode-step text-scale-mode-amount)
+                        1)))
+    (set-face-attribute 'line-number nil
+                        :height (round (* base-height scale-factor)))))
