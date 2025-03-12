@@ -115,5 +115,5 @@
         (scale-factor (if (boundp 'text-scale-mode-amount)
                           (expt text-scale-mode-step text-scale-mode-amount)
                         1)))
-    (set-face-attribute 'line-number nil
-                        :height (round (* base-height scale-factor)))))
+    (face-remap-add-relative 'line-number
+                             :height (round (* base-height scale-factor)))))
