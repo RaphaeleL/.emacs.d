@@ -91,14 +91,14 @@
 (defun rc/toggle-themes ()
   "Toggle between themes."
   (interactive)
-  (if (member 'sanityinc-solarized-light custom-enabled-themes)
+  (if (member 'kaolin-valley-light custom-enabled-themes)
       (progn
-        (disable-theme 'sanityinc-solarized-light)
+        (disable-theme 'kaolin-valley-light)
         (load-theme 'gruber-darker t)
         (custom-set-faces))
     (progn
       (disable-theme 'gruber-darker)
-      (load-theme 'sanityinc-solarized-light t)
+      (load-theme 'kaolin-valley-light t)
       (custom-set-faces))))
 
 (defun rc/toggle-buffer (buffer-name)
