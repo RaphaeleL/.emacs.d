@@ -42,6 +42,8 @@
 ;; Multi line Editing
 (global-set-key (kbd "C-c C-n") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c C-p") 'mc/mark-previous-like-this)
+(global-set-key (kbd "M-q")     'mc/mark-next-like-this)
+(global-set-key (kbd "M-e")     'mc/mark-previous-like-this)
 (global-set-key (kbd "M-m")     'mc/mark-more-like-this-extended)
 
 ;; Stuff i do not need daily, but i definitely want a shortcut for
