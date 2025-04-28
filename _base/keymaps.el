@@ -25,10 +25,10 @@
 (global-set-key (kbd "C-c s")   'shell-command)
 
 ;; Buffer Management
-(global-set-key (kbd "M-i")     'ibuffer)
-(global-set-key (kbd "M-l")     'switch-to-buffer)
-(global-set-key (kbd "C-c i")   'ibuffer)
-(global-set-key (kbd "C-c l")   'switch-to-buffer)
+(global-set-key (kbd "M-i")     'ibuffer)           ; C-c i
+(global-set-key (kbd "M-l")     'switch-to-buffer)  ; C-c l
+(global-set-key (kbd "M-e")     'next-buffer)
+(global-set-key (kbd "M-q")     'previous-buffer)
 
 ;; Copy and Paste
 (global-set-key (kbd "C-w")     'rc/copy)
@@ -55,3 +55,7 @@
 (global-set-key (kbd "C-=")     (lambda () (interactive) (text-scale-increase 1)))
 (global-set-key (kbd "C-+")     (lambda () (interactive) (text-scale-increase 1)))
 (global-set-key (kbd "C--")     (lambda () (interactive) (text-scale-decrease 1)))
+
+
+
+
