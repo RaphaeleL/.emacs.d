@@ -25,8 +25,8 @@
 (global-set-key (kbd "C-c s")   'shell-command)
 
 ;; Buffer Management
-(global-set-key (kbd "M-i")     'ibuffer)           ; C-c i
-(global-set-key (kbd "M-l")     'switch-to-buffer)  ; C-c l
+(global-set-key (kbd "M-i")     'ibuffer)
+(global-set-key (kbd "M-o")     'switch-to-buffer)
 (global-set-key (kbd "M-e")     'next-buffer)
 (global-set-key (kbd "M-q")     'previous-buffer)
 
@@ -50,12 +50,15 @@
 (global-set-key (kbd "<f2>")    (lambda () (interactive) (rc/toggle-buffer "*compilation*")))
 (global-set-key (kbd "<f3>")    'rc/toggle-themes)
 (global-set-key (kbd "<f4>")    (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
+(global-set-key (kbd "<f5>")    'rc/toggle-mini-buffer-mode)
 
 ;; Zooming
 (global-set-key (kbd "C-=")     (lambda () (interactive) (text-scale-increase 1)))
 (global-set-key (kbd "C-+")     (lambda () (interactive) (text-scale-increase 1)))
 (global-set-key (kbd "C--")     (lambda () (interactive) (text-scale-decrease 1)))
 
+(global-set-key (kbd "M-=")     'global-text-scale-adjust)
+(global-set-key (kbd "M-+")     'global-text-scale-adjust)
 
 
 
