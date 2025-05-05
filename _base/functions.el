@@ -82,6 +82,18 @@
   (message "Pasted")
   (sit-for 1))
 
+(defun rc/toggle-mini-buffer-mode ()
+  (interactive)
+  (if (bound-and-true-p fido-mode)
+      (progn
+        (fido-mode -1)
+        (vertico-mode 1)
+        (message "Switched to vertico-mode"))
+    (progn
+      (vertico-mode -1)
+      (fido-mode 1)
+      (message "Switched to fido-mode"))))
+
 (defun rc/colorize-compilation-buffer ()
   (read-only-mode 'toggle)
   (ansi-color-apply-on-region compilation-filter-start (point))
