@@ -40,8 +40,8 @@
 (global-set-key (kbd "M-n")         'move-text-down)
 
 ;; Multi line Editing
-(global-set-key (kbd "C-c C-SPC")   'rectangle-mark-mode)
-(global-set-key (kbd "C-c C-i")     'mc/edit-lines)
+(global-set-key (kbd "C-x SPC")     'rectangle-mark-mode)
+(global-set-key (kbd "C-x i")       'mc/edit-lines)
 (global-set-key (kbd "M-/")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-j")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-k")         'mc/mark-previous-like-this)
