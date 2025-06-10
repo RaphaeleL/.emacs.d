@@ -132,7 +132,6 @@
     (face-remap-add-relative 'line-number
                              :height (round (* base-height scale-factor)))))
 
-
 (defun rc/my-compile-minibuffer-setup ()
   (when (eq this-command 'compile)
     (local-set-key (kbd "C-n") 'next-history-element)

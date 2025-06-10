@@ -8,11 +8,12 @@
 (global-set-key (kbd "M-F")         'mark-defun)
 (global-set-key (kbd "M-s")         'mark-paragraph)
 
-;; No Description needed
+;; Line Handling
 (global-set-key (kbd "M-j")         'join-line)
 (global-set-key (kbd "M-z")         'undo)
 (global-set-key (kbd "M-d")         'rc/duplicate-line)
 (global-set-key (kbd "M-r")         'rc/delete-line)
+(global-set-key (kbd "M-g")         'indent-region)
 
 ;; Default Emacs stuff, just simpler
 (global-set-key (kbd "C-,")         'find-file)

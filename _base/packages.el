@@ -26,3 +26,6 @@
 (rc/require 'dockerfile-mode)
 (rc/require 'jenkinsfile-mode)
 (rc/require 'web-mode)
+
+(rc/require 'yaml-mode)
+(rc/require 'jinja2-mode)
