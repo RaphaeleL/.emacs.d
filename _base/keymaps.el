@@ -54,6 +54,9 @@
 (global-set-key (kbd "<f3>")        'rc/toggle-themes)
 (global-set-key (kbd "<f4>")        (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
 (global-set-key (kbd "<f5>")        'rc/toggle-mini-buffer-mode)
+(global-set-key (kbd "<f6>")        'whitespace-mode)
+(global-set-key (kbd "<f7>")        'display-line-numbers-mode)
+(global-set-key (kbd "<f8>")        'which-key-mode)
 
 ;; Zooming
 (global-set-key (kbd "C-=")         (lambda () (interactive) (text-scale-increase 1)))
@@ -62,6 +65,3 @@
 
 (global-set-key (kbd "M-=")         'global-text-scale-adjust)
 (global-set-key (kbd "M-+")         'global-text-scale-adjust)
-
-
-

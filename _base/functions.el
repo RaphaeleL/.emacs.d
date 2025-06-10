@@ -48,7 +48,7 @@
 
 (defun rc/on_save ()
   (interactive)
-  (whitespace-mode 1)
+  ;(whitespace-mode 1)
   (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
 (defun rc/get-default-font ()
