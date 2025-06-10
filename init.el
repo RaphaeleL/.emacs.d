@@ -11,8 +11,10 @@
 ;; === CUSTOM ADJUSTMENTS ========================
 ;; ===============================================
 
+;; SSH Setup (FCO Windows to DevVM)
 (load "~/.emacs.d/_base/ssh.el")
 
-;; - https://www.damtp.cam.ac.uk/user/sje30/emacs/ell.html
-;; - https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
+;; Better Moving in Different Kind of Buffers
+(add-hook 'minibuffer-setup-hook   'rc/my-compile-minibuffer-setup)
+(add-hook 'minibuffer-setup-hook   'rc/my-fido-minibuffer-setup)
 
