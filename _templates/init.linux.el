@@ -11,3 +11,4 @@
 (load "~/.emacs.d/_base/keymaps.el")
 (load "~/.emacs.d/_base/lsp.el")
 (load "~/.emacs.d/_base/custom.el")
+(load "~/.emacs.d/_base/hooks.el")

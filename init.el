@@ -14,9 +14,3 @@
 ;; SSH Setup (FCO Windows to DevVM and ksbuild8)
 (load "~/.emacs.d/_base/ssh.el")
 
-;; Load Hooks
-(load "~/.emacs.d/_base/hooks.el")
-
-;; Better Moving in Different Kind of Buffers
-(add-hook 'minibuffer-setup-hook   'rc/my-compile-minibuffer-setup)
-(add-hook 'minibuffer-setup-hook   'rc/my-fido-minibuffer-setup)
