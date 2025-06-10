@@ -22,6 +22,7 @@
 
 ;; Shell Commands
 (global-set-key (kbd "C-c m")       'compile)
+(global-set-key (kbd "C-x m")       'compile)
 (global-set-key (kbd "C-c s")       'shell-command)
 
 ;; Buffer Management
@@ -42,10 +43,9 @@
 ;; Multi line Editing
 (global-set-key (kbd "C-x SPC")     'rectangle-mark-mode)
 (global-set-key (kbd "C-x i")       'mc/edit-lines)
-(global-set-key (kbd "M-/")         'mc/mark-next-like-this)
+(global-set-key (kbd "M-m")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-j")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-k")         'mc/mark-previous-like-this)
-(global-set-key (kbd "M-m")         'mc/mark-more-like-this-extended)
 
 ;; Stuff i do not need daily, but i definitely want a shortcut for
 (global-set-key (kbd "<f1>")        (lambda () (interactive) (rc/toggle-buffer "*scratch*")))
