@@ -8,7 +8,6 @@
 (setq dired-listing-switches "-laGh1Dv --group-directories-first")
 (setq ls-lisp-ignore-case t)
 
-(which-key-mode t)
 (setq which-key-separator "  ")
 (setq which-key-prefix-prefix "... ")
 (setq which-key-max-display-columns 3)
@@ -19,9 +18,6 @@
 
 (use-package whitespace
   :ensure nil
-  :bind
-  (("<f6>" . whitespace-mode)
-   ("C-c z" . delete-trailing-whitespace))
   :config
   (setq whitespace-style
         '(face
@@ -40,8 +36,6 @@
 
 (use-package display-line-numbers
   :ensure nil
-  :bind
-  ("<f7>" . display-line-numbers-mode)
   :config
   (setq-default display-line-numbers-type 'relative)
   (setq display-line-numbers-major-tick 0)
@@ -54,4 +48,3 @@
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-
