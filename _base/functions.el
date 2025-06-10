@@ -88,9 +88,11 @@
       (progn
         (fido-mode -1)
         (vertico-mode 1)
+		(marginalia-mode 1)
         (message "Switched to vertico-mode"))
     (progn
       (vertico-mode -1)
+	  (marginalia-mode -1)
       (fido-mode 1)
       (message "Switched to fido-mode"))))
 
@@ -129,3 +131,16 @@
                         1)))
     (face-remap-add-relative 'line-number
                              :height (round (* base-height scale-factor)))))
+
+
+(defun rc/my-compile-minibuffer-setup ()
+  (when (eq this-command 'compile)
+    (local-set-key (kbd "C-n") 'next-history-element)
+    (local-set-key (kbd "C-p") 'previous-history-element)))
+
+(defun rc/my-fido-minibuffer-setup ()
+  (when (or fido-mode fido-vertical-mode)
+    (local-set-key (kbd "C-s") 'next-history-element)
+    (local-set-key (kbd "C-r") 'previous-history-element)
+    (local-set-key (kbd "C-n") 'icomplete-forward-completions)
+    (local-set-key (kbd "C-p") 'icomplete-backward-completions)))

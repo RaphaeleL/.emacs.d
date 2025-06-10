@@ -2,13 +2,9 @@
 ; ====== MINIBUFFER ================================
 ; ==================================================
 
-;; (fido-mode 1)
 
 (use-package vertico
-    :ensure t
-    :config
-        (vertico-mode))
-(vertico-mode 1)
+    :ensure t)
 
 (use-package orderless
   :ensure t
@@ -18,12 +14,14 @@
 
 (use-package marginalia
     :bind (:map minibuffer-local-map
-            ("M-A" . marginalia-cycle))
-    :init
-        (marginalia-mode))
-(marginalia-mode 1)
+            ("M-A" . marginalia-cycle)))
 
 ;; (use-package counsel
 ;;     :init
 ;;         (counsel-mode))
 ;; (counsel-mode 1)
+
+
+;; (vertico-mode 1)
+;; (marginalia-mode 1)
+(fido-mode 1)
