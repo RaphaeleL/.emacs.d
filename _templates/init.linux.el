@@ -12,3 +12,4 @@
 (load "~/.emacs.d/_base/lsp.el")
 (load "~/.emacs.d/_base/custom.el")
 (load "~/.emacs.d/_base/hooks.el")
+(load "~/.emacs.d/_base/ssh.el")
