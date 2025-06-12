@@ -20,10 +20,6 @@
 (setq custom-safe-themes 1)
 
 ;; Load initial theme
-;; (load "~/.emacs.d/color-theme-sanityinc-solarized.el")
-;; (load-theme 'sanityinc-solarized-light t)
-;; (add-hook 'text-scale-mode-hook #'rc/update-line-number-font-size)
-;; (disable-theme 'sanityinc-solarized-light)
 (load-theme 'gruber-darker t)
 
 (blink-cursor-mode 0)

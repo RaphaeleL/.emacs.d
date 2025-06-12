@@ -88,11 +88,11 @@
       (progn
         (fido-mode -1)
         (vertico-mode 1)
-		(marginalia-mode 1)
+        (marginalia-mode 1)
         (message "Switched to vertico-mode"))
     (progn
       (vertico-mode -1)
-	  (marginalia-mode -1)
+      (marginalia-mode -1)
       (fido-mode 1)
       (message "Switched to fido-mode"))))
 
