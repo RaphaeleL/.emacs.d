@@ -11,6 +11,3 @@
 ;; === CUSTOM ADJUSTMENTS ========================
 ;; ===============================================
 
-;; SSH Setup (FCO Windows to DevVM and ksbuild8)
-(load "~/.emacs.d/_base/ssh.el")
-
