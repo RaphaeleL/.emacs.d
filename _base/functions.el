@@ -143,3 +143,9 @@
     (local-set-key (kbd "C-r") 'previous-history-element)
     (local-set-key (kbd "C-n") 'icomplete-forward-completions)
     (local-set-key (kbd "C-p") 'icomplete-backward-completions)))
+
+(defun rc/create-keymap    (key action) (global-set-key (kbd key) action))
+(defun rc/create-keymap-cc (key action) (global-set-key (kbd (concat "C-c " key)) action))
+(defun rc/create-keymap-cx (key action) (global-set-key (kbd (concat "C-x " key)) action))
+(defun rc/create-keymap-m  (key action) (global-set-key (kbd (concat "M-"   key)) action))
+(defun rc/create-keymap-c  (key action) (global-set-key (kbd (concat "C-"   key)) action))
