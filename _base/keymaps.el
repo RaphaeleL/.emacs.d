@@ -1,67 +1,65 @@
-; ==================================================
-; ===== KEYMAPS ====================================
-; ==================================================
+;; ==================================================
+;; ===== KEYMAPS ====================================
+;; ==================================================
 
 ;; Selecting Stuff
-(global-set-key (kbd "M-w")         'mark-word)
-(global-set-key (kbd "M-a")         'mark-page)
-(global-set-key (kbd "M-F")         'mark-defun)
-(global-set-key (kbd "M-s")         'mark-paragraph)
+(rc/create-keymap-m   "w"     'mark-word)
+(rc/create-keymap-m   "a"     'mark-page)
+(rc/create-keymap-m   "F"     'mark-defun)
+(rc/create-keymap-m   "s"     'mark-paragraph)
 
 ;; Line Handling
-(global-set-key (kbd "M-j")         'join-line)
-(global-set-key (kbd "M-z")         'undo)
-(global-set-key (kbd "M-d")         'rc/duplicate-line)
-(global-set-key (kbd "M-r")         'rc/delete-line)
-(global-set-key (kbd "M-g")         'indent-region)
+(rc/create-keymap-m   "j"     'join-line)
+(rc/create-keymap-m   "z"     'undo)
+(rc/create-keymap-m   "d"     'rc/duplicate-line)
+(rc/create-keymap-m   "r"     'rc/delete-line)
+(rc/create-keymap-m   "g"     'indent-region)
 
 ;; Default Emacs stuff, just simpler
-(global-set-key (kbd "C-,")         'find-file)
-(global-set-key (kbd "C-.")         'dired)
-(global-set-key (kbd "C-c C-,")     'project-find-file)
-(global-set-key (kbd "C-c g")       'magit-status)
+(rc/create-keymap-c   ","     'find-file)
+(rc/create-keymap-c   "."     'dired)
+(rc/create-keymap-m   ","     'project-find-file)
+(rc/create-keymap-c   "g"     'magit-status)
+(rc/create-keymap-m   "g"     'magit-status)
 
 ;; Shell Commands
-(global-set-key (kbd "C-c m")       'compile)
-(global-set-key (kbd "C-x m")       'compile)
-(global-set-key (kbd "C-c s")       'shell-command)
+(rc/create-keymap-m   "c"     'compile)
+(rc/create-keymap-c   "l"     'shell-command)
 
 ;; Buffer Management
-(global-set-key (kbd "M-i")         'ibuffer)
-(global-set-key (kbd "M-o")         'switch-to-buffer)
-(global-set-key (kbd "M-e")         'next-buffer)
-(global-set-key (kbd "M-q")         'previous-buffer)
+(rc/create-keymap-m   "i"     'ibuffer)
+(rc/create-keymap-m   "o"     'switch-to-buffer)
+(rc/create-keymap-m   "e"     'next-buffer)
+(rc/create-keymap-m   "q"     'previous-buffer)
 
 ;; Copy and Paste
-(global-set-key (kbd "C-w")         'rc/copy)
-(global-set-key (kbd "C-y")         'rc/paste)
-(global-set-key (kbd "C-t")         'rc/cut)
+(rc/create-keymap-c   "w"     'rc/copy)
+(rc/create-keymap-c   "y"     'rc/paste)
+(rc/create-keymap-c   "t"     'rc/cut)
 
 ;; Moving a Selection up and down
-(global-set-key (kbd "M-p")         'move-text-up)
-(global-set-key (kbd "M-n")         'move-text-down)
+(rc/create-keymap-m   "p"     'move-text-up)
+(rc/create-keymap-m   "n"     'move-text-down)
 
 ;; Multi line Editing
-(global-set-key (kbd "C-x SPC")     'rectangle-mark-mode)
-(global-set-key (kbd "C-x i")       'mc/edit-lines)
-(global-set-key (kbd "M-m")         'mc/mark-next-like-this)
-(global-set-key (kbd "C-j")         'mc/mark-next-like-this)
-(global-set-key (kbd "C-k")         'mc/mark-previous-like-this)
+(rc/create-keymap-c   "SPC"   'rectangle-mark-mode)
+(rc/create-keymap-c   "i"     'mc/edit-lines)
+(rc/create-keymap-c   "j"     'mc/mark-next-like-this)
+(rc/create-keymap-c   "k"     'mc/mark-previous-like-this)
 
 ;; Stuff i do not need daily, but i definitely want a shortcut for
-(global-set-key (kbd "<f1>")        (lambda () (interactive) (rc/toggle-buffer "*scratch*")))
-(global-set-key (kbd "<f2>")        (lambda () (interactive) (rc/toggle-buffer "*compilation*")))
-(global-set-key (kbd "<f3>")        'rc/toggle-themes)
-(global-set-key (kbd "<f4>")        (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
-(global-set-key (kbd "<f5>")        'rc/toggle-mini-buffer-mode)
-(global-set-key (kbd "<f6>")        'whitespace-mode)
-(global-set-key (kbd "<f7>")        'display-line-numbers-mode)
-(global-set-key (kbd "<f8>")        'which-key-mode)
+(rc/create-keymap     "<f1>"  (lambda () (interactive) (rc/toggle-buffer "*scratch*")))
+(rc/create-keymap     "<f2>"  (lambda () (interactive) (rc/toggle-buffer "*compilation*")))
+(rc/create-keymap     "<f3>"  'rc/toggle-themes)
+(rc/create-keymap     "<f4>"  (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
+(rc/create-keymap     "<f5>"  'rc/toggle-mini-buffer-mode)
+(rc/create-keymap     "<f6>"  'whitespace-mode)
+(rc/create-keymap     "<f7>"  'display-line-numbers-mode)
+(rc/create-keymap     "<f8>"  'which-key-mode)
 
 ;; Zooming
-(global-set-key (kbd "C-=")         (lambda () (interactive) (text-scale-increase 1)))
-(global-set-key (kbd "C-+")         (lambda () (interactive) (text-scale-increase 1)))
-(global-set-key (kbd "C--")         (lambda () (interactive) (text-scale-decrease 1)))
-
-(global-set-key (kbd "M-=")         'global-text-scale-adjust)
-(global-set-key (kbd "M-+")         'global-text-scale-adjust)
+(rc/create-keymap-c   "="     (lambda () (interactive) (text-scale-increase 1)))
+(rc/create-keymap-c   "+"     (lambda () (interactive) (text-scale-increase 1)))
+(rc/create-keymap-c   "-"     (lambda () (interactive) (text-scale-decrease 1)))
+(rc/create-keymap-m   "="     'global-text-scale-adjust)
+(rc/create-keymap-m   "+"     'global-text-scale-adjust)
