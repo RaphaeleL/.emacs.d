@@ -2,7 +2,7 @@
 ; ===== CUSTOM FUNCTIONS ===========================
 ; ==================================================
 
-; some 'rc'-functions are copied from
+; some 'rc'-functions are copied, not all!
 ; https://github.com/rexim/dotfiles/blob/master/.emacs.rc/rc.el
 
 (defvar rc/package-contents-refreshed nil)
@@ -17,14 +17,12 @@
     (rc/package-refresh-contents-once)
     (package-install package)))
 
-(defun rc/require (&rest packages)
-  (dolist (package packages)
-    (rc/require-one-package package)))
+(defun rc/require (&rest packages) (dolist (package packages) (rc/require-one-package package)))
 
 (defun rc/require-theme (theme)
   (let
-         (theme-package-name (concat theme-name "-theme"))
-         (theme-package (intern theme-package-name)))
+	(theme-package-name (concat theme-name "-theme"))
+	(theme-package (intern theme-package-name)))
     (rc/require theme-package)
     (load-theme theme t))
 
@@ -46,20 +44,21 @@
     (move-beginning-of-line 1)
     (forward-char column)))
 
-(defun rc/on_save ()
-  (interactive)
-  ;(whitespace-mode 1)
-  (add-to-list 'write-file-functions 'delete-trailing-whitespace))
-
-(defun rc/get-default-font ()
+(defun rc/get-default-font-family ()
   (cond
-   ((eq system-type 'windows-nt) "Iosevka-12")
-   ((eq system-type 'darwin) "Iosevka-20")
-   ((eq system-type 'gnu/linux) "IosevkaNerdFont-12")))
+   ((eq system-type 'windows-nt) "Iosevka")
+   ((eq system-type 'darwin)     "Iosevka")
+   ((eq system-type 'gnu/linux)  "IosevkaNerdFont")))
 
-(defun rc/turn-on-paredit ()
-  (interactive)
-  (paredit-mode 1))
+(defun rc/get-default-font-size ()
+  (cond
+   ((eq system-type 'windows-nt) 12)
+   ((eq system-type 'darwin)     20)
+   ((eq system-type 'gnu/linux)  12)))
+
+(defun rc/get-default-font () (format "%s-%d" (rc/get-default-font-family) (rc/get-default-font-size)))
+(defun rc/turn-on-paredit () (interactive) (paredit-mode 1))
+(defun rc/on_save () (interactive) (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
 (defun rc/cut ()
   (interactive)
@@ -99,11 +98,9 @@
 (defun rc/colorize-compilation-buffer ()
   (read-only-mode 'toggle)
   (ansi-color-apply-on-region compilation-filter-start (point))
-  (read-only-mode 'toggle)
-)
+  (read-only-mode 'toggle))
 
 (defun rc/toggle-themes ()
-  "Toggle between themes."
   (interactive)
   (if (member 'kaolin-valley-light custom-enabled-themes)
       (progn
@@ -116,21 +113,22 @@
       (custom-set-faces))))
 
 (defun rc/toggle-buffer (buffer-name)
-  "Toggle the visibility of the buffer named BUFFER-NAME in another window."
   (interactive)
   (let ((buffer (get-buffer buffer-name)))
     (if (and buffer (get-buffer-window buffer))
         (delete-window (get-buffer-window buffer))
       (switch-to-buffer-other-window (get-buffer-create buffer-name)))))
 
+(defun rc/toggle-scratch-buffer() (interactive) (rc/toggle-buffer "*scratch*"))
+(defun rc/toggle-compilation-buffer() (interactive) (rc/toggle-buffer "*compilation*"))
+(defun rc/open_config() (interactive) (find-file "~/.emacs.d/init.el"))
+(defun rc/font-increase() (interactive) (text-scale-increase 1))
+(defun rc/font-decrease() (interactive) (text-scale-decrease 1))
+
 (defun rc/update-line-number-font-size ()
-  "Update the font size of line numbers based on the current text scale."
   (let ((base-height (face-attribute 'default :height))
-        (scale-factor (if (boundp 'text-scale-mode-amount)
-                          (expt text-scale-mode-step text-scale-mode-amount)
-                        1)))
-    (face-remap-add-relative 'line-number
-                             :height (round (* base-height scale-factor)))))
+        (scale-factor (if (boundp 'text-scale-mode-amount) (expt text-scale-mode-step text-scale-mode-amount) 1)))
+        (face-remap-add-relative 'line-number :height (round (* base-height scale-factor)))))
 
 (defun rc/my-compile-minibuffer-setup ()
   (when (eq this-command 'compile)
@@ -144,8 +142,9 @@
     (local-set-key (kbd "C-n") 'icomplete-forward-completions)
     (local-set-key (kbd "C-p") 'icomplete-backward-completions)))
 
-(defun rc/create-keymap    (key action) (global-set-key (kbd key) action))
-(defun rc/create-keymap-cc (key action) (global-set-key (kbd (concat "C-c " key)) action))
-(defun rc/create-keymap-cx (key action) (global-set-key (kbd (concat "C-x " key)) action))
-(defun rc/create-keymap-m  (key action) (global-set-key (kbd (concat "M-"   key)) action))
-(defun rc/create-keymap-c  (key action) (global-set-key (kbd (concat "C-"   key)) action))
+(defun rc/create-keymap     (key action) (global-set-key (kbd key) action))
+(defun rc/create-keymap-cc  (key action) (global-set-key (kbd (concat "C-c "   key)) action))
+(defun rc/create-keymap-ccc (key action) (global-set-key (kbd (concat "C-c C-" key)) action))
+(defun rc/create-keymap-cx  (key action) (global-set-key (kbd (concat "C-x "   key)) action))
+(defun rc/create-keymap-m   (key action) (global-set-key (kbd (concat "M-"     key)) action))
+(defun rc/create-keymap-c   (key action) (global-set-key (kbd (concat "C-"     key)) action))

@@ -9,11 +9,11 @@
 (rc/create-keymap-m   "s"     'mark-paragraph)
 
 ;; Line Handling
-(rc/create-keymap-m   "j"     'join-line)
+(rc/create-keymap-ccc "j"     'join-line)
 (rc/create-keymap-m   "z"     'undo)
 (rc/create-keymap-m   "d"     'rc/duplicate-line)
 (rc/create-keymap-m   "r"     'rc/delete-line)
-(rc/create-keymap-m   "g"     'indent-region)
+(rc/create-keymap-c   "g"     'indent-region)
 
 ;; Default Emacs stuff, just simpler
 (rc/create-keymap-c   ","     'find-file)
@@ -45,19 +45,19 @@
 (rc/create-keymap-c   "j"     'mc/mark-next-like-this)
 (rc/create-keymap-c   "k"     'mc/mark-previous-like-this)
 
+;; Zooming
+(rc/create-keymap-c   "="     'rc/font-increase)
+(rc/create-keymap-c   "+"     'rc/font-increase)
+(rc/create-keymap-c   "-"     'rc/font-decrease)
+(rc/create-keymap-m   "="     'global-text-scale-adjust)
+(rc/create-keymap-m   "+"     'global-text-scale-adjust)
+
 ;; Stuff i do not need daily, but i definitely want a shortcut for
-(rc/create-keymap     "<f1>"  (lambda () (interactive) (rc/toggle-buffer "*scratch*")))
-(rc/create-keymap     "<f2>"  (lambda () (interactive) (rc/toggle-buffer "*compilation*")))
+(rc/create-keymap     "<f1>"  'rc/toggle-scratch-buffer)
+(rc/create-keymap     "<f2>"  'rc/toggle-compilation-buffer)
 (rc/create-keymap     "<f3>"  'rc/toggle-themes)
-(rc/create-keymap     "<f4>"  (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
+(rc/create-keymap     "<f4>"  'rc/open_config)
 (rc/create-keymap     "<f5>"  'rc/toggle-mini-buffer-mode)
 (rc/create-keymap     "<f6>"  'whitespace-mode)
 (rc/create-keymap     "<f7>"  'display-line-numbers-mode)
 (rc/create-keymap     "<f8>"  'which-key-mode)
-
-;; Zooming
-(rc/create-keymap-c   "="     (lambda () (interactive) (text-scale-increase 1)))
-(rc/create-keymap-c   "+"     (lambda () (interactive) (text-scale-increase 1)))
-(rc/create-keymap-c   "-"     (lambda () (interactive) (text-scale-decrease 1)))
-(rc/create-keymap-m   "="     'global-text-scale-adjust)
-(rc/create-keymap-m   "+"     'global-text-scale-adjust)
