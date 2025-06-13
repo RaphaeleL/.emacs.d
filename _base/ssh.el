@@ -20,6 +20,7 @@
   (progn
     (find-file "/plink:root@testvm1:/")
     (dired "/plink:root@testvm1:/var/log/ccms/")
+    (dired "/plink:root@testvm1:/usr/share/ccms/ansible/")
     (dired "/plink:root@testvm1:/usr/lib/python3.12/site-packages/ccms/")
     (dired "/plink:root@testvm1:/etc/ccms/")))
 
@@ -28,6 +29,7 @@
   (progn
     (find-file "/plink:root@testvm2:/")
     (dired "/plink:root@testvm2:/var/log/ccms/")
+    (dired "/plink:root@testvm2:/usr/share/ccms/ansible/")
     (dired "/plink:root@testvm2:/usr/lib/python3.12/site-packages/ccms/")
     (dired "/plink:root@testvm2:/etc/ccms/")))
 
@@ -36,6 +38,7 @@
   (progn
     (find-file "/plink:root@testvm3:/")
     (dired "/plink:root@testvm3:/var/log/ccms/")
+    (dired "/plink:root@testvm3:/usr/share/ccms/ansible/")
     (dired "/plink:root@testvm3:/usr/lib/python3.12/site-packages/ccms/")
     (dired "/plink:root@testvm3:/etc/ccms/")))
 
@@ -44,6 +47,7 @@
   (progn
     (find-file "/plink:root@testvm4:/")
     (dired "/plink:root@testvm4:/var/log/ccms/")
+    (dired "/plink:root@testvm4:/usr/share/ccms/ansible/")
     (dired "/plink:root@testvm4:/usr/lib/python3.12/site-packages/ccms/")
     (dired "/plink:root@testvm4:/etc/ccms/")))
 
@@ -52,6 +56,7 @@
   (progn
     (find-file "/plink:root@testvm5:/")
     (dired "/plink:root@testvm5:/var/log/ccms/")
+    (dired "/plink:root@testvm5:/usr/share/ccms/ansible/")
     (dired "/plink:root@testvm5:/usr/lib/python3.12/site-packages/ccms/")
     (dired "/plink:root@testvm5:/etc/ccms/")))
 
