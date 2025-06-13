@@ -42,8 +42,8 @@
 (rc/create-keymap-m   "n"     'move-text-down)
 
 ;; Multi line Editing
-(rc/create-keymap-c   "SPC"   'rectangle-mark-mode)
-(rc/create-keymap-c   "i"     'mc/edit-lines)
+(rc/create-keymap-m   "SPC"   'rectangle-mark-mode)
+(rc/create-keymap-m   "i"     'mc/edit-lines)
 (rc/create-keymap-c   "j"     'mc/mark-next-like-this)
 (rc/create-keymap-c   "k"     'mc/mark-previous-like-this)
 
