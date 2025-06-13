@@ -19,7 +19,6 @@
 (rc/create-keymap-c   ","     'find-file)
 (rc/create-keymap-c   "."     'dired)
 (rc/create-keymap-m   ","     'project-find-file)
-(rc/create-keymap-c   "g"     'magit-status)
 (rc/create-keymap-m   "g"     'magit-status)
 
 ;; Shell Commands
@@ -43,7 +42,7 @@
 
 ;; Multi line Editing
 (rc/create-keymap-m   "SPC"   'rectangle-mark-mode)
-(rc/create-keymap-m   "i"     'mc/edit-lines)
+(rc/create-keymap-m   "e"     'mc/edit-lines)
 (rc/create-keymap-c   "j"     'mc/mark-next-like-this)
 (rc/create-keymap-c   "k"     'mc/mark-previous-like-this)
 
