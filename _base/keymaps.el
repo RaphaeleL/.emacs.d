@@ -24,12 +24,11 @@
 ;; Shell Commands
 (rc/create-keymap-m   "c"     'compile)
 (rc/create-keymap-c   "l"     'shell-command)
+(rc/create-keymap-m   "q"     'kill-compilation)
 
 ;; Buffer Management
 (rc/create-keymap-m   "i"     'ibuffer)
 (rc/create-keymap-m   "o"     'switch-to-buffer)
-(rc/create-keymap-m   "e"     'next-buffer)
-(rc/create-keymap-m   "q"     'previous-buffer)
 
 ;; Copy and Paste
 (rc/create-keymap-c   "w"     'rc/copy)
