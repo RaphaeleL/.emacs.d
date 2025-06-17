@@ -60,6 +60,11 @@
 (defun rc/turn-on-paredit () (interactive) (paredit-mode 1))
 (defun rc/on_save () (interactive) (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
+(defun rc/macoshhkb ()
+  (interactive)
+  (setq mac-command-modifier 'control)
+  (setq mac-option-modifier 'meta))
+
 (defun rc/cut ()
   (interactive)
   (simpleclip-cut (region-beginning) (region-end))
