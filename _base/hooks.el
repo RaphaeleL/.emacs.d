@@ -2,10 +2,12 @@
 ; ===== HOOKS ======================================
 ; ==================================================
 
-;; LSP - Disabled due to performance reasons
-;; (add-hook 'python-mode-hook        'eglot-ensure)
-;; (add-hook 'c-mode-hook             'eglot-ensure)
-;; (add-hook 'c++-mode-hook           'eglot-ensure)
+;; LSP
+(add-hook 'python-mode-hook        'eglot-ensure) ; pylsp
+(add-hook 'c-mode-hook             'eglot-ensure) ; clangd
+(add-hook 'c++-mode-hook           'eglot-ensure) ; clangd
+(add-hook 'rust-mode-hook          'eglot-ensure) ; rust-analyzer
+(add-hook 'go-mode-hook            'eglot-ensure) ; gopls
 
 ;; Text Completion
 (add-hook 'after-init-hook         'global-company-mode)
