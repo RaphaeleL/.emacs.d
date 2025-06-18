@@ -17,12 +17,11 @@
         (yaml-mode   . yaml-ts-mode)))
 
 ;; === I PREFER THE BARE UI ======================
-(when (eq system-type 'windows-nt)
-  (rc/bare))
+(rc/bare)
+(when (eq system-type 'darwin)
+  (set-face-attribute 'default nil :height 140)
+  (setq-default mode-line-format nil))
 
 ;; === DEFAULT DIR ON WINDOWS ====================
 (when (eq system-type 'windows-nt)
   (setq default-directory "C:/Users/RaLiccia/"))
-
-;; === NO MORE MODELINE ==========================
-; (setq-default mode-line-format nil)
