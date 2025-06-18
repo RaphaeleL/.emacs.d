@@ -19,9 +19,14 @@
 ;; === I PREFER THE BARE UI ======================
 (rc/bare)
 (when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :height 140)
+  (rc/enable-custom-font)
+  (set-face-attribute 'default nil :height 180)
   (setq-default mode-line-format nil))
 
 ;; === DEFAULT DIR ON WINDOWS ====================
 (when (eq system-type 'windows-nt)
   (setq default-directory "C:/Users/RaLiccia/"))
+
+;; === CUSTOM THEMES =============================
+(add-to-list 'custom-theme-load-path "~/.emacs.d/_themes/")
+; TODO: Add more Themes /Applications/Ghostty.app/Contents/Resources/ghostty/themes/
