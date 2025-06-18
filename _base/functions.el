@@ -50,9 +50,25 @@
    ((eq system-type 'darwin)     "Iosevka")
    ((eq system-type 'gnu/linux)  "IosevkaNerdFont")))
 
+(defvar rc/original-font (face-attribute 'default :font))
+
+(defun rc/enable-custom-font ()
+  (interactive)
+  (let ((font (rc/get-default-font)))
+    (add-to-list 'default-frame-alist `(font . ,font))
+    (set-frame-font font t t)))
+
+(defun rc/disable-custom-font ()
+  (interactive)
+  (setq default-frame-alist
+        (cl-remove-if (lambda (entry)
+                        (eq (car entry) 'font))
+                      default-frame-alist))
+  (set-frame-font rc/original-font t t))
+
 (defun rc/get-default-font-size ()
   (cond
-   ((eq system-type 'windows-nt) 12)
+   ((eq system-type 'windows-nt) 16)
    ((eq system-type 'darwin)     20)
    ((eq system-type 'gnu/linux)  12)))
 
@@ -67,8 +83,13 @@
 
 (defun rc/linuxbare ()
   (interactive)
-  (set-face-font 'default "-misc-fixed-medium-r-normal--20-*-*-*-c-100-iso8859-1")
+  (rc/disable-custom-font)
   (disable-theme 'gruber-darker))
+
+(defun rc/linuxfancy ()
+  (interactive)
+  (rc/enable-custom-font)
+  (load-theme 'gruber-darker t))
 
 (defun rc/cut ()
   (interactive)
