@@ -4,20 +4,11 @@
 
 ;; LSP
 (when (require 'eglot nil 'noerror)
-  (when (executable-find "pylsp")
-    (add-hook 'python-mode-hook 'eglot-ensure))
-
-  (when (executable-find "clangd")
-    (add-hook 'c-mode-hook 'eglot-ensure))
-
-  (when (executable-find "clangd")
-    (add-hook 'c++-mode-hook 'eglot-ensure))
-
-  (when (executable-find "rust-analyzer")
-    (add-hook 'rust-mode-hook 'eglot-ensure))
-
-  (when (executable-find "gopls")
-    (add-hook 'go-mode-hook 'eglot-ensure)))
+  (when (executable-find "pylsp") (add-hook 'python-mode-hook 'eglot-ensure))
+  (when (executable-find "clangd") (add-hook 'c-mode-hook 'eglot-ensure))
+  (when (executable-find "clangd") (add-hook 'c++-mode-hook 'eglot-ensure))
+  (when (executable-find "rust-analyzer") (add-hook 'rust-mode-hook 'eglot-ensure))
+  (when (executable-find "gopls") (add-hook 'go-mode-hook 'eglot-ensure)))
 
 ;; Text Completion
 (add-hook 'after-init-hook         'global-company-mode)
