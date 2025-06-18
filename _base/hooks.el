@@ -3,7 +3,6 @@
 ; ==================================================
 
 ;; LSP
-;; LSP
 (when (require 'eglot nil 'noerror)
   (when (executable-find "pylsp")
     (add-hook 'python-mode-hook 'eglot-ensure))
