@@ -81,12 +81,12 @@
   (setq mac-command-modifier 'control)
   (setq mac-option-modifier 'meta))
 
-(defun rc/linuxbare ()
+(defun rc/bare ()
   (interactive)
   (rc/disable-custom-font)
   (disable-theme 'gruber-darker))
 
-(defun rc/linuxfancy ()
+(defun rc/fancy ()
   (interactive)
   (rc/enable-custom-font)
   (load-theme 'gruber-darker t))
