@@ -6,7 +6,3 @@
 
 ;; === CUSTOM USER SPECIFIC CHANGES ==============
 (load "~/.emacs.d/_custom/adjustments.el")
-
-;; === CUSTOM THEMES =============================
-(add-to-list 'custom-theme-load-path "~/.emacs.d/_themes/")
-; TODO: Add more Themes /Applications/Ghostty.app/Contents/Resources/ghostty/themes/

@@ -1,39 +1,37 @@
 (deftheme solarized_light
-  "solarized_light color theme for Emacs, based on your palette.")
+  "Solarized light theme with toned down, less flashy colors.")
 
 (let* ((class '((class color) (min-colors 89)))
        (solarized_light-colors
-        '((bg         . "#fdf6e3")
-          (fg         . "#657b83")
-          (cursor     . "#657b83")
-          (cursor-txt . "#eee8d5")
-          (selection  . "#eee8d5")
-          (selection-fg . "#586e75")
-          (black      . "#073642")
-          (red        . "#dc322f")
-          (green      . "#859900")
-          (yellow     . "#b58900")
-          (blue       . "#268bd2")
-          (magenta    . "#d33682")
-          (cyan       . "#2aa198")
-          (white      . "#eee8d5")
-          (br-black   . "#002b36")
-          (br-red     . "#cb4b16")
-          (br-green   . "#586e75")
-          (br-yellow  . "#657b83")
-          (br-blue    . "#6c71c4")
-          (br-magenta . "#6c71c4")
-          (br-cyan    . "#93a1a1")
-          (br-white   . "#fdf6e3")))
+        '((bg         . "#fef9e6")  ;; slightly lighter and softer background
+          (fg         . "#6b7c82")  ;; softer gray-blue foreground
+          (cursor     . "#6b7c82")  ;; match fg for cursor
+          (cursor-txt . "#f3ecd7")  ;; soft cream for cursor text
+          (selection  . "#f3ecd7")  ;; very soft selection bg
+          (selection-fg . "#526668") ;; muted selection fg
+          (black      . "#173c48")  ;; softened black (dark blue-gray)
+          (red        . "#c94e48")  ;; toned down red
+          (green      . "#798c31")  ;; softened green
+          (yellow     . "#a98f23")  ;; toned down mustard yellow
+          (blue       . "#4a8ccf")  ;; softer blue
+          (magenta    . "#b85575")  ;; toned down magenta
+          (cyan       . "#339088")  ;; softened cyan
+          (white      . "#f3ecd7")  ;; soft off-white
+          (br-black   . "#1f383f")  ;; soft dark slate
+          (br-red     . "#b6633d")  ;; toned down br-red
+          (br-green   . "#526668")  ;; muted br-green
+          (br-yellow  . "#6b7c82")  ;; muted br-yellow (same as fg)
+          (br-blue    . "#7a80b5")  ;; soft periwinkle blue
+          (br-magenta . "#7a80b5")  ;; same as br-blue
+          (br-cyan    . "#7c8d8a")  ;; soft teal gray
+          (br-white   . "#fef9e6")))
 
-       ;; Helper to safely get color or 'unspecified
        (safe-get-color (lambda (key)
                          (or (cdr (assoc key solarized_light-colors)) 'unspecified))))
 
   (custom-theme-set-faces
    'solarized_light
 
-   ;; Basic faces
    `(default ((,class (:background ,(funcall safe-get-color 'bg)
                                    :foreground ,(funcall safe-get-color 'fg)))))
    `(cursor ((,class (:background ,(funcall safe-get-color 'cursor)
