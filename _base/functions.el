@@ -65,6 +65,11 @@
   (setq mac-command-modifier 'control)
   (setq mac-option-modifier 'meta))
 
+(defun rc/linuxbare ()
+  (interactive)
+  (set-face-font 'default "-misc-fixed-medium-r-normal--20-*-*-*-c-100-iso8859-1")
+  (disable-theme 'gruber-darker))
+
 (defun rc/cut ()
   (interactive)
   (simpleclip-cut (region-beginning) (region-end))
