@@ -3,6 +3,7 @@
 ; ==================================================
 
 ;; LSP
+; TODO: Only set those hooks, if the lsp is installed
 (add-hook 'python-mode-hook        'eglot-ensure) ; pylsp
 (add-hook 'c-mode-hook             'eglot-ensure) ; clangd
 (add-hook 'c++-mode-hook           'eglot-ensure) ; clangd

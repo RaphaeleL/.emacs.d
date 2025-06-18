@@ -4,6 +4,8 @@
 
 ;; === TREESITTER ================================
 
+; TODO: Improve the Flow, its shitty :D
+
 (require 'treesit)
 
 (setq treesit-language-source-alist
@@ -18,3 +20,7 @@
 (setq major-mode-remap-alist
       '((python-mode . python-ts-mode)
         (yaml-mode   . yaml-ts-mode)))
+
+;; === FONT SIZE XLFD ============================
+
+;; (set-face-font 'default "-misc-fixed-medium-r-normal--20-*-*-*-c-100-iso8859-1")
