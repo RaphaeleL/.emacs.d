@@ -1,18 +1,18 @@
 (deftheme zenburn
-  "Zenburn theme - A low contrast color scheme for eye protection.")
+  "Zenburn theme - A low contrast color scheme for Emacs.")
 
 (let* ((class '((class color) (min-colors 89)))
        (zenburn-colors
         '(
           (bg         . "#3f3f3f")  ;; Zenburn background
           (fg         . "#dcdccc")  ;; Zenburn foreground
-          (cursor     . "#dcdccc")  ;; Zenburn cursor
+          (cursor     . "#7f9f7f")  ;; Main color: green
           (cursor-txt . "#3f3f3f")  ;; Zenburn cursor text
           (selection  . "#4f4f4f")  ;; Zenburn selection
           (selection-fg . "#dcdccc")  ;; Zenburn selection fg
           (black      . "#3f3f3f")  ;; Zenburn black
           (red        . "#cc9393")  ;; Zenburn red
-          (green      . "#7f9f7f")  ;; Zenburn green
+          (green      . "#7f9f7f")  ;; Zenburn green - MAIN COLOR
           (yellow     . "#f0dfaf")  ;; Zenburn yellow
           (blue       . "#8cd0d3")  ;; Zenburn blue
           (magenta    . "#dc8cc3")  ;; Zenburn magenta
@@ -53,6 +53,12 @@
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
 
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'green) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+
    ;; Font lock faces - carefully tuned for Zenburn style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'cyan)))))
    `(font-lock-comment-face ((,class (:foreground ,(funcall safe-get-color 'br-black) :slant italic))))
@@ -61,9 +67,9 @@
    `(font-lock-doc-face ((,class (:foreground ,(funcall safe-get-color 'br-black) :slant italic))))
    `(font-lock-doc-string-face ((,class (:foreground ,(funcall safe-get-color 'yellow) :slant italic))))
    `(font-lock-function-name-face ((,class (:foreground ,(funcall safe-get-color 'green)))))
-   `(font-lock-keyword-face ((,class (:foreground ,(funcall safe-get-color 'yellow) :weight bold))))
+   `(font-lock-keyword-face ((,class (:foreground ,(funcall safe-get-color 'magenta) :weight bold))))
    `(font-lock-preprocessor-face ((,class (:foreground ,(funcall safe-get-color 'red)))))
-   `(font-lock-string-face ((,class (:foreground ,(funcall safe-get-color 'red)))))
+   `(font-lock-string-face ((,class (:foreground ,(funcall safe-get-color 'yellow)))))
    `(font-lock-type-face ((,class (:foreground ,(funcall safe-get-color 'blue) :slant italic))))
    `(font-lock-variable-name-face ((,class (:foreground ,(funcall safe-get-color 'white)))))
    `(font-lock-warning-face ((,class (:foreground ,(funcall safe-get-color 'red) :weight bold))))))

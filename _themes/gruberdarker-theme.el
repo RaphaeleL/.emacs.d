@@ -6,14 +6,14 @@
         '(
           (bg         . "#181818")  ;; Deep, dark background
           (fg         . "#e4e4e4")  ;; Light gray text
-          (cursor     . "#ffdd33")  ;; Bright yellow cursor
-          (cursor-txt . "#ffffff")  ;; White cursor text
+          (cursor     . "#ffdd33")  ;; Main color: yellow
+          (cursor-txt . "#181818")  ;; Dark background for cursor text
           (selection  . "#2c2c2c")  ;; Slightly lighter than bg for selection
           (selection-fg . "#e4e4e4")  ;; Same as fg for consistency
           (black      . "#282828")  ;; Softer black
           (red        . "#f43841")  ;; Vibrant red
           (green      . "#73d936")  ;; Bright green
-          (yellow     . "#ffdd33")  ;; Warm yellow
+          (yellow     . "#ffdd33")  ;; Warm yellow - MAIN COLOR
           (blue       . "#96a6c8")  ;; Muted blue
           (magenta    . "#9e95c7")  ;; Soft magenta
           (cyan       . "#95a99f")  ;; Muted cyan
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'br-red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'yellow) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Gruber-darker style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'yellow)))))

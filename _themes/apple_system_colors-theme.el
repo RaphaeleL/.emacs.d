@@ -6,7 +6,7 @@
         '(
           (bg         . "#ffffff")  ;; Apple System background
           (fg         . "#000000")  ;; Apple System foreground
-          (cursor     . "#007aff")  ;; Apple System cursor
+          (cursor     . "#007aff")  ;; Main color: blue
           (cursor-txt . "#ffffff")  ;; Apple System cursor text
           (selection  . "#007aff")  ;; Apple System selection
           (selection-fg . "#ffffff")  ;; Apple System selection fg
@@ -14,7 +14,7 @@
           (red        . "#ff3b30")  ;; Apple System red
           (green      . "#34c759")  ;; Apple System green
           (yellow     . "#ff9500")  ;; Apple System yellow
-          (blue       . "#007aff")  ;; Apple System blue
+          (blue       . "#007aff")  ;; Apple System blue - MAIN COLOR
           (magenta    . "#af52de")  ;; Apple System magenta
           (cyan       . "#5ac8fa")  ;; Apple System cyan
           (white      . "#ffffff")  ;; Apple System white
@@ -53,6 +53,12 @@
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
 
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'blue) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+
    ;; Font lock faces - carefully tuned for Apple System Colors style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'blue)))))
    `(font-lock-comment-face ((,class (:foreground ,(funcall safe-get-color 'br-black) :slant italic))))
@@ -61,10 +67,10 @@
    `(font-lock-doc-face ((,class (:foreground ,(funcall safe-get-color 'br-black) :slant italic))))
    `(font-lock-doc-string-face ((,class (:foreground ,(funcall safe-get-color 'br-black) :slant italic))))
    `(font-lock-function-name-face ((,class (:foreground ,(funcall safe-get-color 'green) :weight bold))))
-   `(font-lock-keyword-face ((,class (:foreground ,(funcall safe-get-color 'blue) :weight bold))))
+   `(font-lock-keyword-face ((,class (:foreground ,(funcall safe-get-color 'br-blue) :weight bold))))
    `(font-lock-preprocessor-face ((,class (:foreground ,(funcall safe-get-color 'red)))))
    `(font-lock-string-face ((,class (:foreground ,(funcall safe-get-color 'green)))))
-   `(font-lock-type-face ((,class (:foreground ,(funcall safe-get-color 'magenta) :slant italic))))
+   `(font-lock-type-face ((,class (:foreground ,(funcall safe-get-color 'br-magenta)))))
    `(font-lock-variable-name-face ((,class (:foreground ,(funcall safe-get-color 'black)))))
    `(font-lock-warning-face ((,class (:foreground ,(funcall safe-get-color 'red) :weight bold))))))
 

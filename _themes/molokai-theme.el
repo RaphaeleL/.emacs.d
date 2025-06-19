@@ -6,7 +6,7 @@
         '(
           (bg         . "#1B1D1E")  ;; Darker background than Monokai
           (fg         . "#F8F8F2")  ;; Off-white text
-          (cursor     . "#F8F8F2")  ;; Match foreground
+          (cursor     . "#F92672")  ;; Main color: magenta
           (cursor-txt . "#1B1D1E")  ;; Match background
           (selection  . "#403D3D")  ;; Dark brown selection
           (selection-fg . "#F8F8F2")  ;; Off-white selection text
@@ -15,7 +15,7 @@
           (green      . "#A6E22E")  ;; Bright green for functions
           (yellow     . "#E6DB74")  ;; Light yellow for strings
           (blue       . "#66D9EF")  ;; Cyan-blue for types
-          (magenta    . "#F92672")  ;; Pink-red for keywords
+          (magenta    . "#F92672")  ;; Pink-red for keywords - MAIN COLOR
           (cyan       . "#A1EFE4")  ;; Light cyan
           (white      . "#F8F8F2")  ;; Off-white
           (br-black   . "#465457")  ;; Gray for comments
@@ -53,6 +53,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'magenta) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Molokai style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'magenta)))))

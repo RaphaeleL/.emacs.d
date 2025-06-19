@@ -6,7 +6,7 @@
         '(
           (bg         . "#1e1e2e")  ;; Catppuccin Mocha base
           (fg         . "#cdd6f4")  ;; Catppuccin Mocha text
-          (cursor     . "#f5e0dc")  ;; Catppuccin Mocha rosewater
+          (cursor     . "#f5c2e7")  ;; Main color: pink
           (cursor-txt . "#1e1e2e")  ;; Catppuccin Mocha base
           (selection  . "#313244")  ;; Catppuccin Mocha surface0
           (selection-fg . "#cdd6f4")  ;; Catppuccin Mocha text
@@ -15,7 +15,7 @@
           (green      . "#a6e3a1")  ;; Catppuccin Mocha green
           (yellow     . "#f9e2af")  ;; Catppuccin Mocha yellow
           (blue       . "#89b4fa")  ;; Catppuccin Mocha blue
-          (magenta    . "#f5c2e7")  ;; Catppuccin Mocha pink
+          (magenta    . "#f5c2e7")  ;; Catppuccin Mocha pink - MAIN COLOR
           (cyan       . "#94e2d5")  ;; Catppuccin Mocha teal
           (white      . "#cdd6f4")  ;; Catppuccin Mocha text
           (br-black   . "#6c7086")  ;; Catppuccin Mocha overlay0
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'magenta) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Catppuccin Mocha style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'cyan)))))
