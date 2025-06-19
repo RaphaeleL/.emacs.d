@@ -16,7 +16,7 @@
         (yaml-mode   . yaml-ts-mode)))
 
 ;; === I PREFER THE BARE UI ======================
-(rc/bare)
+; (rc/bare)
 (when (eq system-type 'darwin)
   (rc/enable-custom-font)
   (set-face-attribute 'default nil :height 180)
@@ -25,6 +25,3 @@
 ;; === DEFAULT DIR ON WINDOWS ====================
 (when (eq system-type 'windows-nt)
   (setq default-directory "C:/Users/RaLiccia/"))
-
-;; === CUSTOM THEMES =============================
-(add-to-list 'custom-theme-load-path "~/.emacs.d/_custom/_themes/")

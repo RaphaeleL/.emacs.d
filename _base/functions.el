@@ -84,12 +84,12 @@
 (defun rc/bare ()
   (interactive)
   (rc/disable-custom-font)
-  (disable-theme 'gruber-darker))
+  (disable-theme 'solarized_light))
 
 (defun rc/fancy ()
   (interactive)
   (rc/enable-custom-font)
-  (load-theme 'gruber-darker t))
+  (load-theme 'solarized_light t))
 
 (defun rc/cut ()
   (interactive)
@@ -130,18 +130,6 @@
   (read-only-mode 'toggle)
   (ansi-color-apply-on-region compilation-filter-start (point))
   (read-only-mode 'toggle))
-
-(defun rc/toggle-themes ()
-  (interactive)
-  (if (member 'kaolin-valley-light custom-enabled-themes)
-      (progn
-        (disable-theme 'kaolin-valley-light)
-        (load-theme 'gruber-darker t)
-        (custom-set-faces))
-    (progn
-      (disable-theme 'gruber-darker)
-      (load-theme 'kaolin-valley-light t)
-      (custom-set-faces))))
 
 (defun rc/toggle-buffer (buffer-name)
   (interactive)
