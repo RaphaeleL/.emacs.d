@@ -70,8 +70,20 @@
    `(font-lock-keyword-face ((,class (:foreground ,(funcall safe-get-color 'br-red) :weight bold))))
    `(font-lock-preprocessor-face ((,class (:foreground ,(funcall safe-get-color 'br-magenta)))))
    `(font-lock-string-face ((,class (:foreground ,(funcall safe-get-color 'br-green)))))
-   `(font-lock-type-face ((,class (:foreground ,(funcall safe-get-color 'br-yellow) :slant italic))))
-   `(font-lock-variable-name-face ((,class (:foreground ,(funcall safe-get-color 'br-white)))))
-   `(font-lock-warning-face ((,class (:foreground ,(funcall safe-get-color 'br-red) :weight bold))))))
+   `(font-lock-type-face ((,class (:foreground ,(funcall safe-get-color 'br-magenta)))))
+   `(font-lock-variable-name-face ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(font-lock-warning-face ((,class (:foreground ,(funcall safe-get-color 'red) :weight bold))))
+
+   ;; Modeline faces - Gruvbox Light style
+   `(mode-line ((,class (:background ,(funcall safe-get-color 'bg)
+                                     :foreground ,(funcall safe-get-color 'fg)))))
+   `(mode-line-inactive ((,class (:background ,(funcall safe-get-color 'selection)
+                                              :foreground ,(funcall safe-get-color 'br-black)))))
+   `(mode-line-highlight ((,class (:background ,(funcall safe-get-color 'yellow)
+                                               :foreground ,(funcall safe-get-color 'bg)
+                                               :weight bold))))
+   `(mode-line-emphasis ((,class (:weight bold))))
+   `(mode-line-buffer-id ((,class (:foreground ,(funcall safe-get-color 'yellow) :weight bold))))
+))
 
 (provide-theme 'gruvboxlight)
