@@ -19,8 +19,8 @@
 ; (rc/bare)
 (when (eq system-type 'darwin)
   (rc/disable-custom-font)
-  (set-face-attribute 'default nil :height 180)
-  (setq-default mode-line-format nil))
+  (set-face-attribute 'default nil :height 180))
+; (setq-default mode-line-format nil)
 
 ;; === DEFAULT DIR ON WINDOWS ====================
 (when (eq system-type 'windows-nt)
