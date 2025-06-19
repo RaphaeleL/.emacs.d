@@ -15,12 +15,14 @@
 (tooltip-mode -1)
 (menu-bar-mode -1)
 
+(add-to-list 'custom-theme-load-path "~/.emacs.d/_themes/")
+
 (add-to-list 'default-frame-alist `(font . ,(rc/get-default-font)))
 
 (setq custom-safe-themes 1)
 
 ;; Load initial theme
-(load-theme 'gruber-darker t)
+(load-theme 'solarized_light t)
 
 (blink-cursor-mode 0)
 (setq x-stretch-cursor nil)
