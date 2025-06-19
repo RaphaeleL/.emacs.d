@@ -55,6 +55,7 @@
 ;; Stuff i do not need daily, but i definitely want a shortcut for
 (rc/create-keymap     "<f1>"  'rc/toggle-scratch-buffer)
 (rc/create-keymap     "<f2>"  'rc/toggle-compilation-buffer)
+(rc/create-keymap     "<f3>"  'counsel-load-theme)
 (rc/create-keymap     "<f4>"  'rc/open_config)
 (rc/create-keymap     "<f5>"  'rc/toggle-mini-buffer-mode)
 (rc/create-keymap     "<f6>"  'whitespace-mode)
