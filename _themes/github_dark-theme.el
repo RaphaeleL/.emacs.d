@@ -6,13 +6,13 @@
         '(
           (bg         . "#0d1117")  ;; GitHub Dark background
           (fg         . "#c9d1d9")  ;; GitHub Dark foreground
-          (cursor     . "#58a6ff")  ;; GitHub Dark cursor
+          (cursor     . "#7ee787")  ;; Main color: green
           (cursor-txt . "#0d1117")  ;; GitHub Dark cursor text
           (selection  . "#21262d")  ;; GitHub Dark selection
           (selection-fg . "#c9d1d9")  ;; GitHub Dark selection fg
           (black      . "#0d1117")  ;; GitHub Dark black
           (red        . "#ff7b72")  ;; GitHub Dark red
-          (green      . "#7ee787")  ;; GitHub Dark green
+          (green      . "#7ee787")  ;; GitHub Dark green - MAIN COLOR
           (yellow     . "#ffa657")  ;; GitHub Dark yellow
           (blue       . "#79c0ff")  ;; GitHub Dark blue
           (magenta    . "#d2a8ff")  ;; GitHub Dark magenta
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'green) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for GitHub Dark style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'blue)))))

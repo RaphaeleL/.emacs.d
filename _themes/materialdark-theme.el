@@ -6,7 +6,7 @@
         '(
           (bg         . "#263238")  ;; Material Dark background
           (fg         . "#eeffff")  ;; Material Dark foreground
-          (cursor     . "#ffcc00")  ;; Material Dark cursor
+          (cursor     . "#82aaff")  ;; Main color: blue
           (cursor-txt . "#263238")  ;; Material Dark cursor text
           (selection  . "#546e7a")  ;; Material Dark selection
           (selection-fg . "#eeffff")  ;; Material Dark selection fg
@@ -14,7 +14,7 @@
           (red        . "#ff5370")  ;; Material Dark red
           (green      . "#c3e88d")  ;; Material Dark green
           (yellow     . "#ffcb6b")  ;; Material Dark yellow
-          (blue       . "#82aaff")  ;; Material Dark blue
+          (blue       . "#82aaff")  ;; Material Dark blue - MAIN COLOR
           (magenta    . "#c792ea")  ;; Material Dark magenta
           (cyan       . "#89ddff")  ;; Material Dark cyan
           (white      . "#eeffff")  ;; Material Dark white
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'blue) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Material Dark style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'cyan)))))

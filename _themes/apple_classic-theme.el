@@ -6,7 +6,7 @@
         '(
           (bg         . "#FFFFFF")  ;; Classic white background
           (fg         . "#000000")  ;; Pure black text
-          (cursor     . "#000000")  ;; Black cursor
+          (cursor     . "#0000FF")  ;; Main color: blue
           (cursor-txt . "#FFFFFF")  ;; White cursor text
           (selection  . "#B5D5FF")  ;; Classic Mac blue selection
           (selection-fg . "#000000")  ;; Black selection text
@@ -14,7 +14,7 @@
           (red        . "#C41E3A")  ;; Classic Mac red
           (green      . "#00852B")  ;; Classic Mac green
           (yellow     . "#C7A500")  ;; Classic Mac yellow
-          (blue       . "#0000FF")  ;; Classic Mac blue
+          (blue       . "#0000FF")  ;; Classic Mac blue - MAIN COLOR
           (magenta    . "#A020F0")  ;; Classic Mac purple
           (cyan       . "#0087B4")  ;; Classic Mac cyan
           (white      . "#FFFFFF")  ;; Pure white
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'blue) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Apple Classic style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'blue)))))

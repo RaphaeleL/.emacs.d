@@ -6,7 +6,7 @@
         '(
           (bg         . "#282c34")  ;; Doom One background
           (fg         . "#bbc2cf")  ;; Doom One foreground
-          (cursor     . "#bbc2cf")  ;; Doom One cursor
+          (cursor     . "#51afef")  ;; Main color: blue
           (cursor-txt . "#282c34")  ;; Doom One cursor text
           (selection  . "#3e4451")  ;; Doom One selection
           (selection-fg . "#bbc2cf")  ;; Doom One selection fg
@@ -14,7 +14,7 @@
           (red        . "#ff6c6b")  ;; Doom One red
           (green      . "#98be65")  ;; Doom One green
           (yellow     . "#ecbe7b")  ;; Doom One yellow
-          (blue       . "#51afef")  ;; Doom One blue
+          (blue       . "#51afef")  ;; Doom One blue - MAIN COLOR
           (magenta    . "#c678dd")  ;; Doom One magenta
           (cyan       . "#46d9ff")  ;; Doom One cyan
           (white      . "#dfdfdf")  ;; Doom One white
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'blue) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Doom One style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'cyan)))))

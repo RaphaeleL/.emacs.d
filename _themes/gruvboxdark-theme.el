@@ -6,7 +6,7 @@
         '(
           (bg         . "#282828")  ;; Gruvbox Dark background
           (fg         . "#ebdbb2")  ;; Gruvbox Dark foreground
-          (cursor     . "#ebdbb2")  ;; Gruvbox Dark cursor
+          (cursor     . "#b8bb26")  ;; Main color: green
           (cursor-txt . "#282828")  ;; Gruvbox Dark cursor text
           (selection  . "#504945")  ;; Gruvbox Dark selection
           (selection-fg . "#ebdbb2")  ;; Gruvbox Dark selection fg
@@ -20,7 +20,7 @@
           (white      . "#a89984")  ;; Gruvbox Dark white
           (br-black   . "#928374")  ;; Gruvbox Dark comment
           (br-red     . "#fb4934")  ;; Gruvbox Dark bright red
-          (br-green   . "#b8bb26")  ;; Gruvbox Dark bright green
+          (br-green   . "#b8bb26")  ;; Gruvbox Dark bright green - MAIN COLOR
           (br-yellow  . "#fabd2f")  ;; Gruvbox Dark bright yellow
           (br-blue    . "#83a598")  ;; Gruvbox Dark bright blue
           (br-magenta . "#d3869b")  ;; Gruvbox Dark bright magenta
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'br-green) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Gruvbox Dark style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'br-blue)))))

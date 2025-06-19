@@ -6,7 +6,7 @@
         '(
           (bg         . "#1F1F24")  ;; Xcode dark background
           (fg         . "#FFFFFF")  ;; Pure white text
-          (cursor     . "#FF8A7A")  ;; Salmon cursor
+          (cursor     . "#4EB0CC")  ;; Main color: blue
           (cursor-txt . "#1F1F24")  ;; Dark background
           (selection  . "#515158")  ;; Dark gray selection
           (selection-fg . "#FFFFFF")  ;; White selection text
@@ -14,7 +14,7 @@
           (red        . "#FF8A7A")  ;; Salmon red
           (green      . "#78C2B3")  ;; Seafoam green
           (yellow     . "#FFD479")  ;; Warm yellow
-          (blue       . "#4EB0CC")  ;; Xcode blue
+          (blue       . "#4EB0CC")  ;; Xcode blue - MAIN COLOR
           (magenta    . "#FF7AB2")  ;; Pink
           (cyan       . "#78C2B3")  ;; Seafoam
           (white      . "#FFFFFF")  ;; Pure white
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'br-red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'blue) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Xcode Dark style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'magenta)))))

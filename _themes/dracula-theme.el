@@ -6,7 +6,7 @@
         '(
           (bg         . "#282a36")  ;; Dracula background
           (fg         . "#f8f8f2")  ;; Dracula foreground
-          (cursor     . "#f8f8f2")  ;; Dracula cursor
+          (cursor     . "#bd93f9")  ;; Main color: purple
           (cursor-txt . "#282a36")  ;; Dracula cursor text
           (selection  . "#44475a")  ;; Dracula selection
           (selection-fg . "#f8f8f2")  ;; Dracula selection fg
@@ -14,7 +14,7 @@
           (red        . "#ff5555")  ;; Dracula red
           (green      . "#50fa7b")  ;; Dracula green
           (yellow     . "#f1fa8c")  ;; Dracula yellow
-          (blue       . "#bd93f9")  ;; Dracula purple
+          (blue       . "#bd93f9")  ;; Dracula purple - MAIN COLOR
           (magenta    . "#ff79c6")  ;; Dracula pink
           (cyan       . "#8be9fd")  ;; Dracula cyan
           (white      . "#f8f8f2")  ;; Dracula white
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'blue) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Dracula style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'cyan)))))

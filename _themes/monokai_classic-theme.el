@@ -6,12 +6,12 @@
         '(
           (bg         . "#272822")  ;; Classic dark gray background
           (fg         . "#F8F8F2")  ;; Off-white text
-          (cursor     . "#F8F8F2")  ;; Match foreground
+          (cursor     . "#F92672")  ;; Main color: red
           (cursor-txt . "#272822")  ;; Match background
           (selection  . "#49483E")  ;; Soft brown selection
           (selection-fg . "#F8F8F2")  ;; Off-white selection text
           (black      . "#272822")  ;; Base dark
-          (red        . "#F92672")  ;; Pink-red for keywords
+          (red        . "#F92672")  ;; Pink-red for keywords - MAIN COLOR
           (green      . "#A6E22E")  ;; Bright green for functions
           (yellow     . "#E6DB74")  ;; Light yellow for strings
           (blue       . "#66D9EF")  ;; Cyan-blue for types
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'red) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Monokai Classic style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'red)))))

@@ -6,13 +6,13 @@
         '(
           (bg         . "#161719")  ;; Atom background
           (fg         . "#c5c8c6")  ;; Atom foreground
-          (cursor     . "#c5c8c6")  ;; Atom cursor
+          (cursor     . "#b5bd68")  ;; Main color: green
           (cursor-txt . "#161719")  ;; Atom cursor text
           (selection  . "#373b41")  ;; Atom selection
           (selection-fg . "#c5c8c6")  ;; Atom selection fg
           (black      . "#161719")  ;; Atom black
           (red        . "#cc6666")  ;; Atom red
-          (green      . "#b5bd68")  ;; Atom green
+          (green      . "#b5bd68")  ;; Atom green - MAIN COLOR
           (yellow     . "#f0c674")  ;; Atom yellow
           (blue       . "#81a2be")  ;; Atom blue
           (magenta    . "#b294bb")  ;; Atom magenta
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'green) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Atom style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'cyan)))))

@@ -6,7 +6,7 @@
         '(
           (bg         . "#fdf6e3")  ;; Base 3 - background
           (fg         . "#657b83")  ;; Base 00 - primary content
-          (cursor     . "#586e75")  ;; Base 01 - emphasized content
+          (cursor     . "#268bd2")  ;; Main color: blue
           (cursor-txt . "#fdf6e3")  ;; Base 3 - background
           (selection  . "#eee8d5")  ;; Base 2 - selection
           (selection-fg . "#586e75")  ;; Base 01 - emphasized content
@@ -14,7 +14,7 @@
           (red        . "#dc322f")  ;; Red - error
           (green      . "#859900")  ;; Green - success
           (yellow     . "#b58900")  ;; Yellow - warning
-          (blue       . "#268bd2")  ;; Blue - primary
+          (blue       . "#268bd2")  ;; Blue - primary - MAIN COLOR
           (magenta    . "#d33682")  ;; Magenta - special
           (cyan       . "#2aa198")  ;; Cyan - strings
           (white      . "#fdf6e3")  ;; Base 3 - background
@@ -52,6 +52,12 @@
    `(show-paren-mismatch ((,class (:background ,(funcall safe-get-color 'red)
                                                :foreground ,(funcall safe-get-color 'bg)
                                                :weight bold))))
+
+   ;; Line number faces - main color for current line
+   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'blue) :weight bold))))
+   `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
    ;; Font lock faces - carefully tuned for Solarized Light style
    `(font-lock-builtin-face ((,class (:foreground ,(funcall safe-get-color 'blue)))))

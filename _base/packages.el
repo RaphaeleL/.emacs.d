@@ -13,8 +13,8 @@
 (rc/require 'company)
 
 (rc/require 'mood-line)
-(rc/require 'gruber-darker-theme)
-(rc/require 'kaolin-themes)
+; (rc/require 'gruber-darker-theme)
+; (rc/require 'kaolin-themes)
 (rc/require 'ansi-color)
 
 (rc/require 'vertico)
