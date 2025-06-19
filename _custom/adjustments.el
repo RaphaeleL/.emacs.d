@@ -19,7 +19,7 @@
 ; (rc/bare)
 (when (eq system-type 'darwin)
   (rc/disable-custom-font)
-  (set-face-attribute 'default nil :height 180))
+  (set-face-attribute 'default nil :height 160))
 ; (setq-default mode-line-format nil)
 
 ;; === DEFAULT DIR ON WINDOWS ====================
