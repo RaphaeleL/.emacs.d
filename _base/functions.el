@@ -167,3 +167,8 @@
 (defun rc/create-keymap-cx  (key action) (global-set-key (kbd (concat "C-x "   key)) action))
 (defun rc/create-keymap-m   (key action) (global-set-key (kbd (concat "M-"     key)) action))
 (defun rc/create-keymap-c   (key action) (global-set-key (kbd (concat "C-"     key)) action))
+
+(defun rc/reload ()
+  (interactive)
+  (load-file user-init-file)
+  (message "Emacs reloaded."))
