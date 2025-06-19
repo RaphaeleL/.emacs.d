@@ -84,7 +84,7 @@
 (defun rc/bare ()
   (interactive)
   (rc/disable-custom-font)
-  (disable-theme 'solarized_light))
+  (mapc #'disable-theme custom-enabled-themes))
 
 (defun rc/fancy ()
   (interactive)
