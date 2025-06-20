@@ -54,8 +54,11 @@
                                                :weight bold))))
 
    ;; Line number faces - main color for current line
-   `(line-number ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
-   `(line-number-current-line ((,class (:foreground ,(funcall safe-get-color 'magenta) :weight bold))))
+   `(line-number ((,class (:inherit default
+                                  :foreground ,(funcall safe-get-color 'br-black)))))
+   `(line-number-current-line ((,class (:inherit default
+                                               :foreground ,(funcall safe-get-color 'magenta)
+                                               :weight bold))))
    `(line-number-major-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
    `(line-number-minor-tick ((,class (:foreground ,(funcall safe-get-color 'br-black)))))
 
