@@ -15,7 +15,7 @@
 (tooltip-mode -1)
 (menu-bar-mode -1)
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/_themes/")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/_themes/enhanced")
 
 (add-to-list 'default-frame-alist `(font . ,(rc/get-default-font)))
 
