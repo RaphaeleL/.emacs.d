@@ -17,13 +17,6 @@
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-themes/enhanced")
 
-(add-to-list 'default-frame-alist `(font . ,(rc/get-default-font)))
-
-(setq custom-safe-themes 1)
-
-;; Load initial theme
-(load-theme 'solarized_light t)
-
 (blink-cursor-mode 0)
 (setq x-stretch-cursor nil)
 
