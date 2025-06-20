@@ -19,6 +19,9 @@
 ;; On Save Behaviour
 (add-hook 'c-mode-hook             'rc/on_save)
 (add-hook 'c++-mode-hook           'rc/on_save)
+(add-hook 'go-mode-hook            'rc/on_save)
+(add-hook 'rust-mode-hook          'rc/on_save)
+(add-hook 'python-mode-hook        'rc/on_save)
 (add-hook 'simpc-mode-hook         'rc/on_save)
 (add-hook 'python-mode-hook        'rc/on_save)
 (add-hook 'markdown-mode-hook      'rc/on_save)

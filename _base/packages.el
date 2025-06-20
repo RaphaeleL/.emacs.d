@@ -29,3 +29,5 @@
 (rc/require 'web-mode)
 (rc/require 'yaml-mode)
 (rc/require 'jinja2-mode)
+(rc/require 'go-mode)
+(rc/require 'rust-mode)
