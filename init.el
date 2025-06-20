@@ -5,4 +5,5 @@
  ((eq system-type 'gnu/linux)  (load "~/.emacs.d/_templates/init.linux.el")))
 
 ;; === CUSTOM USER SPECIFIC CHANGES ==============
-(load "~/.emacs.d/_custom/adjustments.el")
+; (load "~/.emacs.d/_custom/treesitter.el")
+(load "~/.emacs.d/_custom/usersettings.el")
