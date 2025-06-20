@@ -23,3 +23,6 @@
 
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
+
+(when (eq system-type 'windows-nt)
+  (setq default-directory "C:/Users/"))

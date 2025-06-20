@@ -19,14 +19,22 @@
                                 (unless (frame-focus-state)
                                   (garbage-collect))))
               (add-hook 'after-focus-change-function 'garbage-collect))
-            
+
             (defun gc-minibuffer-setup-hook ()
               (setq gc-cons-threshold most-positive-fixnum))
-              
+
             (defun gc-minibuffer-exit-hook ()
               (garbage-collect)
-              (setq gc-cons-threshold better-gc-cons-threshold)) 
-              
+              (setq gc-cons-threshold better-gc-cons-threshold))
+
             (add-hook 'minibuffer-setup-hook #'gc-minibuffer-setup-hook)
             (add-hook 'minibuffer-exit-hook #'gc-minibuffer-exit-hook)))
 
+(defun efs/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                   (time-subtract after-init-time before-init-time)))
+           gcs-done))
+
+(add-hook 'emacs-startup-hook #'efs/display-startup-time)

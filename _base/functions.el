@@ -70,7 +70,7 @@
   (cond
    ((eq system-type 'windows-nt) 16)
    ((eq system-type 'darwin)     20)
-   ((eq system-type 'gnu/linux)  12)))
+   ((eq system-type 'gnu/linux)  10)))
 
 (defun rc/get-default-font () (format "%s-%d" (rc/get-default-font-family) (rc/get-default-font-size)))
 (defun rc/turn-on-paredit () (interactive) (paredit-mode 1))
@@ -80,6 +80,12 @@
   (interactive)
   (setq mac-command-modifier 'control)
   (setq mac-option-modifier 'meta))
+
+(defun rc/load-theme (theme)
+  (interactive
+   (list (intern (completing-read "Theme: " (custom-available-themes)))))
+   (setq custom-safe-themes t)
+   (load-theme theme t))
 
 (defun rc/bare ()
   (interactive)

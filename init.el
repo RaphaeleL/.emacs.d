@@ -6,4 +6,3 @@
 
 ;; === CUSTOM USER SPECIFIC CHANGES ==============
 (load "~/.emacs.d/_custom/adjustments.el")
-(message "Happy Hacking!")

@@ -15,16 +15,6 @@
 ;;       '((python-mode . python-ts-mode)
 ;;         (yaml-mode   . yaml-ts-mode)))
 
-;; === MACOS =====================================
-(when (eq system-type 'darwin)
-  (rc/disable-custom-font)
-  (set-face-attribute 'default nil :height 160))
+;; === THEME =====================================
 
-;; === WINDOWS =====================================
-(when (eq system-type 'windows-nt)
-  (setq default-directory "C:/Users/RaLiccia/"))
-
-;; === GNU/LINUX ===================================
-(when (eq system-type 'gnu/linux)
-  (rc/disable-custom-font)
-  (set-face-attribute 'default nil :height 160))
+(rc/load-theme 'solarized_light)
