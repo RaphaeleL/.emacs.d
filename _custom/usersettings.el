@@ -2,4 +2,5 @@
 ;; === CUSTOM ADJUSTMENTS ========================
 ;; ===============================================
 
+(rc/bare)
 ; (rc/load-theme 'solarized_light)
