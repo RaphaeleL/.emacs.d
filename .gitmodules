@@ -1,0 +1,3 @@
+[submodule "emacs-themes"]
+	path = emacs-themes
+	url = git@github.com:RaphaeleL/emacs-themes.git
