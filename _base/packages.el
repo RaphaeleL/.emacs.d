@@ -17,6 +17,7 @@
 (rc/require 'mood-line)         ;; Minimal and pretty modeline replacement
 (rc/require 'ansi-color)        ;; Display ANSI colors in compilation or shell buffers
 (rc/require 'which-key)         ;; Show possible keybindings after a prefix is typed
+(rc/require 'smooth-scrolling)  ;; Make Emacs scroll smoothly 
 
 ; === Completion Frameworks (minibuffer/UI) ===
 

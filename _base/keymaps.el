@@ -13,7 +13,11 @@
 (rc/create-keymap-m   "z"     'undo)
 (rc/create-keymap-m   "d"     'rc/duplicate-line)
 (rc/create-keymap-m   "r"     'rc/delete-line)
-(rc/create-keymap-c   "g"     'indent-region)
+(rc/create-keymap-cc   "g"     'indent-region)
+
+(rc/create-keymap-m   "f"     'consult-line)
+(rc/create-keymap-c   "g"     'consult-ripgrep)
+(rc/create-keymap-c   "r"     'consult-recent-file)
 
 ;; Default Emacs stuff, just simpler
 (rc/create-keymap-c   ","     'find-file)
@@ -61,13 +65,4 @@
 (rc/create-keymap     "<f6>"  'whitespace-mode)
 (rc/create-keymap     "<f7>"  'display-line-numbers-mode)
 (rc/create-keymap     "<f8>"  'which-key-mode)
-
-;; Consult – navigation & search
-(rc/create-keymap-c "f" 'consult-buffer)         ;; Better buffer switch
-(rc/create-keymap-m "f" 'consult-line)           ;; Search in buffer
-(rc/create-keymap-m "l" 'consult-imenu)          ;; Jump to symbol in buffer
-(rc/create-keymap-c "s" 'consult-ripgrep)        ;; Project search (ripgrep)
-
-;; Minibuffer help
-(rc/create-keymap     "<f9>" 'embark-bindings)   ;; Show bindings for current context
-(rc/create-keymap-c "r" 'consult-recent-file)
+(rc/create-keymap     "<f9>"  'embark-bindings)

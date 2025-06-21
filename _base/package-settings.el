@@ -70,19 +70,20 @@
 
 (savehist-mode t)
 (recentf-mode t)
+(smooth-scrolling-mode t)
 
 (setq ibuffer-saved-filter-groups
       '(("default"
          ("Coding" (or
-                         (mode . python-mode)
-                         (mode . go-mode)
-                         (mode . rust-mode)
-                         (mode . web-mode)
-                         (mode . yaml-mode)
-                         (mode . jinja2-mode)
-                         (mode . dockerfile-mode)
-                         (mode . markdown-mode)
-                         (mode . jenkinsfile-mode)))
+                    (mode . python-mode)
+                    (mode . go-mode)
+                    (mode . rust-mode)
+                    (mode . web-mode)
+                    (mode . yaml-mode)
+                    (mode . jinja2-mode)
+                    (mode . dockerfile-mode)
+                    (mode . markdown-mode)
+                    (mode . jenkinsfile-mode)))
          ("Dired" (mode . dired-mode))
          ("Magit" (name . "^\\*magit"))
          ("Emacs" (or
