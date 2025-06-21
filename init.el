@@ -2,6 +2,32 @@
 ;; This file controls what modules are enabled and what order they load in.
 ;; Remember to run 'emacs --batch --eval "(byte-recompile-directory \"~/.emacs.d\" 0 t)" after modifying it!
 
+;; === CONFIGURATION DIRECTORY SETUP =============
+(defun lira-setup-config-directory ()
+  "Set up the user configuration directory if it doesn't exist.
+Copies default configuration from ~/.emacs.d/templates/lira/ to ~/.config/lira/."
+  (let ((default-config-dir "~/.emacs.d/templates/lira")
+        (user-config-dir "~/.config/lira"))
+    (unless (file-exists-p user-config-dir)
+      (message "Setting up user configuration directory...")
+      (condition-case err
+          (progn
+            ;; Create the directory
+            (make-directory user-config-dir t)
+            ;; Copy all .el files from default config
+            (dolist (file (directory-files default-config-dir t "\\.el$"))
+              (let ((target-file (expand-file-name (file-name-nondirectory file) user-config-dir)))
+                (unless (file-exists-p target-file)
+                  (copy-file file target-file t)
+                  (message "Copied %s to %s" (file-name-nondirectory file) user-config-dir))))
+            (message "User configuration directory setup complete"))
+        (error
+         (message "Warning: Could not set up configuration directory: %s" 
+                  (error-message-string err)))))))
+
+;; Run the setup
+(lira-setup-config-directory)
+
 ;; === CORE CONFIGURATION ========================
 (require 'package)
 (setq package-enable-at-startup nil)
