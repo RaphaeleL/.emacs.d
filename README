@@ -1,7 +1,78 @@
-Configuration of my Emacs
+# Lira - Emacs Configuration Framework
 
-Just Download this Repo and open Emacs. The Rest should be done automatically.
+A modern, modular Emacs configuration framework with CLI management tools.
+
+## Quick Start
+
+Just download this repo and open Emacs. The rest should be done automatically.
 
 ```bash
 git clone --recurse-submodules https://github.com/RaphaeleL/.emacs.d
 ```
+
+## CLI Commands
+
+Lira includes a command-line interface for managing your Emacs configuration:
+
+### Installation
+
+```bash
+# Install the CLI tool
+make install-cli
+```
+
+### Available Commands
+
+- `lira health` - Check the health of your Lira configuration
+- `lira test` - Run tests on your Lira configuration  
+- `lira restart` - Clean and restart Emacs (deletes elpa, eln-cache, etc.)
+- `lira uninstall` - Completely remove Lira configuration and clean up
+- `lira nuke` - Alias for uninstall - completely remove everything
+- `lira help` - Show help message
+
+### Examples
+
+```bash
+# Check if everything is working correctly
+lira health
+
+# Run configuration tests
+lira test
+
+# Clean restart Emacs (useful after updates)
+lira restart
+
+# Completely remove Lira (with confirmation)
+lira uninstall
+
+# Same as uninstall, but more dramatic
+lira nuke
+```
+
+### Uninstalling the CLI
+
+```bash
+# Remove the CLI command
+make uninstall-cli
+```
+
+## Makefile Targets
+
+The project includes a Makefile with useful targets:
+
+```bash
+make help           # Show all available targets
+make test           # Run configuration tests
+make install-cli    # Install the CLI command
+make uninstall-cli  # Uninstall the CLI command
+make clean          # Clean up temporary files
+```
+
+## Features
+
+- **Modular Design**: Easy to enable/disable features
+- **Cross-platform**: Works on macOS, Linux, and Windows
+- **CLI Management**: Command-line tools for configuration management
+- **Health Checks**: Built-in diagnostics and testing
+- **Clean Restart**: Easy cleanup and restart functionality
+- **Complete Uninstall**: Safe removal with minimal fallback configuration
