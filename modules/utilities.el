@@ -94,13 +94,3 @@
 ;; === FONT UTILITY FUNCTIONS ====================
 (defun lira-font-increase() (interactive) (text-scale-increase 1))
 (defun lira-font-decrease() (interactive) (text-scale-decrease 1))
-
-;; === SYSTEM UTILITY FUNCTIONS ==================
-(defun lira-reload ()
-  (interactive)
-  (condition-case err
-      (progn
-        (load-file user-init-file)
-        (message "Emacs reloaded."))
-    (error
-     (message "Warning: Could not reload Emacs: %s" (error-message-string err))))) 
