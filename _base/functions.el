@@ -12,12 +12,28 @@
     (setq rc/package-contents-refreshed t)
     (package-refresh-contents)))
 
+(defun rc/package-available-p (package)
+  "Check if a package is available in any of the configured archives"
+  (and package-archive-contents
+       (assq package package-archive-contents)))
+
 (defun rc/require-one-package (package)
+  "Install and require a package with better error handling"
   (unless (package-installed-p package)
     (rc/package-refresh-contents-once)
-    (package-install package)))
+    (if (rc/package-available-p package)
+        (condition-case err
+            (package-install package)
+          (error
+           (message "Warning: Package '%s' failed to install: %s" 
+                    package (error-message-string err))
+           nil))
+      (message "Warning: Package '%s' is not available in any configured archive" package))))
 
-(defun rc/require (&rest packages) (dolist (package packages) (rc/require-one-package package)))
+(defun rc/require (&rest packages) 
+  "Require multiple packages with error handling"
+  (dolist (package packages) 
+    (rc/require-one-package package)))
 
 (defun rc/require-theme (theme)
   (let
@@ -178,3 +194,7 @@
   (interactive)
   (load-file user-init-file)
   (message "Emacs reloaded."))
+
+(defun rc/minibuffer-setup-combined ()
+  (rc/my-compile-minibuffer-setup)
+  (rc/my-fido-minibuffer-setup))

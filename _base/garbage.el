@@ -1,40 +1,123 @@
+;; =============================================================================
+;; GARBAGE COLLECTION & PERFORMANCE OPTIMIZATIONS
+;; =============================================================================
+
+;; Store original values for restoration after startup
 (defvar file-name-handler-alist-original file-name-handler-alist)
+(defvar gc-cons-threshold-original gc-cons-threshold)
+(defvar gc-cons-percentage-original gc-cons-percentage)
+
+;; Disable file name handlers during startup for faster loading
 (setq file-name-handler-alist nil)
 
-(setq gc-cons-threshold 100000000)
+;; Disable garbage collection during startup
+(setq gc-cons-threshold most-positive-fixnum)
+(setq gc-cons-percentage 0.6)
 
-(defvar better-gc-cons-threshold 134217728)
+;; Optimized GC thresholds for different scenarios
+(defvar gc-cons-threshold-normal 134217728)    ; 128MB
+(defvar gc-cons-threshold-high 268435456)      ; 256MB
+(defvar gc-cons-threshold-low 67108864)        ; 64MB
 
+;; Startup optimization hook
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (setq gc-cons-threshold better-gc-cons-threshold)
+            ;; Restore file name handlers
             (setq file-name-handler-alist file-name-handler-alist-original)
-            (makunbound 'file-name-handler-alist-original)))
+            (makunbound 'file-name-handler-alist-original)
+            
+            ;; Set normal GC threshold
+            (setq gc-cons-threshold gc-cons-threshold-normal)
+            (setq gc-cons-percentage 0.6)
+            
+            ;; Force initial garbage collection
+            (garbage-collect)
+            
+            ;; Clean up startup variables
+            (makunbound 'gc-cons-threshold-original)
+            (makunbound 'gc-cons-percentage-original)))
 
+;; Smart focus-based garbage collection
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (if (boundp 'after-focus-change-function)
-                (add-function :after after-focus-change-function
-                              (lambda ()
-                                (unless (frame-focus-state)
-                                  (garbage-collect))))
-              (add-hook 'after-focus-change-function 'garbage-collect))
+            (let ((last-focus-time (current-time)))
+              (if (boundp 'after-focus-change-function)
+                  (add-function :after after-focus-change-function
+                                (lambda ()
+                                  (let ((now (current-time)))
+                                    ;; Only GC if we've been unfocused for more than 30 seconds
+                                    (when (and (not (frame-focus-state))
+                                               (> (float-time (time-subtract now last-focus-time)) 30))
+                                      (setq last-focus-time now)
+                                      (garbage-collect)))))
+                (add-hook 'after-focus-change-function 
+                          (lambda ()
+                            (let ((now (current-time)))
+                              (when (and (not (frame-focus-state))
+                                         (> (float-time (time-subtract now last-focus-time)) 30))
+                                (setq last-focus-time now)
+                                (garbage-collect)))))))))
 
+;; Minibuffer performance optimization
+(add-hook 'emacs-startup-hook
+          (lambda ()
             (defun gc-minibuffer-setup-hook ()
+              "Disable GC during minibuffer operations for better responsiveness"
               (setq gc-cons-threshold most-positive-fixnum))
 
             (defun gc-minibuffer-exit-hook ()
+              "Restore GC and collect garbage after minibuffer operations"
               (garbage-collect)
-              (setq gc-cons-threshold better-gc-cons-threshold))
+              (setq gc-cons-threshold gc-cons-threshold-normal))
 
             (add-hook 'minibuffer-setup-hook #'gc-minibuffer-setup-hook)
             (add-hook 'minibuffer-exit-hook #'gc-minibuffer-exit-hook)))
 
+;; Enhanced startup time reporting
 (defun efs/display-startup-time ()
-  (message "Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time
-                   (time-subtract after-init-time before-init-time)))
-           gcs-done))
+  "Display enhanced startup time information"
+  (let* ((startup-time (float-time (time-subtract after-init-time before-init-time)))
+         (gc-time (float-time (time-subtract after-init-time before-init-time)))
+         (memory-usage (format "%.1f MB" (/ (car (memory-info)) 1024.0))))
+    (message "Emacs loaded in %.2f seconds with %d garbage collections. Memory: %s"
+             startup-time gcs-done memory-usage)))
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
+
+;; Additional performance optimizations
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            ;; Optimize for better performance
+            (setq read-process-output-max (* 64 1024)) ; 64KB
+            (setq process-adaptive-read-buffering t)
+            
+            ;; Reduce redisplay frequency
+            (setq redisplay-dont-pause t)
+            
+            ;; Optimize font rendering
+            (setq inhibit-compacting-font-caches t)
+            
+            ;; Disable some expensive features during startup
+            (setq auto-save-default nil)
+            (setq auto-save-visited-file-name nil)))
+
+;; Memory pressure handling
+(defun efs/handle-memory-pressure ()
+  "Handle memory pressure by triggering garbage collection"
+  (when (> (car (memory-info)) (* 512 1024)) ; If memory > 512MB
+    (garbage-collect)))
+
+;; Periodic memory cleanup (every 5 minutes)
+(run-with-idle-timer 300 t #'efs/handle-memory-pressure)
+
+;; Startup completion hook for final optimizations
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (run-with-idle-timer 1 nil
+                                (lambda ()
+                                  ;; Final cleanup after startup
+                                  (garbage-collect)
+                                  (message "Startup optimization complete")))))
+
+;; Provide the module
+(provide 'garbage)

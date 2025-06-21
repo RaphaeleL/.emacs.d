@@ -48,3 +48,51 @@
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+
+(setq prefix-help-command #'embark-prefix-help-command)
+
+(setq corfu-cycle t)               ;; Cycle through candidates
+(setq corfu-auto t)                ;; Enable auto popup
+(setq corfu-auto-prefix 2)         ;; Minimum chars before popup
+(setq corfu-quit-no-match t)       ;; Don't hang if no match
+(setq corfu-preview-current nil)   ;; No inline preview
+(global-corfu-mode 1)
+
+(setq completion-styles '(orderless basic))
+(setq completion-category-overrides
+      '((file (styles basic partial-completion)))) ;; better file completion
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(savehist-mode t)
+(recentf-mode t)
+
+(setq ibuffer-saved-filter-groups
+      '(("default"
+         ("Coding" (or
+                         (mode . python-mode)
+                         (mode . go-mode)
+                         (mode . rust-mode)
+                         (mode . web-mode)
+                         (mode . yaml-mode)
+                         (mode . jinja2-mode)
+                         (mode . dockerfile-mode)
+                         (mode . markdown-mode)
+                         (mode . jenkinsfile-mode)))
+         ("Dired" (mode . dired-mode))
+         ("Magit" (name . "^\\*magit"))
+         ("Emacs" (or
+                   (name . "^\\*scratch\\*$")
+                   (name . "^\\*Messages\\*$")
+                   (name . "^\\*Help\\*$")
+                   (name . "^\\*Compile-Log\\*$")))
+         ("Buffers with files" (filename . ".+"))
+         ("Others" (name . ".*")))))
+
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-switch-to-saved-filter-groups "default")))

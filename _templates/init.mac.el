@@ -4,7 +4,7 @@
 (load "~/.emacs.d/_base/garbage.el")
 (load "~/.emacs.d/_base/ui.el")
 (load "~/.emacs.d/_base/basic.el")
-; (load "~/.emacs.d/_base/compilation-buffer.el")
+(load "~/.emacs.d/_base/compilation-buffer.el")
 (load "~/.emacs.d/_base/minibuffer.el")
 (load "~/.emacs.d/_base/package-settings.el")
 (load "~/.emacs.d/_base/mac.el")

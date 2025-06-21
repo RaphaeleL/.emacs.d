@@ -28,3 +28,4 @@
 
 (setq window-resize-pixelwise t
       frame-resize-pixelwise t)
+

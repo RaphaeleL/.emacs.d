@@ -2,36 +2,35 @@
 ; ===== HOOKS ======================================
 ; ==================================================
 
-;; LSP
-(when (require 'eglot nil 'noerror)
-  (when (executable-find "pylsp") (add-hook 'python-mode-hook 'eglot-ensure))
-  (when (executable-find "clangd") (add-hook 'c-mode-hook 'eglot-ensure))
-  (when (executable-find "clangd") (add-hook 'c++-mode-hook 'eglot-ensure))
-  (when (executable-find "rust-analyzer") (add-hook 'rust-mode-hook 'eglot-ensure))
-  (when (executable-find "gopls") (add-hook 'go-mode-hook 'eglot-ensure)))
+(add-to-list 'exec-path "~/.local/bin")
 
-;; Text Completion
-(add-hook 'after-init-hook         'global-company-mode)
+(with-eval-after-load 'company
+  (setq company-backends '((company-capf company-dabbrev-code company-dabbrev))))
 
-;; Auto Close Par.
-(add-hook 'text-mode-hook          'rc/turn-on-paredit)
+(with-eval-after-load 'eglot
+  (setq eglot-server-programs
+        '((python-mode . ("pylsp"))
+          (c-mode . ("clangd"))
+          (c++-mode . ("clangd"))
+          (rust-mode . ("rust-analyzer"))
+          (go-mode . ("gopls")))))
 
-;; On Save Behaviour
-(add-hook 'c-mode-hook             'rc/on_save)
-(add-hook 'c++-mode-hook           'rc/on_save)
-(add-hook 'go-mode-hook            'rc/on_save)
-(add-hook 'rust-mode-hook          'rc/on_save)
-(add-hook 'python-mode-hook        'rc/on_save)
-(add-hook 'simpc-mode-hook         'rc/on_save)
-(add-hook 'python-mode-hook        'rc/on_save)
-(add-hook 'markdown-mode-hook      'rc/on_save)
-(add-hook 'text-mode-hook          'rc/on_save)
-(add-hook 'emacs-lisp-mode-hook    'rc/on_save)
-(add-hook 'jenkinsfile-mode-hook   'rc/on_save)
-(add-hook 'dockerfile-mode-hook    'rc/on_save)
-(add-hook 'makefile-mode-hook      'rc/on_save)
-(add-hook 'rpm-spec-mode-hook      'rc/on_save)
+;; Hook eglot to major modes
+(dolist (mode '(python-mode c-mode c++-mode rust-mode go-mode))
+  (add-hook (intern (format "%s-hook" mode)) #'eglot-ensure))
 
-;; Better Moving in Different Kind of Buffers
-(add-hook 'minibuffer-setup-hook   'rc/my-compile-minibuffer-setup)
-(add-hook 'minibuffer-setup-hook   'rc/my-fido-minibuffer-setup)
+;; Global company mode after init
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; Paredit only in Lisp modes
+(dolist (mode '(emacs-lisp-mode lisp-mode clojure-mode scheme-mode))
+  (add-hook (intern (format "%s-hook" mode)) #'rc/turn-on-paredit))
+
+;; On save hook for many modes
+(dolist (mode '(c-mode c++-mode go-mode rust-mode python-mode simpc-mode
+                      markdown-mode text-mode emacs-lisp-mode jenkinsfile-mode
+                      dockerfile-mode makefile-mode rpm-spec-mode))
+  (add-hook (intern (format "%s-hook" mode)) #'rc/on_save))
+
+;; Combine minibuffer setup hooks
+(add-hook 'minibuffer-setup-hook #'rc/minibuffer-setup-combined)
