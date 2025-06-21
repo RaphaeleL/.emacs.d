@@ -1,5 +1,2 @@
-- Installer for ~/.config/lira/ and ~/.emacs.d
 - More Options in ~/.config/lira/init.el 
-- Some CLI Commands, like `lira health`
 - MacOS Keybindings
-- Presets like macos, linux, windows, fancy, bare and more, which are set through the ~/.config/lira/ presets.
