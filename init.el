@@ -30,9 +30,9 @@
   ;; Defer package initialization to after startup
   (setq package-enable-at-startup nil)
   
-  ;; Basic startup optimizations
-  (setq gc-cons-threshold (* 100 1024 1024))  ; 100MB
-  (setq gc-cons-percentage 0.6)
+  ;; Aggressive startup optimizations
+  (setq gc-cons-threshold (* 200 1024 1024))  ; 200MB during startup
+  (setq gc-cons-percentage 0.8)
   (setq read-process-output-max (* 1024 1024)) ; 1MB
   
   ;; Disable things we don't need during startup
@@ -42,7 +42,13 @@
   (setq inhibit-default-init t)
   
   ;; Disable file name handler cache
-  (setq file-name-handler-alist nil))
+  (setq file-name-handler-alist nil)
+  
+  ;; Disable auto-save during startup
+  (setq auto-save-default nil)
+  
+  ;; Disable desktop save during startup
+  (setq desktop-save-mode nil))
 
 ;; === CONFIGURATION DIRECTORY SETUP =============
 (lira-time "Config Setup"
@@ -79,6 +85,9 @@ Copies default configuration from ~/.emacs.d/templates/lira/ to ~/.config/lira/.
   (defvar lira-lazy-modules '()
     "List of modules to load lazily.")
 
+  (defvar lira-heavy-modules '()
+    "List of heavy modules that should be loaded only when needed.")
+
   (defmacro lira! (name &rest flags)
     "Enable a module with optional flags."
     (let ((module (intern (format "lira-module-%s" name))))
@@ -94,7 +103,13 @@ Copies default configuration from ~/.emacs.d/templates/lira/ to ~/.config/lira/.
     "Enable a module to be loaded lazily with optional flags."
     (let ((module (intern (format "lira-module-%s" name))))
       (add-to-list 'lira-lazy-modules module)
-      `(lira! ,name ,@flags))))
+      `(lira! ,name ,@flags)))
+
+  (defmacro lira-heavy! (name &rest flags)
+    "Enable a heavy module that should be loaded only when needed."
+    (let ((module (intern (format "lira-module-%s" name))))
+      (add-to-list 'lira-heavy-modules module)
+      `(lira-lazy! ,name ,@flags))))
 
 ;; === MODULE DEFINITIONS ========================
 (lira-time "Module Definitions"
@@ -120,10 +135,11 @@ Copies default configuration from ~/.emacs.d/templates/lira/ to ~/.config/lira/.
     (error
      (message "Warning: Could not load utilities module: %s" (error-message-string err))))
 
-  ;; Load essential modules immediately
+  ;; Load essential modules immediately (lightweight ones)
   (dolist (module lira-modules)
     (when (and (boundp module) 
                (not (member module lira-lazy-modules))
+               (not (member module lira-heavy-modules))
                (not (string= (symbol-name module) "lira-module-keymaps")))
       (condition-case err
           (load (format "~/.emacs.d/modules/%s" (substring (symbol-name module) 12)))
@@ -155,14 +171,37 @@ Copies default configuration from ~/.emacs.d/templates/lira/ to ~/.config/lira/.
 ;; === LAZY LOADING SETUP =======================
 (lira-time "Lazy Loading Setup"
   ;; Set up lazy loading for heavy modules
-  (dolist (module lira-lazy-modules)
+  (dolist (module lira-heavy-modules)
     (let ((module-name (substring (symbol-name module) 12)))
-      (eval `(with-eval-after-load ',module-name
-               (condition-case err
-                   (load (format "~/.emacs.d/modules/%s" ,module-name))
-                 (error
-                  (message "Warning: Could not lazy load module %s: %s" 
-                           ,module-name (error-message-string err)))))))))
+      ;; Load tools module when magit is used
+      (when (string= module-name "tools")
+        (eval `(with-eval-after-load 'magit
+                 (condition-case err
+                     (load "~/.emacs.d/modules/tools")
+                   (error
+                    (message "Warning: Could not lazy load tools module: %s" 
+                             (error-message-string err)))))))
+      
+      ;; Load language modules when their modes are activated
+      (when (string= module-name "lang")
+        (eval `(dolist (mode '(rust-mode go-mode python-mode web-mode markdown-mode))
+                 (with-eval-after-load mode
+                   (condition-case err
+                       (load "~/.emacs.d/modules/lang")
+                     (error
+                      (message "Warning: Could not lazy load lang module: %s" 
+                               (error-message-string err))))))))))
+  
+  ;; Set up lazy loading for regular lazy modules
+  (dolist (module lira-lazy-modules)
+    (when (not (member module lira-heavy-modules))
+      (let ((module-name (substring (symbol-name module) 12)))
+        (eval `(with-eval-after-load ',module-name
+                 (condition-case err
+                     (load (format "~/.emacs.d/modules/%s" ,module-name))
+                   (error
+                    (message "Warning: Could not lazy load module %s: %s" 
+                             ,module-name (error-message-string err))))))))))
 
 ;; === POST-STARTUP OPTIMIZATIONS ===============
 (lira-time "Post-Startup"
@@ -172,6 +211,8 @@ Copies default configuration from ~/.emacs.d/templates/lira/ to ~/.config/lira/.
       (setq gc-cons-threshold (* 16 1024 1024))  ; 16MB
       (setq gc-cons-percentage 0.1)
       (setq file-name-handler-alist lira--file-name-handler-alist)
+      (setq auto-save-default t)
+      (setq desktop-save-mode t)
       (garbage-collect)))
   
   ;; Report startup times

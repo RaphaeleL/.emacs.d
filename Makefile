@@ -104,16 +104,16 @@ health:
 	fi
 
 startup-time:
-	@echo "⏱️  Measuring Emacs startup time..."
+	@echo "🚀 Measuring Emacs startup time..."
 	@echo ""
-	@echo "Starting Emacs in batch mode to measure startup..."
-	@start_time=$$(date +%s.%N); \
-	emacs --batch --eval "(load-file \"init.el\")" --eval "(message \"Startup complete\")" 2>/dev/null; \
-	end_time=$$(date +%s.%N); \
-	startup_time=$$(echo "$$end_time - $$start_time" | bc -l); \
-	echo "✓ Emacs startup time: $$startup_time seconds"
+	@echo "Cold startup (first time):"
+	@time emacs --batch --eval "(message \"Startup complete\")" 2>&1 | grep real
 	@echo ""
-	@echo "For detailed startup profiling, start Emacs normally and check the *Messages* buffer."
+	@echo "Warm startup (cached):"
+	@time emacs --batch --eval "(message \"Startup complete\")" 2>&1 | grep real
+	@echo ""
+	@echo "Startup with profiling:"
+	@emacs --batch --eval "(load \"~/.emacs.d/init.el\")" --eval "(lira-report-startup-times)" 2>/dev/null || echo "Profiling not available"
 
 stop:
 	@echo "🛑 Stopping Emacs..."
