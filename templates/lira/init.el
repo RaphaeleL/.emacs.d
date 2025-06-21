@@ -1,4 +1,5 @@
 ;; === MODULE DEFINITIONS ========================
+;; Core modules (loaded immediately)
 (lira! completion
        company                ; the ultimate code completion backend
        ; vertico                ; the search engine of the future
@@ -31,13 +32,15 @@
 (lira! checkers
        syntax)                ; tasing you for every semicolon you forget
 
-(lira! tools
+;; Lazy-loaded modules (loaded when needed)
+(lira-lazy! tools
        magit                  ; a git porcelain for Emacs
        lsp                    ; M-x vscode
        eval                   ; run code, run (also, repls)
        lookup)                ; navigate your code and its documentation
 
-(lira! lang
+;; Language modules (loaded when file is opened)
+(lira-lazy! lang
        emacs-lisp             ; drown in parentheses
        markdown               ; writing docs for people to ignore
        web                    ; the tubes
