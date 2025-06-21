@@ -6,24 +6,35 @@
   (use-package magit
     :ensure t
     :defer t
-    :commands (magit-status magit-log magit-diff)))
+    :commands (magit-status magit-log magit-diff magit-blame magit-commit)
+    :bind (("C-x g" . magit-status))
+    :init
+    ;; Only load magit when actually used
+    (autoload 'magit-status "magit" nil t)
+    (autoload 'magit-log "magit" nil t)
+    (autoload 'magit-diff "magit" nil t)))
 
 ;; === LSP =======================================
 (when (boundp 'lira-module-tools-lsp)
   (use-package eglot
     :ensure t
     :defer t
-    :commands (eglot eglot-ensure)
-    :config
+    :commands (eglot eglot-ensure eglot-shutdown)
+    :init
     (add-to-list 'exec-path "~/.local/bin")
-    ;; Only load LSP when needed
-    (add-hook 'prog-mode-hook #'eglot-ensure)))
+    ;; Only load LSP when a supported file is opened
+    (autoload 'eglot-ensure "eglot" nil t)
+    :config
+    ;; Defer LSP startup until after idle time
+    (setq eglot-autoshutdown t)
+    (setq eglot-send-changes-idle-time 0.5)))
 
 ;; === EVAL ======================================
 (when (boundp 'lira-module-tools-eval)
   (use-package eval-in-repl
     :ensure t
-    :defer t))
+    :defer t
+    :commands (eval-in-repl-python eval-in-repl-javascript eval-in-repl-ruby))
 
 ;; === LOOKUP ====================================
 (when (boundp 'lira-module-tools-lookup)
@@ -31,6 +42,13 @@
     :ensure t
     :defer t
     :commands (helpful-callable helpful-variable helpful-key helpful-command helpful-at-point)
+    :init
+    ;; Autoload helpful commands
+    (autoload 'helpful-callable "helpful" nil t)
+    (autoload 'helpful-variable "helpful" nil t)
+    (autoload 'helpful-key "helpful" nil t)
+    (autoload 'helpful-command "helpful" nil t)
+    (autoload 'helpful-at-point "helpful" nil t)
     :bind
     (("C-h f" . helpful-callable)
      ("C-h v" . helpful-variable)
