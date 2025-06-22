@@ -4,6 +4,11 @@
 
 (add-to-list 'exec-path "~/.local/bin")
 
+;; Replace yes-or-no-p with y-or-n-p (safer, loads later)
+(add-hook 'after-init-hook
+          (lambda ()
+            (advice-add 'yes-or-no-p :override #'y-or-n-p)))
+
 (with-eval-after-load 'company
   (setq company-backends '((company-capf company-dabbrev-code company-dabbrev))))
 

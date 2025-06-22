@@ -2,6 +2,10 @@
 ; ===== BASIC SHIT =================================
 ; ==================================================
 
+;; Disable native compilation to avoid startup errors
+(setq native-comp-enable-subr-trampolines nil)
+(setq native-comp-async-report-warnings-errors nil)
+
 (save-place-mode 1)
 (simpleclip-mode 1)
 
@@ -18,7 +22,7 @@
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 4)
 
-(fset 'yes-or-no-p 'y-or-n-p)
+;; Use y-or-n-p instead of yes-or-no-p (safer approach)
 (setq use-dialog-box nil)
 
 (with-eval-after-load 'dired
