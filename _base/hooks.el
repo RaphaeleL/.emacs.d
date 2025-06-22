@@ -12,18 +12,6 @@
 (with-eval-after-load 'company
   (setq company-backends '((company-capf company-dabbrev-code company-dabbrev))))
 
-(with-eval-after-load 'eglot
-  (setq eglot-server-programs
-        '((python-mode . ("pylsp"))
-          (c-mode . ("clangd"))
-          (c++-mode . ("clangd"))
-          (rust-mode . ("rust-analyzer"))
-          (go-mode . ("gopls")))))
-
-;; Hook eglot to major modes
-(dolist (mode '(python-mode c-mode c++-mode rust-mode go-mode))
-  (add-hook (intern (format "%s-hook" mode)) #'eglot-ensure))
-
 ;; Global company mode after init
 (add-hook 'after-init-hook 'global-company-mode)
 

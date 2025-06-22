@@ -5,5 +5,8 @@
  ((eq system-type 'gnu/linux)  (load "~/.emacs.d/_templates/init.linux.el")))
 
 ;; === CUSTOM USER SPECIFIC CHANGES ==============
-; (load "~/.emacs.d/_custom/treesitter.el")
-(load "~/.emacs.d/_custom/usersettings.el")
+(add-to-list 'default-frame-alist '(undecorated-round . t))
+(add-to-list 'default-frame-alist '(width . 88))
+(add-to-list 'default-frame-alist '(height . 33))
+(rc/enable-custom-font)
+(rc/load-theme 'nord)

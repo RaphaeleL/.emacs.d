@@ -88,7 +88,13 @@
    ((eq system-type 'darwin)     20)
    ((eq system-type 'gnu/linux)  10)))
 
-(defun rc/get-default-font () (format "%s-%d" (rc/get-default-font-family) (rc/get-default-font-size)))
+(defun rc/get-default-font () 
+  (let ((family (rc/get-default-font-family))
+        (size (rc/get-default-font-size)))
+    (if (and family size)
+        (format "%s-%d" family size)
+      "Iosevka-20")))  ; fallback font
+
 (defun rc/turn-on-paredit () (interactive) (paredit-mode 1))
 (defun rc/on_save () (interactive) (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 

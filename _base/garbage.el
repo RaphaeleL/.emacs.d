@@ -38,25 +38,26 @@
             (makunbound 'gc-cons-percentage-original)))
 
 ;; Smart focus-based garbage collection
+(defvar efs/last-focus-time (current-time))
+
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (let ((last-focus-time (current-time)))
-              (if (boundp 'after-focus-change-function)
-                  (add-function :after after-focus-change-function
-                                (lambda ()
-                                  (let ((now (current-time)))
-                                    ;; Only GC if we've been unfocused for more than 30 seconds
-                                    (when (and (not (frame-focus-state))
-                                               (> (float-time (time-subtract now last-focus-time)) 30))
-                                      (setq last-focus-time now)
-                                      (garbage-collect)))))
-                (add-hook 'after-focus-change-function 
-                          (lambda ()
-                            (let ((now (current-time)))
-                              (when (and (not (frame-focus-state))
-                                         (> (float-time (time-subtract now last-focus-time)) 30))
-                                (setq last-focus-time now)
-                                (garbage-collect)))))))))
+            (if (boundp 'after-focus-change-function)
+                (add-function :after after-focus-change-function
+                              (lambda ()
+                                (let ((now (current-time)))
+                                  ;; Only GC if we've been unfocused for more than 30 seconds
+                                  (when (and (not (frame-focus-state))
+                                             (> (float-time (time-subtract now efs/last-focus-time)) 30))
+                                    (setq efs/last-focus-time now)
+                                    (garbage-collect)))))
+              (add-hook 'after-focus-change-function 
+                        (lambda ()
+                          (let ((now (current-time)))
+                            (when (and (not (frame-focus-state))
+                                       (> (float-time (time-subtract now efs/last-focus-time)) 30))
+                              (setq efs/last-focus-time now)
+                              (garbage-collect))))))))
 
 ;; Minibuffer performance optimization
 (add-hook 'emacs-startup-hook
@@ -76,11 +77,14 @@
 ;; Enhanced startup time reporting
 (defun efs/display-startup-time ()
   "Display enhanced startup time information"
-  (let* ((startup-time (float-time (time-subtract after-init-time before-init-time)))
-         (gc-time (float-time (time-subtract after-init-time before-init-time)))
-         (memory-usage (format "%.1f MB" (/ (car (memory-info)) 1024.0))))
-    (message "Emacs loaded in %.2f seconds with %d garbage collections. Memory: %s"
-             startup-time gcs-done memory-usage)))
+  (condition-case err
+      (let* ((startup-time (if (and (boundp 'after-init-time) (boundp 'before-init-time))
+                               (float-time (time-subtract after-init-time before-init-time))
+                             0.0)))
+        (message "Emacs loaded in %.2f seconds with %d garbage collections."
+                 startup-time gcs-done))
+    (error
+     (message "Emacs loaded with %d garbage collections" gcs-done))))
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
 
@@ -116,8 +120,7 @@
             (run-with-idle-timer 1 nil
                                 (lambda ()
                                   ;; Final cleanup after startup
-                                  (garbage-collect)
-                                  (message "Startup optimization complete")))))
+                                  (garbage-collect)))))
 
 ;; Provide the module
 (provide 'garbage)
