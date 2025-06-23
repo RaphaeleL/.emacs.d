@@ -16,14 +16,14 @@
 (rc/create-keymap-cc   "g"     'indent-region)
 
 (rc/create-keymap-m   "g"     'consult-line)
-(rc/create-keymap-c   "g"     'consult-ripgrep)
+(rc/create-keymap-ccc "g"     'consult-ripgrep)
 (rc/create-keymap-c   "r"     'consult-recent-file)
 
 ;; Default Emacs stuff, just simpler
 (rc/create-keymap-c   ","     'find-file)
 (rc/create-keymap-c   "."     'dired)
 (rc/create-keymap-m   ","     'project-find-file)
-(rc/create-keymap-ccc "g"     'magit-status)
+(rc/create-keymap-m   "g"     'magit-status)
 
 ;; Shell Commands
 (rc/create-keymap-m   "c"     'compile)
@@ -35,9 +35,10 @@
 (rc/create-keymap-m   "o"     'consult-buffer)
 
 ;; Copy and Paste
-(rc/create-keymap-c   "w"     'rc/copy)
 (rc/create-keymap-c   "y"     'rc/paste)
+(rc/create-keymap-c   "w"     'rc/copy)
 (rc/create-keymap-c   "t"     'rc/cut)
+(rc/create-keymap-c   "/"     'rc/visual-or-line-copy)
 
 ;; Moving a Selection up and down
 (rc/create-keymap-m   "p"     'move-text-up)

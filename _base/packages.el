@@ -23,8 +23,8 @@
 (rc/require 'vertico)           ;; Vertical minibuffer completion UI (replaces default M-x and more)
 (rc/require 'orderless)         ;; Completion style allowing out-of-order, fuzzy-like matching
 (rc/require 'marginalia)        ;; Annotations next to minibuffer candidates (e.g. describe functions)
-(rc/require 'consult)           ;; Powerful completion commands for files, buffers, search, etc.
 (rc/require 'corfu)             ;; Popup-style in-buffer completion UI (replaces company)
+(rc/require 'consult)           ;; Powerful completion commands for files, buffers, search, etc.
 ; (rc/require 'company)           ;; In-buffer completion popup (mostly replaced by corfu if used)
 ; (rc/require 'counsel)           ;; Ivy-based commands (e.g. counsel-M-x), not needed if using Vertico/Consult
 

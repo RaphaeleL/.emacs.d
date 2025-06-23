@@ -72,10 +72,13 @@
 (recentf-mode t)
 ; (smooth-scrolling-mode t)
 
+(add-to-list 'auto-mode-alist '("\\.log\\'" . syslog-mode))
+
 (setq ibuffer-saved-filter-groups
       '(("default"
          ("Coding" (or
                     (mode . python-mode)
+					(mode . sh-mode)
                     (mode . go-mode)
                     (mode . rust-mode)
                     (mode . web-mode)
@@ -83,17 +86,21 @@
                     (mode . jinja2-mode)
                     (mode . dockerfile-mode)
                     (mode . markdown-mode)
+					(mode . syslog-mode)
                     (mode . jenkinsfile-mode)))
          ("Dired" (mode . dired-mode))
          ("Magit" (or
-				    (name . "Magit")
-					(name . "Magit\\*$")))
+				   (name . "Magit")
+				   (name . "Magit\\*$")))
          ("Emacs" (or
+				   (mode . emacs-lisp-mode)
+				   (mode . fundamental-mode)
                    (name . "^\\*scratch\\*$")
                    (name . "^\\*Messages\\*$")
                    (name . "^\\*Help\\*$")
                    (name . "^\\*Compile-Log\\*$")))
-         ("Others" (name . ".*")))))
+         ("Others" (name . ".*")
+		  		   (mode . text-mode)))))
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()

@@ -7,7 +7,7 @@
 (mood-line-mode 1)
 
 (setq inhibit-startup-message t)
-(setq initial-scratch-message "")
+(setq initial-scratch-message nil)
 (setq initial-major-mode 'text-mode)
 
 (scroll-bar-mode -1)
@@ -28,4 +28,3 @@
 
 (setq window-resize-pixelwise t
       frame-resize-pixelwise t)
-

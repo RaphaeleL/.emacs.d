@@ -25,14 +25,14 @@
         (condition-case err
             (package-install package)
           (error
-           (message "Warning: Package '%s' failed to install: %s" 
+           (message "Warning: Package '%s' failed to install: %s"
                     package (error-message-string err))
            nil))
       (message "Warning: Package '%s' is not available in any configured archive" package))))
 
-(defun rc/require (&rest packages) 
+(defun rc/require (&rest packages)
   "Require multiple packages with error handling"
-  (dolist (package packages) 
+  (dolist (package packages)
     (rc/require-one-package package)))
 
 (defun rc/require-theme (theme)
@@ -88,7 +88,7 @@
    ((eq system-type 'darwin)     20)
    ((eq system-type 'gnu/linux)  10)))
 
-(defun rc/get-default-font () 
+(defun rc/get-default-font ()
   (let ((family (rc/get-default-font-family))
         (size (rc/get-default-font-size)))
     (if (and family size)
@@ -125,6 +125,26 @@
   (deactivate-mark)
   (message "Cutted")
   (sit-for 1))
+
+(defun rc/visual-or-line-copy ()
+  (interactive)
+  (let* ((start (if (use-region-p)
+                    (region-beginning)
+                  (line-beginning-position)))
+         (end (if (use-region-p)
+                  (region-end)
+                (line-end-position)))
+         (text (buffer-substring-no-properties start end)))
+    (if (fboundp 'simpleclip-set-contents)
+        (simpleclip-set-contents text)
+      (kill-new text))
+    (delete-region start end)
+    (sit-for 0.05)
+    (goto-char start)
+    (insert text)
+    (when (use-region-p) (deactivate-mark))
+	(save-buffer)
+    (message (if (use-region-p) "Copied region" "Copied line"))))
 
 (defun rc/copy ()
   (interactive)
