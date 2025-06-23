@@ -28,8 +28,8 @@
 (add-to-list 'exec-path "/opt/homebrew/bin")
 (add-to-list 'exec-path "/usr/local/bin")
 
-(with-eval-after-load 'company
-  (setq company-backends '((company-capf company-dabbrev-code company-dabbrev))))
+;; (with-eval-after-load 'company
+;;   (setq company-backends '((company-capf company-dabbrev-code company-dabbrev))))
 
 ;; LSP
 (when (require 'eglot nil 'noerror)

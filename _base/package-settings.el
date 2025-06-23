@@ -51,12 +51,12 @@
 
 (setq prefix-help-command #'embark-prefix-help-command)
 
+(global-corfu-mode 1)
 (setq corfu-cycle t)               ;; Cycle through candidates
 (setq corfu-auto t)                ;; Enable auto popup
 (setq corfu-auto-prefix 2)         ;; Minimum chars before popup
 (setq corfu-quit-no-match t)       ;; Don't hang if no match
 (setq corfu-preview-current nil)   ;; No inline preview
-(global-corfu-mode 1)
 
 (setq completion-styles '(orderless basic))
 (setq completion-category-overrides
@@ -70,7 +70,7 @@
 
 (savehist-mode t)
 (recentf-mode t)
-(smooth-scrolling-mode t)
+; (smooth-scrolling-mode t)
 
 (setq ibuffer-saved-filter-groups
       '(("default"

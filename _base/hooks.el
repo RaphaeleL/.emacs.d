@@ -9,11 +9,11 @@
           (lambda ()
             (advice-add 'yes-or-no-p :override #'y-or-n-p)))
 
-(with-eval-after-load 'company
-  (setq company-backends '((company-capf company-dabbrev-code company-dabbrev))))
+;; (with-eval-after-load 'company
+;;   (setq company-backends '((company-capf company-dabbrev-code company-dabbrev))))
 
 ;; Global company mode after init
-(add-hook 'after-init-hook 'global-company-mode)
+; (add-hook 'after-init-hook 'global-company-mode)
 
 ;; Paredit only in Lisp modes
 (dolist (mode '(emacs-lisp-mode lisp-mode clojure-mode scheme-mode))
