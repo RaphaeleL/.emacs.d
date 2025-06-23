@@ -15,7 +15,7 @@
 (rc/create-keymap-m   "r"     'rc/delete-line)
 (rc/create-keymap-cc   "g"     'indent-region)
 
-(rc/create-keymap-m   "f"     'consult-line)
+(rc/create-keymap-m   "g"     'consult-line)
 (rc/create-keymap-c   "g"     'consult-ripgrep)
 (rc/create-keymap-c   "r"     'consult-recent-file)
 
@@ -23,7 +23,7 @@
 (rc/create-keymap-c   ","     'find-file)
 (rc/create-keymap-c   "."     'dired)
 (rc/create-keymap-m   ","     'project-find-file)
-(rc/create-keymap-m   "g"     'magit-status)
+(rc/create-keymap-ccc "g"     'magit-status)
 
 ;; Shell Commands
 (rc/create-keymap-m   "c"     'compile)

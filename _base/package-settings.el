@@ -85,13 +85,14 @@
                     (mode . markdown-mode)
                     (mode . jenkinsfile-mode)))
          ("Dired" (mode . dired-mode))
-         ("Magit" (name . "^\\*magit"))
+         ("Magit" (or
+				    (name . "Magit")
+					(name . "Magit\\*$")))
          ("Emacs" (or
                    (name . "^\\*scratch\\*$")
                    (name . "^\\*Messages\\*$")
                    (name . "^\\*Help\\*$")
                    (name . "^\\*Compile-Log\\*$")))
-         ("Buffers with files" (filename . ".+"))
          ("Others" (name . ".*")))))
 
 (add-hook 'ibuffer-mode-hook
