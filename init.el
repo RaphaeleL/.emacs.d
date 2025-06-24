@@ -7,5 +7,5 @@
 ;; === CUSTOM USER SPECIFIC CHANGES ==============
 (add-to-list 'default-frame-alist '(width . 88))
 (add-to-list 'default-frame-alist '(height . 33))
-; (lr/enable-custom-font)
-; (lr/load-theme 'nord)
+(lr/enable-custom-font)
+(lr/load-theme 'nord)
