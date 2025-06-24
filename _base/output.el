@@ -4,7 +4,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(mini-frame-show-parameters '((top . 10) (width . 0.7) (left . 0.5)))
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(company consult corfu counsel dockerfile-mode go-mode
+			 jenkinsfile-mode jinja2-mode magit marginalia
+			 markdown-mode mood-line move-text multiple-cursors
+			 orderless paredit rust-mode simpleclip smooth-scrolling
+			 syslog-mode vertico web-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

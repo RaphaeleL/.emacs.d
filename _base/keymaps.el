@@ -3,67 +3,67 @@
 ;; ==================================================
 
 ;; Selecting Stuff
-(rc/create-keymap-m   "w"     'mark-word)
-(rc/create-keymap-m   "a"     'mark-page)
-(rc/create-keymap-m   "F"     'mark-defun)
-(rc/create-keymap-m   "s"     'mark-paragraph)
+(lr/create-keymap-m   "w"     'mark-word)
+(lr/create-keymap-m   "a"     'mark-page)
+(lr/create-keymap-m   "F"     'mark-defun)
+(lr/create-keymap-m   "s"     'mark-paragraph)
 
 ;; Line Handling
-(rc/create-keymap-ccc "j"     'join-line)
-(rc/create-keymap-m   "z"     'undo)
-(rc/create-keymap-m   "d"     'rc/duplicate-line)
-(rc/create-keymap-m   "r"     'rc/delete-line)
-(rc/create-keymap-cc   "g"     'indent-region)
+(lr/create-keymap-ccc "j"     'join-line)
+(lr/create-keymap-m   "z"     'undo)
+(lr/create-keymap-m   "d"     'lr/duplicate-line)
+(lr/create-keymap-m   "r"     'lr/delete-line)
+(lr/create-keymap-cc   "g"     'indent-region)
 
-(rc/create-keymap-m   "g"     'consult-line)
-(rc/create-keymap-ccc "g"     'consult-ripgrep)
-(rc/create-keymap-c   "r"     'consult-recent-file)
+(lr/create-keymap-ccc "k"     'consult-line)
+(lr/create-keymap-ccc "g"     'consult-ripgrep)
+(lr/create-keymap-c   "r"     'consult-recent-file)
 
 ;; Default Emacs stuff, just simpler
-(rc/create-keymap-c   ","     'find-file)
-(rc/create-keymap-c   "."     'dired)
-(rc/create-keymap-m   ","     'project-find-file)
-(rc/create-keymap-m   "g"     'magit-status)
+(lr/create-keymap-c   ","     'find-file)
+(lr/create-keymap-c   "."     'dired)
+(lr/create-keymap-m   ","     'project-find-file)
+(lr/create-keymap-m   "g"     'magit-status)
 
 ;; Shell Commands
-(rc/create-keymap-m   "c"     'compile)
-(rc/create-keymap-c   "l"     'shell-command)
-(rc/create-keymap-m   "q"     'kill-compilation)
+(lr/create-keymap-m   "c"     'compile)
+(lr/create-keymap-c   "l"     'shell-command)
+(lr/create-keymap-m   "q"     'kill-compilation)
 
 ;; Buffer Management
-(rc/create-keymap-m   "i"     'ibuffer)
-(rc/create-keymap-m   "o"     'consult-buffer)
+(lr/create-keymap-m   "i"     'ibuffer)
+(lr/create-keymap-m   "o"     'consult-buffer)
 
 ;; Copy and Paste
-(rc/create-keymap-c   "y"     'rc/paste)
-(rc/create-keymap-c   "w"     'rc/copy)
-(rc/create-keymap-c   "t"     'rc/cut)
-(rc/create-keymap-c   "/"     'rc/visual-or-line-copy)
+(lr/create-keymap-c   "y"     'lr/paste)
+(lr/create-keymap-c   "w"     'lr/copy)
+(lr/create-keymap-c   "t"     'lr/cut)
+(lr/create-keymap-c   "/"     'lr/visual-or-line-copy)
 
 ;; Moving a Selection up and down
-(rc/create-keymap-m   "p"     'move-text-up)
-(rc/create-keymap-m   "n"     'move-text-down)
+(lr/create-keymap-m   "p"     'move-text-up)
+(lr/create-keymap-m   "n"     'move-text-down)
 
 ;; Multi line Editing
-(rc/create-keymap-m   "SPC"   'rectangle-mark-mode)
-(rc/create-keymap-m   "e"     'mc/edit-lines)
-(rc/create-keymap-c   "j"     'mc/mark-next-like-this)
-(rc/create-keymap-c   "k"     'mc/mark-previous-like-this)
+(lr/create-keymap-m   "SPC"   'rectangle-mark-mode)
+(lr/create-keymap-m   "e"     'mc/edit-lines)
+(lr/create-keymap-c   "j"     'mc/mark-next-like-this)
+(lr/create-keymap-c   "k"     'mc/mark-previous-like-this)
 
 ;; Zooming
-(rc/create-keymap-c   "="     'rc/font-increase)
-(rc/create-keymap-c   "+"     'rc/font-increase)
-(rc/create-keymap-c   "-"     'rc/font-decrease)
-(rc/create-keymap-m   "="     'global-text-scale-adjust)
-(rc/create-keymap-m   "+"     'global-text-scale-adjust)
+(lr/create-keymap-c   "="     'lr/font-increase)
+(lr/create-keymap-c   "+"     'lr/font-increase)
+(lr/create-keymap-c   "-"     'lr/font-decrease)
+(lr/create-keymap-m   "="     'global-text-scale-adjust)
+(lr/create-keymap-m   "+"     'global-text-scale-adjust)
 
 ;; Stuff i do not need daily, but i definitely want a shortcut for
-(rc/create-keymap     "<f1>"  'rc/toggle-scratch-buffer)
-(rc/create-keymap     "<f2>"  'rc/toggle-compilation-buffer)
-(rc/create-keymap     "<f3>"  'rc/load-theme)
-(rc/create-keymap     "<f4>"  'rc/open_config)
-(rc/create-keymap     "<f5>"  'rc/toggle-mini-buffer-mode)
-(rc/create-keymap     "<f6>"  'whitespace-mode)
-(rc/create-keymap     "<f7>"  'display-line-numbers-mode)
-(rc/create-keymap     "<f8>"  'which-key-mode)
-(rc/create-keymap     "<f9>"  'embark-bindings)
+(lr/create-keymap     "<f1>"  'lr/toggle-scratch-buffer)
+(lr/create-keymap     "<f2>"  'lr/toggle-compilation-buffer)
+(lr/create-keymap     "<f3>"  'lr/load-theme)
+(lr/create-keymap     "<f4>"  'lr/open_config)
+(lr/create-keymap     "<f5>"  'lr/toggle-mini-buffer-mode)
+(lr/create-keymap     "<f6>"  'whitespace-mode)
+(lr/create-keymap     "<f7>"  'display-line-numbers-mode)
+(lr/create-keymap     "<f8>"  'which-key-mode)
+(lr/create-keymap     "<f9>"  'embark-bindings)
