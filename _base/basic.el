@@ -30,9 +30,8 @@
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
 
-(when (eq system-type 'windows-nt)
-  (setq default-directory "C:/Users/"))
-
+(when (eq system-type 'windows-nt) (setq default-directory "C:/Users/"))
+(when (eq system-type 'darwin) (add-to-list 'default-frame-alist '(undecorated-round . t)))
 
 ; ==================================================
 ; ===== UI =========================================
@@ -64,3 +63,6 @@
 
 (setq window-resize-pixelwise t
       frame-resize-pixelwise t)
+
+(add-to-list 'default-frame-alist '(width . 88))
+(add-to-list 'default-frame-alist '(height . 33))
