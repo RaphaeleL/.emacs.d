@@ -18,6 +18,8 @@
 
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+(delete-selection-mode 1)
+(electric-indent-mode -1)
 
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 4)
