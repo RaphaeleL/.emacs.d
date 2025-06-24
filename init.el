@@ -21,9 +21,10 @@
 
 ;; === CONFIGURATION BASED ON THE OS =============
 (cond
- ((eq system-type 'windows-nt) (load "~/.emacs.d/_templates/init.windows.el"))
- ((eq system-type 'darwin)     (load "~/.emacs.d/_templates/init.mac.el"))
- ((eq system-type 'gnu/linux)  (load "~/.emacs.d/_templates/init.linux.el")))
+ ((eq system-type 'windows-nt) (load "~/.emacs.d/_base/ssh.el"))
+ ((eq system-type 'darwin)     (load "~/.emacs.d/_base/lsp.el"))
+ ((eq system-type 'gnu/linux)  ((load "~/.emacs.d/_base/ssh.el")
+								   (load "~/.emacs.d/_base/lsp.el"))))
 
 ;; === CUSTOM USER SPECIFIC CHANGES ==============
 (add-to-list 'default-frame-alist '(width . 88))
