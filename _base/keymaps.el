@@ -3,17 +3,17 @@
 ;; ==================================================
 
 ;; Selecting Stuff
-(lr/create-keymap-m   "w"     'mark-word)
-(lr/create-keymap-m   "a"     'mark-page)
-(lr/create-keymap-m   "F"     'mark-defun)
-(lr/create-keymap-m   "s"     'mark-paragraph)
+(lr/create-keymap-m   "w"     'mark-word)       ;; Default is M-@
+(lr/create-keymap-m   "a"     'mark-page)       ;; Default is C-x C-p
+(lr/create-keymap-m   "F"     'mark-defun)      ;; Default is C-M-h
+(lr/create-keymap-m   "s"     'mark-paragraph)  ;; Default is M-h
 
 ;; Line Handling
 (lr/create-keymap-ccc "j"     'join-line)
 (lr/create-keymap-m   "z"     'undo)
 (lr/create-keymap-m   "d"     'lr/duplicate-line)
 (lr/create-keymap-m   "r"     'lr/delete-line)
-(lr/create-keymap-cc   "g"     'indent-region)
+(lr/create-keymap-cc  "g"     'indent-region)
 
 (lr/create-keymap-ccc "k"     'consult-line)
 (lr/create-keymap-ccc "g"     'consult-ripgrep)
