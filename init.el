@@ -22,10 +22,11 @@
 ;; === CONFIGURATION BASED ON THE OS =============
 (cond
  ((eq system-type 'windows-nt) (load "~/.emacs.d/_base/ssh.el"))
- ((eq system-type 'darwin)     (load "~/.emacs.d/_base/lsp.el"))
- ((eq system-type 'gnu/linux)  ((load "~/.emacs.d/_base/ssh.el")
-								   (load "~/.emacs.d/_base/lsp.el"))))
-
+ ((eq system-type 'darwin) (load "~/.emacs.d/_base/lsp.el"))
+ ((eq system-type 'gnu/linux)
+  (progn
+    (load "~/.emacs.d/_base/ssh.el")
+    (load "~/.emacs.d/_base/lsp.el"))))
 ;; === CUSTOM USER SPECIFIC CHANGES ==============
 (add-to-list 'default-frame-alist '(width . 88))
 (add-to-list 'default-frame-alist '(height . 33))
