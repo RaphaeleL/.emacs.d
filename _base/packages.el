@@ -9,7 +9,7 @@
 (lr/require 'multiple-cursors)  ;; Edit multiple lines or places at once (like in Sublime)
 (lr/require 'magit)             ;; Full-featured Git interface inside Emacs
 (lr/require 'eglot)             ;; Lightweight LSP client for IDE-like code features
-; (lr/require 'paredit)           ;; Structured editing of Lisp code (maintains parentheses)
+(lr/require 'paredit)           ;; Structured editing of Lisp code (maintains parentheses)
 
 ; === Optional UI Enhancements ===
 
