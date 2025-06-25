@@ -16,11 +16,15 @@
 (load "~/.emacs.d/_base/garbage.el")
 (load "~/.emacs.d/_base/basic.el")
 (load "~/.emacs.d/_base/keymaps.el")
-(load "~/.emacs.d/_base/custom.el")
 (load "~/.emacs.d/_base/hooks.el")
 
 ;; === CONFIGURATION BASED ON THE OS =============
+
 (cond
  ((eq system-type 'windows-nt) (load "~/.emacs.d/_templates/windows.el"))
  ((eq system-type 'darwin) (load "~/.emacs.d/_templates/macos.el"))
  ((eq system-type 'gnu/linux) (load "~/.emacs.d/_templates/linux.el")))
+
+;; === NO JUNK PLEASE ============================
+(setq custom-file "~/.emacs.d/output.el")
+(load custom-file)
