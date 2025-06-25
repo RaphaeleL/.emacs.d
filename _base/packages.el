@@ -38,6 +38,7 @@
 (lr/require 'jinja2-mode)       ;; Support for Jinja2 templates (used in Ansible, etc.)
 (lr/require 'go-mode)           ;; Major mode for Go programming language
 (lr/require 'rust-mode)         ;; Major mode for Rust programming language
+(lr/require 'rpm-spec-mode)     ;; Support for RPM Spec Files
 
 ; === History / Recent Files ===
 
@@ -124,6 +125,8 @@
       '(("default"
          ("Coding" (or
                     (mode . python-mode)
+                    (mode . makefile-mode)
+                    (mode . rpm-spec-mode)
 					(mode . sh-mode)
                     (mode . go-mode)
                     (mode . rust-mode)

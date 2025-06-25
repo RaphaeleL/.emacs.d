@@ -27,3 +27,6 @@
 
 ;; Combine minibuffer setup hooks
 (add-hook 'minibuffer-setup-hook #'lr/minibuffer-setup-combined)
+
+;; well
+(add-to-list 'auto-mode-alist '("\\(?:[Mm]akefile\\|\\.mk\\)\\'" . makefile-mode))

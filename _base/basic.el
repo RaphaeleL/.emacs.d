@@ -66,3 +66,5 @@
 
 (add-to-list 'default-frame-alist '(width . 88))
 (add-to-list 'default-frame-alist '(height . 33))
+
+(setq compilation-scroll-output t)

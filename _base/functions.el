@@ -82,9 +82,9 @@
 
 (defun lr/get-default-font-size ()
   (cond
-   ((eq system-type 'windows-nt) 16)
+   ((eq system-type 'windows-nt) 14)
    ((eq system-type 'darwin)     20)
-   ((eq system-type 'gnu/linux)  10)))
+   ((eq system-type 'gnu/linux)  12)))
 
 (defun lr/get-default-font ()
   (let ((family (lr/get-default-font-family))
