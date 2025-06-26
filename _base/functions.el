@@ -104,8 +104,9 @@
 (defun lr/load-theme (theme)
   (interactive
    (list (intern (completing-read "Theme: " (custom-available-themes)))))
-   (setq custom-safe-themes t)
-   (load-theme theme t))
+  (mapc #'disable-theme custom-enabled-themes)
+  (setq custom-safe-themes t)
+  (load-theme theme t))
 
 (defun lr/bare ()
   (interactive)
