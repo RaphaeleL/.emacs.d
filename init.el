@@ -19,7 +19,6 @@
 (load "~/.emacs.d/_base/hooks.el")
 
 ;; === CONFIGURATION BASED ON THE OS =============
-
 (cond
  ((eq system-type 'windows-nt) (load "~/.emacs.d/_templates/windows.el"))
  ((eq system-type 'darwin) (load "~/.emacs.d/_templates/macos.el"))
