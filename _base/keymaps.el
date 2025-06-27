@@ -57,6 +57,8 @@
 (lr/create-keymap-m   "="     'global-text-scale-adjust)
 (lr/create-keymap-m   "+"     'global-text-scale-adjust)
 
+(lr/create-keymap-c   "<tab>" 'other-window)
+
 ;; Stuff i do not need daily, but i definitely want a shortcut for
 (lr/create-keymap     "<f1>"  'lr/toggle-scratch-buffer)
 (lr/create-keymap     "<f2>"  'lr/toggle-compilation-buffer)
