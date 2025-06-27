@@ -162,17 +162,16 @@
          ("Emacs" (or
 				   (mode . emacs-lisp-mode)
 				   (mode . lisp-interaction-mode)
-				   (mode . fundamental-mode)
 				   (name . "^\\*Compile-Log\\*$")
 				   (name . "^\\*Backtrace\\*$")
 				   (name . "^\\*Warnings\\*$")
                    (name . "^\\*scratch\\*$")
                    (name . "^\\*Help\\*$")))
-    			   ;; (mode . fundamental-mode)
                    ;; (name . "^\\*Messages\\*$")
                    ;; (name . "^\\*Compile-Log\\*$")
          ("Other" (or
                    (mode . compilation-mode)
+    			   ;; (mode . fundamental-mode)
                    (mode . elisp-compile-mode)
                    (mode . special-mode)
                    (mode . custom-mode)
