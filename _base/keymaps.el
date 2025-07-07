@@ -23,7 +23,7 @@
 (lr/create-keymap-c   ","     'find-file)
 (lr/create-keymap-c   "."     'dired-jump)
 (lr/create-keymap-m   ","     'project-find-file)
-(lr/create-keymap-m   "g"     'magit-status)
+(lr/create-keymap-m   "g"     'magit)
 
 ;; Shell Commands
 (lr/create-keymap-m   "c"     'compile)
