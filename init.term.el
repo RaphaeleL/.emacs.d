@@ -18,7 +18,7 @@
 ; === BASIC SETTINGS ============================
 
 ; (scroll-bar-mode -1)
-; (tool-bar-mode -1)
+(tool-bar-mode -1)
 ; (tooltip-mode -1)
 ; (menu-bar-mode -1)
 
@@ -33,6 +33,8 @@
 
 (set-fringe-mode 0)
 
+(setq dired-dwim-target t)
+
 (setq use-dialog-box nil)
 
 (setq inhibit-startup-message t)
@@ -46,6 +48,12 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (delete-selection-mode 1)
+
+(setq line-move-visual nil)
+
+(if (version< emacs-version "28.1")
+    (defalias 'yes-or-no-p 'y-or-n-p)
+  (setq use-short-answers t))
 
 ; === HELPER ====================================
 
