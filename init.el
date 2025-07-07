@@ -1,3 +1,12 @@
+; ==================================================
+; ===== EMACS CONFIG ===============================
+; ==================================================
+
+; A more minimal 'kickstart like' config can be found under
+
+; $ wget https://gist.githubusercontent.com/RaphaeleL/36c1a3de3526f1e8e1e3719900c320fb/raw/d7fa8380ed242e43dabf061cb320afdf5e1061c6/init.el
+; $ emacs -q -l ~/path/to/gist/init.el
+
 ;; === PLUGIN MANAGER ============================
 (require 'package)
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
