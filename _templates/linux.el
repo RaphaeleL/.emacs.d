@@ -3,4 +3,4 @@
 
 ;; Theme
 (lr/enable-custom-font)
-; (lr/load-theme 'nord)
+(lr/load-theme 'gruberdarker)
