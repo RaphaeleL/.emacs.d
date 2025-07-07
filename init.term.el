@@ -11,6 +11,10 @@
 ; operation system. For a fully fledged, configured 
 ; and ide like emacs, check out init.el.
 
+; to hold both configs (init.el and init.term.el) 
+; considure to alias one of them, like following:
+; alias em="emacs -q -l ~/.emacs.d/init.term.el"
+
 ; === BASIC SETTINGS ============================
 
 ; (scroll-bar-mode -1)
