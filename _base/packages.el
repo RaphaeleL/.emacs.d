@@ -10,6 +10,7 @@
 (lr/require 'magit)             ;; Full-featured Git interface inside Emacs
 (lr/require 'eglot)             ;; Lightweight LSP client for IDE-like code features
 (lr/require 'paredit)           ;; Structured editing of Lisp code (maintains parentheses)
+(lr/require 'dired-x)           ;; Extended Dired features (e.g. copy, paste, etc.)
 
 ; === Optional UI Enhancements ===
 
@@ -49,11 +50,17 @@
 ; ====== PACKAGE SETTINGS ==========================
 ; ==================================================
 
-(setq dired-recursive-copies 'top)
-(setq dired-recursive-deletes 'top)
-(setq dired-dwim-target t)
-(setq dired-listing-switches "-laGh1Dv --group-directories-first")
-(setq ls-lisp-ignore-case t)
+(with-eval-after-load 'dired
+  (setq dired-recursive-copies 'top)
+  (setq dired-recursive-deletes 'top)
+  (setq dired-dwim-target t)
+  (setq dired-listing-switches "-laGh1Dv --group-directories-first")
+  (setq ls-lisp-ignore-case t)
+  (add-hook 'dired-mode-hook #'dired-omit-mode)
+  (add-hook 'dired-mode-hook 'auto-revert-mode)
+  (define-key dired-mode-map (kbd "M-o") #'dired-omit-mode)
+  (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode)
+  (setq dired-omit-files "^\\.[^.].*"))
 
 (setq which-key-separator "  ")
 (setq which-key-prefix-prefix "... ")

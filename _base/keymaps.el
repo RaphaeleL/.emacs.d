@@ -21,7 +21,7 @@
 
 ;; Default Emacs stuff, just simpler
 (lr/create-keymap-c   ","     'find-file)
-(lr/create-keymap-c   "."     'dired)
+(lr/create-keymap-c   "."     'dired-jump)
 (lr/create-keymap-m   ","     'project-find-file)
 (lr/create-keymap-m   "g"     'magit-status)
 
@@ -69,3 +69,23 @@
 (lr/create-keymap     "<f7>"  'display-line-numbers-mode)
 (lr/create-keymap     "<f8>"  'which-key-mode)
 (lr/create-keymap     "<f9>"  'embark-bindings)
+
+;; ==================================================
+;; ===== DIRED ======================================
+;; ==================================================
+
+;; Core bindings already available in Dired:
+;; - !        Run shell command on file
+;; - &        Run async shell command
+;; - % m      Mark files by regex
+;; - % d      Delete files by regex
+;; - ( / )    Toggle file detail view
+;; - Z        Compress marked files
+;; - C-x C-q  Rename files in-place
+;; - M-o      Toggle hidden files (dired-omit-mode)
+;; - C-x C-q  Enable editable rename (wdired)
+
+;; Optional: Fancy extensions
+;; - peep-dired         => Preview marked files
+;; - dired-subtree      => Expand directories inline
+;; - dired-narrow       => Filter Dired contents interactively
