@@ -10,10 +10,9 @@
 
 ;; === BASIC AND DEFAULT CONFIGURATION ===========
 (load "~/.emacs.d/_base/functions.el")  ;; a collection of useful functions
-(load "~/.emacs.d/_base/packages.el")   ;; all of my packages
+(load "~/.emacs.d/_base/packages.el")   ;; all packages with their keymaps
 (load "~/.emacs.d/_base/garbage.el")    ;; performance and garbage handling
-(load "~/.emacs.d/_base/basic.el")      ;; basic settings for emacs
-(load "~/.emacs.d/_base/keymaps.el")    ;; custom keymaps
+(load "~/.emacs.d/_base/basic.el")      ;; basic settings for my emacs
 (load "~/.emacs.d/_base/hooks.el")      ;; auto call functions and modes
 
 ;; === CONFIGURATION BASED ON THE OS =============
