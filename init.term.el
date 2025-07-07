@@ -35,7 +35,7 @@
 
 (setq use-dialog-box nil)
 
-; (setq inhibit-startup-message t)
+(setq inhibit-startup-message t)
 ; (setq initial-scratch-message nil)
 ; (setq initial-major-mode 'text-mode)
 
