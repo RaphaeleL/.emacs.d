@@ -111,7 +111,7 @@
 (use-package markdown-mode :ensure t :mode ("\\.md\\'" . markdown-mode))
 (use-package dockerfile-mode :ensure t :mode ("Dockerfile\\'" . dockerfile-mode))
 (use-package jenkinsfile-mode :ensure t :mode ("Jenkinsfile\\'" . jenkinsfile-mode))
-(use-package yaml-mode :ensure t :mode ("\\.ya?ml\\'" . yaml-mode))
+(use-package yaml-mode :ensure t :mode ("\\.yaml\\'" . yaml-mode))
 (use-package jinja2-mode :ensure t :mode ("\\.j2\\'" . jinja2-mode))
 (use-package go-mode :ensure t :mode ("\\.go\\'" . go-mode))
 (use-package rust-mode :ensure t :mode ("\\.rs\\'" . rust-mode))
