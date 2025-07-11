@@ -13,23 +13,22 @@
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")))
-
 (package-initialize)
 (unless package-archive-contents (package-refresh-contents))
 
 ;; === BASIC AND DEFAULT CONFIGURATION ===========
 (load "~/.emacs.d/_base/functions.el")  ;; a collection of useful functions
-(load "~/.emacs.d/_base/packages.el")   ;; all packages with their keymaps
-(load "~/.emacs.d/_base/garbage.el")    ;; performance and garbage handling
-(load "~/.emacs.d/_base/basic.el")      ;; basic settings for my emacs
-(load "~/.emacs.d/_base/hooks.el")      ;; auto call functions and modes
+(load "~/.emacs.d/_base/packages.el")   ;; all packages with their keymaps, settings
+(load "~/.emacs.d/_base/garbage.el")    ;; performance impr. and garbage collection
+(load "~/.emacs.d/_base/basic.el")      ;; basic settings for ui, saving, etc.
+(load "~/.emacs.d/_base/hooks.el")      ;; auto call some functions and modes
 
 ;; === CONFIGURATION BASED ON THE OS =============
 (cond
- ((eq system-type 'windows-nt) (load "~/.emacs.d/_templates/windows.el"))
- ((eq system-type 'darwin) (load "~/.emacs.d/_templates/macos.el"))
- ((eq system-type 'gnu/linux) (load "~/.emacs.d/_templates/linux.el")))
+ ((eq system-type 'windows-nt) (load "~/.emacs.d/_templates/windows.el")) ;; Windows
+ ((eq system-type 'darwin)     (load "~/.emacs.d/_templates/macos.el"))   ;; MacOS
+ ((eq system-type 'gnu/linux)  (load "~/.emacs.d/_templates/linux.el")))  ;; Linux
 
 ;; === NO JUNK PLEASE ============================
-(setq custom-file "~/.emacs.d/output.el")
-(load custom-file)
+(setq custom-file "~/.emacs.d/output.el") ;; Save the Output Junk into a seperate file
+(load custom-file)                        ;; -> custom-set-variables, custom-set-faces
