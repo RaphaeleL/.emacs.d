@@ -18,4 +18,4 @@
 
 ;; Theme
 (lr/enable-custom-font)
-(lr/load-theme 'gruberdarker)
+(lr/load-theme 'solarized_light) ;; gruberdarker 
