@@ -10,6 +10,7 @@
 ; to hold both configs (init.el and init.term.el) considure to alias one of them, like following:
 
 ; alias em="emacs -q -l ~/.emacs.d/init.term.el"
+; alias emt="emacs -q -l ~/.emacs.d/init.term.el -nw"
 
 ; emacs with no config needs (on my system) 0.35s to load with a gui. this config needs around 0.3 - 0.4s
 ; to load with a gui. ... at least if it possible to trust the garbage output
@@ -45,7 +46,7 @@
          ("C-c C-j" . join-line)
          ("M-d" . lr/duplicate-line)
          ("M-r" . lr/delete-line)
-         ("M-z" . undo)
+		 ("M-z" . undo)
          ("C-c g" . indent-region)))
 
 (use-package multiple-cursors
@@ -84,8 +85,7 @@
 (use-package go-mode :ensure t :mode ("\\.go\\'" . go-mode))
 (use-package rust-mode :ensure t :mode ("\\.rs\\'" . rust-mode))
 (use-package rpm-spec-mode :ensure t :mode ("\\.spec\\'" . rpm-spec-mode))
-(use-package web-mode
-  :ensure t
+(use-package web-mode :ensure t
   :mode (("\\.html?\\'" . web-mode)
          ("\\.js\\'" . web-mode)
          ("\\.jsx\\'" . web-mode)
@@ -118,7 +118,7 @@
   :ensure nil
   :defer t
   :config
-  (setq-default display-line-numbers-type 'relative)
+;  (setq-default display-line-numbers-type 'relative)
   (setq display-line-numbers-major-tick 0)
   (setq display-line-numbers-minor-tick 0)
   (setq-default display-line-numbers-widen t)
@@ -143,12 +143,14 @@
 
 ; === BASIC SETTINGS ============================
 
-; (scroll-bar-mode -1)
+(scroll-bar-mode -1)
 (tool-bar-mode -1)
-; (tooltip-mode -1)
-; (menu-bar-mode -1)
+(tooltip-mode -1)
+(menu-bar-mode -1)
 
 (global-display-line-numbers-mode 1)
+
+(setq-default mode-line-format nil)
 
 (setq display-line-numbers-major-tick 0)
 (setq display-line-numbers-minor-tick 0)
