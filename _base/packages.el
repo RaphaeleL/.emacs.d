@@ -86,6 +86,10 @@
   (setq which-key-add-column-padding 1)
   (setq which-key-max-description-length 40))
 
+(use-package spacious-padding
+  :ensure t
+  :defer t) ; disabled per default
+
 ; === Completion Frameworks (minibuffer/UI) ===
 
 (use-package vertico :ensure t :config (vertico-mode 1))

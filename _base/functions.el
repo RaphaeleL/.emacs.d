@@ -66,11 +66,22 @@
 
 (defvar lr/original-font (face-attribute 'default :font))
 
-(defun lr/enable-custom-font ()
+(defun lr/enable-custom-font-iosevka ()
   (interactive)
   (let ((font (lr/get-default-font)))
     (add-to-list 'default-frame-alist `(font . ,font))
     (set-frame-font font t t)))
+
+(defun lr/enable-custom-font-aporetic ()
+  (interactive)
+  (set-face-attribute 'default nil :family "Aporetic Sans Mono" :height 120 :weight 'regular)
+  (set-face-attribute 'variable-pitch nil :family "Aporetic Serif" :height 1.1)
+  (set-face-attribute 'fixed-pitch nil :family "Aporetic Sans Mono" :height 1.0)
+  (setq-default line-spacing 3)
+  (set-face-attribute 'mode-line nil :family "Aporetic Sans Mono" :height 0.9 :weight 'regular)
+  (set-face-attribute 'mode-line-inactive nil :family "Aporetic Sans Mono" :height 0.9 :weight 'light)
+  (add-to-list 'default-frame-alist '(width . 88))
+  (add-to-list 'default-frame-alist '(height . 33)))
 
 (defun lr/disable-custom-font ()
   (interactive)
@@ -82,7 +93,7 @@
 
 (defun lr/get-default-font-size ()
   (cond
-   ((eq system-type 'windows-nt) 14)
+   ((eq system-type 'windows-nt) 12)
    ((eq system-type 'darwin)     20)
    ((eq system-type 'gnu/linux)  12)))
 

@@ -17,5 +17,5 @@
 (setq insert-directory-program "/opt/homebrew/bin/gls")
 
 ;; Theme
-(lr/enable-custom-font)
+(lr/enable-custom-font-iosevka)
 (lr/load-theme 'gruberdarker) ;; solarized_light
