@@ -16,38 +16,11 @@
 ; to load with a gui. ... at least if it possible to trust the garbage output
 
 ;; === PLUGIN MANAGER ============================
-(require 'package)
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-(setq package-archives
-      '(("melpa" . "https://melpa.org/packages/")
-        ("gnu" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
 (unless package-archive-contents (package-refresh-contents))
 
 ;; === BASIC AND DEFAULT CONFIGURATION ===========
-
-(use-package simpleclip
-  :ensure t
-  :defer t
-  :bind (("C-y" . lr/paste)
-         ("C-w" . lr/copy)
-         ("C-t" . lr/cut)
-         ("M-w" . mark-word)
-         ("M-a" . mark-page)
-         ("M-F" . mark-defun)
-         ("M-s" . mark-paragraph)))
-
-(use-package move-text
-  :ensure t
-  :defer t
-  :bind (("M-p" . move-text-up)
-         ("M-n" . move-text-down)
-         ("C-c C-j" . join-line)
-         ("M-d" . lr/duplicate-line)
-         ("M-r" . lr/delete-line)
-		 ("M-z" . undo)
-         ("C-c g" . indent-region)))
 
 (use-package multiple-cursors
   :ensure t
@@ -79,7 +52,7 @@
 
 (use-package markdown-mode :ensure t :mode ("\\.md\\'" . markdown-mode))
 (use-package dockerfile-mode :ensure t :mode ("Dockerfile\\'" . dockerfile-mode))
-(use-package jenkinsfile-mode :ensure t :mode ("Jenkinsfile\\'" . jenkinsfile-mode))
+; (use-package jenkinsfile-mode :ensure t :mode ("Jenkinsfile\\'" . jenkinsfile-mode))
 (use-package yaml-mode :ensure t :mode ("\\.ya?ml\\'" . yaml-mode))
 (use-package jinja2-mode :ensure t :mode ("\\.j2\\'" . jinja2-mode))
 (use-package go-mode :ensure t :mode ("\\.go\\'" . go-mode))
@@ -139,7 +112,17 @@
          ("C-+" . lr/font-increase)
          ("C--" . lr/font-decrease)
          ("M-=" . global-text-scale-adjust)
-         ("M-+" . global-text-scale-adjust)))
+         ("M-+" . global-text-scale-adjust)
+         ("M-w" . mark-word)
+         ("M-a" . mark-page)
+         ("M-F" . mark-defun)
+         ("M-s" . mark-paragraph)
+         ("C-c C-j" . join-line)
+         ("M-d" . lr/duplicate-line)
+         ("M-r" . lr/delete-line)
+		 ("M-z" . undo)
+         ("M-w" . mark-word)
+         ("C-c g" . indent-region)))
 
 ; === BASIC SETTINGS ============================
 
