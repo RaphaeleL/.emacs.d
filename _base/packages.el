@@ -227,8 +227,6 @@
          ("C--" . lr/font-decrease)
          ("M-=" . global-text-scale-adjust)
          ("M-+" . global-text-scale-adjust)
-		 ("C-y" . yank)
-         ("C-w" . clipboard-kill-ring-save)
          ("M-w" . mark-word)
          ("M-a" . mark-page)
          ("M-F" . mark-defun)

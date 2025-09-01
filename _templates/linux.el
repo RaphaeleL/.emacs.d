@@ -4,3 +4,8 @@
 ;; Theme
 (lr/enable-custom-font-iosevka)
 (lr/load-theme 'gruberdarker)
+
+(use-package emacs
+  :ensure nil
+  :bind (("C-y" . yank)
+         ("C-w" . clipboard-kill-ring-save)))
