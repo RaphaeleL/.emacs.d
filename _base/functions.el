@@ -151,27 +151,6 @@
 	(beginning-of-line)
     (message (if (use-region-p) "Copied region" "Copied line"))))
 
-(defun lr/cut ()
-  (interactive)
-  (simpleclip-cut (region-beginning) (region-end))
-  (deactivate-mark)
-  (message "Cutted")
-  (sit-for 1))
-
-(defun lr/copy ()
-  (interactive)
-  (simpleclip-copy (region-beginning) (region-end))
-  (deactivate-mark)
-  (message "Copied")
-  (sit-for 1))
-
-(defun lr/paste ()
-  (interactive)
-  (simpleclip-paste)
-  (deactivate-mark)
-  (message "Pasted")
-  (sit-for 1))
-
 (defun lr/toggle-mini-buffer-mode ()
   (interactive)
   (if (bound-and-true-p fido-mode)

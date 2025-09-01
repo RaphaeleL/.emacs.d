@@ -4,18 +4,6 @@
 
 ; === Essential Editing & Programming Tools ===
 
-(use-package simpleclip
-  :ensure t
-  :defer t
-  :bind (("C-y" . lr/paste)
-         ("C-w" . lr/copy)
-         ("C-t" . lr/cut)
-         ("C-/" . lr/visual-or-line-copy)
-         ("M-w" . mark-word)
-         ("M-a" . mark-page)
-         ("M-F" . mark-defun)
-         ("M-s" . mark-paragraph)))
-
 (use-package move-text
   :ensure t
   :defer t
@@ -238,7 +226,13 @@
          ("C-+" . lr/font-increase)
          ("C--" . lr/font-decrease)
          ("M-=" . global-text-scale-adjust)
-         ("M-+" . global-text-scale-adjust)))
+         ("M-+" . global-text-scale-adjust)
+		 ("C-y" . yank)
+         ("C-w" . clipboard-kill-ring-save)
+         ("M-w" . mark-word)
+         ("M-a" . mark-page)
+         ("M-F" . mark-defun)
+         ("M-s" . mark-paragraph)))
 
 (use-package custom-keys
   :ensure nil
