@@ -9,6 +9,8 @@
  '(mode-line ((t (:box nil))))
  '(mode-line-inactive ((t (:box nil)))))
 
+;; Copy & Paste to Clipboard
+
 (defun lr/cut ()
   (interactive)
   (simpleclip-cut (region-beginning) (region-end))
