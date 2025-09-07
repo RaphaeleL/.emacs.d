@@ -21,7 +21,6 @@
 (lr/load-theme 'gruberdarker) ;; solarized_light
 
 ;; Copy & Paste to Clipboard
-
 (defun lr/cut ()
   (interactive)
   (simpleclip-cut (region-beginning) (region-end))
@@ -47,3 +46,19 @@
   :bind (("C-y" . lr/paste)
          ("C-w" . lr/copy)
          ("C-t" . lr/cut)))
+
+;; Extend exec-path and PATH environment variable
+(let ((paths '("~/bin"
+               "~/go/bin"
+               "~/.local/bin"
+               "~/.cargo/bin"
+               "/usr/local/bin"
+               "/opt/homebrew/opt/llvm/bin")))
+  (dolist (p (reverse paths))
+    (when (file-directory-p (expand-file-name p))
+      (add-to-list 'exec-path (expand-file-name p))
+      (setenv "PATH" (concat (expand-file-name p) path-separator (getenv "PATH"))))))
+
+;; Extra environment variables for LLVM
+(setenv "LDFLAGS" "-L/opt/homebrew/opt/llvm/lib")
+(setenv "CPPFLAGS" "-I/opt/homebrew/opt/llvm/include")
