@@ -241,5 +241,5 @@
          ("<f5>" . lr/toggle-mini-buffer-mode)
          ("<f6>" . whitespace-mode)
          ("<f7>" . display-line-numbers-mode)
-         ("<f8>" . which-key-mode)
+         ("<f8>" . isearch-forward-symbol-at-point)
          ("<f9>" . embark-bindings)))
