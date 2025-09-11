@@ -243,3 +243,27 @@
          ("<f7>" . display-line-numbers-mode)
          ("<f8>" . isearch-forward-symbol-at-point)
          ("<f9>" . embark-bindings)))
+
+(use-package simpleclip
+  :ensure t
+  :defer t
+  :bind (("C-t" . lr/cut))   ;; always available
+  :config
+  ;; Default bindings when NOT in multiple-cursors-mode
+  (global-set-key (kbd "C-y") #'lr/paste)
+  (global-set-key (kbd "C-w") #'lr/copy)
+
+  ;; Function to swap bindings dynamically
+  (defun lr/mc-setup-bindings ()
+    "Set key bindings for multiple-cursors mode."
+    (local-set-key (kbd "C-y") #'clipboard-yank)
+    (local-set-key (kbd "C-w") #'clipboard-kill-ring-save))
+
+  (defun lr/mc-reset-bindings ()
+    "Restore global bindings after leaving multiple-cursors mode."
+    (local-set-key (kbd "C-y") #'lr/paste)
+    (local-set-key (kbd "C-w") #'lr/copy))
+
+  ;; Hook into multiple-cursors
+  (add-hook 'multiple-cursors-mode-enabled-hook #'lr/mc-setup-bindings)
+  (add-hook 'multiple-cursors-mode-disabled-hook #'lr/mc-reset-bindings))

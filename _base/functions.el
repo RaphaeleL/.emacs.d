@@ -129,6 +129,24 @@
   (lr/enable-custom-font)
   (load-theme 'solarized_light t))
 
+(defun lr/cut ()
+  (interactive)
+  (simpleclip-cut (region-beginning) (region-end))
+  (deactivate-mark)
+  (message "Cutted")
+  (sit-for 1))
+
+(defun lr/copy ()
+  (interactive)
+  (simpleclip-copy (region-beginning) (region-end))
+  (deactivate-mark)
+  (sit-for 1))
+
+(defun lr/paste ()
+  (interactive)
+  (simpleclip-paste)
+  (deactivate-mark)
+  (sit-for 1))
 
 (defun lr/visual-or-line-copy ()
   (interactive)
