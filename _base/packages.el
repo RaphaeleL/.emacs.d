@@ -7,26 +7,29 @@
 (use-package move-text
   :ensure t
   :defer t
-  :bind (("M-p" . move-text-up)
-         ("M-n" . move-text-down)
+  :bind (("M-p"		. move-text-up)
+         ("M-n"		. move-text-down)
          ("C-c C-j" . join-line)
-         ("M-d" . lr/duplicate-line)
-         ("M-r" . lr/delete-line)
-         ("M-z" . undo)
-         ("C-c g" . indent-region)))
+         ("M-d"		. lr/duplicate-line)
+         ("C-c C-d"	. lr/duplicate-line)  ; fallback on some systems and lang modes
+         ("M-r"		. lr/delete-line)
+         ("C-c C-r"	. lr/delete-line)     ; fallback on some systems and lang modes
+         ("M-z"		. undo)
+         ("C-c g"	. indent-region)))
 
 (use-package multiple-cursors
   :ensure t
   :defer t
-  :bind (("M-SPC" . rectangle-mark-mode)
-         ("M-e"   . mc/edit-lines)
-         ("C-j"   . mc/mark-next-like-this)
-         ("C-k"   . mc/mark-previous-like-this)))
+  :bind (("M-SPC"     . rectangle-mark-mode)
+         ("C-x SPC"   . rectangle-mark-mode)      ; fallback on some systems and lang modes
+         ("M-e"       . mc/edit-lines)
+         ("C-j"       . mc/mark-next-like-this)
+         ("C-c C-j"   . mc/mark-next-like-this))) ; fallback on some systems and lang modes
 
 (use-package magit
   :ensure t
   :defer t
-  :bind (("M-g" . magit)
+  :bind (("M-g"    . magit)
           ("C-x g" . magit-status)))
 
 (use-package eglot :ensure t :defer t)
@@ -94,32 +97,32 @@
   :ensure t
   :defer t
   :bind (("C-c C-k" . consult-line)
-         ("C-c C-g" . consult-ripgrep)
+         ("C-c C-g" . consult-ripgrep) ; ripgrep might not be available everywhere
          ("C-r"     . consult-recent-file)
          ("M-o"     . consult-buffer)))
 
 ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 
-(use-package markdown-mode :ensure t :mode ("\\.md\\'" . markdown-mode))
-(use-package dockerfile-mode :ensure t :mode ("Dockerfile\\'" . dockerfile-mode))
-(use-package jenkinsfile-mode :ensure t :mode ("Jenkinsfile\\'" . jenkinsfile-mode))
-(use-package yaml-mode :ensure t :mode ("\\.yaml\\'" . yaml-mode))
-(use-package jinja2-mode :ensure t :mode ("\\.j2\\'" . jinja2-mode))
-(use-package go-mode :ensure t :mode ("\\.go\\'" . go-mode))
-(use-package rust-mode :ensure t :mode ("\\.rs\\'" . rust-mode))
-(use-package rpm-spec-mode :ensure t :mode ("\\.spec\\'" . rpm-spec-mode))
+(use-package markdown-mode		:ensure t :mode ("\\.md\\'" . markdown-mode))
+(use-package dockerfile-mode	:ensure t :mode ("Dockerfile\\'" . dockerfile-mode))
+(use-package jenkinsfile-mode	:ensure t :mode ("Jenkinsfile\\'" . jenkinsfile-mode))
+(use-package yaml-mode			:ensure t :mode ("\\.yaml\\'" . yaml-mode))
+(use-package jinja2-mode		:ensure t :mode ("\\.j2\\'" . jinja2-mode))
+(use-package go-mode			:ensure t :mode ("\\.go\\'" . go-mode))
+(use-package rust-mode			:ensure t :mode ("\\.rs\\'" . rust-mode))
+(use-package rpm-spec-mode		:ensure t :mode ("\\.spec\\'" . rpm-spec-mode))
 (use-package web-mode
   :ensure t
   :mode (("\\.html?\\'" . web-mode)
-         ("\\.js\\'" . web-mode)
-         ("\\.jsx\\'" . web-mode)
-         ("\\.tsx\\'" . web-mode)
-         ("\\.css\\'" . web-mode)))
+         ("\\.js\\'"    . web-mode)
+         ("\\.jsx\\'"   . web-mode)
+         ("\\.tsx\\'"   . web-mode)
+         ("\\.css\\'"   . web-mode)))
 
 ; === History / Recent Files ===
 
 (use-package savehist :ensure t :init (savehist-mode 1))
-(use-package recentf :ensure t :init (recentf-mode 1))
+(use-package recentf  :ensure t :init (recentf-mode 1))
 
 (use-package whitespace
   :ensure nil
@@ -142,12 +145,12 @@
   :ensure nil
   :defer t
   :config
-  (setq-default display-line-numbers-type 'relative)
-  (setq display-line-numbers-major-tick 0)
-  (setq display-line-numbers-minor-tick 0)
-  (setq-default display-line-numbers-widen t)
+   (setq-default display-line-numbers-widen t)
+   (setq-default display-line-numbers-type 'relative)
+   (setq display-line-numbers-major-tick 0)
+   (setq display-line-numbers-minor-tick 0)
   :init
-  (global-display-line-numbers-mode 1))
+   (global-display-line-numbers-mode 1))
 
 (setq prefix-help-command #'embark-prefix-help-command)
 
@@ -247,7 +250,7 @@
 (use-package simpleclip
   :ensure t
   :defer t
-  :bind (("C-t" . lr/cut))   ;; always available
+  :bind (("C-t" . lr/cut))
   :config
   ;; Default bindings when NOT in multiple-cursors-mode
   (global-set-key (kbd "C-y") #'lr/paste)
