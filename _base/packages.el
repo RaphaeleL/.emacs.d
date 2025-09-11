@@ -11,9 +11,9 @@
          ("M-n"		. move-text-down)
          ("C-c C-j" . join-line)
          ("M-d"		. lr/duplicate-line)
-         ("C-c C-d"	. lr/duplicate-line)  ; fallback on some systems and lang modes
+         ("C-c C-d"	. lr/duplicate-line)  ; NOTE: fallback for systems or language modes
          ("M-r"		. lr/delete-line)
-         ("C-c C-r"	. lr/delete-line)     ; fallback on some systems and lang modes
+         ("C-c C-r"	. lr/delete-line)     ; NOTE: fallback for systems or language modes
          ("M-z"		. undo)
          ("C-c g"	. indent-region)))
 
@@ -21,16 +21,16 @@
   :ensure t
   :defer t
   :bind (("M-SPC"     . rectangle-mark-mode)
-         ("C-x SPC"   . rectangle-mark-mode)      ; fallback on some systems and lang modes
+         ("C-x SPC"   . rectangle-mark-mode)      ; NOTE: fallback for systems or language modes
          ("M-e"       . mc/edit-lines)
          ("C-j"       . mc/mark-next-like-this)
-         ("C-c C-j"   . mc/mark-next-like-this))) ; fallback on some systems and lang modes
+         ("C-c C-j"   . mc/mark-next-like-this))) ; NOTE: fallback for systems or language modes
 
 (use-package magit
   :ensure t
   :defer t
   :bind (("M-g"    . magit)
-          ("C-x g" . magit-status)))
+         ("C-x g"  . magit-status)))
 
 (use-package eglot :ensure t :defer t)
 (use-package paredit :ensure t :defer t)
@@ -97,27 +97,26 @@
   :ensure t
   :defer t
   :bind (("C-c C-k" . consult-line)
-         ("C-c C-g" . consult-ripgrep) ; ripgrep might not be available everywhere
+         ("C-c C-g" . consult-ripgrep)      ; NOTE: ripgrep might not be available everywhere!
          ("C-r"     . consult-recent-file)
-         ("M-o"     . consult-buffer)))
+         ("M-o"     . consult-buffer)
+         ("C-c C-o" . consult-buffer)))     ; NOTE: fallback for systems or language modes
 
 ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 
-(use-package markdown-mode		:ensure t :mode ("\\.md\\'" . markdown-mode))
-(use-package dockerfile-mode	:ensure t :mode ("Dockerfile\\'" . dockerfile-mode))
-(use-package jenkinsfile-mode	:ensure t :mode ("Jenkinsfile\\'" . jenkinsfile-mode))
-(use-package yaml-mode			:ensure t :mode ("\\.yaml\\'" . yaml-mode))
-(use-package jinja2-mode		:ensure t :mode ("\\.j2\\'" . jinja2-mode))
-(use-package go-mode			:ensure t :mode ("\\.go\\'" . go-mode))
-(use-package rust-mode			:ensure t :mode ("\\.rs\\'" . rust-mode))
-(use-package rpm-spec-mode		:ensure t :mode ("\\.spec\\'" . rpm-spec-mode))
-(use-package web-mode
-  :ensure t
-  :mode (("\\.html?\\'" . web-mode)
-         ("\\.js\\'"    . web-mode)
-         ("\\.jsx\\'"   . web-mode)
-         ("\\.tsx\\'"   . web-mode)
-         ("\\.css\\'"   . web-mode)))
+(use-package markdown-mode		:ensure t :mode ("\\.md\\'"        . markdown-mode))
+(use-package dockerfile-mode	:ensure t :mode ("Dockerfile\\'"   . dockerfile-mode))
+(use-package jenkinsfile-mode	:ensure t :mode ("Jenkinsfile\\'"  . jenkinsfile-mode))
+(use-package yaml-mode			:ensure t :mode ("\\.yaml\\'"      . yaml-mode))
+(use-package jinja2-mode		:ensure t :mode ("\\.j2\\'"        . jinja2-mode))
+(use-package go-mode			:ensure t :mode ("\\.go\\'"        . go-mode))
+(use-package rust-mode			:ensure t :mode ("\\.rs\\'"        . rust-mode))
+(use-package rpm-spec-mode		:ensure t :mode ("\\.spec\\'"      . rpm-spec-mode))
+(use-package web-mode           :ensure t :mode (("\\.html?\\'" . web-mode)
+												 ("\\.js\\'"    . web-mode)
+												 ("\\.jsx\\'"   . web-mode)
+												 ("\\.tsx\\'"   . web-mode)
+												 ("\\.css\\'"   . web-mode)))
 
 ; === History / Recent Files ===
 
@@ -186,6 +185,7 @@
          ("Markup" (or
                     (mode . json-mode)
                     (mode . yaml-mode)
+                    (mode . text-mode)
                     (mode . markdown-mode)))
          ("Dired" (mode . dired-mode))
          ("Magit" (or
@@ -198,6 +198,7 @@
          ("Emacs" (or
                    (mode . emacs-lisp-mode)
                    (mode . lisp-interaction-mode)
+                   (mode . help-mode)
                    (name . "^\\*Compile-Log\\*$")
                    (name . "^\\*Backtrace\\*$")
                    (name . "^\\*Warnings\\*$")
@@ -208,7 +209,6 @@
                    (mode . elisp-compile-mode)
                    (mode . special-mode)
                    (mode . custom-mode)
-                   (mode . help-mode)
                    (mode . fundamental-mode)
                    (name . ".*"))))))
 
@@ -235,6 +235,8 @@
          ("M-F" . mark-defun)
          ("M-s" . mark-paragraph)))
 
+; NOTE: those are a bit hard to use on a keyboard without function keys
+;       like the HHKB Keyboards..
 (use-package custom-keys
   :ensure nil
   :bind (("<f1>" . lr/toggle-scratch-buffer)
