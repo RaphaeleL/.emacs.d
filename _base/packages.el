@@ -165,6 +165,7 @@
                     (mode . js-mode)
                     (mode . typescript-mode)
                     (mode . lua-mode)
+					(mode . yaml-mode)
                     (mode . php-mode)
                     (mode . terraform-mode)
                     (mode . ansible-mode)
