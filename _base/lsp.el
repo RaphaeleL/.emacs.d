@@ -4,11 +4,11 @@
 
 (with-eval-after-load 'eglot
   (setq eglot-server-programs
-        '((python-mode . ("pylsp"))
-          (c-mode . ("clangd"))
-          (c++-mode . ("clangd"))
-          (go-mode . ("gopls"))
-          (rust-mode . ("rust-analyzer")))))
+        '((python-mode  . ("pylsp"))
+          (c-mode       . ("clangd"))
+          (c++-mode     . ("clangd"))
+          (go-mode      . ("gopls"))
+          (rust-mode    . ("rust-analyzer")))))
 
 ;; Hook eglot to major modes
 (dolist (mode '(python-mode c-mode c++-mode go-mode rust-mode))
