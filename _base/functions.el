@@ -189,14 +189,33 @@
   (read-only-mode 'toggle))
 
 (defun lr/toggle-buffer (buffer-name)
-  (interactive)
+  "Toggle BUFFER-NAME in another window.
+If it is visible, delete its window. Otherwise, show it."
+  (interactive "BBuffer name: ")
   (let ((buffer (get-buffer buffer-name)))
     (if (and buffer (get-buffer-window buffer))
         (delete-window (get-buffer-window buffer))
       (switch-to-buffer-other-window (get-buffer-create buffer-name)))))
 
-(defun lr/toggle-scratch-buffer() (interactive) (lr/toggle-buffer "*scratch*"))
-(defun lr/toggle-compilation-buffer() (interactive) (lr/toggle-buffer "*compilation*"))
+(defun lr/toggle-scratch-buffer ()
+  "Toggle the *scratch* buffer."
+  (interactive)
+  (lr/toggle-buffer "*scratch*"))
+
+(defun lr/toggle-compilation-buffer ()
+  "Toggle the *compilation* buffer."
+  (interactive)
+  (lr/toggle-buffer "*compilation*"))
+
+(defun lr/toggle-config ()
+  "Toggle ~/.emacs.d/init.el in another window."
+  (interactive)
+  (let* ((file "~/.emacs.d/init.el")
+         (buffer (find-file-noselect file)))
+    (if (get-buffer-window buffer)
+        (delete-window (get-buffer-window buffer))
+      (switch-to-buffer-other-window buffer))))
+
 (defun lr/open_config() (interactive) (find-file "~/.emacs.d/init.el"))
 (defun lr/font-increase() (interactive) (text-scale-increase 1))
 (defun lr/font-decrease() (interactive) (text-scale-decrease 1))
