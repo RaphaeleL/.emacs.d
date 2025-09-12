@@ -2,6 +2,15 @@
 ; ===== LSP ========================================
 ; ==================================================
 
+;; TODO: Add more LSP Servers
+;; - Tailwind
+;; - JS/TS
+;; - Java
+
+;; TODO: Auto Install the used Servers if they are
+;;  not installed on the System.
+
+;; Map the LSP Servers to the Lang Mode
 (with-eval-after-load 'eglot
   (setq eglot-server-programs
         '((python-mode  . ("pylsp"))
