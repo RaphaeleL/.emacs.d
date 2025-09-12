@@ -1,13 +1,4 @@
 ; ==================================================
-; ===== EMACS KICKSTART ============================
-; ==================================================
-
-; For a more minimal 'kickstart like' config use following:
-
-; $ wget https://gist.githubusercontent.com/RaphaeleL/36c1a3de3526f1e8e1e3719900c320fb/raw/d7fa8380ed242e43dabf061cb320afdf5e1061c6/init.el
-; $ emacs -q -l ~/path/to/gist/init.el
-
-; ==================================================
 ; ===== EMACS CONFIG ===============================
 ; ==================================================
 
@@ -42,3 +33,12 @@
 ;; === CUSTOM SET PLACE ============================
 (setq custom-file "~/.emacs.d/output.el") ;; Save the Output Junk into a seperate file
 (load custom-file)                        ;; -> custom-set-variables, custom-set-faces
+
+; ==================================================
+; ===== EMACS KICKSTART ============================
+; ==================================================
+
+; For a more minimal 'kickstart like' config use following:
+
+; $ wget https://gist.githubusercontent.com/RaphaeleL/36c1a3de3526f1e8e1e3719900c320fb/raw/d7fa8380ed242e43dabf061cb320afdf5e1061c6/init.el
+; $ emacs -q -l ~/path/to/gist/init.el
