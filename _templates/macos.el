@@ -16,9 +16,10 @@
 ;; Use GNU ls from coreutils (via Homebrew)
 (setq insert-directory-program "/opt/homebrew/bin/gls")
 
-;; Theme
-(lr/enable-custom-font-iosevka)
-(lr/load-theme 'gruberdarker) ;; solarized_light
+;; Select MacOS Theme
+(when (lr/feature-enabled-p 'lr/lsp)
+  (lr/enable-custom-font-iosevka)
+  (lr/load-theme 'gruberdarker))
 
 ;; Extend exec-path and PATH environment variable
 (let ((paths '("~/bin"
@@ -26,7 +27,8 @@
                "~/.local/bin"
                "~/.cargo/bin"
                "/usr/local/bin"
-               "/opt/homebrew/opt/llvm/bin")))
+               "/opt/homebrew/opt/llvm/bin"
+			   "/Library/TeX/texbin/")))
   (dolist (p (reverse paths))
     (when (file-directory-p (expand-file-name p))
       (add-to-list 'exec-path (expand-file-name p))

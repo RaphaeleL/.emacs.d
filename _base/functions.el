@@ -233,3 +233,6 @@
 (defun lr/minibuffer-setup-combined ()
   (lr/my-compile-minibuffer-setup)
   (lr/my-fido-minibuffer-setup))
+
+(defun lr/feature-enabled-p (feature)
+  (memq feature lr/emacs))
