@@ -222,9 +222,12 @@
          ("M-," . project-find-file)
          ("M-i" . ibuffer)
          ("M-c" . compile)
-         ("C-l" . shell-command)
-         ("M-q" . kill-compilation)
-         ("C-o" . other-window)
+         ("C-l" . shell-command)               ; bindings i use not often enough..
+         ("M-q" . kill-compilation)            ; bindings i use not often enough..
+         ("C-o" . other-window)                ; bindings i use not often enough..
+         ("C-x (" . start-kbd-macro)           ; new bindings i shouldl earn
+         ("C-x )" . end-kbd-macro)             ; new bindings i shouldl earn
+         ("C-x e" . call-last-kbd-macro)       ; new bindings i shouldl earn foo
          ("C-=" . lr/font-increase)
          ("C-+" . lr/font-increase)
          ("C--" . lr/font-decrease)
