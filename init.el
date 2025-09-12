@@ -34,6 +34,9 @@
 (setq custom-file "~/.emacs.d/output.el") ;; Save the Output Junk into a seperate file
 (load custom-file)                        ;; -> custom-set-variables, custom-set-faces
 
+;; === LOAD OWN PLUGINS ============================
+(load-file "~/.emacs.d/_packages/harpoon-emacs.el")
+
 ; ==================================================
 ; ===== EMACS KICKSTART ============================
 ; ==================================================

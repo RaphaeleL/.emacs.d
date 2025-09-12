@@ -290,3 +290,28 @@
   ;; Hook into multiple-cursors
   (add-hook 'multiple-cursors-mode-enabled-hook #'lr/mc-setup-bindings)
   (add-hook 'multiple-cursors-mode-disabled-hook #'lr/mc-reset-bindings))
+
+(use-package harpoon-emacs
+  :load-path "~/.emacs.d/_packages/" ; TODO: this is not working on windows
+  :commands (harpoon-emacs-add-current-file
+             harpoon-emacs-toggle-menu
+             harpoon-emacs-next
+             harpoon-emacs-previous
+             harpoon-emacs-go-to
+             harpoon-emacs-remove-by-index
+             harpoon-emacs-clear-all)
+  :bind (("C-c C-c a" . harpoon-emacs-add-current-file)
+         ("C-c C-c t" . harpoon-emacs-toggle-menu)
+         ("C-c C-c n" . harpoon-emacs-next)
+         ("C-c C-c p" . harpoon-emacs-previous)
+         ("C-c C-c c" . harpoon-emacs-clear-all)
+         ("C-c C-c r" . harpoon-emacs-remove-by-index)
+         ("C-c C-c 1" . (lambda () (interactive) (harpoon-emacs-go-to 1)))
+         ("C-c C-c 2" . (lambda () (interactive) (harpoon-emacs-go-to 2)))
+         ("C-c C-c 3" . (lambda () (interactive) (harpoon-emacs-go-to 3)))
+         ("C-c C-c 4" . (lambda () (interactive) (harpoon-emacs-go-to 4)))
+         ("C-c C-c 5" . (lambda () (interactive) (harpoon-emacs-go-to 5)))
+         ("C-c C-c 6" . (lambda () (interactive) (harpoon-emacs-go-to 6)))
+         ("C-c C-c 7" . (lambda () (interactive) (harpoon-emacs-go-to 7)))
+         ("C-c C-c 8" . (lambda () (interactive) (harpoon-emacs-go-to 8)))
+         ("C-c C-c 9" . (lambda () (interactive) (harpoon-emacs-go-to 9)))))
