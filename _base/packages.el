@@ -8,23 +8,16 @@
   :ensure t
   :defer t
   :bind (("M-p"		. move-text-up)
-         ("M-n"		. move-text-down)
-         ("C-c C-j" . join-line)
-         ("M-d"		. lr/duplicate-line)
-         ("C-c C-d"	. lr/duplicate-line)  ; NOTE: fallback for systems or language modes
-         ("M-r"		. lr/delete-line)
-         ("C-c C-r"	. lr/delete-line)     ; NOTE: fallback for systems or language modes
-         ("M-z"		. undo)
-         ("C-c g"	. indent-region)))
+         ("M-n"		. move-text-down)))
 
 (use-package multiple-cursors
   :ensure t
   :defer t
   :bind (("M-SPC"     . rectangle-mark-mode)
-         ("C-x SPC"   . rectangle-mark-mode)      ; NOTE: fallback for systems or language modes
+         ("C-x SPC"   . rectangle-mark-mode)      ; fallback bindings
          ("M-e"       . mc/edit-lines)
          ("C-j"       . mc/mark-next-like-this)
-         ("C-c C-j"   . mc/mark-next-like-this))) ; NOTE: fallback for systems or language modes
+         ("C-c C-j"   . mc/mark-next-like-this))) ; fallback bindings
 
 (use-package magit
   :ensure t
@@ -47,11 +40,12 @@
     (setq dired-dwim-target t)
     (setq dired-listing-switches "-laGh1Dv --group-directories-first")
     (setq ls-lisp-ignore-case t)
-    (add-hook 'dired-mode-hook #'dired-omit-mode)
-    (add-hook 'dired-mode-hook 'auto-revert-mode)
-    (define-key dired-mode-map (kbd "M-o") #'dired-omit-mode)
+;    (add-hook 'dired-mode-hook #'dired-omit-mode)
+;    (add-hook 'dired-mode-hook 'auto-revert-mode)
+;    (define-key dired-mode-map (kbd "M-o") #'dired-omit-mode)
     (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode)
-    (setq dired-omit-files "^\\.[^.].*")))
+;    (setq dired-omit-files "^\\.[^.].*")
+))
 
 ; === Optional UI Enhancements ===
 
@@ -97,10 +91,10 @@
   :ensure t
   :defer t
   :bind (("C-c C-k" . consult-line)
-         ("C-c C-g" . consult-ripgrep)      ; NOTE: ripgrep might not be available everywhere!
+         ("C-c C-g" . consult-ripgrep)      ; ripgrep might not be available everywhere
          ("C-r"     . consult-recent-file)
          ("M-o"     . consult-buffer)
-         ("C-c C-o" . consult-buffer)))     ; NOTE: fallback for systems or language modes
+         ("C-c C-o" . consult-buffer)))     ; fallback bindings
 
 ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 
@@ -112,11 +106,11 @@
 (use-package go-mode			:ensure t :mode ("\\.go\\'"        . go-mode))
 (use-package rust-mode			:ensure t :mode ("\\.rs\\'"        . rust-mode))
 (use-package rpm-spec-mode		:ensure t :mode ("\\.spec\\'"      . rpm-spec-mode))
-(use-package web-mode           :ensure t :mode (("\\.html?\\'" . web-mode)
-												 ("\\.js\\'"    . web-mode)
-												 ("\\.jsx\\'"   . web-mode)
-												 ("\\.tsx\\'"   . web-mode)
-												 ("\\.css\\'"   . web-mode)))
+(use-package web-mode           :ensure t :mode (("\\.html?\\'"    . web-mode)
+												 ("\\.js\\'"       . web-mode)
+												 ("\\.jsx\\'"      . web-mode)
+												 ("\\.tsx\\'"      . web-mode)
+												 ("\\.css\\'"      . web-mode)))
 
 ; === History / Recent Files ===
 
@@ -188,30 +182,30 @@
                     (mode . yaml-mode)
                     (mode . text-mode)
                     (mode . markdown-mode)))
-         ("Dired" (mode . dired-mode))
+         ("Dired" (mode   . dired-mode))
          ("Magit" (or
-                   (name . "Magit")
-                   (name . ".*magit.*")
-                   (name . "Magit\\*$")))
+                   (name  . "Magit")
+                   (name  . ".*magit.*")
+                   (name  . "Magit\\*$")))
          ("Logs" (or
-                  (mode . syslog-mode)
-                  (name . "^\\*Messages\\*$")))
+                  (mode   . syslog-mode)
+                  (name   . "^\\*Messages\\*$")))
          ("Emacs" (or
-                   (mode . emacs-lisp-mode)
-                   (mode . lisp-interaction-mode)
-                   (mode . help-mode)
-                   (name . "^\\*Compile-Log\\*$")
-                   (name . "^\\*Backtrace\\*$")
-                   (name . "^\\*Warnings\\*$")
-                   (name . "^\\*scratch\\*$")
-                   (name . "^\\*Help\\*$")))
+                   (mode  . emacs-lisp-mode)
+                   (mode  . lisp-interaction-mode)
+                   (mode  . help-mode)
+                   (name  . "^\\*Compile-Log\\*$")
+                   (name  . "^\\*Backtrace\\*$")
+                   (name  . "^\\*Warnings\\*$")
+                   (name  .  "^\\*scratch\\*$")
+                   (name  . "^\\*Help\\*$")))
          ("Other" (or
-                   (mode . compilation-mode)
-                   (mode . elisp-compile-mode)
-                   (mode . special-mode)
-                   (mode . custom-mode)
-                   (mode . fundamental-mode)
-                   (name . ".*"))))))
+                   (mode  . compilation-mode)
+                   (mode  . elisp-compile-mode)
+                   (mode  . special-mode)
+                   (mode  . custom-mode)
+                   (mode  . fundamental-mode)
+                   (name  . ".*"))))))
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()
@@ -219,39 +213,59 @@
 
 (use-package emacs
   :ensure nil
-  :bind (("C-," . find-file)
-         ("M-," . project-find-file)
-         ("M-i" . ibuffer)
-         ("M-c" . compile)
-         ("C-l" . shell-command)               ; bindings i use not often enough..
-         ("M-q" . kill-compilation)            ; bindings i use not often enough..
-         ("C-o" . other-window)                ; bindings i use not often enough..
-         ("C-x (" . start-kbd-macro)           ; new bindings i shouldl earn
-         ("C-x )" . end-kbd-macro)             ; new bindings i shouldl earn
-         ("C-x e" . call-last-kbd-macro)       ; new bindings i shouldl earn foo
-         ("C-=" . lr/font-increase)
-         ("C-+" . lr/font-increase)
-         ("C--" . lr/font-decrease)
-         ("M-=" . global-text-scale-adjust)
-         ("M-+" . global-text-scale-adjust)
-         ("M-w" . mark-word)
-         ("M-a" . mark-page)
-         ("M-F" . mark-defun)
-         ("M-s" . mark-paragraph)))
+  :bind (("C-,"		. find-file)
+         ("M-,"		. project-find-file)
+         ("M-i"		. ibuffer)
+         ("M-j"		. indent-region)
+         ("C-c g"	. indent-region)               ; fallback bindings
+         ("M-c"		. compile)
+         ("C-l"		. shell-command)               ; rare used bindings..
+         ("M-q"		. kill-compilation)            ; rare used bindings..
+         ("C-o"		. other-window)                ; rare used bindings..
+         ("C-x ("	. start-kbd-macro)             ; new bindings
+         ("C-x )"	. end-kbd-macro)               ; new bindings
+         ("C-x e"	. call-last-kbd-macro)         ; new bindings
+         ("C-="		. lr/font-increase)
+         ("C-+"		. lr/font-increase)
+         ("C--"		. lr/font-decrease)
+         ;("M-="		. global-text-scale-adjust)
+         ;("M-+"		. global-text-scale-adjust)
+         ("M-w"		. mark-word)
+         ("M-a"		. mark-page)
+         ("M-F"		. mark-defun)
+         ("M-s"		. mark-paragraph)
+         ; ("C-c C-j" . join-line)
+         ("M-d"		. lr/duplicate-line)
+         ("C-c C-d"	. lr/duplicate-line)           ; fallback bindings
+         ("M-r"		. lr/delete-line)
+         ("C-c C-r"	. lr/delete-line)              ; fallback bindings
+         ("M-z"		. undo)))
 
-; NOTE: those are a bit hard to use on a keyboard without function keys
-;       like the HHKB Keyboards..
+; NOTE: originally those keymaps were meant to be on the function row, since some keyboards,
+;  like the HHKB Boards, dont have a seperated function row, those keymaps are kinda hard to
+;  hit. thereby they are also mapped into non function row keybindings. Only to fit into
+;  such keyboards as well. In the future this might get solved in other way.
 (use-package custom-keys
   :ensure nil
-  :bind (("<f1>" . lr/toggle-scratch-buffer)
-         ("<f2>" . lr/toggle-compilation-buffer)
-         ("<f3>" . lr/load-theme)
-         ("<f4>" . lr/open_config)
-         ("<f5>" . lr/toggle-mini-buffer-mode)
-         ("<f6>" . whitespace-mode)
-         ("<f7>" . display-line-numbers-mode)
-         ("<f8>" . isearch-forward-symbol-at-point)
-         ("<f9>" . embark-bindings)))
+  :bind (
+		 ("M-1"		. lr/toggle-scratch-buffer)
+		 ("<f1>"	. lr/toggle-scratch-buffer)
+         ("M-2"		. lr/toggle-compilation-buffer)
+         ("<f2>"	. lr/toggle-compilation-buffer)
+         ("M-3"		. lr/load-theme)
+         ("<f3>"	. lr/load-theme)
+         ("M-4"		. lr/open_config)
+         ("<f4>"	. lr/open_config)
+         ("M-5"		. lr/toggle-mini-buffer-mode)
+         ("<f5>"	. lr/toggle-mini-buffer-mode)
+         ("M-6"		. whitespace-mode)
+         ("<f6>"	. whitespace-mode)
+         ("M-7"		. display-line-numbers-mode)
+         ("<f7>"	. display-line-numbers-mode)
+         ("M-8"		. isearch-forward-symbol-at-point)
+         ("<f8>"	. isearch-forward-symbol-at-point)
+         ("M-9"		. embark-bindings)
+         ("<f9>"	. embark-bindings)))
 
 (use-package simpleclip
   :ensure t
