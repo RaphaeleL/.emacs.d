@@ -26,6 +26,7 @@
                "~/.local/bin"
                "~/.cargo/bin"
                "/usr/local/bin"
+			   "/Library/TeX/texbin"
                "/opt/homebrew/opt/llvm/bin")))
   (dolist (p (reverse paths))
     (when (file-directory-p (expand-file-name p))
@@ -35,3 +36,10 @@
 ;; Extra environment variables for LLVM
 (setenv "LDFLAGS" "-L/opt/homebrew/opt/llvm/lib")
 (setenv "CPPFLAGS" "-I/opt/homebrew/opt/llvm/include")
+
+;; Default Size and Position of Emacs on MacOS
+(setq default-frame-alist
+      '((height . 33)
+        (width . 88)
+        (left . 320)
+        (top . 70)))
