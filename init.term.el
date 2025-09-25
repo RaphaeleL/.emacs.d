@@ -25,10 +25,11 @@
 (use-package multiple-cursors
   :ensure t
   :defer t
-  :bind (("M-SPC" . rectangle-mark-mode)
-         ("M-e"   . mc/edit-lines)
-         ("C-j"   . mc/mark-next-like-this)
-         ("C-k"   . mc/mark-previous-like-this)))
+  :bind (("M-SPC"     . rectangle-mark-mode)
+         ("C-x SPC"   . rectangle-mark-mode)      ; fallback bindings
+         ("M-e"       . mc/edit-lines)
+         ("C-j"       . mc/mark-next-like-this)
+         ("C-c C-j"   . mc/mark-next-like-this))) ; fallback bindings
 
 (use-package dired
   :ensure nil
@@ -101,28 +102,33 @@
 (setq prefix-help-command #'embark-prefix-help-command)
 (use-package emacs
   :ensure nil
-  :bind (("C-," . find-file)
-         ("M-," . project-find-file)
-         ("M-i" . ibuffer)
-         ("M-c" . compile)
-         ("C-l" . shell-command)
-         ("M-q" . kill-compilation)
-         ("C-o" . other-window)
-         ("C-=" . lr/font-increase)
-         ("C-+" . lr/font-increase)
-         ("C--" . lr/font-decrease)
-         ("M-=" . global-text-scale-adjust)
-         ("M-+" . global-text-scale-adjust)
-         ("M-w" . mark-word)
-         ("M-a" . mark-page)
-         ("M-F" . mark-defun)
-         ("M-s" . mark-paragraph)
-         ("C-c C-j" . join-line)
-         ("M-d" . lr/duplicate-line)
-         ("M-r" . lr/delete-line)
-		 ("M-z" . undo)
-         ("M-w" . mark-word)
-         ("C-c g" . indent-region)))
+  :bind (("C-,"		. find-file)
+         ("M-,"		. project-find-file)
+         ("M-i"		. ibuffer)
+         ("M-j"		. indent-region)
+         ("C-c g"	. indent-region)               ; fallback bindings
+         ("M-c"		. compile)
+         ("C-l"		. shell-command)               ; rare used bindings..
+         ("M-q"		. kill-compilation)            ; rare used bindings..
+         ("C-o"		. other-window)                ; rare used bindings..
+         ("C-x ("	. start-kbd-macro)             ; new bindings
+         ("C-x )"	. end-kbd-macro)               ; new bindings
+         ("C-x e"	. call-last-kbd-macro)         ; new bindings
+         ("C-="		. lr/font-increase)
+         ("C-+"		. lr/font-increase)
+         ("C--"		. lr/font-decrease)
+         ;("M-="		. global-text-scale-adjust)
+         ;("M-+"		. global-text-scale-adjust)
+         ("M-w"		. mark-word)
+         ("M-a"		. mark-page)
+         ("M-F"		. mark-defun)
+         ("M-s"		. mark-paragraph)
+         ; ("C-c C-j" . join-line)
+         ("M-d"		. lr/duplicate-line)
+         ("C-c C-d"	. lr/duplicate-line)           ; fallback bindings
+         ("M-r"		. lr/delete-line)
+         ("C-c C-r"	. lr/delete-line)              ; fallback bindings
+         ("M-z"		. undo)))
 
 ; === BASIC SETTINGS ============================
 
@@ -274,3 +280,14 @@
             (message "Emacs ready in %.2f seconds with %d garbage collections."
                      (float-time (time-subtract after-init-time before-init-time))
                      gcs-done)))
+
+;; =============================================================================
+;; OS SPECIFIC SETTINGS
+;; =============================================================================
+
+(setq mac-command-modifier 'meta     ; Command as Meta
+    mac-option-modifier 'control     ; Option as Control
+    mac-control-modifier 'control    ; Ensure Control is Control
+    default-input-method "MacOSX")
+
+
