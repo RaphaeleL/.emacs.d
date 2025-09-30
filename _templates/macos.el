@@ -18,7 +18,8 @@
 
 ;; Theme
 (lr/enable-custom-font-iosevka)
-(lr/load-theme 'gruberdarker) ;; solarized_light
+;; (lr/load-theme 'gruberdarker)
+(lr/load-theme 'solarized_light)
 
 ;; Extend exec-path and PATH environment variable
 (let ((paths '("~/bin"

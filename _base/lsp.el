@@ -15,6 +15,7 @@
   (setq eglot-server-programs
         '((python-mode  . ("pylsp"))
           (c-mode       . ("clangd"))
+          (simpc-mode   . ("clangd"))
           (c++-mode     . ("clangd"))
           (go-mode      . ("gopls"))
           (rust-mode    . ("rust-analyzer")))))
@@ -50,45 +51,14 @@
 (when (require 'eglot nil 'noerror)
   (when (executable-find "pylsp") (add-hook 'python-mode-hook 'eglot-ensure))
   (when (executable-find "clangd") (add-hook 'c-mode-hook 'eglot-ensure))
+  (when (executable-find "clangd") (add-hook 'simpc-mode-hook 'eglot-ensure))
   (when (executable-find "clangd") (add-hook 'c++-mode-hook 'eglot-ensure))
   (when (executable-find "gopls") (add-hook 'go-mode-hook 'eglot-ensure))
   (when (executable-find "rust-analyzer") (add-hook 'rust-mode-hook 'eglot-ensure)))
 
-;; Make the LSP Toggleable whenever i want or dont want it. LSP may slow down things on Big files
-;; This is not working perfectly, thereby we are enabling it on default right now.
-(defvar lr/lsp-enabled t
-  "Whether LSP (Eglot, hooks, etc.) is enabled.")
-
-(defun lr/toggle-lsp ()
-  "Toggle all LSP-related features (just eglot & hooks for now)."
-  (interactive)
-  (if lr/lsp-enabled
-      ;; Disable LSP
-      (progn
-        ;; Remove eglot hooks
-        (dolist (mode '(python-mode c-mode c++-mode go-mode rust-mode web-mode rust-mode))
-          (remove-hook (intern (format "%s-hook" mode)) #'eglot-ensure))
-
-        ;; Shut down eglot sessions in all buffers
-        (dolist (buf (buffer-list))
-          (with-current-buffer buf
-            (when (bound-and-true-p eglot--managed-mode)
-              (ignore-errors (eglot-shutdown (eglot-current-server))))))
-
-        (setq lr/lsp-enabled nil)
-        (message "LSP disabled."))
-    ;; Enable LSP
-    (progn
-      (dolist (mode '(python-mode c-mode c++-mode go-mode rust-mode web-mode rust-mode))
-        (add-hook (intern (format "%s-hook" mode)) #'eglot-ensure))
-
-      (setq lr/lsp-enabled t)
-      (message "LSP enabled."))))
-
-;; Bind a Key to it
-(global-set-key (kbd "C-c L") #'lr/toggle-lsp)
-
 (load "~/.emacs.d/_base/simpc.el" 'noerror 'nomessage)
 (require 'simpc-mode)
 (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
-(add-to-list 'auto-mode-alist '("\\.[b]\\'" . simpc-mode))
+
+(add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
+(electric-indent-mode 1)
