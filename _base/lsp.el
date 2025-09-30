@@ -87,3 +87,8 @@
 
 ;; Bind a Key to it
 (global-set-key (kbd "C-c L") #'lr/toggle-lsp)
+
+(load "~/.emacs.d/_base/simpc.el" 'noerror 'nomessage)
+(require 'simpc-mode)
+(add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
+(add-to-list 'auto-mode-alist '("\\.[b]\\'" . simpc-mode))
