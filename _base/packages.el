@@ -7,8 +7,8 @@
 (use-package move-text
   :ensure t
   :defer t
-  :bind (("M-p"		. move-text-up)
-         ("M-n"		. move-text-down)))
+  :bind (("M-p"     . move-text-up)
+         ("M-n"     . move-text-down)))
 
 (use-package multiple-cursors
   :ensure t
@@ -98,19 +98,19 @@
 
 ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 
-(use-package markdown-mode		:ensure t :mode ("\\.md\\'"        . markdown-mode))
-(use-package dockerfile-mode	:ensure t :mode ("Dockerfile\\'"   . dockerfile-mode))
-(use-package jenkinsfile-mode	:ensure t :mode ("Jenkinsfile\\'"  . jenkinsfile-mode))
-(use-package yaml-mode			:ensure t :mode ("\\.yaml\\'"      . yaml-mode))
-(use-package jinja2-mode		:ensure t :mode ("\\.j2\\'"        . jinja2-mode))
-(use-package go-mode			:ensure t :mode ("\\.go\\'"        . go-mode))
-(use-package rust-mode			:ensure t :mode ("\\.rs\\'"        . rust-mode))
-(use-package rpm-spec-mode		:ensure t :mode ("\\.spec\\'"      . rpm-spec-mode))
+(use-package markdown-mode      :ensure t :mode ("\\.md\\'"        . markdown-mode))
+(use-package dockerfile-mode    :ensure t :mode ("Dockerfile\\'"   . dockerfile-mode))
+(use-package jenkinsfile-mode   :ensure t :mode ("Jenkinsfile\\'"  . jenkinsfile-mode))
+(use-package yaml-mode          :ensure t :mode ("\\.yaml\\'"      . yaml-mode))
+(use-package jinja2-mode        :ensure t :mode ("\\.j2\\'"        . jinja2-mode))
+(use-package go-mode            :ensure t :mode ("\\.go\\'"        . go-mode))
+(use-package rust-mode          :ensure t :mode ("\\.rs\\'"        . rust-mode))
+(use-package rpm-spec-mode      :ensure t :mode ("\\.spec\\'"      . rpm-spec-mode))
 (use-package web-mode           :ensure t :mode (("\\.html?\\'"    . web-mode)
-												 ("\\.js\\'"       . web-mode)
-												 ("\\.jsx\\'"      . web-mode)
-												 ("\\.tsx\\'"      . web-mode)
-												 ("\\.css\\'"      . web-mode)))
+                                                 ("\\.js\\'"       . web-mode)
+                                                 ("\\.jsx\\'"      . web-mode)
+                                                 ("\\.tsx\\'"      . web-mode)
+                                                 ("\\.css\\'"      . web-mode)))
 
 ; === History / Recent Files ===
 
@@ -159,7 +159,7 @@
                     (mode . js-mode)
                     (mode . typescript-mode)
                     (mode . lua-mode)
-					(mode . yaml-mode)
+                    (mode . yaml-mode)
                     (mode . php-mode)
                     (mode . terraform-mode)
                     (mode . ansible-mode)
@@ -213,59 +213,63 @@
 
 (use-package emacs
   :ensure nil
-  :bind (("C-,"		. find-file)
-         ("M-,"		. project-find-file)
-         ("M-i"		. ibuffer)
-         ("M-j"		. indent-region)
-         ("C-c g"	. indent-region)               ; fallback bindings
-         ("M-c"		. compile)
-         ("C-l"		. shell-command)               ; rare used bindings..
-         ("M-q"		. kill-compilation)            ; rare used bindings..
-         ("C-o"		. other-window)                ; rare used bindings..
-         ("C-x ("	. start-kbd-macro)             ; new bindings
-         ("C-x )"	. end-kbd-macro)               ; new bindings
-         ("C-x e"	. call-last-kbd-macro)         ; new bindings
-         ("C-="		. lr/font-increase)
-         ("C-+"		. lr/font-increase)
-         ("C--"		. lr/font-decrease)
-         ;("M-="		. global-text-scale-adjust)
-         ;("M-+"		. global-text-scale-adjust)
-         ("M-w"		. mark-word)
-         ("M-a"		. mark-page)
-         ("M-F"		. mark-defun)
-         ("M-s"		. mark-paragraph)
+  :bind (("C-,"     . find-file)
+         ("M-,"     . project-find-file)
+         ("M-i"     . ibuffer)
+         ("M-j"     . indent-region)
+         ("C-c g"   . indent-region)               ; fallback bindings
+         ("M-c"     . compile)
+         ("C-l"     . shell-command)               ; rare used bindings..
+         ("M-q"     . kill-compilation)            ; rare used bindings..
+         ("C-o"     . other-window)                ; rare used bindings..
+         ("C-x ("   . start-kbd-macro)             ; new bindings
+         ("C-x )"   . end-kbd-macro)               ; new bindings
+         ("C-x e"   . call-last-kbd-macro)         ; new bindings
+         ("C-="     . lr/font-increase)
+         ("C-+"     . lr/font-increase)
+         ("C--"     . lr/font-decrease)
+         ;("M-="        . global-text-scale-adjust)
+         ;("M-+"        . global-text-scale-adjust)
+         ("M-w"     . mark-word)
+         ("M-a"     . mark-page)
+         ("M-F"     . mark-defun)
+         ("M-s"     . mark-paragraph)
          ; ("C-c C-j" . join-line)
-         ("M-d"		. lr/duplicate-line)
-         ("C-c C-d"	. lr/duplicate-line)           ; fallback bindings
-         ("M-r"		. lr/delete-line)
-         ("C-c C-r"	. lr/delete-line)              ; fallback bindings
-         ("M-z"		. undo)))
+         ("M-d"     . lr/duplicate-line)
+         ("C-c C-d" . lr/duplicate-line)           ; fallback bindings
+         ("M-r"     . lr/delete-line)
+         ("C-c C-r" . lr/delete-line)              ; fallback bindings
+         ("M-z"     . undo)))
 
-; NOTE: originally those keymaps were meant to be on the function row, since some keyboards,
-;  like the HHKB Boards, dont have a seperated function row, those keymaps are kinda hard to
-;  hit. thereby they are also mapped into non function row keybindings. Only to fit into
-;  such keyboards as well. In the future this might get solved in other way.
+; NOTE: originally those keymaps were meant to be on the function row, since
+;  some keyboards, like the HHKB Boards, dont have a seperated function row,
+;  those keymaps are kinda hard to hit. thereby they are also mapped into non
+;  function row keybindings. Only to fit into such keyboards as well. In the
+;  future this might get solved in other way.
 (use-package custom-keys
   :ensure nil
   :bind (
-		 ("M-1"		. lr/toggle-scratch-buffer)
-		 ("<f1>"	. lr/toggle-scratch-buffer)
-         ("M-2"		. lr/toggle-compilation-buffer)
-         ("<f2>"	. lr/toggle-compilation-buffer)
-         ("M-3"		. lr/load-theme)
-         ("<f3>"	. lr/load-theme)
-         ("M-4"		. lr/toggle-config)
-         ("<f4>"	. lr/toggle-config)
-         ("M-5"		. lr/toggle-mini-buffer-mode)
-         ("<f5>"	. lr/toggle-mini-buffer-mode)
-         ("M-6"		. whitespace-mode)
-         ("<f6>"	. whitespace-mode)
-         ("M-7"		. display-line-numbers-mode)
-         ("<f7>"	. display-line-numbers-mode)
-         ("M-8"		. isearch-forward-symbol-at-point)
-         ("<f8>"	. isearch-forward-symbol-at-point)
-         ("M-9"		. embark-bindings)
-         ("<f9>"	. embark-bindings)))
+         ("M-1"     . lr/toggle-scratch-buffer)
+         ("<f1>"    . lr/toggle-scratch-buffer)
+         ("M-2"     . lr/toggle-compilation-buffer)
+         ("<f2>"    . lr/toggle-compilation-buffer)
+         ("M-3"     . isearch-forward-symbol-at-point)
+         ("<f3>"    . isearch-forward-symbol-at-point)
+         ("M-4"     . lr/toggle-config)
+         ("<f4>"    . lr/toggle-config)
+         ("M-5"     . lr/toggle-mini-buffer-mode)
+         ("<f5>"    . lr/toggle-mini-buffer-mode)
+;;         ("M-3"  . lr/load-theme)
+;;         ("<f3>" . lr/load-theme)
+;;         ("M-6"   . whitespace-mode)
+;;         ("<f6>"  . whitespace-mode)
+;;         ("M-7"   . display-line-numbers-mode)
+;;         ("<f7>"  . display-line-numbers-mode)
+;;         ("M-8"   . isearch-forward-symbol-at-point)
+;;         ("<f8>"  . isearch-forward-symbol-at-point)
+;;         ("M-9"   . embark-bindings)
+;;         ("<f9>"  . embark-bindings)
+))
 
 (use-package simpleclip
   :ensure t
