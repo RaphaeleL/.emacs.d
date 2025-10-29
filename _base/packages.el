@@ -75,7 +75,7 @@
   :ensure t
   :defer t) ; disabled per default
 
-; === Completion Frameworks (minibuffer/UI) ===
+                                        ; === Completion Frameworks (minibuffer/UI) ===
 
 (use-package vertico :ensure t :config (vertico-mode 1))
 (use-package orderless :ensure t :config nil)
@@ -96,7 +96,7 @@
          ("M-o"     . consult-buffer)
          ("C-c C-o" . consult-buffer)))     ; fallback bindings
 
-; === Language Modes (Syntax highlighting, indentation, etc.) ===
+                                        ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 
 (use-package markdown-mode      :ensure t :mode ("\\.md\\'"        . markdown-mode))
 (use-package dockerfile-mode    :ensure t :mode ("Dockerfile\\'"   . dockerfile-mode))
@@ -112,7 +112,7 @@
                                                  ("\\.tsx\\'"      . web-mode)
                                                  ("\\.css\\'"      . web-mode)))
 
-; === History / Recent Files ===
+                                        ; === History / Recent Files ===
 
 (use-package savehist :ensure t :init (savehist-mode 1))
 (use-package recentf  :ensure t :init (recentf-mode 1))
@@ -138,12 +138,12 @@
   :ensure nil
   :defer t
   :config
-   (setq-default display-line-numbers-widen t)
-   (setq-default display-line-numbers-type 'relative)
-   (setq display-line-numbers-major-tick 0)
-   (setq display-line-numbers-minor-tick 0)
+  (setq-default display-line-numbers-widen t)
+  (setq-default display-line-numbers-type 'relative)
+  (setq display-line-numbers-major-tick 0)
+  (setq display-line-numbers-minor-tick 0)
   :init
-   (global-display-line-numbers-mode 1))
+  (global-display-line-numbers-mode 1))
 
 (setq prefix-help-command #'embark-prefix-help-command)
 
@@ -154,6 +154,7 @@
       '(("default"
          ("Coding" (or
                     (mode . c-mode)
+                    (mode . simpc-mode)
                     (mode . c++-mode)
                     (mode . java-mode)
                     (mode . js-mode)
@@ -222,9 +223,9 @@
          ("C-l"     . shell-command)               ; rare used bindings..
          ("M-q"     . kill-compilation)            ; rare used bindings..
          ("C-o"     . other-window)                ; rare used bindings..
-         ("C-x ("   . start-kbd-macro)             ; new bindings
-         ("C-x )"   . end-kbd-macro)               ; new bindings
-         ("C-x e"   . call-last-kbd-macro)         ; new bindings
+         ("C-x ("   . start-kbd-macro)
+         ("C-x )"   . end-kbd-macro)
+         ("C-x e"   . call-last-kbd-macro)
          ("C-="     . lr/font-increase)
          ("C-+"     . lr/font-increase)
          ("C--"     . lr/font-decrease)

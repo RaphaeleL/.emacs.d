@@ -3,7 +3,7 @@
 
 ;; Theme
 (lr/enable-custom-font-iosevka)
-(lr/load-theme 'gruberdarker)
+;; (lr/load-theme 'gruberdarker)
 
 ;; Extend exec-path and PATH environment variable
 (let ((paths '("~/bin"

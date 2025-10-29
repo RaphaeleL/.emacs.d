@@ -28,7 +28,7 @@
 (defvar my-custom-file "~/.emacs.d/_custom.el")   ;; Custom User Settings on top of the current config
 (unless (file-exists-p my-custom-file)            ;; Create the file if it doesn't exist
   (with-temp-buffer (write-file my-custom-file)))
-(load my-custom-file 'noerror 'nomessage)         ;; Load it safely
+  (load my-custom-file 'noerror 'nomessage)         ;; Load it safely
 
 ;; === CUSTOM SET PLACE ============================
 (setq custom-file "~/.emacs.d/output.el") ;; Save the Output Junk into a seperate file
