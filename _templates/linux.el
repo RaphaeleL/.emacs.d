@@ -3,7 +3,8 @@
 
 ;; Theme
 (lr/enable-custom-font-iosevka)
-;; (lr/load-theme 'gruberdarker)
+(lr/load-theme 'gruberdarker)
+(global-whitespace-mode 1)
 
 ;; Extend exec-path and PATH environment variable
 (let ((paths '("~/bin"
