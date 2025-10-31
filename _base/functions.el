@@ -58,6 +58,23 @@
     (move-beginning-of-line 1)
     (forward-char column)))
 
+(defun lr/legacy_font ()
+  (interactive)
+  (let ((fonts '("Consoleet Darwin" "Consoleet Darwin Smooth"))
+        (size 18)
+        chosen-font)
+    (dolist (f fonts)
+      (when (and (member f (font-family-list)) (not chosen-font))
+        (setq chosen-font f)))
+    (if chosen-font
+        (progn
+          (set-frame-font (format "%s-%d" chosen-font size) t t)
+          (setq-default line-spacing 0.2)
+          (dolist (buf (buffer-list))
+            (with-current-buffer buf
+              (force-window-update (get-buffer-window buf)))))
+      (message "Consoleet Darwin not found, using default font"))))
+
 (defun lr/get-default-font-family ()
   (cond
    ((eq system-type 'windows-nt) "Iosevka")

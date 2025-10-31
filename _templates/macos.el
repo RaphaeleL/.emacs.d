@@ -10,6 +10,11 @@
 (global-set-key (kbd "C-c 5") (lambda () (interactive) (insert "[")))
 (global-set-key (kbd "C-c 6") (lambda () (interactive) (insert "]")))
 
+(global-set-key (kbd "C-c C-8") (lambda () (interactive) (insert "{")))
+(global-set-key (kbd "C-c C-9") (lambda () (interactive) (insert "}")))
+(global-set-key (kbd "C-c C-5") (lambda () (interactive) (insert "[")))
+(global-set-key (kbd "C-c C-6") (lambda () (interactive) (insert "]")))
+
 ;; LSP
 (load "~/.emacs.d/_base/lsp.el")
 
@@ -19,7 +24,11 @@
 ;; Theme
 (lr/enable-custom-font-iosevka)
 (lr/load-theme 'gruberdarker)
-;;(lr/load-theme 'solarized_light)
+(global-whitespace-mode 1)
+;; (lr/load-theme 'solarized_light)
+;; (lr/load-theme 'modus-operandi)
+(spacious-padding-mode 1)
+(set-fringe-mode 0)
 
 ;; Extend exec-path and PATH environment variable
 (let ((paths '("~/bin"
@@ -39,8 +48,8 @@
 (setenv "CPPFLAGS" "-I/opt/homebrew/opt/llvm/include")
 
 ;; Default Size and Position of Emacs on MacOS
-(setq default-frame-alist
-      '((height . 33)
-        (width . 88)
-        (left . 320)
-        (top . 70)))
+;; (setq default-frame-alist
+;;       '((height . 33)
+;;         (width . 88)
+;;         (left . 320)
+;;         (top . 70)))
