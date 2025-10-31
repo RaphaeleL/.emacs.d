@@ -48,6 +48,8 @@
 (setenv "CPPFLAGS" "-I/opt/homebrew/opt/llvm/include")
 
 ;; Default Size and Position of Emacs on MacOS
+(add-to-list 'default-frame-alist '(width . 88))
+(add-to-list 'default-frame-alist '(height . 33))
 ;; (setq default-frame-alist
 ;;       '((height . 33)
 ;;         (width . 88)
