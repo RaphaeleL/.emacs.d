@@ -31,12 +31,13 @@
 
 ;; Extend exec-path and PATH environment variable
 (let ((paths '("~/bin"
-               "~/go/bin"
                "~/.local/bin"
-               "~/.cargo/bin"
                "/usr/local/bin"
 			   "/Library/TeX/texbin"
-               "/opt/homebrew/opt/llvm/bin")))
+               "/opt/homebrew/opt/llvm/bin"
+               "~/go/bin"
+               "~/.cargo/bin")))
+
   (dolist (p (reverse paths))
     (when (file-directory-p (expand-file-name p))
       (add-to-list 'exec-path (expand-file-name p))

@@ -8,10 +8,10 @@
 
 ;; Extend exec-path and PATH environment variable
 (let ((paths '("~/bin"
-               "~/go/bin"
                "~/.local/bin"
-               "~/.cargo/bin"
-               "/usr/local/bin")))
+               "/usr/local/bin"
+               "~/go/bin"
+               "~/.cargo/bin")))
 
   (dolist (p (reverse paths))
     (when (file-directory-p (expand-file-name p))

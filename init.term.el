@@ -314,5 +314,3 @@
     mac-option-modifier 'control     ; Option as Control
     mac-control-modifier 'control    ; Ensure Control is Control
     default-input-method "MacOSX")
-
-(lr/enable-custom-font-iosevka)

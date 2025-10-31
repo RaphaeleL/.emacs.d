@@ -22,6 +22,9 @@
 (electric-indent-mode -1)
 
 (setq-default indent-tabs-mode nil)
+(electric-indent-mode -1)
+
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
 ;; Use y-or-n-p instead of yes-or-no-p (safer approach)

@@ -2,8 +2,8 @@
 
 ;; Theme
 (lr/enable-custom-font-aporetic)
-
-(lr/load-theme 'modus-operandi)
+(lr/load-theme 'gruberdarker)
+(global-whitespace-mode 1)
 
 (custom-set-faces
  '(mode-line ((t (:box nil))))
