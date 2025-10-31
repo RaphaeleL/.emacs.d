@@ -14,10 +14,10 @@
   :ensure t
   :defer t
   :bind (("M-SPC"     . rectangle-mark-mode)
-         ("C-x SPC"   . rectangle-mark-mode)      ; fallback bindings
+         ("C-x SPC"   . rectangle-mark-mode)
          ("M-e"       . mc/edit-lines)
          ("C-j"       . mc/mark-next-like-this)
-         ("C-c C-j"   . mc/mark-next-like-this))) ; fallback bindings
+         ("C-c C-j"   . mc/mark-next-like-this)))
 
 (use-package magit
   :ensure t
@@ -40,12 +40,7 @@
     (setq dired-dwim-target t)
     (setq dired-listing-switches "-laGh1Dv --group-directories-first")
     (setq ls-lisp-ignore-case t)
-;    (add-hook 'dired-mode-hook #'dired-omit-mode)
-;    (add-hook 'dired-mode-hook 'auto-revert-mode)
-;    (define-key dired-mode-map (kbd "M-o") #'dired-omit-mode)
-    (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode)
-;    (setq dired-omit-files "^\\.[^.].*")
-))
+    (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode)))
 
 ; === Optional UI Enhancements ===
 
@@ -71,11 +66,11 @@
   (setq which-key-add-column-padding 1)
   (setq which-key-max-description-length 40))
 
-(use-package spacious-padding
+(use-package spacious-padding  ; disabled per default
   :ensure t
-  :defer t) ; disabled per default
+  :defer t)
 
-                                        ; === Completion Frameworks (minibuffer/UI) ===
+; === Completion Frameworks (minibuffer/UI) ===
 
 (use-package vertico :ensure t :config (vertico-mode 1))
 (use-package orderless :ensure t :config nil)
@@ -91,12 +86,12 @@
   :ensure t
   :defer t
   :bind (("C-c C-k" . consult-line)
-         ("C-c C-g" . consult-ripgrep)      ; ripgrep might not be available everywhere
+         ("C-c C-g" . consult-ripgrep)      ; ripgrep might not be available everywhere ..
          ("C-r"     . consult-recent-file)
          ("M-o"     . consult-buffer)
-         ("C-c C-o" . consult-buffer)))     ; fallback bindings
+         ("C-c C-o" . consult-buffer)))
 
-                                        ; === Language Modes (Syntax highlighting, indentation, etc.) ===
+; === Language Modes (Syntax highlighting, indentation, etc.) ===
 
 (use-package markdown-mode      :ensure t :mode ("\\.md\\'"        . markdown-mode))
 (use-package dockerfile-mode    :ensure t :mode ("Dockerfile\\'"   . dockerfile-mode))
@@ -112,11 +107,10 @@
                                                  ("\\.tsx\\'"      . web-mode)
                                                  ("\\.css\\'"      . web-mode)))
 
-                                        ; === History / Recent Files ===
+; === History / Recent Files ===
 
 (use-package savehist :ensure t :init (savehist-mode 1))
 (use-package recentf  :ensure t :init (recentf-mode 1))
-
 (use-package whitespace
   :ensure nil
   :defer t
@@ -218,28 +212,25 @@
          ("M-,"     . project-find-file)
          ("M-i"     . ibuffer)
          ("M-j"     . indent-region)
-         ("C-c g"   . indent-region)               ; fallback bindings
+         ("C-c g"   . indent-region)
          ("M-c"     . compile)
-         ("C-l"     . shell-command)               ; rare used bindings..
-         ("M-q"     . kill-compilation)            ; rare used bindings..
-         ("C-o"     . other-window)                ; rare used bindings..
+         ("C-l"     . shell-command)
+         ("M-q"     . kill-compilation)
+         ("C-o"     . other-window)
          ("C-x ("   . start-kbd-macro)
          ("C-x )"   . end-kbd-macro)
          ("C-x e"   . call-last-kbd-macro)
          ("C-="     . lr/font-increase)
          ("C-+"     . lr/font-increase)
          ("C--"     . lr/font-decrease)
-         ;("M-="        . global-text-scale-adjust)
-         ;("M-+"        . global-text-scale-adjust)
          ("M-w"     . mark-word)
          ("M-a"     . mark-page)
          ("M-F"     . mark-defun)
          ("M-s"     . mark-paragraph)
-         ; ("C-c C-j" . join-line)
          ("M-d"     . lr/duplicate-line)
-         ("C-c C-d" . lr/duplicate-line)           ; fallback bindings
+         ("C-c C-d" . lr/duplicate-line)
          ("M-r"     . lr/delete-line)
-         ("C-c C-r" . lr/delete-line)              ; fallback bindings
+         ("C-c C-r" . lr/delete-line)
          ("M-z"     . undo)))
 
 ; NOTE: originally those keymaps were meant to be on the function row, since
@@ -259,18 +250,7 @@
          ("M-4"     . lr/toggle-config)
          ("<f4>"    . lr/toggle-config)
          ("M-5"     . lr/toggle-mini-buffer-mode)
-         ("<f5>"    . lr/toggle-mini-buffer-mode)
-;;         ("M-3"  . lr/load-theme)
-;;         ("<f3>" . lr/load-theme)
-;;         ("M-6"   . whitespace-mode)
-;;         ("<f6>"  . whitespace-mode)
-;;         ("M-7"   . display-line-numbers-mode)
-;;         ("<f7>"  . display-line-numbers-mode)
-;;         ("M-8"   . isearch-forward-symbol-at-point)
-;;         ("<f8>"  . isearch-forward-symbol-at-point)
-;;         ("M-9"   . embark-bindings)
-;;         ("<f9>"  . embark-bindings)
-))
+         ("<f5>"    . lr/toggle-mini-buffer-mode)))
 
 (use-package simpleclip
   :ensure t

@@ -5,7 +5,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(fontaine yaml-mode which-key web-mode vertico simpleclip rust-mode rpm-spec-mode paredit orderless multiple-cursors move-text mood-line markdown-mode marginalia magit jinja2-mode jenkinsfile-mode go-mode dockerfile-mode corfu consult)))
+   '(consult corfu dockerfile-mode go-mode jenkinsfile-mode jinja2-mode
+             magit marginalia markdown-mode mood-line move-text
+             multiple-cursors orderless paredit rpm-spec-mode
+             rust-mode simpleclip spacious-padding tree-sitter
+             tree-sitter-langs vertico web-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

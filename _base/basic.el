@@ -45,6 +45,11 @@
 (setq initial-scratch-message nil)
 (setq initial-major-mode 'text-mode)
 
+(with-current-buffer "*scratch*"
+  (text-mode)
+  (auto-fill-mode 1)
+  (visual-line-mode 1))
+
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
@@ -54,17 +59,12 @@
 
 (blink-cursor-mode 0)
 (setq x-stretch-cursor nil)
-
 (setq ring-bell-function 'ignore)
-
 (setq echo-keystrokes 0.01)
-
 (setq mouse-yank-at-point t)
-
+(setq compilation-scroll-output t)
 (setq window-resize-pixelwise t
       frame-resize-pixelwise t)
 
-(add-to-list 'default-frame-alist '(width . 88))
-(add-to-list 'default-frame-alist '(height . 33))
-
-(setq compilation-scroll-output t)
+;; (add-to-list 'default-frame-alist '(width . 88))
+;; (add-to-list 'default-frame-alist '(height . 33))

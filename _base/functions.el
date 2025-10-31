@@ -58,7 +58,21 @@
     (move-beginning-of-line 1)
     (forward-char column)))
 
-(defun lr/legacy_font ()
+(defun lr/legacy ()
+  (interactive)
+  (lr/disable-custom-font)
+  (lr/enable-custom-font-legacy)
+  (mapc #'disable-theme custom-enabled-themes)
+  (global-whitespace-mode 0)
+  (fido-mode 1)
+  (vertico-mode 0)
+  (marginalia-mode 0)
+  (display-line-numbers-mode 0)
+  (global-display-line-numbers-mode 0)
+  (spacious-padding-mode 0)
+  (set-fringe-mode 0))
+
+(defun lr/enable-custom-font-legacy ()
   (interactive)
   (let ((fonts '("Consoleet Darwin" "Consoleet Darwin Smooth"))
         (size 18)
@@ -136,16 +150,6 @@
   (setq custom-safe-themes t)
   (load-theme theme t))
 
-(defun lr/bare ()
-  (interactive)
-  (lr/disable-custom-font)
-  (mapc #'disable-theme custom-enabled-themes))
-
-(defun lr/fancy ()
-  (interactive)
-  (lr/enable-custom-font)
-  (load-theme 'solarized_light t))
-
 (defun lr/cut ()
   (interactive)
   (simpleclip-cut (region-beginning) (region-end))
@@ -206,26 +210,21 @@
   (read-only-mode 'toggle))
 
 (defun lr/toggle-buffer (buffer-name)
-  "Toggle BUFFER-NAME in another window.
-If it is visible, delete its window. Otherwise, show it."
-  (interactive "BBuffer name: ")
+  (interactive "Buffer name: ")
   (let ((buffer (get-buffer buffer-name)))
     (if (and buffer (get-buffer-window buffer))
         (delete-window (get-buffer-window buffer))
       (switch-to-buffer-other-window (get-buffer-create buffer-name)))))
 
 (defun lr/toggle-scratch-buffer ()
-  "Toggle the *scratch* buffer."
   (interactive)
   (lr/toggle-buffer "*scratch*"))
 
 (defun lr/toggle-compilation-buffer ()
-  "Toggle the *compilation* buffer."
   (interactive)
   (lr/toggle-buffer "*compilation*"))
 
 (defun lr/toggle-config ()
-  "Toggle ~/.emacs.d/init.el in another window."
   (interactive)
   (let* ((file "~/.emacs.d/init.el")
          (buffer (find-file-noselect file)))

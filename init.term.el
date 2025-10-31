@@ -145,9 +145,6 @@
 (setq display-line-numbers-minor-tick 0)
 (setq-default display-line-numbers-widen t)
 
-(setq-default indent-tabs-mode t)
-(setq-default tab-width 4)
-
 (set-fringe-mode 0)
 
 (setq dired-dwim-target t)
@@ -155,8 +152,8 @@
 (setq use-dialog-box nil)
 
 (setq inhibit-startup-message t)
-; (setq initial-scratch-message nil)
-; (setq initial-major-mode 'text-mode)
+(setq initial-scratch-message nil)
+(setq initial-major-mode 'text-mode)
 
 (setq ring-bell-function 'ignore)
 (setq echo-keystrokes 0.01)
@@ -168,9 +165,15 @@
 
 (setq line-move-visual nil)
 
+(add-to-list 'default-frame-alist '(width . 80))
+(add-to-list 'default-frame-alist '(height . 30))
+
 (if (version< emacs-version "28.1")
     (defalias 'yes-or-no-p 'y-or-n-p)
   (setq use-short-answers t))
+
+(setq-default indent-tabs-mode t)
+(setq-default tab-width 4)
 
 ; === HELPER ====================================
 
@@ -210,6 +213,28 @@
 
 (defun lr/font-increase() (interactive) (text-scale-increase 1))
 (defun lr/font-decrease() (interactive) (text-scale-decrease 1))
+
+(defun lr/get-default-font-size ()
+  (cond
+   ((eq system-type 'windows-nt) 12)
+   ((eq system-type 'darwin)     18)
+   ((eq system-type 'gnu/linux)  12)))
+
+(defun lr/get-default-font-family ()
+  (cond
+   ((eq system-type 'windows-nt) "Iosevka")
+   ((eq system-type 'darwin)     "Iosevka")
+   ((eq system-type 'gnu/linux)  "IosevkaNerdFont")))
+
+(defun lr/get-default-font ()
+  (let ((family (lr/get-default-font-family)) (size (lr/get-default-font-size)))
+    (if (and family size) (format "%s-%d" family size) "Iosevka-20")))
+
+(defun lr/enable-custom-font-iosevka ()
+  (interactive)
+  (let ((font (lr/get-default-font)))
+    (add-to-list 'default-frame-alist `(font . ,font))
+    (set-frame-font font t t)))
 
 ;; =============================================================================
 ;; GARBAGE COLLECTION & PERFORMANCE OPTIMIZATIONS
@@ -290,4 +315,4 @@
     mac-control-modifier 'control    ; Ensure Control is Control
     default-input-method "MacOSX")
 
-
+(lr/enable-custom-font-iosevka)

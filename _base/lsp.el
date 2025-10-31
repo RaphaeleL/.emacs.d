@@ -44,9 +44,6 @@
 (setenv "PATH" (concat (expand-file-name "~/go/bin") ":" (getenv "PATH")))
 (setenv "PATH" (concat (expand-file-name "/opt/homebrew/bin") ":" (getenv "PATH")))
 
-;; (with-eval-after-load 'company
-;;   (setq company-backends '((company-capf company-dabbrev-code company-dabbrev))))
-
 ;; LSP
 (when (require 'eglot nil 'noerror)
   (when (executable-find "pylsp") (add-hook 'python-mode-hook 'eglot-ensure))

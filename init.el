@@ -28,7 +28,7 @@
 (defvar my-custom-file "~/.emacs.d/_custom.el")   ;; Custom User Settings on top of the current config
 (unless (file-exists-p my-custom-file)            ;; Create the file if it doesn't exist
   (with-temp-buffer (write-file my-custom-file)))
-  (load my-custom-file 'noerror 'nomessage)         ;; Load it safely
+  (load my-custom-file 'noerror 'nomessage)       ;; Load it safely
 
 ;; === CUSTOM SET PLACE ============================
 (setq custom-file "~/.emacs.d/output.el") ;; Save the Output Junk into a seperate file
@@ -42,3 +42,5 @@
 
 ; $ wget https://gist.githubusercontent.com/RaphaeleL/36c1a3de3526f1e8e1e3719900c320fb/raw/d7fa8380ed242e43dabf061cb320afdf5e1061c6/init.el
 ; $ emacs -q -l ~/path/to/gist/init.el
+
+; Alternatively there is also the option of using (lr/legacy) in the current emacs config.
