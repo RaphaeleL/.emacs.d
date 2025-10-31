@@ -1,9 +1,7 @@
 (load "~/.emacs.d/_base/ssh.el")
 
 ;; Theme
-(lr/enable-custom-font-aporetic)
-(lr/load-theme 'gruberdarker)
-(global-whitespace-mode 1)
+(lr/legacy)
 
 (custom-set-faces
  '(mode-line ((t (:box nil))))

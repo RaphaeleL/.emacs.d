@@ -63,6 +63,10 @@
   (lr/disable-custom-font)
   (lr/enable-custom-font-legacy)
   (mapc #'disable-theme custom-enabled-themes)
+  (cond
+   ((eq system-type 'windows-nt) (lr/disable-custom-font))
+   ((eq system-type 'darwin)     (lr/enable-custom-font-legacy))
+   ((eq system-type 'gnu/linux)  (lr/disable-custom-font)))
   (global-whitespace-mode 0)
   (fido-mode 1)
   (vertico-mode 0)
