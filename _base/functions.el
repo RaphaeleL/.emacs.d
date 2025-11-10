@@ -267,8 +267,9 @@
   (when (or fido-mode fido-vertical-mode)
     (local-set-key (kbd "C-s") 'next-history-element)
     (local-set-key (kbd "C-r") 'previous-history-element)
-    (local-set-key (kbd "C-n") 'icomplete-forward-completions)
-    (local-set-key (kbd "C-p") 'icomplete-backward-completions)))
+    (unless (eq this-command 'compile)
+      (local-set-key (kbd "C-n") 'icomplete-forward-completions)
+      (local-set-key (kbd "C-p") 'icomplete-backward-completions))))
 
 (defun lr/create-keymap     (key action) (global-set-key (kbd key) action))
 (defun lr/create-keymap-cc  (key action) (global-set-key (kbd (concat "C-c "   key)) action))
