@@ -2,7 +2,7 @@
 ;; GARBAGE COLLECTION & PERFORMANCE OPTIMIZATIONS
 ;; =============================================================================
 
-;; garbage.el \u2014 performance tuning
+;; garbage collection & performance tuning
 
 (defvar file-name-handler-alist-original file-name-handler-alist
   "Original `file-name-handler-alist` to restore after startup.")

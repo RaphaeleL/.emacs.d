@@ -152,13 +152,7 @@
         (format "%s-%d" family size)
       "Iosevka-20")))  ; fallback font
 
-(defun lr/turn-on-paredit () (interactive) (paredit-mode 1))
 (defun lr/on_save () (interactive) (add-to-list 'write-file-functions 'delete-trailing-whitespace))
-
-(defun lr/macoshhkb ()
-  (interactive)
-  (setq mac-command-modifier 'control)
-  (setq mac-option-modifier 'meta))
 
 (defun lr/load-theme (theme)
   (interactive
@@ -185,27 +179,6 @@
   (simpleclip-paste)
   (deactivate-mark)
   (sit-for 1))
-
-(defun lr/visual-or-line-copy ()
-  (interactive)
-  (let* ((start (if (use-region-p)
-                    (region-beginning)
-                  (line-beginning-position)))
-         (end (if (use-region-p)
-                  (region-end)
-                (line-end-position)))
-         (text (buffer-substring-no-properties start end)))
-    (if (fboundp 'simpleclip-set-contents)
-        (simpleclip-set-contents text)
-      (kill-new text))
-    (delete-region start end)
-    (sit-for 0.05)
-    (goto-char start)
-    (insert text)
-    (when (use-region-p) (deactivate-mark))
-	(save-buffer)
-	(beginning-of-line)
-    (message (if (use-region-p) "Copied region" "Copied line"))))
 
 (defun lr/toggle-mini-buffer-mode ()
   (interactive)
