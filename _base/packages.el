@@ -54,22 +54,6 @@
       (ansi-color-apply-on-region compilation-filter-start (point-max))))
   :hook (compilation-filter . my-colorize-compilation-buffer))
 
-(use-package which-key
-  :ensure t
-  :defer t
-  :config
-  (setq which-key-separator "  ")
-  (setq which-key-prefix-prefix "... ")
-  (setq which-key-max-display-columns 3)
-  (setq which-key-idle-delay 0.125)
-  (setq which-key-idle-secondary-delay 0.25)
-  (setq which-key-add-column-padding 1)
-  (setq which-key-max-description-length 40))
-
-(use-package spacious-padding  ; disabled per default
-  :ensure t
-  :defer t)
-
 ; === Completion Frameworks (minibuffer/UI) ===
 
 (use-package vertico :ensure t :config (vertico-mode 1))
