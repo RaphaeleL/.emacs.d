@@ -22,12 +22,12 @@
 (setq insert-directory-program "/opt/homebrew/bin/gls")
 
 ;; Theme
-;; (lr/enable-custom-font-iosevka)
-;; (lr/load-theme 'gruberdarker)
-;; (global-whitespace-mode 0)
-;; (spacious-padding-mode 0)
-;; (set-fringe-mode 0)
-(lr/legacy)
+(lr/enable-custom-font-iosevka)
+(lr/load-theme 'gruberdarker)
+(global-whitespace-mode 1)
+(spacious-padding-mode 0)
+(set-fringe-mode 0)
+;; (lr/legacy)
 
 ;; Extend exec-path and PATH environment variable
 (let ((paths '("~/bin"
