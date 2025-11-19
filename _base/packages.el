@@ -186,10 +186,10 @@
                    (mode  . fundamental-mode)
                    (name  . ".*"))))))
 
-(add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (ibuffer-switch-to-saved-filter-groups "default")))
+(add-hook 'ibuffer-mode-hook (lambda ()
+                               (ibuffer-switch-to-saved-filter-groups "default")))
 
+;; NOTE: Default Keybindings which are based on Emacs- or Custom-Functions.
 (use-package emacs
   :ensure nil
   :bind (("C-,"     . find-file)
@@ -204,18 +204,18 @@
          ("C-x ("   . start-kbd-macro)
          ("C-x )"   . end-kbd-macro)
          ("C-x e"   . call-last-kbd-macro)
-         ("C-="     . lr/font-increase)
-         ("C-+"     . lr/font-increase)
-         ("C--"     . lr/font-decrease)
          ("M-w"     . mark-word)
          ("M-a"     . mark-page)
          ("M-F"     . mark-defun)
          ("M-s"     . mark-paragraph)
+         ("M-z"     . undo)
          ("M-d"     . lr/duplicate-line)
          ("C-c C-d" . lr/duplicate-line)
          ("M-r"     . lr/delete-line)
          ("C-c C-r" . lr/delete-line)
-         ("M-z"     . undo)))
+         ("C-="     . lr/font-increase)
+         ("C-+"     . lr/font-increase)
+         ("C--"     . lr/font-decrease)))
 
 ; NOTE: originally those keymaps were meant to be on the function row, since
 ;  some keyboards, like the HHKB Boards, dont have a seperated function row,
@@ -236,6 +236,12 @@
          ("M-5"     . lr/toggle-mini-buffer-mode)
          ("<f5>"    . lr/toggle-mini-buffer-mode)))
 
+;; NOTE: We want to Copy to Clipboard, which is done with simpleclip. However
+;;  simpleclip is not working with multiplecursors. Thereby we are copy/paste
+;;  to clipboard with simpleclip on default, and if multiple cursors are
+;;  activated we are moving back to the default way of copy/past which is
+;;  working on all cursors in that case. However, don't forget to reset this
+;;  if multiple cursors are disabled. All this is in a hook.
 (use-package simpleclip
   :ensure t
   :defer t

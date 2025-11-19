@@ -3,12 +3,7 @@
 ; ==================================================
 
 ;; TODO: Add more LSP Servers
-;; - Tailwind
-;; - JS/TS
-;; - Java
-
-;; TODO: Auto Install the used Servers if they are
-;;  not installed on the System.
+;; TODO: Auto Install the used Servers if they are not installed on the System.
 
 ;; Map the LSP Servers to the Lang Mode
 (with-eval-after-load 'eglot
@@ -53,9 +48,11 @@
   (when (executable-find "gopls") (add-hook 'go-mode-hook 'eglot-ensure))
   (when (executable-find "rust-analyzer") (add-hook 'rust-mode-hook 'eglot-ensure)))
 
+;; Manage Tsoding's Simpc Mode
 (load "~/.emacs.d/_base/simpc.el" 'noerror 'nomessage)
 (require 'simpc-mode)
 (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
 
+;;
 (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
 (electric-indent-mode 1)

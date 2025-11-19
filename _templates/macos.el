@@ -1,10 +1,10 @@
-;; Key remapping:
+;; Key remapping for MacOS
 (setq mac-command-modifier 'meta     ; Command as Meta
     mac-option-modifier 'control     ; Option as Control
     mac-control-modifier 'control    ; Ensure Control is Control
     default-input-method "MacOSX")
 
-;; WTF
+;; MacOS with a German Keyboard
 (global-set-key (kbd "C-c 8") (lambda () (interactive) (insert "{")))
 (global-set-key (kbd "C-c 9") (lambda () (interactive) (insert "}")))
 (global-set-key (kbd "C-c 5") (lambda () (interactive) (insert "[")))
@@ -18,40 +18,28 @@
 ;; LSP
 (load "~/.emacs.d/_base/lsp.el")
 
-;; Use GNU ls from coreutils (via Homebrew)
+;; Use GNU-ls from coreutils (via Homebrew) for dired
 (setq insert-directory-program "/opt/homebrew/bin/gls")
 
 ;; Theme
-(lr/enable-custom-font-iosevka)
-(lr/load-theme 'gruberdarker)
-(global-whitespace-mode 1)
-(spacious-padding-mode 0)
-(set-fringe-mode 0)
+(lr/modern)
 ;; (lr/legacy)
 
 ;; Extend exec-path and PATH environment variable
-(let ((paths '("~/bin"
-               "~/.local/bin"
-               "/usr/local/bin"
-			   "/Library/TeX/texbin"
-               "/opt/homebrew/opt/llvm/bin"
-               "~/go/bin"
-               "~/.cargo/bin")))
+(let ((paths '("~/bin" "~/.local/bin" "/usr/local/bin" "/Library/TeX/texbin"
+               "/opt/homebrew/opt/llvm/bin" "~/go/bin" "~/.cargo/bin")))
 
   (dolist (p (reverse paths))
     (when (file-directory-p (expand-file-name p))
       (add-to-list 'exec-path (expand-file-name p))
       (setenv "PATH" (concat (expand-file-name p) path-separator (getenv "PATH"))))))
 
-;; Extra environment variables for LLVM
+;; Linker and Include Flags for LLVM
 (setenv "LDFLAGS" "-L/opt/homebrew/opt/llvm/lib")
 (setenv "CPPFLAGS" "-I/opt/homebrew/opt/llvm/include")
 
 ;; Default Size and Position of Emacs on MacOS
-(add-to-list 'default-frame-alist '(width . 88))
-(add-to-list 'default-frame-alist '(height . 33))
-;; (setq default-frame-alist
-;;       '((height . 33)
-;;         (width . 88)
-;;         (left . 320)
-;;         (top . 70)))
+(add-to-list 'default-frame-alist '(width . 100))
+(add-to-list 'default-frame-alist '(height . 43))
+;(add-to-list 'default-frame-alist '(left . 320))
+;(add-to-list 'default-frame-alist '(top . 70))

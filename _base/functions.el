@@ -2,44 +2,6 @@
 ; ===== CUSTOM FUNCTIONS ===========================
 ; ==================================================
 
-; some those functions are copied from
-; -> https://github.com/rexim/dotfiles/blob/master/.emacs.rc/rc.el
-
-(defvar lr/package-contents-refreshed nil)
-
-(defun lr/package-refresh-contents-once ()
-  (unless lr/package-contents-refreshed
-    (setq lr/package-contents-refreshed t)
-    (package-refresh-contents)))
-
-(defun lr/package-available-p (package)
-  (and package-archive-contents
-       (assq package package-archive-contents)))
-
-(defun lr/require-one-package (package)
-  "Install and require a package with better error handling"
-  (unless (package-installed-p package)
-    (lr/package-refresh-contents-once)
-    (if (lr/package-available-p package)
-        (condition-case err
-            (package-install package)
-          (error
-           (message "Warning: Package '%s' failed to install: %s"
-                    package (error-message-string err))
-           nil))
-      (message "Warning: Package '%s' is not available in any configured archive" package))))
-
-(defun lr/require (&rest packages)
-  (dolist (package packages)
-    (lr/require-one-package package)))
-
-(defun lr/require-theme (theme)
-  (let
-	(theme-package-name (concat theme-name "-theme"))
-	(theme-package (intern theme-package-name)))
-    (lr/require theme-package)
-    (load-theme theme t))
-
 (defun lr/delete-line ()
   (interactive)
   (save-excursion
@@ -61,8 +23,8 @@
 (defun lr/modern ()
   (interactive)
   (lr/enable-custom-font-iosevka)
-  (lr/load-theme 'gruberdarker)
-  (global-whitespace-mode 1)
+  ;; (lr/load-theme 'gruberdarker)
+  (global-whitespace-mode 0)
   (fido-mode 0)
   (vertico-mode 1)
   (marginalia-mode 1)
@@ -89,6 +51,33 @@
   (spacious-padding-mode 0)
   (set-fringe-mode 0))
 
+(defun lr/disable-custom-font ()
+  (interactive)
+  (setq default-frame-alist
+        (cl-remove-if (lambda (entry) (eq (car entry) 'font)) default-frame-alist))
+  (set-frame-font (face-attribute 'default :font) t t))
+
+(defun lr/get-iosevka-font ()
+  (interactive)
+  (let ((family (cond
+                 ((eq system-type 'windows-nt) "Iosevka")
+                 ((eq system-type 'darwin)     "Iosevka")
+                 ((eq system-type 'gnu/linux)  "IosevkaNerdFont")))
+        (size (cond
+               ((eq system-type 'windows-nt) 12)
+               ((eq system-type 'darwin)     18)
+               ((eq system-type 'gnu/linux)  12))))
+    (if (and family size) (format "%s-%d" family size) "Iosevka-20")))
+
+(defun lr/enable-custom-font-iosevka ()
+  (let ((font (lr/get-iosevka-font)))
+    (when (member (car (split-string font "-")) (font-family-list))
+      (set-frame-font font t t)
+      (setq-default line-spacing 0)
+      (dolist (buf (buffer-list))
+        (with-current-buffer buf
+          (force-window-update (get-buffer-window buf)))))))
+
 (defun lr/enable-custom-font-legacy ()
   (interactive)
   (let ((fonts '("Consoleet Darwin" "Consoleet Darwin Smooth"))
@@ -106,53 +95,6 @@
               (force-window-update (get-buffer-window buf)))))
       (message "Consoleet Darwin not found, using default font"))))
 
-(defun lr/get-default-font-family ()
-  (cond
-   ((eq system-type 'windows-nt) "Iosevka")
-   ((eq system-type 'darwin)     "Iosevka")
-   ((eq system-type 'gnu/linux)  "IosevkaNerdFont")))
-
-(defvar lr/original-font (face-attribute 'default :font))
-
-(defun lr/enable-custom-font-iosevka ()
-  (interactive)
-  (let ((font (lr/get-default-font)))
-    (add-to-list 'default-frame-alist `(font . ,font))
-    (set-frame-font font t t)))
-
-(defun lr/enable-custom-font-aporetic ()
-  (interactive)
-  (set-face-attribute 'default nil :family "Aporetic Sans Mono" :height 120 :weight 'regular)
-  (set-face-attribute 'variable-pitch nil :family "Aporetic Serif" :height 1.1)
-  (set-face-attribute 'fixed-pitch nil :family "Aporetic Sans Mono" :height 1.0)
-  (setq-default line-spacing 3)
-  (set-face-attribute 'mode-line nil :family "Aporetic Sans Mono" :height 0.9 :weight 'regular)
-  (set-face-attribute 'mode-line-inactive nil :family "Aporetic Sans Mono" :height 0.9 :weight 'light)
-  (add-to-list 'default-frame-alist '(width . 88))
-  (add-to-list 'default-frame-alist '(height . 33)))
-
-(defun lr/disable-custom-font ()
-  (interactive)
-  (setq default-frame-alist
-        (cl-remove-if (lambda (entry)
-                        (eq (car entry) 'font))
-                      default-frame-alist))
-  (set-frame-font lr/original-font t t))
-
-(defun lr/get-default-font-size ()
-  (cond
-   ((eq system-type 'windows-nt) 12)
-   ((eq system-type 'darwin)     20)
-   ((eq system-type 'gnu/linux)  12)))
-
-(defun lr/get-default-font ()
-  (let ((family (lr/get-default-font-family))
-        (size (lr/get-default-font-size)))
-    (if (and family size)
-        (format "%s-%d" family size)
-      "Iosevka-20")))  ; fallback font
-
-(defun lr/on_save () (interactive) (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
 (defun lr/load-theme (theme)
   (interactive
@@ -161,24 +103,10 @@
   (setq custom-safe-themes t)
   (load-theme theme t))
 
-(defun lr/cut ()
-  (interactive)
-  (simpleclip-cut (region-beginning) (region-end))
-  (deactivate-mark)
-  (message "Cutted")
-  (sit-for 1))
-
-(defun lr/copy ()
-  (interactive)
-  (simpleclip-copy (region-beginning) (region-end))
-  (deactivate-mark)
-  (sit-for 1))
-
-(defun lr/paste ()
-  (interactive)
-  (simpleclip-paste)
-  (deactivate-mark)
-  (sit-for 1))
+(defun lr/on_save () (interactive) (add-to-list 'write-file-functions 'delete-trailing-whitespace))
+(defun lr/cut () (interactive) (simpleclip-cut (region-beginning) (region-end)) (deactivate-mark) (sit-for 1))
+(defun lr/copy () (interactive) (simpleclip-copy (region-beginning) (region-end)) (deactivate-mark) (sit-for 1))
+(defun lr/paste () (interactive) (simpleclip-paste) (deactivate-mark) (sit-for 1))
 
 (defun lr/toggle-mini-buffer-mode ()
   (interactive)
@@ -206,14 +134,7 @@
         (delete-window (get-buffer-window buffer))
       (switch-to-buffer-other-window (get-buffer-create buffer-name)))))
 
-(defun lr/toggle-scratch-buffer ()
-  (interactive)
-  (lr/toggle-buffer "*scratch*"))
-
-(defun lr/toggle-compilation-buffer ()
-  (interactive)
-  (lr/toggle-buffer "*compilation*"))
-
+(defun lr/open_config() (interactive) (find-file "~/.emacs.d/init.el"))
 (defun lr/toggle-config ()
   (interactive)
   (let* ((file "~/.emacs.d/init.el")
@@ -221,8 +142,9 @@
     (if (get-buffer-window buffer)
         (delete-window (get-buffer-window buffer))
       (switch-to-buffer-other-window buffer))))
+(defun lr/toggle-scratch-buffer () (interactive) (lr/toggle-buffer "*scratch*"))
+(defun lr/toggle-compilation-buffer () (interactive) (lr/toggle-buffer "*compilation*"))
 
-(defun lr/open_config() (interactive) (find-file "~/.emacs.d/init.el"))
 (defun lr/font-increase() (interactive) (text-scale-increase 1))
 (defun lr/font-decrease() (interactive) (text-scale-decrease 1))
 
@@ -251,11 +173,5 @@
 (defun lr/create-keymap-m   (key action) (global-set-key (kbd (concat "M-"     key)) action))
 (defun lr/create-keymap-c   (key action) (global-set-key (kbd (concat "C-"     key)) action))
 
-(defun lr/reload ()
-  (interactive)
-  (load-file user-init-file)
-  (message "Emacs reloaded."))
-
-(defun lr/minibuffer-setup-combined ()
-  (lr/my-compile-minibuffer-setup)
-  (lr/my-fido-minibuffer-setup))
+(defun lr/reload () (interactive) (load-file user-init-file) (message "Emacs reloaded."))
+(defun lr/minibuffer-setup-combined () (lr/my-compile-minibuffer-setup) (lr/my-fido-minibuffer-setup))

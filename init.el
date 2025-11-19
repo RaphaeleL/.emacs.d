@@ -43,4 +43,5 @@
 ; $ wget https://gist.githubusercontent.com/RaphaeleL/36c1a3de3526f1e8e1e3719900c320fb/raw/d7fa8380ed242e43dabf061cb320afdf5e1061c6/init.el
 ; $ emacs -q -l ~/path/to/gist/init.el
 
+; Consider to use -nw to run emacs in the Terminal with that minimal config.
 ; Alternatively there is also the option of using (lr/legacy) in the current emacs config.

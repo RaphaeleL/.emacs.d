@@ -48,10 +48,7 @@
 (setq initial-scratch-message nil)
 (setq initial-major-mode 'text-mode)
 
-(with-current-buffer "*scratch*"
-  (text-mode)
-  (auto-fill-mode 1)
-  (visual-line-mode 1))
+(with-current-buffer "*scratch*" (text-mode) (auto-fill-mode 1) (visual-line-mode 1))
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -66,5 +63,5 @@
 (setq echo-keystrokes 0.01)
 (setq mouse-yank-at-point t)
 (setq compilation-scroll-output t)
-(setq window-resize-pixelwise t
-      frame-resize-pixelwise t)
+(setq window-resize-pixelwise t)
+(setq frame-resize-pixelwise t)
