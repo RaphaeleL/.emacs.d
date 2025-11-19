@@ -145,13 +145,14 @@
 (defun lr/toggle-scratch-buffer () (interactive) (lr/toggle-buffer "*scratch*"))
 (defun lr/toggle-compilation-buffer () (interactive) (lr/toggle-buffer "*compilation*"))
 
-(defun lr/font-increase() (interactive) (text-scale-increase 1))
-(defun lr/font-decrease() (interactive) (text-scale-decrease 1))
-
 (defun lr/update-line-number-font-size ()
+  (interactive)
   (let ((base-height (face-attribute 'default :height))
         (scale-factor (if (boundp 'text-scale-mode-amount) (expt text-scale-mode-step text-scale-mode-amount) 1)))
-        (face-remap-add-relative 'line-number :height (round (* base-height scale-factor)))))
+    (face-remap-add-relative 'line-number :height (round (* base-height scale-factor)))))
+
+(defun lr/font-increase() (interactive) (text-scale-increase 1) (lr/update-line-number-font-size))
+(defun lr/font-decrease() (interactive) (text-scale-decrease 1) (lr/update-line-number-font-size))
 
 (defun lr/my-compile-minibuffer-setup ()
   (when (eq this-command 'compile)
