@@ -28,8 +28,7 @@
   (fido-mode 0)
   (vertico-mode 1)
   (marginalia-mode 1)
-  (display-line-numbers-mode 1)
-  (global-display-line-numbers-mode 1)
+  (lr/line-relative)
   (spacious-padding-mode 0)
   (set-fringe-mode 0))
 
@@ -46,8 +45,7 @@
   (fido-mode 1)
   (vertico-mode 0)
   (marginalia-mode 0)
-  (display-line-numbers-mode 0)
-  (global-display-line-numbers-mode 0)
+  (lr/line-off)
   (spacious-padding-mode 0)
   (set-fringe-mode 0))
 
@@ -153,6 +151,10 @@
 
 (defun lr/font-increase() (interactive) (text-scale-increase 1) (lr/update-line-number-font-size))
 (defun lr/font-decrease() (interactive) (text-scale-decrease 1) (lr/update-line-number-font-size))
+
+(defun lr/line-normal() (interactive) (menu-bar--display-line-numbers-mode-absolute))
+(defun lr/line-relative() (interactive) (menu-bar--display-line-numbers-mode-relative))
+(defun lr/line-off() (interactive) (menu-bar--display-line-numbers-mode-none))
 
 (defun lr/my-compile-minibuffer-setup ()
   (when (eq this-command 'compile)
