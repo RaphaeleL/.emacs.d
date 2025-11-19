@@ -10,7 +10,7 @@
   (setq eglot-server-programs
         '((python-mode  . ("pylsp"))
           (c-mode       . ("clangd"))
-          (simpc-mode   . ("clangd"))
+          ;; (simpc-mode   . ("clangd"))
           (c++-mode     . ("clangd"))
           (go-mode      . ("gopls"))
           (rust-mode    . ("rust-analyzer")))))
