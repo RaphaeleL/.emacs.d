@@ -72,8 +72,9 @@
   :bind (("C-c C-k" . consult-line)
          ("C-c C-g" . consult-ripgrep)      ; ripgrep might not be available everywhere ..
          ("C-r"     . consult-recent-file)
-         ("M-o"     . consult-buffer)
-         ("C-c C-o" . consult-buffer)))
+       ; ("M-o"     . consult-buffer)
+       ; ("C-c C-o" . consult-buffer)
+         ("M-o"     . ido-switch-buffer)))
 
 ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 

@@ -22,9 +22,7 @@
 (electric-indent-mode -1)
 
 (setq-default indent-tabs-mode nil)
-(electric-indent-mode -1)
 
-(setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
 ;; Use y-or-n-p instead of yes-or-no-p (safer approach)
@@ -34,11 +32,10 @@
   (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
 
 (when (eq system-type 'windows-nt) (setq default-directory "C:/Users/"))
-(when (eq system-type 'darwin) (add-to-list 'default-frame-alist '(undecorated-round . t)))
 
-; ==================================================
-; ===== UI =========================================
-; ==================================================
+;; ==================================================
+;; ===== UI =========================================
+;; ==================================================
 
 (set-fringe-mode 0)
 

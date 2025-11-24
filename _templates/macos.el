@@ -1,3 +1,6 @@
+;; Emacs Plus: https://github.com/d12frosted/homebrew-emacs-plus
+(when (eq system-type 'darwin) (add-to-list 'default-frame-alist '(undecorated-round . t)))
+
 ;; Key remapping for MacOS
 (setq mac-command-modifier 'meta     ; Command as Meta
     mac-option-modifier 'control     ; Option as Control
@@ -23,7 +26,9 @@
 
 ;; Theme
 (lr/modern)
+(lr/line-off)
 ;; (lr/legacy)
+(menu-bar-mode 1)
 
 ;; Extend exec-path and PATH environment variable
 (let ((paths '("~/bin" "~/.local/bin" "/usr/local/bin" "/Library/TeX/texbin"
@@ -39,7 +44,7 @@
 (setenv "CPPFLAGS" "-I/opt/homebrew/opt/llvm/include")
 
 ;; Default Size and Position of Emacs on MacOS
-(add-to-list 'default-frame-alist '(width . 100))
-(add-to-list 'default-frame-alist '(height . 43))
+(add-to-list 'default-frame-alist '(width . 110))
+(add-to-list 'default-frame-alist '(height . 38))
 ;(add-to-list 'default-frame-alist '(left . 320))
 ;(add-to-list 'default-frame-alist '(top . 70))
