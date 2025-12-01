@@ -9,7 +9,8 @@
 (defun enzo () (interactive)
   (progn
     (dired "/plink:raliccia@10.26.15.66:/home/raliccia/")
-    (dired "/plink:raliccia@10.26.15.66:/home/raliccia/dev/fco/ccms")))
+    (dired "/plink:raliccia@10.26.15.66:/home/raliccia/dev/fco/ccms_dev")
+    (dired "/plink:raliccia@10.26.15.66:/home/raliccia/dev/fco/ccms-performance")))
 
 (defun ksbuild8 ()
   (interactive)
