@@ -30,6 +30,7 @@
   (marginalia-mode 1)
   (lr/line-relative)
   (spacious-padding-mode 0)
+  (mood-line-mode 1)
   (set-fringe-mode 0))
 
 (defun lr/legacy ()
