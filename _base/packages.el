@@ -12,8 +12,9 @@
   :bind (("M-SPC"     . rectangle-mark-mode)
          ("C-x SPC"   . rectangle-mark-mode)
          ("M-e"       . mc/edit-lines)
-         ("C-j"       . mc/mark-next-like-this)
-         ("C-c C-j"   . mc/mark-next-like-this)))
+         ("C-c C-j"   . mc/mark-next-like-this)
+         ("C->"       . mc/mark-next-like-this)
+         ("C-<"       . mc/mark-previous-like-this)))
 
 (use-package magit :ensure t :defer t
   :bind (("M-g"    . magit)
@@ -128,7 +129,7 @@
 ;; NOTE: Default Keybindings which are based on Emacs- or Custom-Functions.
 (use-package emacs :ensure nil
   :bind (("C-,"     . find-file)
-         ("M-,"     . project-find-file)
+         ("C-M-,"   . project-find-file)
          ("M-i"     . ibuffer)
          ("M-j"     . indent-region)
          ("C-c g"   . indent-region)

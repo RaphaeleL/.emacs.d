@@ -39,7 +39,8 @@
 
 (set-fringe-mode 0)
 
-(mood-line-mode 1)
+(mood-line-mode -1)
+(setq mode-line-format nil)
 
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)

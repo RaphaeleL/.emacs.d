@@ -1,5 +1,3 @@
-;; TOOK FROM: https://github.com/rexim/dotfiles/blob/a96479ac248e8d1b3ad307fdd667eb4593eec56d/.emacs.local/simpc-mode.el#L29
-
 (require 'subr-x)
 
 (defvar simpc-mode-syntax-table
@@ -26,7 +24,8 @@
     "char16_t" "char32_t" "char8_t"
     "int8_t" "uint8_t" "int16_t" "uint16_t" "int32_t" "uint32_t" "int64_t" "uint64_t"
     "uintptr_t"
-    "size_t"))
+    "size_t"
+    "va_list"))
 
 (defun simpc-keywords ()
   '("auto" "break" "case" "const" "continue" "default" "do"
@@ -45,53 +44,68 @@
 
 (defun simpc-font-lock-keywords ()
   (list
+   `("# *\\(warn\\|error\\)" . font-lock-warning-face)
    `("# *[#a-zA-Z0-9_]+" . font-lock-preprocessor-face)
-   `("#.*include \\(\\(<\\|\"\\).*\\(>\\|\"\\)\\)" . (1 font-lock-string-face))
+   `("# *include\\(?:_next\\)?\\s-+\\(\\(<\\|\"\\).*\\(>\\|\"\\)\\)" . (1 font-lock-string-face))
+   `("\\(?:enum\\|struct\\)\\s-+\\([a-zA-Z0-9_]+\\)" . (1 font-lock-type-face))
    `(,(regexp-opt (simpc-keywords) 'symbols) . font-lock-keyword-face)
    `(,(regexp-opt (simpc-types) 'symbols) . font-lock-type-face)))
 
 (defun simpc--previous-non-empty-line ()
+  "Returns either NIL when there is no such line or a pair (line . indentation)"
   (save-excursion
-    (forward-line -1)
-    (while (and (not (bobp))
-                (string-empty-p
-                 (string-trim-right
-                  (thing-at-point 'line t))))
-      (forward-line -1))
-    (thing-at-point 'line t)))
+    ;; If you are on the first line, but not at the beginning of buffer (BOB) the `(bobp)`
+    ;; function does not return `t`. So we have to move to the beginning of the line first.
+    ;; TODO: feel free to suggest a better approach for checking BOB here.
+    (move-beginning-of-line nil)
+    (if (bobp)
+        ;; If you are standing at the BOB, you by definition don't have a previous non-empty line.
+        nil
+      ;; Moving one line backwards because the current line is by definition is not
+      ;; the previous non-empty line.
+      (forward-line -1)
+      ;; Keep moving backwards until we hit BOB or a non-empty line.
+      (while (and (not (bobp))
+                  (string-empty-p
+                   (string-trim-right
+                    (thing-at-point 'line t))))
+        (forward-line -1))
 
-(defun simpc--indentation-of-previous-non-empty-line ()
-  (save-excursion
-    (forward-line -1)
-    (while (and (not (bobp))
-                (string-empty-p
-                 (string-trim-right
-                  (thing-at-point 'line t))))
-      (forward-line -1))
-    (current-indentation)))
+      (if (string-empty-p
+           (string-trim-right
+            (thing-at-point 'line t)))
+          ;; If after moving backwards for this long we still look at an empty
+          ;; line we by definition didn't find the previous non-empty line.
+          nil
+        ;; We found the previous non-empty line!
+        (cons (thing-at-point 'line t)
+              (current-indentation))))))
 
 (defun simpc--desired-indentation ()
-  (let* ((cur-line (string-trim-right (thing-at-point 'line t)))
-         (prev-line (string-trim-right (simpc--previous-non-empty-line)))
-         (indent-len 4)
-         (prev-indent (simpc--indentation-of-previous-non-empty-line)))
-    (cond
-     ((string-match-p "^\\s-*switch\\s-*(.+)" prev-line)
-      prev-indent)
-     ((and (string-suffix-p "{" prev-line)
-           (string-prefix-p "}" (string-trim-left cur-line)))
-      prev-indent)
-     ((string-suffix-p "{" prev-line)
-      (+ prev-indent indent-len))
-     ((string-prefix-p "}" (string-trim-left cur-line))
-      (max (- prev-indent indent-len) 0))
-     ((string-suffix-p ":" prev-line)
-      (if (string-suffix-p ":" cur-line)
-          prev-indent
-        (+ prev-indent indent-len)))
-     ((string-suffix-p ":" cur-line)
-      (max (- prev-indent indent-len) 0))
-     (t prev-indent))))
+  (let ((prev (simpc--previous-non-empty-line)))
+    (if (not prev)
+        (current-indentation)
+      (let ((indent-len 4)
+            (cur-line (string-trim-right (thing-at-point 'line t)))
+            (prev-line (string-trim-right (car prev)))
+            (prev-indent (cdr prev)))
+        (cond
+         ((string-match-p "^\\s-*switch\\s-*(.+)" prev-line)
+          prev-indent)
+         ((and (string-suffix-p "{" prev-line)
+               (string-prefix-p "}" (string-trim-left cur-line)))
+          prev-indent)
+         ((string-suffix-p "{" prev-line)
+          (+ prev-indent indent-len))
+         ((string-prefix-p "}" (string-trim-left cur-line))
+          (max (- prev-indent indent-len) 0))
+         ((string-suffix-p ":" prev-line)
+          (if (string-suffix-p ":" cur-line)
+              prev-indent
+            (+ prev-indent indent-len)))
+         ((string-suffix-p ":" cur-line)
+          (max (- prev-indent indent-len) 0))
+         (t prev-indent))))))
 
 ;;; TODO: customizable indentation (amount of spaces, tabs, etc)
 (defun simpc-indent-line ()
@@ -103,126 +117,11 @@
       (indent-line-to desired-indentation)
       (forward-char n))))
 
-;;; ==================================================
-;;; ===== C HEADER FILE COMPLETION ===================
-;;; ==================================================
-
-;; Completion based on symbols found in open C/C++ header files
-;; No LSP, no system includes, no ctags - just parse open buffers
-
-(defvar simpc-header-completion-cache nil
-  "Cache of symbols extracted from header files.
-Format: (buffer-name . (symbol1 symbol2 ...))")
-
-(defvar simpc-header-completion-cache-timestamp nil
-  "Timestamp when cache was last updated.")
-
-(defun simpc-header-file-p (buffer)
-  "Check if BUFFER is a C/C++ header file."
-  (let ((file-name (buffer-file-name buffer)))
-    (and file-name
-         (string-match-p "\\.\\(h\\|hpp\\|hh\\)\\'" file-name))))
-
-(defun simpc-extract-symbols-from-buffer (buffer)
-  "Extract C/C++ identifiers from BUFFER.
-Returns a list of unique symbols (functions, types, macros, etc.)."
-  (when (buffer-live-p buffer)
-    (with-current-buffer buffer
-      (save-excursion
-        (let ((symbols '())
-              (case-fold-search nil)
-              (keywords (append (simpc-keywords) (simpc-types)
-                                '("include" "define" "undef" "ifdef" "ifndef" "endif"
-                                  "elif" "error" "pragma" "line" "warning"))))
-          (goto-char (point-min))
-          ;; Extract C identifiers: [a-zA-Z_][a-zA-Z0-9_]*
-          ;; Look for patterns like:
-          ;; - Function declarations: void DrawLine(...) or RLAPI void DrawLine(...)
-          ;; - Macros: #define DrawLine ...
-          ;; - Types: typedef struct DrawLine ...
-          ;; - Variables: extern int DrawLine;
-          (while (re-search-forward
-                  "\\<[a-zA-Z_][a-zA-Z0-9_]*\\>"
-                  nil t)
-            (let ((match (match-string 0)))
-              (when (and match
-                         (> (length match) 1)
-                         ;; Not a keyword
-                         (not (member match keywords))
-                         ;; Not a number
-                         (not (string-match-p "^[0-9]" match)))
-                (push match symbols))))
-          (delete-dups symbols))))))
-
-(defun simpc-update-header-completion-cache ()
-  "Update the cache of symbols from all open header files."
-  (let ((header-buffers (seq-filter #'simpc-header-file-p (buffer-list)))
-        (new-cache '()))
-    (dolist (buf header-buffers)
-      (let ((symbols (simpc-extract-symbols-from-buffer buf)))
-        (when symbols
-          (push (cons (buffer-name buf) symbols) new-cache))))
-    (setq simpc-header-completion-cache new-cache)
-    (setq simpc-header-completion-cache-timestamp (current-time))))
-
-(defun simpc-get-all-header-symbols ()
-  "Get all symbols from cached header files."
-  (if (not simpc-header-completion-cache)
-      '()
-    (let ((all-symbols '()))
-      (dolist (entry simpc-header-completion-cache)
-        (when (and (consp entry) (cdr entry))
-          (setq all-symbols (append all-symbols (cdr entry)))))
-      (delete-dups all-symbols))))
-
-(defun simpc-header-completion-at-point ()
-  "Completion function for simpc-mode based on open header files.
-Returns completion candidates from symbols found in open .h/.hpp files."
-  (when (eq major-mode 'simpc-mode)
-    (let ((bounds (bounds-of-thing-at-point 'symbol)))
-      (when bounds
-        (let ((start (car bounds))
-              (end (cdr bounds))
-              (prefix (downcase (buffer-substring-no-properties (car bounds) (cdr bounds)))))
-          ;; Update cache if needed (when buffers change or on first use)
-          (let ((current-header-count (length (seq-filter #'simpc-header-file-p (buffer-list))))
-                (cached-header-count (length simpc-header-completion-cache)))
-            (when (or (not simpc-header-completion-cache)
-                      (not (= current-header-count cached-header-count)))
-              (simpc-update-header-completion-cache)))
-          
-          ;; Get all symbols and filter by prefix (case-insensitive)
-          (let ((all-symbols (simpc-get-all-header-symbols))
-                (matches '()))
-            (when all-symbols
-              (dolist (sym all-symbols)
-                (when (string-prefix-p prefix (downcase sym) t)
-                  (push sym matches)))
-              (setq matches (nreverse matches))
-              (when matches
-                (list start end matches :annotation-function nil)))))))))
-
 (define-derived-mode simpc-mode prog-mode "Simple C"
   "Simple major mode for editing C files."
   :syntax-table simpc-mode-syntax-table
   (setq-local font-lock-defaults '(simpc-font-lock-keywords))
   (setq-local indent-line-function 'simpc-indent-line)
-  (setq-local comment-start "// ")
-  ;; Add header file completion
-  (add-hook 'completion-at-point-functions
-            #'simpc-header-completion-at-point
-            nil t))
-
-;; Update cache when header files are opened
-(add-hook 'find-file-hook
-          (lambda ()
-            (when (simpc-header-file-p (current-buffer))
-              (simpc-update-header-completion-cache))))
-
-;; Update cache when buffers are killed
-(add-hook 'kill-buffer-hook
-          (lambda ()
-            (when (simpc-header-file-p (current-buffer))
-              (simpc-update-header-completion-cache))))
+  (setq-local comment-start "// "))
 
 (provide 'simpc-mode)

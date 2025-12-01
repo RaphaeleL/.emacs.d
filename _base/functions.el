@@ -68,6 +68,7 @@
     (if (and family size) (format "%s-%d" family size) "Iosevka-20")))
 
 (defun lr/enable-custom-font-iosevka ()
+  (interactive)
   (let ((font (lr/get-iosevka-font)))
     (when (member (car (split-string font "-")) (font-family-list))
       (set-frame-font font t t)
