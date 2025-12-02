@@ -3,7 +3,7 @@
 
 ;; Theme
 (lr/enable-custom-font-iosevka)
-(lr/load-theme 'gruberdarker)
+(lr/theme 'gruberdarker)
 (global-whitespace-mode 1)
 
 ;; Extend exec-path and PATH environment variable

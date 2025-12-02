@@ -27,7 +27,7 @@
 ;; Theme
 (lr/modern)
 (lr/line-off)
-;; (lr/load-theme 'gruberdarker)
+;; (lr/theme 'gruberdarker)
 ;; (lr/legacy)
 (menu-bar-mode 0)
 
