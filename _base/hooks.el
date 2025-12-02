@@ -1,7 +1,4 @@
-; ==================================================
-; ===== HOOKS ======================================
-; ==================================================
-
+;; General hooks and mode associations
 (add-hook 'after-init-hook (lambda () (advice-add 'yes-or-no-p :override #'y-or-n-p)))
 
 ;; On save hook for many modes
@@ -20,3 +17,9 @@
 (add-to-list 'auto-mode-alist '("\\.ts\\'"  . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'"  . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.zsh.*?\\'" . sh-mode))
+
+;; Manage Tsoding's Simpc Mode
+(load "~/.emacs.d/_base/simpc.el" 'noerror 'nomessage)
+(require 'simpc-mode)
+(add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))

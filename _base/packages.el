@@ -1,7 +1,3 @@
-; ==================================================
-; ===== PACKAGES ===================================
-; ==================================================
-
 ; === Essential Editing & Programming Tools ===
 
 (use-package move-text :ensure t :defer t
@@ -20,7 +16,6 @@
   :bind (("M-g"    . magit)
          ("C-x g"  . magit-status)))
 
-(use-package eglot :ensure t :defer t)
 (use-package paredit :ensure t :defer t)
 
 (use-package dired :ensure nil :defer t
@@ -57,6 +52,10 @@
    ("M-o"     . ido-switch-buffer)))
  ; ("M-o"     . consult-buffer)
  ; ("C-c C-o" . consult-buffer)
+
+; === LSP ===
+
+;; see _base/lsp.el
 
 ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 

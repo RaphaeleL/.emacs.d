@@ -1,7 +1,3 @@
-;; =============================================================================
-;; GARBAGE COLLECTION & PERFORMANCE OPTIMIZATIONS
-;; =============================================================================
-
 ;; garbage collection & performance tuning
 
 (defvar file-name-handler-alist-original file-name-handler-alist

@@ -1,7 +1,3 @@
-; ==================================================
-; ===== BASIC SHIT =================================
-; ==================================================
-
 ;; Disable native compilation to avoid startup errors
 (setq native-comp-enable-subr-trampolines nil)
 (setq native-comp-async-report-warnings-errors nil)

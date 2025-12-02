@@ -1,7 +1,3 @@
-; ==================================================
-; ===== CUSTOM FUNCTIONS ===========================
-; ==================================================
-
 (defun lr/delete-line ()
   (interactive)
   (save-excursion
@@ -23,14 +19,13 @@
 (defun lr/modern ()
   (interactive)
   (lr/enable-custom-font-iosevka)
-  ;; (lr/load-theme 'gruberdarker)
+  ;; (lr/theme 'gruberdarker)
   (global-whitespace-mode 0)
   (fido-mode 0)
   (vertico-mode 1)
+  (mood-line-mode 1)
   (marginalia-mode 1)
   (lr/line-relative)
-  (spacious-padding-mode 0)
-  (mood-line-mode 1)
   (set-fringe-mode 0))
 
 (defun lr/legacy ()
@@ -47,7 +42,6 @@
   (vertico-mode 0)
   (marginalia-mode 0)
   (lr/line-off)
-  (spacious-padding-mode 0)
   (set-fringe-mode 0))
 
 (defun lr/disable-custom-font ()
@@ -57,7 +51,6 @@
   (set-frame-font (face-attribute 'default :font) t t))
 
 (defun lr/get-iosevka-font ()
-  (interactive)
   (let ((family (cond
                  ((eq system-type 'windows-nt) "Iosevka")
                  ((eq system-type 'darwin)     "Iosevka")
@@ -96,7 +89,7 @@
       (message "Consoleet Darwin not found, using default font"))))
 
 
-(defun lr/load-theme (theme)
+(defun lr/theme (theme)
   (interactive
    (list (intern (completing-read "Theme: " (custom-available-themes)))))
   (mapc #'disable-theme custom-enabled-themes)
