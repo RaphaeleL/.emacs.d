@@ -17,9 +17,7 @@
          ("C-x g"  . magit-status)))
 
 (use-package paredit :ensure t :defer t)
-
-(use-package dired :ensure nil :defer t
-  :bind (("C-." . dired-jump)))
+(use-package dired :ensure nil :defer t :bind (("C-." . dired-jump)))
 
 (use-package dired-x :after dired :config
   (with-eval-after-load 'dired
