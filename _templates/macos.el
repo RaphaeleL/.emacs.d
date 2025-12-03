@@ -44,8 +44,8 @@
       (setenv "PATH" (concat (expand-file-name p) path-separator (getenv "PATH"))))))
 
 ;; Linker and Include Flags for LLVM
-(setenv "LDFLAGS" "-L/opt/homebrew/opt/llvm/lib")
-(setenv "CPPFLAGS" "-I/opt/homebrew/opt/llvm/include")
+;; (setenv "LDFLAGS" "-L/opt/homebrew/opt/llvm/lib")
+;; (setenv "CPPFLAGS" "-I/opt/homebrew/opt/llvm/include")
 
 ;; Default Size and Position of Emacs on MacOS
 (add-to-list 'default-frame-alist '(width . 136))
