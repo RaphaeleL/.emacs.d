@@ -26,10 +26,13 @@
 
 ;; Theme
 (lr/modern)
-(lr/line-off)
-;; (lr/theme 'gruberdarker)
 ;; (lr/legacy)
-(menu-bar-mode 0)
+
+(lr/line-relative)
+(menu-bar-mode 1)
+(lr/theme 'solarized_light)
+;; (lr/theme 'gruberdarker)
+;; (global-whitespace-mode 1)
 
 ;; Extend exec-path and PATH environment variable
 (let ((paths '("~/bin" "~/.local/bin" "/usr/local/bin" "/Library/TeX/texbin"
