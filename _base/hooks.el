@@ -23,3 +23,6 @@
 (load "~/.emacs.d/_base/simpc.el" 'noerror 'nomessage)
 (require 'simpc-mode)
 (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
+
+;; No line numbers in dired
+(add-hook 'dired-mode-hook (lambda () (display-line-numbers-mode -1)))
