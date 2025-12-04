@@ -59,3 +59,19 @@
 (setq compilation-scroll-output t)
 (setq window-resize-pixelwise t)
 (setq frame-resize-pixelwise t)
+
+;; Remove window dividers completely
+(setq window-divider-default-right-width 0)
+(setq window-divider-default-bottom-width 0)
+(setq window-divider-default-places nil)
+
+;; Remove dividers immediately and on various events
+(lr/remove-window-dividers)
+(add-hook 'after-init-hook 'lr/remove-window-dividers)
+(add-hook 'after-make-frame-functions (lambda (frame) (lr/remove-window-dividers)))
+(add-hook 'window-configuration-change-hook 'lr/remove-window-dividers)
+
+;; Make dividers invisible if they somehow appear
+(set-face-attribute 'window-divider nil :foreground (face-background 'default))
+(set-face-attribute 'window-divider-first-pixel nil :foreground (face-background 'default))
+(set-face-attribute 'window-divider-last-pixel nil :foreground (face-background 'default))
