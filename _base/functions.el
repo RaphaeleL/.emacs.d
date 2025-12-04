@@ -173,3 +173,11 @@
 
 (defun lr/reload () (interactive) (load-file user-init-file) (message "Emacs reloaded."))
 (defun lr/minibuffer-setup-combined () (lr/my-compile-minibuffer-setup) (lr/my-fido-minibuffer-setup))
+
+;; Function to remove dividers from all windows
+(defun lr/remove-window-dividers ()
+  (window-divider-mode -1)
+  (dolist (frame (frame-list))
+    (dolist (window (window-list frame))
+      (set-window-parameter window 'window-divider-right-width 0)
+      (set-window-parameter window 'window-divider-bottom-width 0))))
