@@ -6,6 +6,7 @@
    (ignore-errors (mason-install "gopls"))
    (ignore-errors (mason-install "clangd"))))
 
+
 ;; Initialize exec-path from shell PATH
 ; (when (memq system-type '(gnu/linux darwin))
 ;   (let* ((shell-path (shell-command-to-string "echo $PATH"))
@@ -14,7 +15,7 @@
 ;     (setenv "PATH" (mapconcat 'identity exec-path ":"))))
 
 ;; Add extra paths
-; (dolist (extra-path '("~/.local/bin" "/usr/local/bin" "/opt/homebrew/bin"))
+; (dolist (extra-path '("~/.local/bin" "/usr/local/bin" "/opt/homebrew/bin" "~/bin" "~/go/bin" "~/.cargo/bin"))
 ;   (let ((expanded-path (expand-file-name extra-path)))
 ;     (when (file-directory-p expanded-path)
 ;       (add-to-list 'exec-path expanded-path t)
