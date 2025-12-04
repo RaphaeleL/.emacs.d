@@ -7,8 +7,10 @@
 ;; Theme
 (lr/modern)
 (lr/line-relative)
-(menu-bar-mode 1)
 (lr/theme 'solarized_light)
+
+;; menu bar is not distracting on macos gui.
+(if (display-graphic-p) (menu-bar-mode 1) (menu-bar-mode -1))
 
 ;; Default Size and Position of Emacs on MacOS
 (add-to-list 'default-frame-alist '(width . 136))
