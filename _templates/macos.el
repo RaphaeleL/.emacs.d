@@ -11,6 +11,9 @@
 
 ;; menu bar is not distracting on macos gui.
 (if (display-graphic-p) (menu-bar-mode 1) (menu-bar-mode -1))
+;; (if (display-graphic-p)
+;;     (progn (visual-line-mode 1) (toggle-truncate-lines -1))
+;;   (progn (visual-line-mode -1) (toggle-truncate-lines 1)))
 
 ;; Default Size and Position of Emacs on MacOS
 (add-to-list 'default-frame-alist '(width . 136))
@@ -20,9 +23,9 @@
 
 ;; Key remapping for MacOS
 (setq mac-command-modifier 'meta     ; Command as Meta
-    mac-option-modifier 'control     ; Option as Control
-    mac-control-modifier 'control    ; Ensure Control is Control
-    default-input-method "MacOSX")
+      mac-option-modifier 'control   ; Option as Control
+      mac-control-modifier 'control  ; Ensure Control is Control
+      default-input-method "MacOSX")
 
 ;; Use GNU-ls from coreutils (via Homebrew) for dired
 (setq insert-directory-program "/opt/homebrew/bin/gls")
