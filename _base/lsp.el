@@ -8,11 +8,11 @@
 
 
 ;; Initialize exec-path from shell PATH
-; (when (memq system-type '(gnu/linux darwin))
-;   (let* ((shell-path (shell-command-to-string "echo $PATH"))
-;          (paths (split-string (string-trim shell-path) ":" t)))
-;     (setq exec-path (append paths exec-path))
-;     (setenv "PATH" (mapconcat 'identity exec-path ":"))))
+(when (memq system-type '(gnu/linux darwin))
+  (let* ((shell-path (shell-command-to-string "echo $PATH"))
+         (paths (split-string (string-trim shell-path) ":" t)))
+    (setq exec-path (append paths exec-path))
+    (setenv "PATH" (mapconcat 'identity exec-path ":"))))
 
 ;; Add extra paths
 ; (dolist (extra-path '("~/.local/bin" "/usr/local/bin" "/opt/homebrew/bin" "~/bin" "~/go/bin" "~/.cargo/bin"))
