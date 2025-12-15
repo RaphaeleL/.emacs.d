@@ -20,7 +20,7 @@
 (add-to-list 'auto-mode-alist '("\\.zsh.*?\\'" . sh-mode))
 
 ;; Manage Tsoding's Simpc Mode
-(load "~/.emacs.d/_base/simpc.el" 'noerror 'nomessage)
+(load "~/.emacs.d/_modes/simpc.el" 'noerror 'nomessage)
 (require 'simpc-mode)
 (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
 
