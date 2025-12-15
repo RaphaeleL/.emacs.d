@@ -40,9 +40,9 @@
 
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
-(setq initial-major-mode 'text-mode)
+(setq initial-major-mode 'fundamental-mode)
 
-(with-current-buffer "*scratch*" (text-mode) (auto-fill-mode 1) (visual-line-mode 1))
+(with-current-buffer "*scratch*" (fundamental-mode) (auto-fill-mode 1) (visual-line-mode 1))
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
