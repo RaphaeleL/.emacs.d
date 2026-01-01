@@ -7,7 +7,7 @@
 ;; Theme
 (lr/modern)
 (lr/line-relative)
-(lr/theme 'solarized_light)
+(lr/theme 'lr_solarized_light)
 
 ;; menu bar is not distracting on macos gui.
 (if (display-graphic-p) (menu-bar-mode 1) (menu-bar-mode -1))
