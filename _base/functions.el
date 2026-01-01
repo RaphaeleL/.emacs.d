@@ -73,7 +73,7 @@
 
 (defun lr/enable-custom-font-legacy ()
   (interactive)
-  (let ((fonts '("Fairfax" "Consoleet Darwin" "Consoleet Darwin Smooth"))
+  (let ((fonts '("Consoleet Darwin" "Fairfax" "Consoleet Darwin Smooth"))
         (size 18)
         chosen-font)
     (dolist (f fonts)
