@@ -1,3 +1,11 @@
+(defun lr/toggle-theme ()
+  (interactive)
+  (let* ((light 'lr_solarized_light)
+         (dark  'lr_gruberdarker)
+         (next  (if (member light custom-enabled-themes) dark light)))
+    (mapc #'disable-theme custom-enabled-themes)
+    (load-theme next t)))
+
 (defun lr/delete-line ()
   (interactive)
   (save-excursion
@@ -19,7 +27,6 @@
 (defun lr/modern ()
   (interactive)
   (lr/enable-custom-font-iosevka)
-  ;; (lr/theme 'gruberdarker)
   (global-whitespace-mode 0)
   (fido-mode 0)
   (vertico-mode 1)

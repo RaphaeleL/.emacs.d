@@ -164,8 +164,10 @@
          ("<f3>"    . isearch-forward-symbol-at-point)
          ("M-4"     . lr/toggle-config)
          ("<f4>"    . lr/toggle-config)
-         ("M-5"     . lr/toggle-mini-buffer-mode)
-         ("<f5>"    . lr/toggle-mini-buffer-mode)))
+         ("M-5"     . lr/toggle-theme)
+         ("<f5>"    . lr/toggle-theme)
+         ("M-6"     . lr/toggle-mini-buffer-mode)
+         ("<f6>"    . lr/toggle-mini-buffer-mode)))
 
 ;; NOTE: We want to Copy to Clipboard, which is done with simpleclip. However
 ;;  simpleclip is not working with multiplecursors. Thereby we are copy/paste
