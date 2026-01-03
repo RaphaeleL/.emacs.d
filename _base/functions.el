@@ -1,6 +1,6 @@
 (defun lr/toggle-theme ()
   (interactive)
-  (let* ((light 'lr_solarized_light)
+  (let* ((light 'modus-operandi-tinted)
          (dark  'lr_gruberdarker)
          (next  (if (member light custom-enabled-themes) dark light)))
     (mapc #'disable-theme custom-enabled-themes)

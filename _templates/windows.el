@@ -1,3 +1,3 @@
 (lr/modern)
-(lr/theme 'lr_solarized_light)
+(lr/theme 'modus-operandi-tinted)
 (lr/line-off)
