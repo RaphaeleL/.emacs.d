@@ -35,6 +35,8 @@
 
 (set-fringe-mode 0)
 
+(diredfl-global-mode 1)
+
 (mood-line-mode -1)
 (setq mode-line-format nil)
 
