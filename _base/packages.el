@@ -24,7 +24,7 @@
     (setq dired-recursive-copies 'top)
     (setq dired-recursive-deletes 'top)
     (setq dired-dwim-target t)
-    (setq dired-listing-switches "-laGh1Dv --group-directories-first")
+    (setq dired-listing-switches "-lah1DvgG --group-directories-first") ;; g -> no Owner, G -> no Group
     (setq ls-lisp-ignore-case t)
     (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode)))
 
