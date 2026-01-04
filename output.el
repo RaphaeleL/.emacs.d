@@ -5,11 +5,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(company consult diredfl dockerfile-mode go-mode jenkinsfile-mode
-             jinja2-mode magit marginalia markdown-mode mason
-             modus-themes mood-line move-text multiple-cursors
-             orderless paredit rpm-spec-mode rust-mode simpleclip
-             vertico web-mode yaml-mode)))
+   '(company consult dired+ diredfl dockerfile-mode go-mode
+             gruber-darker-theme jenkinsfile-mode jinja2-mode magit
+             marginalia markdown-mode mason modus-themes mood-line
+             move-text multiple-cursors orderless paredit
+             rpm-spec-mode rust-mode simpleclip vertico web-mode
+             yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
