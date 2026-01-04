@@ -1,3 +1,3 @@
 (lr/modern)
-(lr/theme 'modus-operandi-tinted)
+(lr/theme 'lr_gruberdarker)
 (lr/line-off)
