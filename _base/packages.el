@@ -19,12 +19,15 @@
 (use-package paredit :ensure t :defer t)
 (use-package dired :ensure nil :defer t :bind (("C-." . dired-jump)))
 
+; (load "~/.emacs.d/_modes/dired+.el" 'noerror 'nomessage)
+; (require 'dired+)
+
 (use-package dired-x :after dired :config
   (with-eval-after-load 'dired
     (setq dired-recursive-copies 'top)
     (setq dired-recursive-deletes 'top)
     (setq dired-dwim-target t)
-    (setq dired-listing-switches "-lah1DvgG --group-directories-first") ;; g -> no Owner, G -> no Group
+    (setq dired-listing-switches "-lah1DvG --group-directories-first") ;; g -> no Owner, G -> no Group
     (setq ls-lisp-ignore-case t)
     (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode)))
 
