@@ -47,4 +47,12 @@
   (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1))))
 
 (electric-indent-mode 1)        ;; Enable electric indent mode
-(setq-default c-basic-offset 4) ;; Set C indent to 4
+
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq-default c-set-style "k&r")
+(setq-default c-set-style "c-ts-mode-indent-style")
+(setq-default c-basic-offset 4)
+(setq-default c-basic-offset 4)
+(setq-default c-ts-mode-indent-offset 4)
+(setq-default c++-ts-mode-indent-offset 4)
