@@ -110,7 +110,7 @@
                     (mode . ansible-mode) (mode . nginx-mode) (mode . conf-mode) (mode . groovy-mode) (mode . python-mode)
                     (mode . makefile-mode) (mode . rpm-spec-mode) (mode . sh-mode) (mode . rust-mode) (mode . go-mode)
                     (mode . web-mode) (mode . jinja2-mode) (mode . dockerfile-mode) (mode . syslog-mode)
-                    (mode . jenkinsfile-mode)))
+                    (mode . jenkinsfile-mode) (mode . c-ts-mode)))
          ("Dired" (mode   . dired-mode))
          ("Markup" (or (mode . json-mode) (mode . yaml-mode) (mode . text-mode) (mode . markdown-mode)))
          ("Magit" (or (name  . "Magit") (name  . ".*magit.*") (name  . "Magit\\*$")))
