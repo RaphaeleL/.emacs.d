@@ -14,6 +14,7 @@
 
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+(setq auto-revert-mode t)
 (delete-selection-mode 1)
 (electric-indent-mode -1)
 
