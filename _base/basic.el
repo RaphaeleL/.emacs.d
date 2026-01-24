@@ -21,6 +21,7 @@
 (setq-default indent-tabs-mode nil)
 
 (setq-default tab-width 4)
+(setq-default toggle-word-wrap t)
 
 ;; Use y-or-n-p instead of yes-or-no-p (safer approach)
 (setq use-dialog-box nil)
