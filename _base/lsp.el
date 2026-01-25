@@ -35,11 +35,12 @@
     (when (executable-find "pylsp")         (push '(python-mode . ("pylsp")) server-programs))
     (when (executable-find "gopls")         (push '(go-mode . ("gopls")) server-programs))
     (when (executable-find "clangd")        (push '(c-mode . ("clangd")) server-programs))
+    (when (executable-find "clangd")        (push '(c-ts-mode . ("clangd")) server-programs))
     (when (executable-find "rust-analyzer") (push '(rust-mode . ("rust-analyzer")) server-programs))
     (setq eglot-server-programs (append server-programs eglot-server-programs)))
 
   ;; Enable Eglot only for modes with configured servers
-  (dolist (mode '(python-mode c-mode go-mode rust-mode sh-mode))
+  (dolist (mode '(python-mode c-mode c-ts-mode go-mode rust-mode sh-mode))
     (when (assoc mode eglot-server-programs)
       (add-hook (intern (format "%s-hook" mode)) #'eglot-ensure)))
 
