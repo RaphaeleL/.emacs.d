@@ -1,8 +1,9 @@
 (defun lr/toggle-theme ()
   (interactive)
-  (let* ((light 'modus-operandi-tinted)
+  (let* ((light 'lr_gruvboxlight)
          (dark  'lr_gruberdarker)
-         (next  (if (member light custom-enabled-themes) dark light)))
+         (current (car custom-enabled-themes))
+         (next (if (eq current light) dark light)))
     (mapc #'disable-theme custom-enabled-themes)
     (load-theme next t)))
 
@@ -16,8 +17,7 @@
 (defun lr/duplicate-line ()
   (interactive)
   (let ((column (- (point) (point-at-bol)))
-        (line (let ((s (thing-at-point 'line t)))
-                (if s (string-remove-suffix "\n" s) ""))))
+        (line (let ((s (thing-at-point 'line t))) (if s (string-remove-suffix "\n" s) ""))))
     (move-end-of-line 1)
     (newline)
     (insert line)
@@ -41,9 +41,9 @@
   (lr/enable-custom-font-legacy)
   (mapc #'disable-theme custom-enabled-themes)
   (cond
-   ((eq system-type 'windows-nt) (lr/disable-custom-font))
-   ((eq system-type 'darwin)     (lr/enable-custom-font-legacy))
-   ((eq system-type 'gnu/linux)  (lr/disable-custom-font)))
+    ((eq system-type 'windows-nt) (lr/disable-custom-font))
+    ((eq system-type 'darwin)     (lr/enable-custom-font-legacy))
+    ((eq system-type 'gnu/linux)  (lr/disable-custom-font)))
   (global-whitespace-mode 0)
   (fido-mode 1)
   (vertico-mode 0)
@@ -53,8 +53,7 @@
 
 (defun lr/disable-custom-font ()
   (interactive)
-  (setq default-frame-alist
-        (cl-remove-if (lambda (entry) (eq (car entry) 'font)) default-frame-alist))
+  (setq default-frame-alist (cl-remove-if (lambda (entry) (eq (car entry) 'font)) default-frame-alist))
   (set-frame-font (face-attribute 'default :font) t t))
 
 (defun lr/get-iosevka-font ()
@@ -94,7 +93,6 @@
             (with-current-buffer buf
               (force-window-update (get-buffer-window buf)))))
       (message "Consoleet Darwin not found, using default font"))))
-
 
 (defun lr/theme (theme)
   (interactive
@@ -137,11 +135,8 @@
 (defun lr/open_config() (interactive) (find-file "~/.emacs.d/init.el"))
 (defun lr/toggle-config ()
   (interactive)
-  (let* ((file "~/.emacs.d/init.el")
-         (buffer (find-file-noselect file)))
-    (if (get-buffer-window buffer)
-        (delete-window (get-buffer-window buffer))
-      (switch-to-buffer-other-window buffer))))
+  (let* ((file "~/.emacs.d/init.el") (buffer (find-file-noselect file)))
+    (if (get-buffer-window buffer) (delete-window (get-buffer-window buffer)) (switch-to-buffer-other-window buffer))))
 (defun lr/toggle-scratch-buffer () (interactive) (lr/toggle-buffer "*scratch*"))
 (defun lr/toggle-compilation-buffer () (interactive) (lr/toggle-buffer "*compilation*"))
 
@@ -182,7 +177,6 @@
 (defun lr/reload () (interactive) (load-file user-init-file) (message "Emacs reloaded."))
 (defun lr/minibuffer-setup-combined () (lr/my-compile-minibuffer-setup) (lr/my-fido-minibuffer-setup))
 
-;; Function to remove dividers from all windows
 (defun lr/remove-window-dividers ()
   (window-divider-mode -1)
   (dolist (frame (frame-list))
