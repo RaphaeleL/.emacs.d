@@ -1,26 +1,73 @@
-;; === PLUGIN MANAGER ==============================
-(require 'package)                                     ;; load Emacs' built-in package manager
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3") ;; workaround for TLS1.3 endpoint issues
-(setq package-archives                                 ;; define packages location
-      '(("melpa" . "https://melpa.org/packages/")      ;; -> MELPA for community packages
-        ("gnu"   . "https://elpa.gnu.org/packages/"))) ;; -> GNU ELPA for official GNU packages
-(package-initialize)                                   ;; init pkg system and activate installed pkgs
-(unless package-archive-contents                       ;; if package list is empty
-  (package-refresh-contents))                          ;; -> fetch the latest pkg index from archives
+;;; init.el --- Offline, deterministic Emacs init -*- lexical-binding: t -*-
 
-;; === BASIC AND DEFAULT CONFIGURATION =============
-(load "~/.emacs.d/_base/functions.el" 'noerror 'nomessage)  ;; a collection of useful functions
-(load "~/.emacs.d/_base/packages.el"  'noerror 'nomessage)  ;; all packages with their keymaps, settings
-(load "~/.emacs.d/_base/garbage.el"   'noerror 'nomessage)  ;; performance impr. and garbage collection
-(load "~/.emacs.d/_base/basic.el"     'noerror 'nomessage)  ;; basic settings for ui, saving, etc.
-(load "~/.emacs.d/_base/hooks.el"     'noerror 'nomessage)  ;; auto call some functions and modes
+;; --------------------------------------------------
+;; 1. Core paths
+;; --------------------------------------------------
 
-;; === CONFIGURATION BASED ON THE OS ===============
+(defvar emacs-dir (file-name-as-directory user-emacs-directory))
+(defvar base-dir  (expand-file-name "_base/" emacs-dir))
+(defvar modes-dir (expand-file-name "_modes/" emacs-dir))
+(defvar site-dir  (expand-file-name "site-lisp/" emacs-dir))
+
+(add-to-list 'load-path base-dir)
+(add-to-list 'load-path modes-dir)
+(add-to-list 'load-path site-dir)
+
+;; --------------------------------------------------
+;; 2. Package system (offline, passive)
+;; --------------------------------------------------
+
+(require 'package)
+
+(setq package-archives nil
+      package-check-signature nil
+      package-enable-at-startup nil)
+
+(package-initialize)
+
+;; Optional: harden load-path (audit-friendly)
+; (setq load-path
+;       (seq-filter
+;        (lambda (p)
+;          (or (string-prefix-p emacs-dir p)
+;              (string-prefix-p "/usr/share/emacs" p)))
+;        load-path))
+
+;; --------------------------------------------------
+;; 3. Core configuration (NO packages here)
+;; --------------------------------------------------
+
+(load (expand-file-name "functions.el" base-dir) 'noerror)
+(load (expand-file-name "garbage.el"   base-dir) 'noerror)
+(load (expand-file-name "basic.el"     base-dir) 'noerror)
+(load (expand-file-name "hooks.el"     base-dir) 'noerror)
+
+;; --------------------------------------------------
+;; 4. Package-dependent configuration
+;; --------------------------------------------------
+
+(load (expand-file-name "magit.el"        modes-dir) 'noerror)
+(load (expand-file-name "org.el"          modes-dir) 'noerror)
+(load (expand-file-name "programming.el" modes-dir) 'noerror)
+
+;; --------------------------------------------------
+;; 5. OS-specific configuration
+;; --------------------------------------------------
+
 (cond
- ((eq system-type 'windows-nt) (load "~/.emacs.d/_templates/windows.el" 'noerror 'nomessage))   ;; Windows
- ((eq system-type 'darwin)     (load "~/.emacs.d/_templates/macos.el"   'noerror 'nomessage))	;; MacOS
- ((eq system-type 'gnu/linux)  (load "~/.emacs.d/_templates/linux.el"   'noerror 'nomessage)))  ;; Linux
+ ((eq system-type 'gnu/linux)
+  (load (expand-file-name "linux.el"   (expand-file-name "_templates/" emacs-dir)) 'noerror))
+ ((eq system-type 'darwin)
+  (load (expand-file-name "macos.el"   (expand-file-name "_templates/" emacs-dir)) 'noerror))
+ ((eq system-type 'windows-nt)
+  (load (expand-file-name "windows.el" (expand-file-name "_templates/" emacs-dir)) 'noerror)))
 
-;; === CUSTOM SET PLACE ============================
-(setq custom-file "~/.emacs.d/output.el") ;; Save the Output Junk into a seperate file
-(load custom-file)                        ;; -> custom-set-variables, custom-set-faces
+;; --------------------------------------------------
+;; 6. Custom file
+;; --------------------------------------------------
+
+(setq custom-file (expand-file-name "output.el" emacs-dir))
+(when (file-exists-p custom-file)
+  (load custom-file 'noerror))
+
+;;; init.el ends here
