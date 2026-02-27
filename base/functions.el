@@ -1,6 +1,6 @@
 (defun lr/toggle-theme ()
   (interactive)
-  (let* ((light 'lr_gruvboxlight)
+  (let* ((light 'lr_solarized_light)
          (dark  'lr_gruberdarker)
          (current (car custom-enabled-themes))
          (next (if (eq current light) dark light)))
@@ -24,9 +24,14 @@
     (move-beginning-of-line 1)
     (forward-char column)))
 
+(defun lr/default-theme ()
+  (interactive)
+  (diredfl-global-mode 0)
+  (mapc #'disable-theme custom-enabled-themes))
+
 (defun lr/modern ()
   (interactive)
-  (lr/enable-custom-font-iosevka)
+  (lr/enable-custom-font-default)
   (global-whitespace-mode 0)
   (fido-mode 0)
   (vertico-mode 1)
@@ -56,20 +61,14 @@
   (setq default-frame-alist (cl-remove-if (lambda (entry) (eq (car entry) 'font)) default-frame-alist))
   (set-frame-font (face-attribute 'default :font) t t))
 
-(defun lr/get-iosevka-font ()
-  (let ((family (cond
-                 ((eq system-type 'windows-nt) "Iosevka")
-                 ((eq system-type 'darwin)     "Iosevka")
-                 ((eq system-type 'gnu/linux)  "IosevkaNerdFont")))
-        (size (cond
-               ((eq system-type 'windows-nt) 12)
-               ((eq system-type 'darwin)     18)
-               ((eq system-type 'gnu/linux)  12))))
-    (if (and family size) (format "%s-%d" family size) "Iosevka-20")))
+(defun lr/get-default-font ()
+  (let ((family "Lilex Nerd Font Mono")
+        (size 18))
+    (if (and family size) (format "%s-%d" family size) "Lilex Nerd Font Mono-18")))
 
-(defun lr/enable-custom-font-iosevka ()
+(defun lr/enable-custom-font-default ()
   (interactive)
-  (let ((font (lr/get-iosevka-font)))
+  (let ((font (lr/get-default-font)))
     (when (member (car (split-string font "-")) (font-family-list))
       (set-frame-font font t t)
       (setq-default line-spacing 0)
@@ -183,3 +182,23 @@
     (dolist (window (window-list frame))
       (set-window-parameter window 'window-divider-right-width 0)
       (set-window-parameter window 'window-divider-bottom-width 0))))
+
+(defvar lr/transparent-enabled nil
+  "Whether transparency is currently enabled.")
+
+(defun lr/transparent ()
+  "Toggle frame transparency."
+  (interactive)
+  (setq lr/transparent-enabled (not lr/transparent-enabled))
+  (if lr/transparent-enabled
+      ;; ENABLE
+      (progn
+        (set-frame-parameter nil 'alpha 93)
+        (add-to-list 'default-frame-alist '(alpha . 93))
+        (message "Transparency enabled"))
+    ;; DISABLE
+    (progn
+      (set-frame-parameter nil 'alpha 100)
+      (setq default-frame-alist
+            (assq-delete-all 'alpha default-frame-alist))
+      (message "Transparency disabled"))))

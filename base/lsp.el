@@ -21,12 +21,12 @@
 ;       (setenv "PATH" (concat expanded-path ":" (getenv "PATH"))))))
 
 ;; Manage Tsoding's Simpc Mode
-;  (load "~/.emacs.d/_modes/simpc.el" 'noerror 'nomessage)
+;  (load "~/.emacs.d/modes/simpc.el" 'noerror 'nomessage)
 ;  (require 'simpc-mode)
 ;  (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
 
 ;; Treesitter (if installed)
-(add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . c-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . c-mode))
 
 ;; Configure Eglot
 (when (require 'eglot nil 'noerror)
@@ -35,12 +35,11 @@
     (when (executable-find "pylsp")         (push '(python-mode . ("pylsp")) server-programs))
     (when (executable-find "gopls")         (push '(go-mode     . ("gopls")) server-programs))
     (when (executable-find "clangd")        (push '(c-mode      . ("clangd")) server-programs))
-    (when (executable-find "clangd")        (push '(c-ts-mode   . ("clangd")) server-programs))
     (when (executable-find "rust-analyzer") (push '(rust-mode   . ("rust-analyzer")) server-programs))
     (setq eglot-server-programs (append server-programs eglot-server-programs)))
 
   ;; Enable Eglot only for modes with configured servers
-  (dolist (mode '(python-mode c-mode c-ts-mode go-mode rust-mode sh-mode))
+  (dolist (mode '(python-mode c-mode go-mode rust-mode sh-mode))
     (when (assoc mode eglot-server-programs)
       (add-hook (intern (format "%s-hook" mode)) #'eglot-ensure)))
 
@@ -56,5 +55,5 @@
 (setq-default c-set-style "c-ts-mode-indent-style")
 (setq-default c-basic-offset 4)
 (setq-default c-basic-offset 4)
-(setq-default c-ts-mode-indent-offset 4)
-(setq-default c++-ts-mode-indent-offset 4)
+; (setq-default c-ts-mode-indent-offset 4)
+; (setq-default c++-ts-mode-indent-offset 4)

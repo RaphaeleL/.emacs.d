@@ -29,8 +29,6 @@
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
 
-(when (eq system-type 'windows-nt) (setq default-directory "C:/Users/"))
-
 ;; ==================================================
 ;; ===== UI =========================================
 ;; ==================================================
@@ -46,7 +44,7 @@
 (setq initial-scratch-message nil)
 (setq initial-major-mode 'fundamental-mode)
 
-(with-current-buffer "*scratch*" (fundamental-mode) (auto-fill-mode 1) (visual-line-mode 1))
+(with-current-buffer "*scratch*" (text-mode) (auto-fill-mode 1) (visual-line-mode 1))
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -79,3 +77,12 @@
 (set-face-attribute 'window-divider nil :foreground (face-background 'default))
 (set-face-attribute 'window-divider-first-pixel nil :foreground (face-background 'default))
 (set-face-attribute 'window-divider-last-pixel nil :foreground (face-background 'default))
+
+;; Modern macOS titlebar by default
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . light)) ;; or dark
+(add-to-list 'default-frame-alist '(ns-titlebar-appearance . light))
+
+(setq ns-use-proxy-icon nil)
+(setq frame-resize-pixelwise t)
+
