@@ -7,16 +7,17 @@
 ;; Theme
 (lr/modern)
 (lr/line-relative)
-(lr/theme 'lr_gruberdarker)
+(lr/default-theme)
+;(lr/theme 'lr_gruberdarker)
 
 ;; menu bar is not distracting on macos gui.
 (if (display-graphic-p) (menu-bar-mode 1) (menu-bar-mode -1))
 
 ;; Default Size and Position of Emacs on MacOS
-(add-to-list 'default-frame-alist '(width . 136))
+(add-to-list 'default-frame-alist '(width  . 136))
 (add-to-list 'default-frame-alist '(height . 38))
-(add-to-list 'default-frame-alist '(left . 320))
-(add-to-list 'default-frame-alist '(top . 120))
+(add-to-list 'default-frame-alist '(left   . 150))
+(add-to-list 'default-frame-alist '(top    . 120))
 
 ;; Key remapping for MacOS
 (setq mac-command-modifier 'meta     ; Command as Meta
