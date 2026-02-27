@@ -1,3 +1,5 @@
+;; -*- mode: emacs-lisp; -*-
+
 ;; === PLUGIN MANAGER ==============================
 (require 'package)                                     ;; load Emacs' built-in package manager
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3") ;; workaround for TLS1.3 endpoint issues

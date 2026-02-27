@@ -1,5 +1,6 @@
-;;; init.el --- Offline, deterministic Emacs init -*- lexical-binding: t -*-
+;; -*- mode: emacs-lisp; -*-
 
+;;; init.el --- Offline, deterministic Emacs init -*- lexical-binding: t -*-
 ;; --------------------------------------------------
 ;; 1. Core paths
 ;; --------------------------------------------------
