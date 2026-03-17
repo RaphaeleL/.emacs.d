@@ -44,7 +44,7 @@
 (setq initial-scratch-message nil)
 (setq initial-major-mode 'fundamental-mode)
 
-(with-current-buffer "*scratch*" (text-mode) (auto-fill-mode 1) (visual-line-mode 1))
+(with-current-buffer "*scratch*" (fundamental-mode) (auto-fill-mode 1) (visual-line-mode 1) (toggle-word-wrap 1))
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -85,4 +85,3 @@
 
 (setq ns-use-proxy-icon nil)
 (setq frame-resize-pixelwise t)
-

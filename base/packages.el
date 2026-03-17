@@ -2,10 +2,6 @@
 
 (require 'cl-lib)
 
-(use-package move-text :defer t
-  :bind (("M-p"     . move-text-up)
-         ("M-n"     . move-text-down)))
-
 (use-package multiple-cursors :defer t
   :bind (("M-SPC"     . rectangle-mark-mode)
          ("C-x SPC"   . rectangle-mark-mode)
@@ -14,22 +10,20 @@
          ("C->"       . mc/mark-next-like-this)
          ("C-<"       . mc/mark-previous-like-this)))
 
-(use-package magit :defer t
-  :bind (("M-g"    . magit)
-         ("C-x g"  . magit-status)))
-
+(use-package move-text :defer t :bind (("M-p" . move-text-up) ("M-n" . move-text-down)))
+(use-package magit :defer t :bind (("M-g" . magit) ("C-x g" . magit-status)))
 (use-package paredit :defer t)
 
-(use-package dired :defer t :bind (("C-." . dired-jump)))
-(use-package diredfl)
-(use-package dired-x :after dired :config
-  (with-eval-after-load 'dired
-    (setq dired-recursive-copies 'top)
-    (setq dired-recursive-deletes 'top)
-    (setq dired-dwim-target t)
-    (setq dired-listing-switches "-alh --group-directories-first --sort=version")
-    (setq ls-lisp-ignore-case t)
-    (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode)))
+(use-package dired
+  :ensure nil :bind (("C-." . dired-jump)) :config
+  (setq dired-recursive-copies 'top
+        dired-recursive-deletes 'top
+        dired-dwim-target t
+        dired-listing-switches "-alh --group-directories-first --sort=version"
+        ls-lisp-ignore-case t)
+  (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode))
+(use-package diredfl :after dired)
+(use-package dired-x :ensure nil :after dired)
 
 ; === Optional UI Enhancements ===
 
@@ -47,11 +41,11 @@
 (use-package orderless :config nil)                    ;; fzf in minibuffer
 (use-package marginalia :config (marginalia-mode 1))   ;; minibuffer ui/ux
 (use-package consult :defer t :bind                    ;; more powerful commands
-  (("C-c C-k" . consult-line)
-   ("C-c C-g" . consult-ripgrep)
-   ("C-r"     . consult-recent-file)
-   ("M-o"     . ido-switch-buffer)))
- ; ("M-o"     . consult-buffer)
+  (("C-l"     . consult-line)
+   ("C-r"     . consult-ripgrep)
+   ("M-o"     . ido-switch-buffer)
+   ("C-x M-o" . consult-buffer)))
+ ; ("C-r"     . consult-recent-file)
  ; ("C-c C-o" . consult-buffer)
 
 ; === LSP ===
@@ -121,12 +115,10 @@
 ;; NOTE: Default Keybindings which are based on Emacs- or Custom-Functions.
 (use-package emacs
   :bind (("C-,"     . find-file)
-         ("C-M-,"   . project-find-file) ; better fzf then consult-find is
+         ("C-M-,"   . project-find-file)
          ("M-i"     . ibuffer)
-         ;("M-j"     . indent-region) ; -> handled by tab in the most modes
-         ;("C-c g"   . indent-region)
          ("M-c"     . compile)
-         ("C-l"     . shell-command)
+         ("M-s"     . shell-command)
          ("M-q"     . kill-compilation)
          ("C-o"     . other-window)
          ("C-x ("   . start-kbd-macro)
@@ -134,8 +126,8 @@
          ("C-x e"   . call-last-kbd-macro)
          ("M-w"     . mark-word)
          ("M-a"     . mark-page)
-         ("M-F"     . mark-defun)
-         ("M-s"     . mark-paragraph)
+         ;; ("M-F"     . mark-defun)
+         ;; ("M-s"     . mark-paragraph)
          ("M-z"     . undo)
          ("M-d"     . lr/duplicate-line)
          ("C-c C-d" . lr/duplicate-line)
@@ -166,7 +158,10 @@
          ("M-6"     . lr/default-theme)
          ("<f6>"    . lr/default-theme)
          ("M-7"     . lr/toggle-mini-buffer-mode)
-         ("<f7>"    . lr/toggle-mini-buffer-mode)))
+         ("<f7>"    . lr/toggle-mini-buffer-mode)
+         ("M-9"     . fundamental-mode)
+         ("<f9>"    . fundamental-mode)
+         ))
 
 ;; NOTE: We want to Copy to Clipboard, which is done with simpleclip. However
 ;;  simpleclip is not working with multiplecursors. Thereby we are copy/paste

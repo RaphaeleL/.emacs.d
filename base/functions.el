@@ -1,5 +1,6 @@
 (defun lr/toggle-theme ()
   (interactive)
+  (diredfl-global-mode 1)
   (let* ((light 'lr_solarized_light)
          (dark  'lr_gruberdarker)
          (current (car custom-enabled-themes))
@@ -26,6 +27,7 @@
 
 (defun lr/default-theme ()
   (interactive)
+  (whitespace-mode 0)
   (diredfl-global-mode 0)
   (mapc #'disable-theme custom-enabled-themes))
 
