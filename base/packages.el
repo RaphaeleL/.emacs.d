@@ -51,7 +51,7 @@
 (use-package emacs
   :bind (; ---- Navigate through Project, File and Buffers
          ("C-,"     . find-file)
-         ("C-."     . project-find-file)
+         ("M-C-,"   . project-find-file)
          ("C-o"     . other-window)
          ("M-o"     . switch-to-buffer) ; ido-switch-buffer
          ; ---- Compile
