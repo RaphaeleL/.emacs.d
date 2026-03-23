@@ -21,3 +21,7 @@
 
 ;; No line numbers in dired
 (add-hook 'dired-mode-hook (lambda () (display-line-numbers-mode -1)))
+
+;; C Comments
+(add-hook 'c-mode-common-hook (lambda () (setq-local comment-start "// ") (setq-local comment-end "")))
+(add-hook 'c-ts-mode-hook (lambda () (setq-local comment-start "// ") (setq-local comment-end "")))

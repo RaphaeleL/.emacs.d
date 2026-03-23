@@ -53,12 +53,9 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default c-set-style "k&r")
-;; (setq-default c-set-style "c-ts-mode-indent-style")
 (setq c-ts-mode-indent-offset 4)
 (setq-default c-basic-offset 4)
 (setq-default c-basic-offset 4)
-; (setq-default c-ts-mode-indent-offset 4)
-; (setq-default c++-ts-mode-indent-offset 4)
 
 ; Do some LSP Settings
 (setq eglot-extend-to-xref t)
