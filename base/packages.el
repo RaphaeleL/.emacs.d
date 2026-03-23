@@ -42,12 +42,94 @@
 (use-package marginalia :config (marginalia-mode 1))   ;; minibuffer ui/ux
 (use-package consult :defer t :bind                    ;; more powerful commands
   (("C-l"     . consult-line)
-   ("C-r"     . consult-ripgrep)
-   ("M-o"     . ido-switch-buffer)
-   ("C-x M-o" . consult-buffer)))
+   ("C-r"     . consult-ripgrep)))
+ ; ("C-x M-o" . consult-buffer)
  ; ("C-r"     . consult-recent-file)
- ; ("C-c C-o" . consult-buffer)
 
+
+;; NOTE: Default Keybindings which are based on Emacs- or Custom-Functions.
+(use-package emacs
+  :bind (; ---- Navigate through Project, File and Buffers
+         ("C-,"     . find-file)
+         ("C-."     . project-find-file)
+         ("C-o"     . other-window)
+         ("M-o"     . switch-to-buffer) ; ido-switch-buffer
+         ; ---- Compile
+         ("M-i"     . buffer-menu) ; ibuffer
+         ("M-c"     . compile)
+         ("M-s"     . shell-command)
+         ("M-q"     . kill-compilation)
+         ; ---- Macro
+         ("C-x ("   . start-kbd-macro)
+         ("C-x )"   . end-kbd-macro)
+         ("C-x e"   . call-last-kbd-macro)
+         ; ---- Selection
+         ("M-w"     . mark-word)
+         ("M-a"     . mark-page)
+         ("M-t"     . mark-paragraph)
+         ("M-F"     . mark-defun)
+         ; ---- Manipulation
+         ("M-z"     . undo)
+         ("M-d"     . lr/duplicate-line)
+         ("C-c C-d" . lr/duplicate-line)
+         ("M-r"     . lr/delete-line)
+         ("C-c C-r" . lr/delete-line)
+         ; ---- (G)UI
+         ("C-="     . lr/font-increase)
+         ("C-+"     . lr/font-increase)
+         ("C--"     . lr/font-decrease)
+         ("M-+"     . lr/font-increase)
+         ("M--"     . lr/font-decrease)))
+
+; NOTE: originally those keymaps were meant to be on the function row, since
+;  some keyboards, like the HHKB Boards, dont have a seperated function row,
+;  those keymaps are kinda hard to hit. thereby they are also mapped into non
+;  function row keybindings. Only to fit into such keyboards as well. In the
+;  future this might get solved in other way.
+(use-package custom-keys :bind (
+         ("M-1"     . lr/toggle-scratch-buffer)
+         ("<f1>"    . lr/toggle-scratch-buffer)
+         ("M-2"     . lr/toggle-compilation-buffer)
+         ("<f2>"    . lr/toggle-compilation-buffer)
+         ("M-3"     . isearch-forward-thing-at-point)
+         ("<f3>"    . isearch-forward-thing-at-point)
+         ("M-4"     . lr/toggle-config)
+         ("<f4>"    . lr/toggle-config)
+         ("M-5"     . lr/toggle-theme)
+         ("<f5>"    . lr/toggle-theme)
+         ("M-6"     . lr/default-theme)
+         ("<f6>"    . lr/default-theme)
+         ("M-7"     . lr/toggle-mini-buffer-mode)
+         ("<f7>"    . lr/toggle-mini-buffer-mode)
+         ("M-9"     . fundamental-mode)
+         ("<f9>"    . fundamental-mode)))
+
+;; NOTE: We want to Copy to Clipboard, which is done with simpleclip. However
+;;  simpleclip is not working with multiplecursors. Thereby we are copy/paste
+;;  to clipboard with simpleclip on default, and if multiple cursors are
+;;  activated we are moving back to the default way of copy/past which is
+;;  working on all cursors in that case. However, don't forget to reset this
+;;  if multiple cursors are disabled. All this is in a hook.
+(use-package simpleclip :defer t :bind (("C-t" . lr/cut))
+  :config
+  ;; Default bindings when NOT in multiple-cursors-mode
+  (global-set-key (kbd "C-y") #'lr/paste)
+  (global-set-key (kbd "C-w") #'lr/copy)
+
+  ;; Function to swap bindings dynamically
+  (defun lr/mc-setup-bindings ()
+    "Set key bindings for multiple-cursors mode."
+    (local-set-key (kbd "C-y") #'clipboard-yank)
+    (local-set-key (kbd "C-w") #'clipboard-kill-ring-save))
+
+  (defun lr/mc-reset-bindings ()
+    "Restore global bindings after leaving multiple-cursors mode."
+    (local-set-key (kbd "C-y") #'lr/paste)
+    (local-set-key (kbd "C-w") #'lr/copy))
+
+  ;; Hook into multiple-cursors
+  (add-hook 'multiple-cursors-mode-enabled-hook #'lr/mc-setup-bindings)
+  (add-hook 'multiple-cursors-mode-disabled-hook #'lr/mc-reset-bindings))
 ; === LSP ===
 
 ;; see base/lsp.el
@@ -91,101 +173,23 @@
 (setq completion-styles '(orderless basic))
 (setq completion-category-overrides '((file (styles basic partial-completion))))
 
-(setq ibuffer-saved-filter-groups
-      '(("default"
-         ("Coding" (or (mode . c-mode) (mode . simpc-mode) (mode . c++-mode) (mode . java-mode) (mode . js-mode)
-                       (mode . typescript-mode) (mode . lua-mode) (mode . yaml-mode) (mode . php-mode) (mode . terraform-mode)
-                       (mode . ansible-mode) (mode . nginx-mode) (mode . conf-mode) (mode . groovy-mode) (mode . python-mode)
-                       (mode . makefile-mode) (mode . rpm-spec-mode) (mode . sh-mode) (mode . rust-mode) (mode . go-mode)
-                       (mode . web-mode) (mode . jinja2-mode) (mode . dockerfile-mode) (mode . syslog-mode)
-                       (mode . jenkinsfile-mode) (mode . c-ts-mode)))
-         ("Dired" (mode   . dired-mode))
-         ("Markup" (or (mode . json-mode) (mode . yaml-mode) (mode . text-mode) (mode . markdown-mode)))
-         ("Magit" (or (name  . "Magit") (name  . ".*magit.*") (name  . "Magit\\*$")))
-         ("Logs" (or (mode   . syslog-mode) (name   . "^\\*Messages\\*$")))
-         ("Emacs" (or (mode  . emacs-lisp-mode) (mode  . lisp-interaction-mode) (mode  . help-mode)
-                      (name  . "^\\*Compile-Log\\*$") (name  . "^\\*Backtrace\\*$") (name  . "^\\*Warnings\\*$")
-                      (name  .  "^\\*scratch\\*$") (name  . "^\\*Help\\*$")))
-         ("Other" (or (mode  . compilation-mode) (mode  . elisp-compile-mode) (mode  . special-mode) (mode  . custom-mode)
-                      (mode  . fundamental-mode) (name  . ".*"))))))
+;; (setq ibuffer-saved-filter-groups
+;;       '(("default"
+;;          ("Coding" (or (mode . c-mode) (mode . simpc-mode) (mode . c++-mode) (mode . java-mode) (mode . js-mode)
+;;                        (mode . typescript-mode) (mode . lua-mode) (mode . yaml-mode) (mode . php-mode) (mode . terraform-mode)
+;;                        (mode . ansible-mode) (mode . nginx-mode) (mode . conf-mode) (mode . groovy-mode) (mode . python-mode)
+;;                        (mode . makefile-mode) (mode . rpm-spec-mode) (mode . sh-mode) (mode . rust-mode) (mode . go-mode)
+;;                        (mode . web-mode) (mode . jinja2-mode) (mode . dockerfile-mode) (mode . syslog-mode)
+;;                        (mode . jenkinsfile-mode) (mode . c-ts-mode)))
+;;          ("Dired" (mode   . dired-mode))
+;;          ("Markup" (or (mode . json-mode) (mode . yaml-mode) (mode . text-mode) (mode . markdown-mode)))
+;;          ("Magit" (or (name  . "Magit") (name  . ".*magit.*") (name  . "Magit\\*$")))
+;;          ("Logs" (or (mode   . syslog-mode) (name   . "^\\*Messages\\*$")))
+;;          ("Emacs" (or (mode  . emacs-lisp-mode) (mode  . lisp-interaction-mode) (mode  . help-mode)
+;;                       (name  . "^\\*Compile-Log\\*$") (name  . "^\\*Backtrace\\*$") (name  . "^\\*Warnings\\*$")
+;;                       (name  .  "^\\*scratch\\*$") (name  . "^\\*Help\\*$")))
+;;          ("Other" (or (mode  . compilation-mode) (mode  . elisp-compile-mode) (mode  . special-mode) (mode  . custom-mode)
+;;                       (mode  . fundamental-mode) (name  . ".*"))))))
 
-(add-hook 'ibuffer-mode-hook (lambda ()
-                               (ibuffer-switch-to-saved-filter-groups "default")))
-
-;; NOTE: Default Keybindings which are based on Emacs- or Custom-Functions.
-(use-package emacs
-  :bind (("C-,"     . find-file)
-         ("C-M-,"   . project-find-file)
-         ("M-i"     . ibuffer)
-         ("M-c"     . compile)
-         ("M-s"     . shell-command)
-         ("M-q"     . kill-compilation)
-         ("C-o"     . other-window)
-         ("C-x ("   . start-kbd-macro)
-         ("C-x )"   . end-kbd-macro)
-         ("C-x e"   . call-last-kbd-macro)
-         ("M-w"     . mark-word)
-         ("M-a"     . mark-page)
-         ;; ("M-F"     . mark-defun)
-         ;; ("M-s"     . mark-paragraph)
-         ("M-z"     . undo)
-         ("M-d"     . lr/duplicate-line)
-         ("C-c C-d" . lr/duplicate-line)
-         ("M-r"     . lr/delete-line)
-         ("C-c C-r" . lr/delete-line)
-         ("C-="     . lr/font-increase)
-         ("C-+"     . lr/font-increase)
-         ("C--"     . lr/font-decrease)
-         ("M-+"     . lr/font-increase)
-         ("M--"     . lr/font-decrease)))
-
-; NOTE: originally those keymaps were meant to be on the function row, since
-;  some keyboards, like the HHKB Boards, dont have a seperated function row,
-;  those keymaps are kinda hard to hit. thereby they are also mapped into non
-;  function row keybindings. Only to fit into such keyboards as well. In the
-;  future this might get solved in other way.
-(use-package custom-keys :bind (
-         ("M-1"     . lr/toggle-scratch-buffer)
-         ("<f1>"    . lr/toggle-scratch-buffer)
-         ("M-2"     . lr/toggle-compilation-buffer)
-         ("<f2>"    . lr/toggle-compilation-buffer)
-         ("M-3"     . isearch-forward-thing-at-point)
-         ("<f3>"    . isearch-forward-thing-at-point)
-         ("M-4"     . lr/toggle-config)
-         ("<f4>"    . lr/toggle-config)
-         ("M-5"     . lr/toggle-theme)
-         ("<f5>"    . lr/toggle-theme)
-         ("M-6"     . lr/default-theme)
-         ("<f6>"    . lr/default-theme)
-         ("M-7"     . lr/toggle-mini-buffer-mode)
-         ("<f7>"    . lr/toggle-mini-buffer-mode)
-         ("M-9"     . fundamental-mode)
-         ("<f9>"    . fundamental-mode)
-         ))
-
-;; NOTE: We want to Copy to Clipboard, which is done with simpleclip. However
-;;  simpleclip is not working with multiplecursors. Thereby we are copy/paste
-;;  to clipboard with simpleclip on default, and if multiple cursors are
-;;  activated we are moving back to the default way of copy/past which is
-;;  working on all cursors in that case. However, don't forget to reset this
-;;  if multiple cursors are disabled. All this is in a hook.
-(use-package simpleclip :defer t :bind (("C-t" . lr/cut))
-  :config
-  ;; Default bindings when NOT in multiple-cursors-mode
-  (global-set-key (kbd "C-y") #'lr/paste)
-  (global-set-key (kbd "C-w") #'lr/copy)
-
-  ;; Function to swap bindings dynamically
-  (defun lr/mc-setup-bindings ()
-    "Set key bindings for multiple-cursors mode."
-    (local-set-key (kbd "C-y") #'clipboard-yank)
-    (local-set-key (kbd "C-w") #'clipboard-kill-ring-save))
-
-  (defun lr/mc-reset-bindings ()
-    "Restore global bindings after leaving multiple-cursors mode."
-    (local-set-key (kbd "C-y") #'lr/paste)
-    (local-set-key (kbd "C-w") #'lr/copy))
-
-  ;; Hook into multiple-cursors
-  (add-hook 'multiple-cursors-mode-enabled-hook #'lr/mc-setup-bindings)
-  (add-hook 'multiple-cursors-mode-disabled-hook #'lr/mc-reset-bindings))
+;; (add-hook 'ibuffer-mode-hook (lambda ()
+;;                                (ibuffer-switch-to-saved-filter-groups "default")))
