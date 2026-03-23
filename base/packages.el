@@ -19,7 +19,7 @@
   (setq dired-recursive-copies 'top
         dired-recursive-deletes 'top
         dired-dwim-target t
-        dired-listing-switches "-alh --group-directories-first --sort=version"
+        dired-listing-switches "-alh" ;  --group-directories-first --sort=version
         ls-lisp-ignore-case t)
   (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode))
 (use-package diredfl :after dired)
