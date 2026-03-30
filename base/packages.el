@@ -38,7 +38,7 @@
 
 (use-package company :config (global-company-mode 1))                           ;; auto-completion
 (use-package vertico :init (vertico-mode 1) :custom (vertico-count-format nil)) ;; minibuffer completion ui
-(use-package vertico-flat :after vertico :init (vertico-flat-mode 1))           ;; minibuffer completion ui (flat)
+(use-package vertico-flat :after vertico :init (vertico-flat-mode -1))           ;; minibuffer completion ui (flat)
 (use-package orderless :config nil)                                             ;; fzf in minibuffer
 (use-package marginalia :config (marginalia-mode 1))                            ;; minibuffer ui/ux
 (use-package consult :defer t :bind                                             ;; more powerful commands
