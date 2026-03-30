@@ -147,7 +147,6 @@
         (scale-factor (if (boundp 'text-scale-mode-amount) (expt text-scale-mode-step text-scale-mode-amount) 1)))
     (face-remap-add-relative 'line-number :height (round (* base-height scale-factor)))
     (face-remap-add-relative 'line-number-current-line :height (round (* base-height scale-factor)))))
-
 (defun lr/font-increase() (interactive) (text-scale-increase 1) (lr/update-line-number-font-size))
 (defun lr/font-decrease() (interactive) (text-scale-decrease 1) (lr/update-line-number-font-size))
 
@@ -195,8 +194,8 @@
   (if lr/transparent-enabled
       ;; ENABLE
       (progn
-        (set-frame-parameter nil 'alpha 93)
-        (add-to-list 'default-frame-alist '(alpha . 93))
+        (set-frame-parameter nil 'alpha 95)
+        (add-to-list 'default-frame-alist '(alpha . 95))
         (message "Transparency enabled"))
     ;; DISABLE
     (progn
