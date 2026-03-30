@@ -61,17 +61,14 @@
 ;; --------------------------------------------------
 
 (lr/modern)
-(lr/line-relative)
-(lr/default-theme)
-;;(lr/theme 'lr_solarized_light)
 
 (setq mac-command-modifier 'meta     ; Command as Meta
       mac-option-modifier 'control   ; Option as Control
       mac-control-modifier 'control  ; Ensure Control is Control
       default-input-method "MacOSX")
 
-(add-to-list 'default-frame-alist '(width  . 136))
-(add-to-list 'default-frame-alist '(height . 38))
+(add-to-list 'default-frame-alist '(width  . 95))  ; 136
+(add-to-list 'default-frame-alist '(height . 44)) ; 38
 ; (add-to-list 'default-frame-alist '(left . 200))
 ; (add-to-list 'default-frame-alist '(top  . 120))
 
