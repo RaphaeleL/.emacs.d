@@ -46,11 +46,11 @@
 (defun lr/legacy ()
   (interactive)
   (lr/disable-custom-font)
-  (lr/enable-custom-font-legacy)
+  ;(lr/enable-custom-font-legacy)
   (mapc #'disable-theme custom-enabled-themes)
   (cond
     ((eq system-type 'windows-nt) (lr/disable-custom-font))
-    ((eq system-type 'darwin)     (lr/enable-custom-font-legacy))
+    ((eq system-type 'darwin)     (lr/disable-custom-font)) ;;lr/enable-custom-font-legacy))
     ((eq system-type 'gnu/linux)  (lr/disable-custom-font)))
   (global-whitespace-mode 0)
   (diredfl-global-mode 0)
@@ -67,7 +67,7 @@
 (defun lr/get-default-font ()
   (let ((family "Lilex Nerd Font Mono")
         (size 18))
-    (if (and family size) (format "%s-%d" family size) "Lilex Nerd Font Mono-18")))
+    (if (and family size) (format "%s-%d" family size) "Lilex Nerd Font Mono-16")))
 
 (defun lr/enable-custom-font-default ()
   (interactive)
@@ -81,7 +81,7 @@
 
 (defun lr/enable-custom-font-legacy ()
   (interactive)
-  (let ((fonts '("Consoleet Darwin" "Fairfax" "Consoleet Darwin Smooth"))
+  (let ((fonts '("Consoleet Darwin Smooth" "Fairfax" "Consoleet Darwin"))
         (size 18)
         chosen-font)
     (dolist (f fonts)
