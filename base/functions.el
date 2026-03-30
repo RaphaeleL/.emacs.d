@@ -33,9 +33,8 @@
 
 (defun lr/modern ()
   (interactive)
-  (lr/enable-custom-font-default)
+  (lr/use-font "Iosevka-16")
   (lr/theme 'lr_gruberdarker)
-;; (lr/default-theme)
   (global-whitespace-mode 0)
   (vertico-mode 1)
   (mood-line-mode 1)
@@ -45,13 +44,12 @@
 
 (defun lr/legacy ()
   (interactive)
-  (lr/disable-custom-font)
-  ;(lr/enable-custom-font-legacy)
+  (lr/disable-font)
   (mapc #'disable-theme custom-enabled-themes)
   (cond
-    ((eq system-type 'windows-nt) (lr/disable-custom-font))
-    ((eq system-type 'darwin)     (lr/disable-custom-font)) ;;lr/enable-custom-font-legacy))
-    ((eq system-type 'gnu/linux)  (lr/disable-custom-font)))
+    ((eq system-type 'windows-nt) (lr/disable-font))
+    ((eq system-type 'darwin)     (lr/use-font "Iosevka-16"))
+    ((eq system-type 'gnu/linux)  (lr/disable-font)))
   (global-whitespace-mode 0)
   (diredfl-global-mode 0)
   (vertico-mode -1)
@@ -59,42 +57,35 @@
   (lr/line-normal)
   (set-fringe-mode 0))
 
-(defun lr/disable-custom-font ()
+(defun lr/disable-font ()
   (interactive)
-  (setq default-frame-alist (cl-remove-if (lambda (entry) (eq (car entry) 'font)) default-frame-alist))
-  (set-frame-font (face-attribute 'default :font) t t))
+  (cond ((eq system-type 'darwin)
+         (let ((default-font (or (cdr (assoc 'font default-frame-alist)) "Menlo-14")))
+           (set-frame-font default-font t t)
+           (setq-default line-spacing nil)
+           (dolist (buf (buffer-list))
+             (with-current-buffer buf
+               (force-window-update (get-buffer-window buf)))))))
+  (set-frame-font nil t t)
+  (setq-default line-spacing nil)
+  (dolist (buf (buffer-list))
+    (with-current-buffer buf
+      (force-window-update (get-buffer-window buf)))))
 
-(defun lr/get-default-font ()
-  (let ((family "Lilex Nerd Font Mono")
-        (size 18))
-    (if (and family size) (format "%s-%d" family size) "Lilex Nerd Font Mono-16")))
+(defun lr/use-font (font)
+  (when (member (car (split-string font "-")) (font-family-list))
+    (set-frame-font font t t)
+    (setq-default line-spacing 0)
+    (dolist (buf (buffer-list))
+      (with-current-buffer buf
+        (force-window-update (get-buffer-window buf))))))
 
-(defun lr/enable-custom-font-default ()
+(defvar lr/font-list'("Menlo-16" "Iosevka-16" "Lilex Nerd Font Mono-16" "Consoleet Darwin Smooth-18" "Fairfax-18"))
+(defun lr/enable-font ()
+  "Fuzzy-select a font from `lr/font-list` or enter a custom one, then enable it if valid."
   (interactive)
-  (let ((font (lr/get-default-font)))
-    (when (member (car (split-string font "-")) (font-family-list))
-      (set-frame-font font t t)
-      (setq-default line-spacing 0)
-      (dolist (buf (buffer-list))
-        (with-current-buffer buf
-          (force-window-update (get-buffer-window buf)))))))
-
-(defun lr/enable-custom-font-legacy ()
-  (interactive)
-  (let ((fonts '("Consoleet Darwin Smooth" "Fairfax" "Consoleet Darwin"))
-        (size 18)
-        chosen-font)
-    (dolist (f fonts)
-      (when (and (member f (font-family-list)) (not chosen-font))
-        (setq chosen-font f)))
-    (if chosen-font
-        (progn
-          (set-frame-font (format "%s-%d" chosen-font size) t t)
-          (setq-default line-spacing 0.2)
-          (dolist (buf (buffer-list))
-            (with-current-buffer buf
-              (force-window-update (get-buffer-window buf)))))
-      (message "Consoleet Darwin not found, using default font"))))
+  (let* ((input (completing-read "Choose font: " lr/font-list nil nil)) (font input))
+    (when (member (car (split-string font "-")) (font-family-list)) (lr/use-font font))))
 
 (defun lr/theme (theme)
   (interactive
