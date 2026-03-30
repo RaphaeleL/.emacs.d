@@ -14,11 +14,11 @@
     (setenv "PATH" (mapconcat 'identity exec-path ":"))))
 
 ;; Add extra paths
-; (dolist (extra-path '("~/.local/bin" "/usr/local/bin" "/opt/homebrew/bin" "~/bin" "~/go/bin" "~/.cargo/bin"))
-;   (let ((expanded-path (expand-file-name extra-path)))
-;     (when (file-directory-p expanded-path)
-;       (add-to-list 'exec-path expanded-path t)
-;       (setenv "PATH" (concat expanded-path ":" (getenv "PATH"))))))
+(dolist (extra-path '("~/.local/bin" "/usr/local/bin" "/opt/homebrew/bin" "~/bin" "~/go/bin" "~/.cargo/bin"))
+  (let ((expanded-path (expand-file-name extra-path)))
+    (when (file-directory-p expanded-path)
+      (add-to-list 'exec-path expanded-path t)
+      (setenv "PATH" (concat expanded-path ":" (getenv "PATH"))))))
 
 ;; Manage Tsoding's Simpc Mode
 ; (load "~/.emacs.d/modes/simpc.el" 'noerror 'nomessage)
