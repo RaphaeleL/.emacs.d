@@ -19,7 +19,7 @@
   (setq dired-recursive-copies 'top
         dired-recursive-deletes 'top
         dired-dwim-target t
-        dired-listing-switches "-alh" ;  --group-directories-first --sort=version
+        dired-listing-switches "-alh" ; --group-directories-first --sort=version
         ls-lisp-ignore-case t)
   (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode))
 (use-package diredfl :after dired)
@@ -36,16 +36,16 @@
 
 ; === Completion Frameworks (minibuffer/UI) ===
 
-(use-package company :config (global-company-mode 1))  ;; auto-completion
-(use-package vertico :config (vertico-mode 1))         ;; minibuffer completion ui
-(use-package orderless :config nil)                    ;; fzf in minibuffer
-(use-package marginalia :config (marginalia-mode 1))   ;; minibuffer ui/ux
-(use-package consult :defer t :bind                    ;; more powerful commands
+(use-package company :config (global-company-mode 1))                           ;; auto-completion
+(use-package vertico :init (vertico-mode 1) :custom (vertico-count-format nil)) ;; minibuffer completion ui
+(use-package vertico-flat :after vertico :init (vertico-flat-mode 1))           ;; minibuffer completion ui (flat)
+(use-package orderless :config nil)                                             ;; fzf in minibuffer
+(use-package marginalia :config (marginalia-mode 1))                            ;; minibuffer ui/ux
+(use-package consult :defer t :bind                                             ;; more powerful commands
   (("C-l"     . consult-line)
    ("C-r"     . consult-ripgrep)))
  ; ("C-x M-o" . consult-buffer)
  ; ("C-r"     . consult-recent-file)
-
 
 ;; NOTE: Default Keybindings which are based on Emacs- or Custom-Functions.
 (use-package emacs
@@ -53,9 +53,9 @@
          ("C-,"     . find-file)
          ("M-C-,"   . project-find-file)
          ("C-o"     . other-window)
-         ("M-o"     . switch-to-buffer) ; ido-switch-buffer
+         ("M-o"     . switch-to-buffer) ; alt could be: ido-switch-buffer
          ; ---- Compile
-         ("M-i"     . buffer-menu) ; ibuffer
+         ("M-i"     . buffer-menu) ; alt could be: ibuffer
          ("M-c"     . compile)
          ("M-s"     . shell-command)
          ("M-q"     . kill-compilation)
@@ -84,23 +84,15 @@
 ;  those keymaps are kinda hard to hit. thereby they are also mapped into non
 ;  function row keybindings. Only to fit into such keyboards as well. In the
 ;  future this might get solved in other way.
-(use-package custom-keys :bind (
-         ("M-1"     . lr/toggle-scratch-buffer)
-         ("<f1>"    . lr/toggle-scratch-buffer)
-         ("M-2"     . lr/toggle-compilation-buffer)
-         ("<f2>"    . lr/toggle-compilation-buffer)
-         ("M-3"     . isearch-forward-thing-at-point)
-         ("<f3>"    . isearch-forward-thing-at-point)
-         ("M-4"     . lr/toggle-config)
-         ("<f4>"    . lr/toggle-config)
-         ("M-5"     . lr/toggle-theme)
-         ("<f5>"    . lr/toggle-theme)
-         ("M-6"     . lr/default-theme)
-         ("<f6>"    . lr/default-theme)
-         ("M-7"     . lr/toggle-mini-buffer-mode)
-         ("<f7>"    . lr/toggle-mini-buffer-mode)
-         ("M-9"     . fundamental-mode)
-         ("<f9>"    . fundamental-mode)))
+(use-package custom-keys :bind
+  (("M-1"     . lr/toggle-scratch-buffer)       ("<f1>"    . lr/toggle-scratch-buffer)
+   ("M-2"     . lr/toggle-compilation-buffer)   ("<f2>"    . lr/toggle-compilation-buffer)
+   ("M-3"     . isearch-forward-thing-at-point) ("<f3>"    . isearch-forward-thing-at-point)
+   ("M-4"     . lr/toggle-config)               ("<f4>"    . lr/toggle-config)
+   ("M-5"     . lr/toggle-theme)                ("<f5>"    . lr/toggle-theme)
+   ("M-6"     . lr/default-theme)               ("<f6>"    . lr/default-theme)
+   ("M-7"     . lr/toggle-system)               ("<f7>"    . lr/toggle-system)
+   ("M-9"     . fundamental-mode)               ("<f9>"    . fundamental-mode)))
 
 ;; NOTE: We want to Copy to Clipboard, which is done with simpleclip. However
 ;;  simpleclip is not working with multiplecursors. Thereby we are copy/paste

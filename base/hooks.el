@@ -25,3 +25,11 @@
 ;; C Comments
 (add-hook 'c-mode-common-hook (lambda () (setq-local comment-start "// ") (setq-local comment-end "")))
 (add-hook 'c-ts-mode-hook (lambda () (setq-local comment-start "// ") (setq-local comment-end "")))
+
+;; Enable visual-line-mode in text buffers by default
+(add-hook 'text-mode-hook #'visual-line-mode)
+
+;; Optional: also for programming buffers if you like
+(add-hook 'prog-mode-hook #'visual-line-mode)
+
+(setq-default truncate-lines nil)

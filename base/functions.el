@@ -34,8 +34,9 @@
 (defun lr/modern ()
   (interactive)
   (lr/enable-custom-font-default)
+  (lr/theme 'lr_gruberdarker)
+;; (lr/default-theme)
   (global-whitespace-mode 0)
-  (fido-mode 0)
   (vertico-mode 1)
   (mood-line-mode 1)
   (marginalia-mode 1)
@@ -52,10 +53,10 @@
     ((eq system-type 'darwin)     (lr/enable-custom-font-legacy))
     ((eq system-type 'gnu/linux)  (lr/disable-custom-font)))
   (global-whitespace-mode 0)
-  (fido-mode 1)
-  (vertico-mode 0)
+  (diredfl-global-mode 0)
+  (vertico-mode -1)
   (marginalia-mode 0)
-  (lr/line-off)
+  (lr/line-normal)
   (set-fringe-mode 0))
 
 (defun lr/disable-custom-font ()
@@ -109,17 +110,16 @@
 
 (defun lr/toggle-mini-buffer-mode ()
   (interactive)
-  (if (bound-and-true-p fido-mode)
+  (if (bound-and-true-p vertico-flat-mode)
       (progn
-        (fido-mode -1)
-        (vertico-mode 1)
+        (vertico-flat-mode -1)
         (marginalia-mode 1)
-        (message "Switched to vertico-mode"))
+        (message "Switched to Vertical Mode"))
     (progn
-      (vertico-mode -1)
+      (vertico-flat-mode 1)
+      (setq vertico-count-format nil)
       (marginalia-mode -1)
-      (fido-mode 1)
-      (message "Switched to fido-mode"))))
+      (message "Switched to Horizontal Mode"))))
 
 (defun lr/colorize-compilation-buffer ()
   (read-only-mode 'toggle)
@@ -140,6 +140,10 @@
     (if (get-buffer-window buffer) (delete-window (get-buffer-window buffer)) (switch-to-buffer-other-window buffer))))
 (defun lr/toggle-scratch-buffer () (interactive) (lr/toggle-buffer "*scratch*"))
 (defun lr/toggle-compilation-buffer () (interactive) (lr/toggle-buffer "*compilation*"))
+
+(defun lr/toggle-system ()
+  ;; If vertico-mode is active, assume modern. otherwise, assume legacy
+  (interactive) (if (and (boundp 'vertico-mode) vertico-mode) (lr/legacy) (lr/modern)))
 
 (defun lr/update-line-number-font-size ()
   (interactive)
@@ -167,6 +171,14 @@
       (local-set-key (kbd "C-n") 'icomplete-forward-completions)
       (local-set-key (kbd "C-p") 'icomplete-backward-completions))))
 
+(defun lr/my-vertico-flat-minibuffer-setup ()
+  (when (or fido-mode vertico-flat-mode)
+    (local-set-key (kbd "C-s") 'next-history-element)
+    (local-set-key (kbd "C-r") 'previous-history-element)
+    (unless (eq this-command 'compile)
+      (local-set-key (kbd "C-n") 'icomplete-forward-completions)
+      (local-set-key (kbd "C-p") 'icomplete-backward-completions))))
+
 (defun lr/create-keymap     (key action) (global-set-key (kbd key) action))
 (defun lr/create-keymap-cc  (key action) (global-set-key (kbd (concat "C-c "   key)) action))
 (defun lr/create-keymap-ccc (key action) (global-set-key (kbd (concat "C-c C-" key)) action))
@@ -184,9 +196,7 @@
       (set-window-parameter window 'window-divider-right-width 0)
       (set-window-parameter window 'window-divider-bottom-width 0))))
 
-(defvar lr/transparent-enabled nil
-  "Whether transparency is currently enabled.")
-
+(defvar lr/transparent-enabled nil)
 (defun lr/transparent ()
   "Toggle frame transparency."
   (interactive)
@@ -200,6 +210,5 @@
     ;; DISABLE
     (progn
       (set-frame-parameter nil 'alpha 100)
-      (setq default-frame-alist
-            (assq-delete-all 'alpha default-frame-alist))
+      (setq default-frame-alist (assq-delete-all 'alpha default-frame-alist))
       (message "Transparency disabled"))))
