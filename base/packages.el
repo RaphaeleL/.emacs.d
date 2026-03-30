@@ -75,11 +75,9 @@
          ("M-r"     . lr/delete-line)
          ("C-c C-r" . lr/delete-line)
          ; ---- (G)UI
-         ("C-="     . lr/font-increase)
-         ("C-+"     . lr/font-increase)
-         ("C--"     . lr/font-decrease)
-         ("M-+"     . lr/font-increase)
-         ("M--"     . lr/font-decrease)))
+         ("C-="     . (lambda () (interactive) (text-scale-increase 1)))
+         ("C-+"     . (lambda () (interactive) (text-scale-increase 1)))
+         ("C--"     . (lambda () (interactive) (text-scale-decrease 1)))))
 
 ; NOTE: originally those keymaps were meant to be on the function row, since
 ;  some keyboards, like the HHKB Boards, dont have a seperated function row,
