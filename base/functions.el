@@ -81,15 +81,13 @@
         (force-window-update (get-buffer-window buf))))))
 
 (defvar lr/font-list'("Menlo-16" "Iosevka-16" "Lilex Nerd Font Mono-16" "Consoleet Darwin Smooth-18" "Fairfax-18"))
-(defun lr/enable-font ()
-  "Fuzzy-select a font from `lr/font-list` or enter a custom one, then enable it if valid."
+(defun lr/enable-font () "Fuzzy-select a font from `lr/font-list` or enter a custom one, then enable it if valid."
   (interactive)
   (let* ((input (completing-read "Choose font: " lr/font-list nil nil)) (font input))
     (when (member (car (split-string font "-")) (font-family-list)) (lr/use-font font))))
 
 (defun lr/theme (theme)
-  (interactive
-   (list (intern (completing-read "Theme: " (custom-available-themes)))))
+  (interactive (list (intern (completing-read "Theme: " (custom-available-themes)))))
   (mapc #'disable-theme custom-enabled-themes)
   (setq custom-safe-themes t)
   (load-theme theme t))
@@ -101,16 +99,8 @@
 
 (defun lr/toggle-mini-buffer-mode ()
   (interactive)
-  (if (bound-and-true-p vertico-flat-mode)
-      (progn
-        (vertico-flat-mode -1)
-        (marginalia-mode 1)
-        (message "Switched to Vertical Mode"))
-    (progn
-      (vertico-flat-mode 1)
-      (setq vertico-count-format nil)
-      (marginalia-mode -1)
-      (message "Switched to Horizontal Mode"))))
+  (if (bound-and-true-p vertico-flat-mode) (progn (vertico-flat-mode -1) (marginalia-mode 1) (message "Use Vertical"))
+    (progn (vertico-flat-mode 1) (setq vertico-count-format nil) (marginalia-mode -1) (message "Use Horizontal"))))
 
 (defun lr/colorize-compilation-buffer ()
   (read-only-mode 'toggle)

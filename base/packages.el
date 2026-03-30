@@ -29,10 +29,10 @@
 
 (use-package mood-line :defer t)
 (use-package ansi-color :defer t :config
-  (defun lr/colorize-compilation-buffer ()
+  (defun colorize-compilation-buffer ()
     (when (eq major-mode 'compilation-mode)
       (ansi-color-apply-on-region compilation-filter-start (point-max))))
-  :hook (compilation-filter . lr/colorize-compilation-buffer))
+  :hook (compilation-filter . colorize-compilation-buffer))
 
 ; === Completion Frameworks (minibuffer/UI) ===
 
