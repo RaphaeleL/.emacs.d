@@ -26,8 +26,7 @@
 ;; Use y-or-n-p instead of yes-or-no-p (safer approach)
 (setq use-dialog-box nil)
 
-(with-eval-after-load 'dired
-  (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
+(with-eval-after-load 'dired (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
 
 ;; ==================================================
 ;; ===== UI =========================================
@@ -80,7 +79,7 @@
 
 ;; Modern macOS titlebar by default
 ;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; or dark
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
 (add-to-list 'default-frame-alist '(ns-titlebar-appearance . dark))
 
 (setq ns-use-proxy-icon nil)

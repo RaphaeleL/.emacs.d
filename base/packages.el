@@ -19,7 +19,7 @@
   (setq dired-recursive-copies 'top
         dired-recursive-deletes 'top
         dired-dwim-target t
-        dired-listing-switches "-alh" ; --group-directories-first --sort=version
+        dired-listing-switches "-alh"
         ls-lisp-ignore-case t)
   (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode))
 (use-package diredfl :after dired)
@@ -49,9 +49,9 @@
          ("C-,"     . find-file)
          ("M-C-,"   . project-find-file)
          ("C-o"     . other-window)
-         ("M-o"     . switch-to-buffer) ; alt could be: ido-switch-buffer
+         ("M-o"     . switch-to-buffer) ; alternative could be: ido-switch-buffer
          ; ---- Compile
-         ("M-i"     . buffer-menu) ; alt could be: ibuffer
+         ("M-i"     . buffer-menu) ; alternative could be: ibuffer
          ("M-c"     . compile)
          ("M-s"     . shell-command)
          ("M-q"     . kill-compilation)
