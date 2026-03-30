@@ -79,9 +79,9 @@
 (set-face-attribute 'window-divider-last-pixel nil :foreground (face-background 'default))
 
 ;; Modern macOS titlebar by default
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . light)) ;; or dark
-(add-to-list 'default-frame-alist '(ns-titlebar-appearance . light))
+;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; or dark
+(add-to-list 'default-frame-alist '(ns-titlebar-appearance . dark))
 
 (setq ns-use-proxy-icon nil)
 (setq frame-resize-pixelwise t)
