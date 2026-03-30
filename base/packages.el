@@ -3,12 +3,12 @@
 (require 'cl-lib)
 
 (use-package multiple-cursors :defer t
-  :bind (("M-SPC"     . rectangle-mark-mode)
-         ("C-x SPC"   . rectangle-mark-mode)
-         ("M-e"       . mc/edit-lines)
-         ("C-c C-j"   . mc/mark-next-like-this)
-         ("C->"       . mc/mark-next-like-this)
-         ("C-<"       . mc/mark-previous-like-this)))
+  :bind (("M-SPC"   . rectangle-mark-mode)
+         ("C-x SPC" . rectangle-mark-mode)
+         ("M-e"     . mc/edit-lines)
+         ("C-c C-j" . mc/mark-next-like-this)
+         ("C->"     . mc/mark-next-like-this)
+         ("C-<"     . mc/mark-previous-like-this)))
 
 (use-package move-text :defer t :bind (("M-p" . move-text-up) ("M-n" . move-text-down)))
 (use-package magit :defer t :bind (("M-g" . magit) ("C-x g" . magit-status)))
@@ -29,23 +29,19 @@
 
 (use-package mood-line :defer t)
 (use-package ansi-color :defer t :config
-  (defun my-colorize-compilation-buffer ()
+  (defun lr/colorize-compilation-buffer ()
     (when (eq major-mode 'compilation-mode)
       (ansi-color-apply-on-region compilation-filter-start (point-max))))
-  :hook (compilation-filter . my-colorize-compilation-buffer))
+  :hook (compilation-filter . lr/colorize-compilation-buffer))
 
 ; === Completion Frameworks (minibuffer/UI) ===
 
 (use-package company :config (global-company-mode 1))                           ;; auto-completion
 (use-package vertico :init (vertico-mode 1) :custom (vertico-count-format nil)) ;; minibuffer completion ui
-(use-package vertico-flat :after vertico :init (vertico-flat-mode -1))           ;; minibuffer completion ui (flat)
+(use-package vertico-flat :after vertico :init (vertico-flat-mode -1))          ;; minibuffer completion ui (flat)
 (use-package orderless :config nil)                                             ;; fzf in minibuffer
 (use-package marginalia :config (marginalia-mode 1))                            ;; minibuffer ui/ux
-(use-package consult :defer t :bind                                             ;; more powerful commands
-  (("C-l"     . consult-line)
-   ("C-r"     . consult-ripgrep)))
- ; ("C-x M-o" . consult-buffer)
- ; ("C-r"     . consult-recent-file)
+(use-package consult :defer t :bind (("C-l" . consult-line) ("C-r" . consult-ripgrep))) ;; more powerful commands
 
 ;; NOTE: Default Keybindings which are based on Emacs- or Custom-Functions.
 (use-package emacs
@@ -100,11 +96,12 @@
 ;;  activated we are moving back to the default way of copy/past which is
 ;;  working on all cursors in that case. However, don't forget to reset this
 ;;  if multiple cursors are disabled. All this is in a hook.
-(use-package simpleclip :defer t :bind (("C-t" . lr/cut))
+(use-package simpleclip
   :config
   ;; Default bindings when NOT in multiple-cursors-mode
   (global-set-key (kbd "C-y") #'lr/paste)
   (global-set-key (kbd "C-w") #'lr/copy)
+  (global-set-key (kbd "C-t") #'lr/cut)
 
   ;; Function to swap bindings dynamically
   (defun lr/mc-setup-bindings ()
@@ -120,9 +117,6 @@
   ;; Hook into multiple-cursors
   (add-hook 'multiple-cursors-mode-enabled-hook #'lr/mc-setup-bindings)
   (add-hook 'multiple-cursors-mode-disabled-hook #'lr/mc-reset-bindings))
-; === LSP ===
-
-;; see base/lsp.el
 
 ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 
@@ -143,7 +137,7 @@
 ; === History / Recent Files ===
 
 (use-package savehist :init (savehist-mode 1))
-(use-package recentf  :init (recentf-mode 1))
+(use-package recentf :init (recentf-mode 1))
 (use-package whitespace :defer t :config
   (setq whitespace-style
         '(face tabs spaces tab-mark space-mark trailing missing-newline-at-eof
@@ -155,31 +149,9 @@
   (setq-default display-line-numbers-type 'relative)
   (setq display-line-numbers-major-tick 0)
   (setq display-line-numbers-minor-tick 0)
-  :init
-  (global-display-line-numbers-mode 1))
+  :init (global-display-line-numbers-mode 1))
 
 (setq prefix-help-command #'embark-prefix-help-command)
 
 (setq completion-styles '(orderless basic))
 (setq completion-category-overrides '((file (styles basic partial-completion))))
-
-;; (setq ibuffer-saved-filter-groups
-;;       '(("default"
-;;          ("Coding" (or (mode . c-mode) (mode . simpc-mode) (mode . c++-mode) (mode . java-mode) (mode . js-mode)
-;;                        (mode . typescript-mode) (mode . lua-mode) (mode . yaml-mode) (mode . php-mode) (mode . terraform-mode)
-;;                        (mode . ansible-mode) (mode . nginx-mode) (mode . conf-mode) (mode . groovy-mode) (mode . python-mode)
-;;                        (mode . makefile-mode) (mode . rpm-spec-mode) (mode . sh-mode) (mode . rust-mode) (mode . go-mode)
-;;                        (mode . web-mode) (mode . jinja2-mode) (mode . dockerfile-mode) (mode . syslog-mode)
-;;                        (mode . jenkinsfile-mode) (mode . c-ts-mode)))
-;;          ("Dired" (mode   . dired-mode))
-;;          ("Markup" (or (mode . json-mode) (mode . yaml-mode) (mode . text-mode) (mode . markdown-mode)))
-;;          ("Magit" (or (name  . "Magit") (name  . ".*magit.*") (name  . "Magit\\*$")))
-;;          ("Logs" (or (mode   . syslog-mode) (name   . "^\\*Messages\\*$")))
-;;          ("Emacs" (or (mode  . emacs-lisp-mode) (mode  . lisp-interaction-mode) (mode  . help-mode)
-;;                       (name  . "^\\*Compile-Log\\*$") (name  . "^\\*Backtrace\\*$") (name  . "^\\*Warnings\\*$")
-;;                       (name  .  "^\\*scratch\\*$") (name  . "^\\*Help\\*$")))
-;;          ("Other" (or (mode  . compilation-mode) (mode  . elisp-compile-mode) (mode  . special-mode) (mode  . custom-mode)
-;;                       (mode  . fundamental-mode) (name  . ".*"))))))
-
-;; (add-hook 'ibuffer-mode-hook (lambda ()
-;;                                (ibuffer-switch-to-saved-filter-groups "default")))

@@ -140,10 +140,7 @@
     (if (get-buffer-window buffer) (delete-window (get-buffer-window buffer)) (switch-to-buffer-other-window buffer))))
 (defun lr/toggle-scratch-buffer () (interactive) (lr/toggle-buffer "*scratch*"))
 (defun lr/toggle-compilation-buffer () (interactive) (lr/toggle-buffer "*compilation*"))
-
-(defun lr/toggle-system ()
-  ;; If vertico-mode is active, assume modern. otherwise, assume legacy
-  (interactive) (if (and (boundp 'vertico-mode) vertico-mode) (lr/legacy) (lr/modern)))
+(defun lr/toggle-system () (interactive) (if (and (boundp 'vertico-mode) vertico-mode) (lr/legacy) (lr/modern)))
 
 (defun lr/update-line-number-font-size ()
   (interactive)
