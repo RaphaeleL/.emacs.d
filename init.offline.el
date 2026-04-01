@@ -57,18 +57,22 @@
 (load (expand-file-name "programming.el"  modes-dir) 'noerror)
 
 ;; --------------------------------------------------
-;; 5. OS-specific configuration
+;; 5. Theme, User Interface and Look
 ;; --------------------------------------------------
 
 (lr/modern)
+
+;; --------------------------------------------------
+;; 6. OS-specific configuration
+;; --------------------------------------------------
 
 (setq mac-command-modifier 'meta     ; Command as Meta
       mac-option-modifier 'control   ; Option as Control
       mac-control-modifier 'control  ; Ensure Control is Control
       default-input-method "MacOSX")
 
-(add-to-list 'default-frame-alist '(width  . 95)) ; 136
-(add-to-list 'default-frame-alist '(height . 44)) ; 38
+(add-to-list 'default-frame-alist '(width  . 136))
+(add-to-list 'default-frame-alist '(height . 38))
 ; (add-to-list 'default-frame-alist '(left . 200))
 ; (add-to-list 'default-frame-alist '(top  . 120))
 
@@ -83,7 +87,7 @@
 ; (global-set-key (kbd "C-c C-6") (lambda () (interactive) (insert "]")))
 
 ;; --------------------------------------------------
-;; 6. Custom file
+;; 7. Custom file
 ;; --------------------------------------------------
 
 (setq custom-file (expand-file-name "output.el" emacs-dir))

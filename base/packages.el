@@ -73,7 +73,8 @@
          ; ---- (G)UI
          ("C-="     . (lambda () (interactive) (text-scale-increase 1)))
          ("C-+"     . (lambda () (interactive) (text-scale-increase 1)))
-         ("C--"     . (lambda () (interactive) (text-scale-decrease 1)))))
+         ("C--"     . (lambda () (interactive) (text-scale-decrease 1)))
+         ("M-ESC"   . lr/reload)))
 
 ; NOTE: originally those keymaps were meant to be on the function row, since
 ;  some keyboards, like the HHKB Boards, dont have a seperated function row,
@@ -81,14 +82,14 @@
 ;  function row keybindings. Only to fit into such keyboards as well. In the
 ;  future this might get solved in other way.
 (use-package custom-keys :bind
-  (("M-1"     . lr/toggle-scratch-buffer)       ("<f1>"    . lr/toggle-scratch-buffer)
-   ("M-2"     . lr/toggle-compilation-buffer)   ("<f2>"    . lr/toggle-compilation-buffer)
-   ("M-3"     . isearch-forward-thing-at-point) ("<f3>"    . isearch-forward-thing-at-point)
-   ("M-4"     . lr/toggle-config)               ("<f4>"    . lr/toggle-config)
-   ("M-5"     . lr/toggle-theme)                ("<f5>"    . lr/toggle-theme)
-   ("M-6"     . lr/default-theme)               ("<f6>"    . lr/default-theme)
-   ("M-7"     . lr/toggle-system)               ("<f7>"    . lr/toggle-system)
-   ("M-9"     . fundamental-mode)               ("<f9>"    . fundamental-mode)))
+  (("M-1" . lr/toggle-scratch-buffer)       ("<f1>" . lr/toggle-scratch-buffer)
+   ("M-2" . lr/toggle-compilation-buffer)   ("<f2>" . lr/toggle-compilation-buffer)
+   ("M-3" . isearch-forward-thing-at-point) ("<f3>" . isearch-forward-thing-at-point)
+   ("M-4" . lr/toggle-config)               ("<f4>" . lr/toggle-config)
+   ("M-5" . lr/toggle-theme)                ("<f5>" . lr/toggle-theme)
+   ("M-6" . lr/default-theme)               ("<f6>" . lr/default-theme)
+   ("M-7" . lr/toggle-system)               ("<f7>" . lr/toggle-system)
+   ("M-9" . fundamental-mode)               ("<f9>" . fundamental-mode)))
 
 ;; NOTE: We want to Copy to Clipboard, which is done with simpleclip. However
 ;;  simpleclip is not working with multiplecursors. Thereby we are copy/paste
