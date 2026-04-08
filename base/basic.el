@@ -1,14 +1,17 @@
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(with-eval-after-load 'dired (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
+(add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-themes/enhanced")
+(with-current-buffer "*scratch*" (fundamental-mode) (auto-fill-mode 1) (visual-line-mode 1) (toggle-word-wrap 1))
+
 ;; Disable native compilation to avoid startup errors
 (setq native-comp-enable-subr-trampolines nil)
 (setq native-comp-async-report-warnings-errors nil)
 
-(save-place-mode 1)
-(simpleclip-mode 1)
+(setq save-place-mode 1)
+(setq simpleclip-mode 1)
 
 (setq window-resize-pixelwise t)
 (setq frame-resize-pixelwise t)
-
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (setq package-enable-at-startup nil)
 
@@ -26,33 +29,23 @@
 ;; Use y-or-n-p instead of yes-or-no-p (safer approach)
 (setq use-dialog-box nil)
 
-(with-eval-after-load 'dired (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
+(setq set-fringe-mode 0)
 
-;; ==================================================
-;; ===== UI =========================================
-;; ==================================================
+(setq diredfl-global-mode 1)
 
-(set-fringe-mode 0)
-
-(diredfl-global-mode 1)
-
-(mood-line-mode -1)
+(setq mood-line-mode -1)
 (setq mode-line-format nil)
 
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 (setq initial-major-mode 'fundamental-mode)
 
-(with-current-buffer "*scratch*" (fundamental-mode) (auto-fill-mode 1) (visual-line-mode 1) (toggle-word-wrap 1))
+(setq scroll-bar-mode -1)
+(setq tool-bar-mode -1)
+(setq tooltip-mode -1)
+(setq menu-bar-mode -1)
 
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-(menu-bar-mode -1)
-
-(add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-themes/enhanced")
-
-(blink-cursor-mode 0)
+(setq blink-cursor-mode 0)
 (setq x-stretch-cursor nil)
 (setq ring-bell-function 'ignore)
 (setq echo-keystrokes 0.01)
@@ -169,8 +162,7 @@
 
 ; If you create a file that starts with #! (a shebang line), it should be executable. But you always forget to chmod +x it, run the script, get “Permission denied”, curse, go back, chmod, try again. This hook does it automatically:
 
-(add-hook 'after-save-hook
-          #'executable-make-buffer-file-executable-if-script-p)
+(add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
 
 ; Save a file with a shebang, and Emacs chmod +xes it for you. One of those things that should arguably be a default.
 
@@ -211,16 +203,10 @@
 
 ; With winner-mode and a small wrapper, you can make C-x 1 toggle: press it once to go single-window, press it again to restore the previous layout:
 
-(winner-mode +1)
-
+(setq winner-mode +1)
 (defun toggle-delete-other-windows ()
-  "Delete other windows in frame if any, or restore previous window config."
   (interactive)
-  (if (and winner-mode
-           (equal (selected-window) (next-window)))
-      (winner-undo)
-    (delete-other-windows)))
-
+  (if (and winner-mode (equal (selected-window) (next-window))) (winner-undo) (delete-other-windows)))
 (global-set-key (kbd "C-x 1") #'toggle-delete-other-windows)
 
 ; Just drop this into your config as-is – it’s self-contained. This is one of those tricks where once you have it, you can’t imagine going back.
@@ -240,9 +226,7 @@
 
 ; save-place-mode is great – it remembers where you were in each file and jumps back there when you reopen it. The problem is that it can leave your cursor on the last visible line of the window, which is disorienting. This advice recenters the view after the jump:
 
-(advice-add 'save-place-find-file-hook :after
-            (lambda (&rest _)
-              (when buffer-file-name (ignore-errors (recenter)))))
+(advice-add 'save-place-find-file-hook :after (lambda (&rest _) (when buffer-file-name (ignore-errors (recenter)))))
 
 ; Small thing, but it makes reopening files feel much more natural.
 
