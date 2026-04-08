@@ -5,10 +5,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(company consult dired+ diredfl dockerfile-mode go-mode
-             gruber-darker-theme jenkinsfile-mode jinja2-mode magit
-             marginalia markdown-mode mason modus-themes mood-line
-             move-text multiple-cursors orderless paredit
+   '(company consult dired+ diredfl dockerfile-mode exec-path-from-shell
+             go-mode gruber-darker-theme jenkinsfile-mode jinja2-mode
+             magit marginalia markdown-mode mason modus-themes
+             mood-line move-text multiple-cursors orderless paredit
              rpm-spec-mode rust-mode simpleclip vertico web-mode
              yaml-mode)))
 (custom-set-faces
