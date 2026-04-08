@@ -131,7 +131,7 @@
 ; All four of these performance settings are safe to add unconditionally – they have no downsides for the vast majority of users.
 
 ; Kill Ring (Emacs’s Clipboard History) and Clipboard
-Save the Clipboard Before Killing (Purcell, Prot, Centaur)
+; Save the Clipboard Before Killing (Purcell, Prot, Centaur)
 
 ; Here’s a scenario: you copy a URL from your browser, switch to Emacs, kill a line with C-k, and then try to yank the URL you copied earlier with C-y. Gone. The kill replaced it on the clipboard.
 
