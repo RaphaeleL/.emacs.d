@@ -50,6 +50,7 @@
          ("M-C-,"   . project-find-file)
          ("C-o"     . other-window)
          ("M-o"     . switch-to-buffer) ; alternative could be: ido-switch-buffer
+         ("M-:"     . goto-line)
          ; ---- Compile
          ("M-i"     . buffer-menu) ; alternative could be: ibuffer
          ("M-c"     . compile)
@@ -73,8 +74,7 @@
          ; ---- (G)UI
          ("C-="     . (lambda () (interactive) (text-scale-increase 1)))
          ("C-+"     . (lambda () (interactive) (text-scale-increase 1)))
-         ("C--"     . (lambda () (interactive) (text-scale-decrease 1)))
-         ("M-ESC"   . lr/reload)))
+         ("C--"     . (lambda () (interactive) (text-scale-decrease 1)))))
 
 ; NOTE: originally those keymaps were meant to be on the function row, since
 ;  some keyboards, like the HHKB Boards, dont have a seperated function row,
@@ -85,10 +85,12 @@
   (("M-1" . lr/toggle-scratch-buffer)       ("<f1>" . lr/toggle-scratch-buffer)
    ("M-2" . lr/toggle-compilation-buffer)   ("<f2>" . lr/toggle-compilation-buffer)
    ("M-3" . isearch-forward-thing-at-point) ("<f3>" . isearch-forward-thing-at-point)
+
    ("M-4" . lr/toggle-config)               ("<f4>" . lr/toggle-config)
    ("M-5" . lr/toggle-theme)                ("<f5>" . lr/toggle-theme)
    ("M-6" . lr/default-theme)               ("<f6>" . lr/default-theme)
    ("M-7" . lr/toggle-system)               ("<f7>" . lr/toggle-system)
+
    ("M-9" . fundamental-mode)               ("<f9>" . fundamental-mode)))
 
 ;; NOTE: We want to Copy to Clipboard, which is done with simpleclip. However
@@ -98,26 +100,18 @@
 ;;  working on all cursors in that case. However, don't forget to reset this
 ;;  if multiple cursors are disabled. All this is in a hook.
 (use-package simpleclip
+  :demand t   ;; <-- IMPORTANT: force immediate load
   :config
-  ;; Default bindings when NOT in multiple-cursors-mode
-  (global-set-key (kbd "C-y") #'lr/paste)
+  ;; --- Default behavior ---
   (global-set-key (kbd "C-w") #'lr/copy)
+  (global-set-key (kbd "C-y") #'lr/paste)
   (global-set-key (kbd "C-t") #'lr/cut)
 
-  ;; Function to swap bindings dynamically
-  (defun lr/mc-setup-bindings ()
-    "Set key bindings for multiple-cursors mode."
-    (local-set-key (kbd "C-y") #'clipboard-yank)
-    (local-set-key (kbd "C-w") #'clipboard-kill-ring-save))
-
-  (defun lr/mc-reset-bindings ()
-    "Restore global bindings after leaving multiple-cursors mode."
-    (local-set-key (kbd "C-y") #'lr/paste)
-    (local-set-key (kbd "C-w") #'lr/copy))
-
-  ;; Hook into multiple-cursors
-  (add-hook 'multiple-cursors-mode-enabled-hook #'lr/mc-setup-bindings)
-  (add-hook 'multiple-cursors-mode-disabled-hook #'lr/mc-reset-bindings))
+  ;; --- Multiple cursors override ---
+  (with-eval-after-load 'multiple-cursors
+    (define-key mc/keymap (kbd "C-w") #'kill-ring-save)
+    (define-key mc/keymap (kbd "C-y") #'yank)
+    (define-key mc/keymap (kbd "C-t") #'kill-region)))
 
 ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 

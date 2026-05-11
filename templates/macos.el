@@ -15,8 +15,8 @@
 ;; Default Size and Position of Emacs on MacOS
 (add-to-list 'default-frame-alist '(width  . 136))
 (add-to-list 'default-frame-alist '(height . 38))
-(add-to-list 'default-frame-alist '(left   . 150))
-(add-to-list 'default-frame-alist '(top    . 120))
+;; (add-to-list 'default-frame-alist '(left   . 150))
+;; (add-to-list 'default-frame-alist '(top    . 120))
 
 ;; Key remapping for MacOS
 (setq mac-command-modifier 'meta     ; Command as Meta

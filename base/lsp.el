@@ -57,6 +57,11 @@
 (setq-default c-basic-offset 4)
 (setq-default c-basic-offset 4)
 
+; Do some C++ Settings
+(setq lsp-enable-on-type-formatting nil)
+(add-hook 'c++-mode-hook (lambda () (setq-local indent-region-function #'c-indent-region)))
+(advice-add 'lsp--on-type-formatting :override #'ignore)
+
 ; Do some LSP Settings
 (setq eglot-extend-to-xref t)
 (setq eglot-autoshutdown t)

@@ -35,6 +35,7 @@
   (interactive)
   (lr/use-font "Iosevka-18")
   (lr/theme 'lr_gruberdarker)
+  (lr/use-font "Comic Code-16")
   (global-whitespace-mode 0)
   (vertico-mode 1)
   (mood-line-mode 1)
@@ -45,7 +46,6 @@
 
 (defun lr/legacy ()
   (interactive)
-  (lr/disable-font)
   (mapc #'disable-theme custom-enabled-themes)
   (cond
     ((eq system-type 'windows-nt) (lr/disable-font))
@@ -83,7 +83,7 @@
       (with-current-buffer buf
         (force-window-update (get-buffer-window buf))))))
 
-(defvar lr/font-list'("Menlo-16" "Iosevka-16" "Lilex Nerd Font Mono-16" "Consoleet Darwin Smooth-18" "Fairfax-18"))
+(defvar lr/font-list'("Menlo-16" "Iosevka-16" "Lilex Nerd Font Mono-16" "Consoleet Darwin Smooth-18" "Comic Code-16"))
 (defun lr/enable-font () "Fuzzy-select a font from `lr/font-list` or enter a custom one, then enable it if valid."
   (interactive)
   (let* ((input (completing-read "Choose font: " lr/font-list nil nil)) (font input))
