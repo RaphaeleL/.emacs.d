@@ -4,11 +4,6 @@
 ;; LSP
 (load "~/.emacs.d/base/lsp.el")
 
-;; Theme
-(lr/modern)
-; (lr/default-theme)
-(lr/theme 'lr_gruberdarker)
-
 ;; menu bar is not distracting on macos gui.
 (if (display-graphic-p) (menu-bar-mode 1) (menu-bar-mode -1))
 

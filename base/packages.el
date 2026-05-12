@@ -1,3 +1,5 @@
+;;; packages.el --- Package configuration -*- lexical-binding: t; -*-
+
 ; === Essential Editing & Programming Tools ===
 
 (require 'cl-lib)
@@ -11,23 +13,22 @@
          ("C-<"     . mc/mark-previous-like-this)))
 
 (use-package move-text :defer t :bind (("M-p" . move-text-up) ("M-n" . move-text-down)))
-(use-package magit :defer t :bind (("M-g" . magit) ("C-x g" . magit-status)))
-(use-package paredit :defer t)
+(use-package magit     :defer t :bind (("M-g" . magit) ("C-x g" . magit-status)))
+(use-package paredit   :defer t)
 
 (use-package dired
   :ensure nil :bind (("C-." . dired-jump)) :config
   (setq dired-recursive-copies 'top
         dired-recursive-deletes 'top
         dired-dwim-target t
-        dired-listing-switches "-alh"
-        ls-lisp-ignore-case t)
+        dired-listing-switches "-alh")
   (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode))
 (use-package diredfl :after dired)
 (use-package dired-x :ensure nil :after dired)
 
 ; === Optional UI Enhancements ===
 
-(use-package mood-line :defer t)
+;; (use-package mood-line :defer t)
 (use-package ansi-color :defer t :config
   (defun colorize-compilation-buffer ()
     (when (eq major-mode 'compilation-mode)
@@ -41,7 +42,11 @@
 (use-package vertico-flat :after vertico :init (vertico-flat-mode -1))          ;; minibuffer completion ui (flat)
 (use-package orderless :config nil)                                             ;; fzf in minibuffer
 (use-package marginalia :config (marginalia-mode 1))                            ;; minibuffer ui/ux
-(use-package consult :defer t :bind (("C-l" . consult-line) ("C-r" . consult-ripgrep))) ;; more powerful commands
+(use-package consult
+  :defer t
+  :bind (("C-l"   . consult-line)
+         ("C-r"   . consult-ripgrep)
+         ("C-x b" . consult-buffer)))
 
 ;; NOTE: Default Keybindings which are based on Emacs- or Custom-Functions.
 (use-package emacs
@@ -49,10 +54,10 @@
          ("C-,"     . find-file)
          ("M-C-,"   . project-find-file)
          ("C-o"     . other-window)
-         ("M-o"     . switch-to-buffer) ; alternative could be: ido-switch-buffer
+         ("M-o"     . switch-to-buffer)
          ("M-:"     . goto-line)
          ; ---- Compile
-         ("M-i"     . buffer-menu) ; alternative could be: ibuffer
+         ("M-i"     . buffer-menu)
          ("M-c"     . compile)
          ("M-s"     . shell-command)
          ("M-q"     . kill-compilation)
@@ -62,6 +67,7 @@
          ("C-x e"   . call-last-kbd-macro)
          ; ---- Selection
          ("M-w"     . mark-word)
+         ("M-k"     . mark-sexp)
          ("M-a"     . mark-page)
          ("M-t"     . mark-paragraph)
          ("M-F"     . mark-defun)
@@ -74,23 +80,22 @@
          ; ---- (G)UI
          ("C-="     . (lambda () (interactive) (text-scale-increase 1)))
          ("C-+"     . (lambda () (interactive) (text-scale-increase 1)))
-         ("C--"     . (lambda () (interactive) (text-scale-decrease 1)))))
+         ("C--"     . (lambda () (interactive) (text-scale-decrease 1)))
+         ("C-c n"   . lr/toggle-line-numbers)
+         ("C-c w"   . lr/toggle-whitespace)
+         ("C-c t"   . lr/transparent)))
 
-; NOTE: originally those keymaps were meant to be on the function row, since
-;  some keyboards, like the HHKB Boards, dont have a seperated function row,
-;  those keymaps are kinda hard to hit. thereby they are also mapped into non
-;  function row keybindings. Only to fit into such keyboards as well. In the
-;  future this might get solved in other way.
+;; NOTE: originally those keymaps were meant to be on the function row, since
+;;  some keyboards, like the HHKB Boards, dont have a seperated function row,
+;;  those keymaps are kinda hard to hit. thereby they are also mapped into non
+;;  function row keybindings. Only to fit into such keyboards as well. In the
+;;  future this might get solved in other way.
 (use-package custom-keys :bind
   (("M-1" . lr/toggle-scratch-buffer)       ("<f1>" . lr/toggle-scratch-buffer)
    ("M-2" . lr/toggle-compilation-buffer)   ("<f2>" . lr/toggle-compilation-buffer)
    ("M-3" . isearch-forward-thing-at-point) ("<f3>" . isearch-forward-thing-at-point)
-
-   ("M-4" . lr/toggle-config)               ("<f4>" . lr/toggle-config)
-   ("M-5" . lr/toggle-theme)                ("<f5>" . lr/toggle-theme)
-   ("M-6" . lr/default-theme)               ("<f6>" . lr/default-theme)
-   ("M-7" . lr/toggle-system)               ("<f7>" . lr/toggle-system)
-
+   ("M-4" . lr/toggle-ui)                   ("<f4>" . lr/toggle-ui)
+   ; ... space for more
    ("M-9" . fundamental-mode)               ("<f9>" . fundamental-mode)))
 
 ;; NOTE: We want to Copy to Clipboard, which is done with simpleclip. However
@@ -115,24 +120,27 @@
 
 ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 
-(use-package markdown-mode      :mode ("\\.md\\'"        . markdown-mode))
-(use-package dockerfile-mode    :mode ("Dockerfile\\'"   . dockerfile-mode))
-(use-package jenkinsfile-mode   :mode ("Jenkinsfile\\'"  . jenkinsfile-mode))
-(use-package yaml-mode          :mode ("\\.yaml\\'"      . yaml-mode))
-(use-package jinja2-mode        :mode ("\\.j2\\'"        . jinja2-mode))
-(use-package go-mode            :mode ("\\.go\\'"        . go-mode))
-(use-package rust-mode          :mode ("\\.rs\\'"        . rust-mode))
-(use-package rpm-spec-mode      :mode ("\\.spec\\'"      . rpm-spec-mode))
-(use-package web-mode           :mode (("\\.html?\\'"    . web-mode)
-                                       ("\\.js\\'"       . web-mode)
-                                       ("\\.jsx\\'"      . web-mode)
-                                       ("\\.tsx\\'"      . web-mode)
-                                       ("\\.css\\'"      . web-mode)))
+(use-package markdown-mode    :mode ("\\.md\\'"       . markdown-mode))
+(use-package dockerfile-mode  :mode ("Dockerfile\\'"  . dockerfile-mode))
+(use-package jenkinsfile-mode :mode ("Jenkinsfile\\'" . jenkinsfile-mode))
+(use-package yaml-mode        :mode ("\\.yaml\\'"     . yaml-mode))
+(use-package jinja2-mode      :mode ("\\.j2\\'"       . jinja2-mode))
+(use-package go-mode          :mode ("\\.go\\'"       . go-mode))
+(use-package rust-mode        :mode ("\\.rs\\'"       . rust-mode))
+(use-package rpm-spec-mode    :mode ("\\.spec\\'"     . rpm-spec-mode))
+(use-package web-mode         :mode (("\\.html?\\'"   . web-mode)
+                                     ("\\.js\\'"      . web-mode)
+                                     ("\\.jsx\\'"     . web-mode)
+                                     ("\\.tsx\\'"     . web-mode)
+                                     ("\\.css\\'"     . web-mode)))
 
 ; === History / Recent Files ===
 
 (use-package savehist :init (savehist-mode 1))
 (use-package recentf :init (recentf-mode 1))
+
+; === Misc ===
+
 (use-package whitespace :defer t :config
   (setq whitespace-style
         '(face tabs spaces tab-mark space-mark trailing missing-newline-at-eof
@@ -146,7 +154,8 @@
   (setq display-line-numbers-minor-tick 0)
   :init (global-display-line-numbers-mode 1))
 
-(setq prefix-help-command #'embark-prefix-help-command)
-
 (setq completion-styles '(orderless basic))
 (setq completion-category-overrides '((file (styles basic partial-completion))))
+
+(provide 'packages)
+;;; packages.el ends here

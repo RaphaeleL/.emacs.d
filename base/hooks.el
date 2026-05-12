@@ -1,3 +1,5 @@
+;;; hooks.el --- Global hooks & mode associations -*- lexical-binding: t; -*-
+
 ;; General hooks and mode associations
 (add-hook 'after-init-hook (lambda () (advice-add 'yes-or-no-p :override #'y-or-n-p)))
 
@@ -34,3 +36,6 @@
 (add-hook 'prog-mode-hook #'visual-line-mode)
 
 (setq-default truncate-lines nil)
+
+(provide 'hooks)
+;;; hooks.el ends here

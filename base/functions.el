@@ -1,3 +1,5 @@
+;;; functions.el --- lr/* helper functions -*- lexical-binding: t; -*-
+
 (defun lr/toggle-theme ()
   (interactive)
   (diredfl-global-mode 1)
@@ -31,34 +33,38 @@
   (diredfl-global-mode 0)
   (mapc #'disable-theme custom-enabled-themes))
 
+(defun lr/minibuffer-history-keys ()
+  (define-key minibuffer-local-map (kbd "C-n") #'next-history-element)
+  (define-key minibuffer-local-map (kbd "C-p") #'previous-history-element))
+
 (defun lr/modern ()
-  (interactive)
-  (lr/use-font "Iosevka-18")
-  (lr/theme 'lr_gruberdarker)
   (lr/use-font "Comic Code-16")
-  (global-whitespace-mode 0)
-  (vertico-mode 1)
+  (lr/theme 'lr_gruberdarker)
   (mood-line-mode 1)
+  (vertico-mode 1)
   (marginalia-mode 1)
-  (lr/line-relative)
+  (global-whitespace-mode 0)
+  (vertico-flat-mode 0)
   (set-fringe-mode 0)
-  (message "Modern Emacs Mode enabled"))
+  (lr/line-relative)
+  (remove-hook 'minibuffer-setup-hook #'lr/minibuffer-history-keys))
 
 (defun lr/legacy ()
-  (interactive)
-  (mapc #'disable-theme custom-enabled-themes)
-  (cond
-    ((eq system-type 'windows-nt) (lr/disable-font))
-    ((eq system-type 'darwin)     (lr/disable-font))
-    ((eq system-type 'gnu/linux)  (lr/disable-font)))
+  (lr/default-theme)
+  (eglot-shutdown-all)
+  (cond ((eq system-type 'windows-nt) (lr/disable-font))
+        ((eq system-type 'darwin)     (lr/use-font "Comic Code-16"))
+        ((eq system-type 'gnu/linux)  (lr/disable-font)))
   (global-whitespace-mode 0)
-  (diredfl-global-mode 0)
-  (mood-line-mode -1)
-  (vertico-mode -1)
+  (mood-line-mode 0)
+  (vertico-mode 0)
+  (vertico-flat-mode 0)
   (marginalia-mode 0)
-  (lr/line-normal)
-  (set-fringe-mode 0)
-  (message "Legacy Emacs Mode enabled"))
+  (lr/line-off)
+  (set-fringe-mode '(8 . 8))
+  (add-hook 'minibuffer-setup-hook #'lr/minibuffer-history-keys))
+
+(defun lr/toggle-ui () (interactive) (setq lr/switch (not lr/switch)) (if lr/switch (lr/modern) (lr/legacy)) (message ""))
 
 (defun lr/disable-font ()
   (interactive)
@@ -84,7 +90,7 @@
         (force-window-update (get-buffer-window buf))))))
 
 (defvar lr/font-list'("Menlo-16" "Iosevka-16" "Lilex Nerd Font Mono-16" "Consoleet Darwin Smooth-18" "Comic Code-16"))
-(defun lr/enable-font () "Fuzzy-select a font from `lr/font-list` or enter a custom one, then enable it if valid."
+(defun lr/enable-font ()
   (interactive)
   (let* ((input (completing-read "Choose font: " lr/font-list nil nil)) (font input))
     (when (member (car (split-string font "-")) (font-family-list)) (lr/use-font font))))
@@ -117,14 +123,30 @@
         (delete-window (get-buffer-window buffer))
       (switch-to-buffer-other-window (get-buffer-create buffer-name)))))
 
-(defun lr/open_config() (interactive) (find-file "~/.emacs.d/init.el"))
 (defun lr/toggle-config ()
   (interactive)
-  (let* ((file "~/.emacs.d/init.el") (buffer (find-file-noselect file)))
+  (let* ((file user-init-file) (buffer (find-file-noselect file)))
     (if (get-buffer-window buffer) (delete-window (get-buffer-window buffer)) (switch-to-buffer-other-window buffer))))
 (defun lr/toggle-scratch-buffer () (interactive) (lr/toggle-buffer "*scratch*"))
 (defun lr/toggle-compilation-buffer () (interactive) (lr/toggle-buffer "*compilation*"))
 (defun lr/toggle-system () (interactive) (if (and (boundp 'vertico-mode) vertico-mode) (lr/legacy) (lr/modern)))
+(defun lr/open_config() (interactive) (find-file user-init-file))
+
+(defun lr/find-corresponding-file ()
+  (interactive)
+  (let* ((name (buffer-file-name))
+         (base (when name (file-name-sans-extension name)))
+         (ext  (and name (file-name-extension name)))
+         target)
+    (when name
+      (setq target
+            (cond ((member ext '("c" "cpp" "cc" "cxx")) (or (concat base ".h") (concat base ".hpp")))
+                  ((member ext '("h" "hpp"))
+                   (cond ((file-exists-p (concat base ".c"))   (concat base ".c"))
+                         ((file-exists-p (concat base ".cpp")) (concat base ".cpp"))
+                         ((file-exists-p (concat base ".cc"))  (concat base ".cc"))))
+                  (t nil)))
+      (if (and target (file-exists-p target)) (find-file target) (user-error "No corresponding file found")))))
 
 (defun lr/update-line-number-font-size ()
   (interactive)
@@ -138,6 +160,17 @@
 (defun lr/line-normal() (interactive) (menu-bar--display-line-numbers-mode-absolute))
 (defun lr/line-relative() (interactive) (menu-bar--display-line-numbers-mode-relative))
 (defun lr/line-off() (interactive) (menu-bar--display-line-numbers-mode-none))
+
+(defun lr/toggle-line-numbers ()
+  (interactive)
+  (cond
+   ((eq display-line-numbers 'relative) (lr/line-normal))
+   ((eq display-line-numbers t)         (lr/line-relative))
+   (t                                   (lr/line-relative))))
+
+(defun lr/toggle-whitespace ()
+  (interactive)
+  (if (bound-and-true-p global-whitespace-mode) (global-whitespace-mode -1) (global-whitespace-mode 1)))
 
 (defun lr/my-compile-minibuffer-setup ()
   (when (eq this-command 'compile)
@@ -160,16 +193,8 @@
       (local-set-key (kbd "C-n") 'icomplete-forward-completions)
       (local-set-key (kbd "C-p") 'icomplete-backward-completions))))
 
-(defun lr/create-keymap     (key action) (global-set-key (kbd key) action))
-(defun lr/create-keymap-cc  (key action) (global-set-key (kbd (concat "C-c "   key)) action))
-(defun lr/create-keymap-ccc (key action) (global-set-key (kbd (concat "C-c C-" key)) action))
-(defun lr/create-keymap-cx  (key action) (global-set-key (kbd (concat "C-x "   key)) action))
-(defun lr/create-keymap-m   (key action) (global-set-key (kbd (concat "M-"     key)) action))
-(defun lr/create-keymap-c   (key action) (global-set-key (kbd (concat "C-"     key)) action))
-
 (defun lr/reload () (interactive) (load-file user-init-file) (message "Emacs reloaded."))
 (defun lr/minibuffer-setup-combined () (lr/my-compile-minibuffer-setup) (lr/my-fido-minibuffer-setup))
-
 (defun lr/remove-window-dividers ()
   (window-divider-mode -1)
   (dolist (frame (frame-list))
@@ -177,19 +202,20 @@
       (set-window-parameter window 'window-divider-right-width 0)
       (set-window-parameter window 'window-divider-bottom-width 0))))
 
+
 (defvar lr/transparent-enabled nil)
 (defun lr/transparent ()
-  "Toggle frame transparency."
   (interactive)
   (setq lr/transparent-enabled (not lr/transparent-enabled))
   (if lr/transparent-enabled
-      ;; ENABLE
       (progn
         (set-frame-parameter nil 'alpha 95)
         (add-to-list 'default-frame-alist '(alpha . 95))
         (message "Transparency enabled"))
-    ;; DISABLE
     (progn
       (set-frame-parameter nil 'alpha 100)
       (setq default-frame-alist (assq-delete-all 'alpha default-frame-alist))
       (message "Transparency disabled"))))
+
+(provide 'functions)
+;;; functions.el ends here

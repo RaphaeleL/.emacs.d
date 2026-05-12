@@ -1,3 +1,5 @@
+;;; lsp.el --- LSP / Eglot configuration -*- lexical-binding: t; -*-
+
 ;; LSP Configuration for Emacs using Eglot and Mason
 ;; (use-package mason :ensure t :config (mason-ensure))
 ;; (mason-ensure
@@ -74,3 +76,6 @@
           (lambda ()
             (setq-local completion-category-defaults nil)
             (setq-local eglot-events-buffer-size 0)))
+
+(provide 'lsp)
+;;; lsp.el ends here

@@ -1,19 +1,20 @@
+;;; basic.el --- Core UI and editing defaults -*- lexical-binding: t; -*-
+
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (with-eval-after-load 'dired (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
-(add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-themes/enhanced")
+(add-to-list 'custom-theme-load-path
+             (expand-file-name "emacs-themes/enhanced" user-emacs-directory))
 (with-current-buffer "*scratch*" (fundamental-mode) (auto-fill-mode 1) (visual-line-mode 1) (toggle-word-wrap 1))
 
 ;; Disable native compilation to avoid startup errors
-(setq native-comp-enable-subr-trampolines nil)
-(setq native-comp-async-report-warnings-errors nil)
+(when (boundp 'native-comp-enable-subr-trampolines) (setq native-comp-enable-subr-trampolines nil))
+(when (boundp 'native-comp-async-report-warnings-errors) (setq native-comp-async-report-warnings-errors nil))
 
-(setq save-place-mode 1)
-(setq simpleclip-mode 1)
+(save-place-mode 1)
+(simpleclip-mode 1)
 
-(setq window-resize-pixelwise t)
-(setq frame-resize-pixelwise t)
-
-(setq package-enable-at-startup nil)
+(setq window-resize-pixelwise t
+      frame-resize-pixelwise  t)
 
 (setq make-backup-files nil)
 (setq auto-save-default nil)
@@ -26,26 +27,22 @@
 (setq-default tab-width 4)
 (setq-default toggle-word-wrap t)
 
-;; Use y-or-n-p instead of yes-or-no-p (safer approach)
+;; UI prompts
 (setq use-dialog-box nil)
 
-(setq set-fringe-mode 0)
+(set-fringe-mode 0)
+(diredfl-global-mode 1)
 
-(setq diredfl-global-mode 1)
+(setq inhibit-startup-message t
+      initial-scratch-message nil
+      initial-major-mode 'fundamental-mode)
 
-(setq mood-line-mode -1)
-(setq mode-line-format nil)
+(when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(when (fboundp 'tool-bar-mode)   (tool-bar-mode -1))
+(when (fboundp 'tooltip-mode)    (tooltip-mode -1))
+(when (fboundp 'menu-bar-mode)   (menu-bar-mode -1))
 
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-(setq initial-major-mode 'fundamental-mode)
-
-(setq scroll-bar-mode -1)
-(setq tool-bar-mode -1)
-(setq tooltip-mode -1)
-(setq menu-bar-mode -1)
-
-(setq blink-cursor-mode 0)
+(blink-cursor-mode 0)
 (setq x-stretch-cursor nil)
 (setq ring-bell-function 'ignore)
 (setq echo-keystrokes 0.01)
@@ -55,20 +52,21 @@
 (setq frame-resize-pixelwise t)
 
 ;; Remove window dividers completely
-(setq window-divider-default-right-width 0)
-(setq window-divider-default-bottom-width 0)
-(setq window-divider-default-places nil)
+(setq window-divider-default-right-width 0
+      window-divider-default-bottom-width 0
+      window-divider-default-places nil)
 
-;; Remove dividers immediately and on various events
-(lr/remove-window-dividers)
-(add-hook 'after-init-hook 'lr/remove-window-dividers)
-(add-hook 'after-make-frame-functions (lambda (frame) (lr/remove-window-dividers)))
-(add-hook 'window-configuration-change-hook 'lr/remove-window-dividers)
+(when (fboundp 'lr/remove-window-dividers)
+  (lr/remove-window-dividers)
+  (add-hook 'after-init-hook #'lr/remove-window-dividers)
+  (add-hook 'after-make-frame-functions
+            (lambda (_frame) (lr/remove-window-dividers)))
+  (add-hook 'window-configuration-change-hook #'lr/remove-window-dividers))
 
-;; Make dividers invisible if they somehow appear
-(set-face-attribute 'window-divider nil :foreground (face-background 'default))
-(set-face-attribute 'window-divider-first-pixel nil :foreground (face-background 'default))
-(set-face-attribute 'window-divider-last-pixel nil :foreground (face-background 'default))
+(with-eval-after-load 'frame
+  (set-face-attribute 'window-divider nil :foreground (face-background 'default))
+  (set-face-attribute 'window-divider-first-pixel nil :foreground (face-background 'default))
+  (set-face-attribute 'window-divider-last-pixel nil :foreground (face-background 'default)))
 
 ;; Modern macOS titlebar by default
 ;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -76,14 +74,9 @@
 (add-to-list 'default-frame-alist '(ns-titlebar-appearance . dark))
 
 (setq ns-use-proxy-icon nil)
-(setq frame-resize-pixelwise t)
 
 
 ; --------------------------------------------------------------------------------
-; --------------------------------------------------------------------------------
-; --------------------------------------------------------------------------------
-; --------------------------------------------------------------------------------
-
 ; Performance Tweaks
 ; Disable Bidirectional Text Scanning (Doom Emacs)
 
@@ -193,7 +186,8 @@
 
 ; When you split a window with C-x 2 or C-x 3, Emacs halves the current window. If you already have a multi-window layout, this can produce one awkwardly tiny window while others stay large. With this setting, all windows in the frame resize proportionally:
 
-(setq window-combination-resize t)
+(setq window-combination-resize t
+      help-window-select t)
 
 ; The difference is subtle but makes multi-window layouts feel more balanced without manual resizing.
 
@@ -234,6 +228,6 @@
 
 ; When you press C-h f or C-h v, Emacs opens the help buffer but leaves your cursor in the original window. You almost always want to read the help right away, so you end up pressing C-x o every single time. This fixes it:
 
-(setq help-window-select t)
+; Bonus: Many configs also use built-in lazy isearch counting (showing "match N of M" in the minibuffer)
 
-; Bonus: Many of the configs I surveyed also use built-in lazy isearch counting (showing “match N of M” in the minibuffer) instead of third-party packages like anzu. I recently wrote about that in a dedicated post.
+;;; basic.el ends here

@@ -1,3 +1,5 @@
+;;; ssh.el --- TRAMP / SSH configuration -*- lexical-binding: t; -*-
+
 (setq tramp-default-method "plink")
 (setq tramp-verbose 10)
 (setq tramp-ssh-controlmaster-options "")
@@ -69,3 +71,6 @@
 ;; (global-set-key (kbd "C-c 4") 'sander)
 ;; (global-set-key (kbd "C-c 5") 'paola)
 ;; (global-set-key (kbd "C-c 8") 'ksbuild8)
+
+(provide 'ssh)
+;;; ssh.el ends here
