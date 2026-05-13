@@ -41,12 +41,15 @@
 (use-package vertico :init (vertico-mode 1) :custom (vertico-count-format nil)) ;; minibuffer completion ui
 (use-package vertico-flat :after vertico :init (vertico-flat-mode -1))          ;; minibuffer completion ui (flat)
 (use-package orderless :config nil)                                             ;; fzf in minibuffer
-(use-package marginalia :config (marginalia-mode 1))                            ;; minibuffer ui/ux
+(use-package marginalia :config (marginalia-mode 1))                            ;; better minibuffer ui/ux
 (use-package consult
   :defer t
   :bind (("C-l"   . consult-line)
          ("C-r"   . consult-ripgrep)
          ("C-x b" . consult-buffer)))
+
+(setq completion-styles '(orderless basic))
+(setq completion-category-overrides '((file (styles basic partial-completion))))
 
 ;; NOTE: Default Keybindings which are based on Emacs- or Custom-Functions.
 (use-package emacs
@@ -105,7 +108,7 @@
 ;;  working on all cursors in that case. However, don't forget to reset this
 ;;  if multiple cursors are disabled. All this is in a hook.
 (use-package simpleclip
-  :demand t   ;; <-- IMPORTANT: force immediate load
+  :demand t
   :config
   ;; --- Default behavior ---
   (global-set-key (kbd "C-w") #'lr/copy)
@@ -134,13 +137,10 @@
                                      ("\\.tsx\\'"     . web-mode)
                                      ("\\.css\\'"     . web-mode)))
 
-; === History / Recent Files ===
+; === Misc ===
 
 (use-package savehist :init (savehist-mode 1))
 (use-package recentf :init (recentf-mode 1))
-
-; === Misc ===
-
 (use-package whitespace :defer t :config
   (setq whitespace-style
         '(face tabs spaces tab-mark space-mark trailing missing-newline-at-eof
@@ -153,9 +153,6 @@
   (setq display-line-numbers-major-tick 0)
   (setq display-line-numbers-minor-tick 0)
   :init (global-display-line-numbers-mode 1))
-
-(setq completion-styles '(orderless basic))
-(setq completion-category-overrides '((file (styles basic partial-completion))))
 
 (provide 'packages)
 ;;; packages.el ends here

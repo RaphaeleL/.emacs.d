@@ -146,7 +146,7 @@
                          ((file-exists-p (concat base ".cpp")) (concat base ".cpp"))
                          ((file-exists-p (concat base ".cc"))  (concat base ".cc"))))
                   (t nil)))
-      (if (and target (file-exists-p target)) (find-file target) (user-error "No corresponding file found")))))
+      (if (and target (file-exists-p target)) (find-file target) (message "No corresponding file found")))))
 
 (defun lr/update-line-number-font-size ()
   (interactive)
@@ -160,7 +160,6 @@
 (defun lr/line-normal() (interactive) (menu-bar--display-line-numbers-mode-absolute))
 (defun lr/line-relative() (interactive) (menu-bar--display-line-numbers-mode-relative))
 (defun lr/line-off() (interactive) (menu-bar--display-line-numbers-mode-none))
-
 (defun lr/toggle-line-numbers ()
   (interactive)
   (cond
@@ -172,12 +171,12 @@
   (interactive)
   (if (bound-and-true-p global-whitespace-mode) (global-whitespace-mode -1) (global-whitespace-mode 1)))
 
-(defun lr/my-compile-minibuffer-setup ()
+(defun lr/compile-minibuffer-setup ()
   (when (eq this-command 'compile)
     (local-set-key (kbd "C-n") 'next-history-element)
     (local-set-key (kbd "C-p") 'previous-history-element)))
 
-(defun lr/my-fido-minibuffer-setup ()
+(defun lr/fido-minibuffer-setup ()
   (when (or fido-mode fido-vertical-mode)
     (local-set-key (kbd "C-s") 'next-history-element)
     (local-set-key (kbd "C-r") 'previous-history-element)
@@ -185,7 +184,7 @@
       (local-set-key (kbd "C-n") 'icomplete-forward-completions)
       (local-set-key (kbd "C-p") 'icomplete-backward-completions))))
 
-(defun lr/my-vertico-flat-minibuffer-setup ()
+(defun lr/vertico-flat-minibuffer-setup ()
   (when (or fido-mode vertico-flat-mode)
     (local-set-key (kbd "C-s") 'next-history-element)
     (local-set-key (kbd "C-r") 'previous-history-element)
@@ -194,14 +193,13 @@
       (local-set-key (kbd "C-p") 'icomplete-backward-completions))))
 
 (defun lr/reload () (interactive) (load-file user-init-file) (message "Emacs reloaded."))
-(defun lr/minibuffer-setup-combined () (lr/my-compile-minibuffer-setup) (lr/my-fido-minibuffer-setup))
+(defun lr/minibuffer-setup-combined () (lr/compile-minibuffer-setup) (lr/fido-minibuffer-setup))
 (defun lr/remove-window-dividers ()
   (window-divider-mode -1)
   (dolist (frame (frame-list))
     (dolist (window (window-list frame))
       (set-window-parameter window 'window-divider-right-width 0)
       (set-window-parameter window 'window-divider-bottom-width 0))))
-
 
 (defvar lr/transparent-enabled nil)
 (defun lr/transparent ()
