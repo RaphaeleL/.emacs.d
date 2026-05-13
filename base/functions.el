@@ -57,6 +57,7 @@
         ((eq system-type 'gnu/linux)  (lr/disable-font)))
   (global-whitespace-mode 0)
   (mood-line-mode 0)
+  (company-mode 0)
   (vertico-mode 0)
   (vertico-flat-mode 0)
   (marginalia-mode 0)
