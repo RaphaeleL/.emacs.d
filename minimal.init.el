@@ -1,10 +1,8 @@
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
+;; Remove this is losing move-text and multiple-cursor
 (require 'package)
-
-(setq package-archives
-      '(("gnu" . "https://elpa.gnu.org/packages/")))
-
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 
 (setq inhibit-startup-screen t)
@@ -50,6 +48,8 @@
 (setq custom-file "~/.emacs.d/output.el")
 (load custom-file t)
 
+(delete-selection-mode 1)
+
 (setq mac-command-modifier 'meta
       mac-option-modifier 'control
       mac-control-modifier 'control
@@ -89,7 +89,8 @@
 
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
 
-(global-set-key (kbd "C-,") #'find-file)
+(global-set-key (kbd "C-,") #'dired)
+(global-set-key (kbd "C-.") #'find-file)
 (global-set-key (kbd "M-C-,") #'project-find-file)
 
 (global-set-key (kbd "C-o") #'other-window)
@@ -129,7 +130,8 @@
 (global-set-key (kbd "C-=") (lambda () (interactive) (text-scale-increase 1)))
 (global-set-key (kbd "C-+") (lambda () (interactive) (text-scale-increase 1)))
 (global-set-key (kbd "C--") (lambda () (interactive) (text-scale-decrease 1)))
-(global-set-key (kbd "C-c 8") (lambda () (interactive) (insert "{")))
-(global-set-key (kbd "C-c 9") (lambda () (interactive) (insert "}")))
-(global-set-key (kbd "C-c 5") (lambda () (interactive) (insert "[")))
-(global-set-key (kbd "C-c 6") (lambda () (interactive) (insert "]")))
+
+(global-set-key (kbd "C-x 8") (lambda () (interactive) (insert "{")))
+(global-set-key (kbd "C-x 9") (lambda () (interactive) (insert "}")))
+(global-set-key (kbd "C-x 5") (lambda () (interactive) (insert "[")))
+(global-set-key (kbd "C-x 6") (lambda () (interactive) (insert "]")))
