@@ -89,8 +89,8 @@
 
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
 
-(global-set-key (kbd "C-,") #'dired)
-(global-set-key (kbd "C-.") #'find-file)
+(global-set-key (kbd "C-.") #'dired)
+(global-set-key (kbd "C-,") #'find-file)
 (global-set-key (kbd "M-C-,") #'project-find-file)
 
 (global-set-key (kbd "C-o") #'other-window)
