@@ -135,3 +135,5 @@
 (global-set-key (kbd "C-x 9") (lambda () (interactive) (insert "}")))
 (global-set-key (kbd "C-x 5") (lambda () (interactive) (insert "[")))
 (global-set-key (kbd "C-x 6") (lambda () (interactive) (insert "]")))
+
+(global-set-key (kbd "M-3") #'isearch-forward-thing-at-point)
