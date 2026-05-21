@@ -1,4 +1,4 @@
-;;; packages.el --- Package configuration -*- lexical-binding: t; -*-
+;; packages.el --- Package configuration -*- lexical-binding: t; -*-
 
 ; === Essential Editing & Programming Tools ===
 
@@ -13,8 +13,7 @@
          ("C-<"     . mc/mark-previous-like-this)))
 
 (use-package move-text :defer t :bind (("M-p" . move-text-up) ("M-n" . move-text-down)))
-(use-package magit     :defer t :bind (("M-g" . magit) ("C-x g" . magit-status)))
-(use-package paredit   :defer t)
+(use-package magit     :defer t)
 
 (use-package dired
   :ensure nil :bind (("C-." . dired-jump)) :config
@@ -23,12 +22,12 @@
         dired-dwim-target t
         dired-listing-switches "-alh")
   (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode))
-(use-package diredfl :after dired)
+(use-package diredfl :defer t :after dired :config (diredfl-global-mode 1))
 (use-package dired-x :ensure nil :after dired)
 
 ; === Optional UI Enhancements ===
 
-;; (use-package mood-line :defer t)
+(use-package mood-line :defer t :config (mood-line-mode 1))
 (use-package ansi-color :defer t :config
   (defun colorize-compilation-buffer ()
     (when (eq major-mode 'compilation-mode)
@@ -37,11 +36,10 @@
 
 ; === Completion Frameworks (minibuffer/UI) ===
 
-(use-package company :config (global-company-mode 1))                           ;; auto-completion
-(use-package vertico :init (vertico-mode 1) :custom (vertico-count-format nil)) ;; minibuffer completion ui
-(use-package vertico-flat :after vertico :init (vertico-flat-mode -1))          ;; minibuffer completion ui (flat)
-(use-package orderless :config nil)                                             ;; fzf in minibuffer
-(use-package marginalia :config (marginalia-mode 1))                            ;; better minibuffer ui/ux
+(use-package company    :defer t :config (global-company-mode 1))                             ;; auto-completion
+(use-package vertico    :defer t :config (vertico-mode 1) :custom (vertico-count-format nil)) ;; minibuffer completion ui
+(use-package orderless  :defer t :config nil)                                                 ;; fzf in minibuffer
+(use-package marginalia :defer t :config (marginalia-mode 1))                                 ;; better minibuffer ui/ux
 (use-package consult
   :defer t
   :bind (("C-l"   . consult-line)
@@ -58,7 +56,6 @@
          ("M-C-,"   . project-find-file)
          ("C-o"     . other-window)
          ("M-o"     . switch-to-buffer)
-         ("M-:"     . goto-line)
          ; ---- Compile
          ("M-i"     . buffer-menu)
          ("M-c"     . compile)
@@ -109,7 +106,9 @@
 ;;  if multiple cursors are disabled. All this is in a hook.
 (use-package simpleclip
   :demand t
+  :defer t
   :config
+  (simpleclip-mode 1)
   ;; --- Default behavior ---
   (global-set-key (kbd "C-w") #'lr/copy)
   (global-set-key (kbd "C-y") #'lr/paste)
@@ -123,19 +122,19 @@
 
 ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 
-(use-package markdown-mode    :mode ("\\.md\\'"       . markdown-mode))
-(use-package dockerfile-mode  :mode ("Dockerfile\\'"  . dockerfile-mode))
-(use-package jenkinsfile-mode :mode ("Jenkinsfile\\'" . jenkinsfile-mode))
-(use-package yaml-mode        :mode ("\\.yaml\\'"     . yaml-mode))
-(use-package jinja2-mode      :mode ("\\.j2\\'"       . jinja2-mode))
-(use-package go-mode          :mode ("\\.go\\'"       . go-mode))
-(use-package rust-mode        :mode ("\\.rs\\'"       . rust-mode))
-(use-package rpm-spec-mode    :mode ("\\.spec\\'"     . rpm-spec-mode))
-(use-package web-mode         :mode (("\\.html?\\'"   . web-mode)
-                                     ("\\.js\\'"      . web-mode)
-                                     ("\\.jsx\\'"     . web-mode)
-                                     ("\\.tsx\\'"     . web-mode)
-                                     ("\\.css\\'"     . web-mode)))
+(use-package markdown-mode    :defer t :mode ("\\.md\\'"       . markdown-mode))
+(use-package dockerfile-mode  :defer t :mode ("Dockerfile\\'"  . dockerfile-mode))
+(use-package jenkinsfile-mode :defer t :mode ("Jenkinsfile\\'" . jenkinsfile-mode))
+(use-package yaml-mode        :defer t :mode ("\\.yaml\\'"     . yaml-mode))
+(use-package jinja2-mode      :defer t :mode ("\\.j2\\'"       . jinja2-mode))
+(use-package go-mode          :defer t :mode ("\\.go\\'"       . go-mode))
+(use-package rust-mode        :defer t :mode ("\\.rs\\'"       . rust-mode))
+(use-package rpm-spec-mode    :defer t :mode ("\\.spec\\'"     . rpm-spec-mode))
+(use-package web-mode         :defer t :mode (("\\.html?\\'"   . web-mode)
+                                               ("\\.js\\'"      . web-mode)
+                                               ("\\.jsx\\'"     . web-mode)
+                                               ("\\.tsx\\'"     . web-mode)
+                                               ("\\.css\\'"     . web-mode)))
 
 ; === Misc ===
 
