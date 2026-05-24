@@ -57,6 +57,8 @@
 
 (setq insert-directory-program "/opt/homebrew/bin/gls")
 
+(defun lr/reload () (interactive) (load-file user-init-file) (message "Emacs reloaded."))
+
 (defun lr/delete-line ()
   (interactive)
   (delete-region (line-beginning-position) (line-beginning-position 2)))
