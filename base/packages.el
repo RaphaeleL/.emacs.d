@@ -4,7 +4,7 @@
 
 (require 'cl-lib)
 
-(use-package multiple-cursors :defer t
+(use-package multiple-cursors :ensure t
   :bind (("M-SPC"   . rectangle-mark-mode)
          ("C-x SPC" . rectangle-mark-mode)
          ("M-e"     . mc/edit-lines)
@@ -12,8 +12,8 @@
          ("C->"     . mc/mark-next-like-this)
          ("C-<"     . mc/mark-previous-like-this)))
 
-(use-package move-text :defer t :bind (("M-p" . move-text-up) ("M-n" . move-text-down)))
-(use-package magit     :defer t)
+(use-package move-text :ensure t :bind (("M-p" . move-text-up) ("M-n" . move-text-down)))
+(use-package magit     :ensure t)
 
 (use-package dired
   :ensure nil :bind (("C-." . dired-jump)) :config
@@ -22,13 +22,13 @@
         dired-dwim-target t
         dired-listing-switches "-alh")
   (define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode))
-(use-package diredfl :defer t :after dired :config (diredfl-global-mode 1))
+(use-package diredfl :ensure t :after dired :config (diredfl-global-mode 1))
 (use-package dired-x :ensure nil :after dired)
 
 ; === Optional UI Enhancements ===
 
-(use-package mood-line :defer t :config (mood-line-mode 1))
-(use-package ansi-color :defer t :config
+(use-package mood-line :ensure t :config (mood-line-mode 1))
+(use-package ansi-color :ensure t :config
   (defun colorize-compilation-buffer ()
     (when (eq major-mode 'compilation-mode)
       (ansi-color-apply-on-region compilation-filter-start (point-max))))
@@ -36,12 +36,12 @@
 
 ; === Completion Frameworks (minibuffer/UI) ===
 
-(use-package company    :defer t :config (global-company-mode 1))                             ;; auto-completion
-(use-package vertico    :defer t :config (vertico-mode 1) :custom (vertico-count-format nil)) ;; minibuffer completion ui
-(use-package orderless  :defer t :config nil)                                                 ;; fzf in minibuffer
-(use-package marginalia :defer t :config (marginalia-mode 1))                                 ;; better minibuffer ui/ux
+(use-package company    :ensure t :config (global-company-mode 1))                             ;; auto-completion
+(use-package vertico    :ensure t :config (vertico-mode 1) :custom (vertico-count-format nil)) ;; minibuffer completion ui
+(use-package orderless  :ensure t :config nil)                                                 ;; fzf in minibuffer
+(use-package marginalia :ensure t :config (marginalia-mode 1))                                 ;; better minibuffer ui/ux
 (use-package consult
-  :defer t
+  :ensure t
   :bind (("C-l"   . consult-line)
          ("C-r"   . consult-ripgrep)
          ("C-x b" . consult-buffer)))
@@ -106,7 +106,7 @@
 ;;  if multiple cursors are disabled. All this is in a hook.
 (use-package simpleclip
   :demand t
-  :defer t
+  :ensure t
   :config
   (simpleclip-mode 1)
   ;; --- Default behavior ---
@@ -122,15 +122,15 @@
 
 ; === Language Modes (Syntax highlighting, indentation, etc.) ===
 
-(use-package markdown-mode    :defer t :mode ("\\.md\\'"       . markdown-mode))
-(use-package dockerfile-mode  :defer t :mode ("Dockerfile\\'"  . dockerfile-mode))
-(use-package jenkinsfile-mode :defer t :mode ("Jenkinsfile\\'" . jenkinsfile-mode))
-(use-package yaml-mode        :defer t :mode ("\\.yaml\\'"     . yaml-mode))
-(use-package jinja2-mode      :defer t :mode ("\\.j2\\'"       . jinja2-mode))
-(use-package go-mode          :defer t :mode ("\\.go\\'"       . go-mode))
-(use-package rust-mode        :defer t :mode ("\\.rs\\'"       . rust-mode))
-(use-package rpm-spec-mode    :defer t :mode ("\\.spec\\'"     . rpm-spec-mode))
-(use-package web-mode         :defer t :mode (("\\.html?\\'"   . web-mode)
+(use-package markdown-mode    :ensure t :mode ("\\.md\\'"       . markdown-mode))
+(use-package dockerfile-mode  :ensure t :mode ("Dockerfile\\'"  . dockerfile-mode))
+(use-package jenkinsfile-mode :ensure t :mode ("Jenkinsfile\\'" . jenkinsfile-mode))
+(use-package yaml-mode        :ensure t :mode ("\\.yaml\\'"     . yaml-mode))
+(use-package jinja2-mode      :ensure t :mode ("\\.j2\\'"       . jinja2-mode))
+(use-package go-mode          :ensure t :mode ("\\.go\\'"       . go-mode))
+(use-package rust-mode        :ensure t :mode ("\\.rs\\'"       . rust-mode))
+(use-package rpm-spec-mode    :ensure t :mode ("\\.spec\\'"     . rpm-spec-mode))
+(use-package web-mode         :ensure t :mode (("\\.html?\\'"   . web-mode)
                                                ("\\.js\\'"      . web-mode)
                                                ("\\.jsx\\'"     . web-mode)
                                                ("\\.tsx\\'"     . web-mode)
@@ -140,13 +140,13 @@
 
 (use-package savehist :init (savehist-mode 1))
 (use-package recentf :init (recentf-mode 1))
-(use-package whitespace :defer t :config
+(use-package whitespace :ensure t :config
   (setq whitespace-style
         '(face tabs spaces tab-mark space-mark trailing missing-newline-at-eof
                space-after-tab::tab space-after-tab::space space-before-tab::tab
                space-before-tab::space)))
 
-(use-package display-line-numbers :defer t :config
+(use-package display-line-numbers :ensure t :config
   (setq-default display-line-numbers-widen t)
   (setq-default display-line-numbers-type 'relative)
   (setq display-line-numbers-major-tick 0)
