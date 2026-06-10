@@ -9,8 +9,8 @@
                       dockerfile-mode makefile-mode rpm-spec-mode))
   (add-hook (intern (format "%s-hook" mode)) #'lr/on_save))
 
-;; Combine minibuffer setup hooks
-(add-hook 'minibuffer-setup-hook #'lr/minibuffer-setup-combined)
+;; Compile setup
+(add-hook 'minibuffer-setup-hook #'lr/compile-minibuffer-setup)
 
 ;; better modes
 (add-to-list 'auto-mode-alist '("\\(?:[Mm]akefile\\|\\.mk\\)\\'" . makefile-mode))
@@ -22,12 +22,13 @@
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.zsh.*?\\'" . sh-mode))
 
-;; No line numbers in dired
+;; No line numbers or whitespace in dired
 (add-hook 'dired-mode-hook (lambda () (display-line-numbers-mode -1)))
+(add-hook 'dired-mode-hook (lambda () (whitespace-mode -1)))
 
 ;; C Comments
 (add-hook 'c-mode-common-hook (lambda () (setq-local comment-start "// ") (setq-local comment-end "")))
-(add-hook 'c-ts-mode-hook (lambda () (setq-local comment-start "// ") (setq-local comment-end "")))
+(add-hook 'c-ts-mode-hook     (lambda () (setq-local comment-start "// ") (setq-local comment-end "")))
 
 ;; Enable visual-line-mode in text buffers by default
 (add-hook 'text-mode-hook #'visual-line-mode)

@@ -31,6 +31,7 @@
 (setq ns-use-proxy-icon nil)
 
 (blink-cursor-mode 0)
+(global-visual-line-mode 1)
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -49,6 +50,9 @@
 (load custom-file t)
 
 (delete-selection-mode 1)
+
+(add-to-list 'default-frame-alist '(width  . 106))
+(add-to-list 'default-frame-alist '(height . 44))
 
 (setq mac-command-modifier 'meta
       mac-option-modifier 'control
@@ -82,12 +86,12 @@
   (define-key dired-mode-map (kbd "N")
               #'dired-create-empty-file))
 
-(autoload 'mc/edit-lines "multiple-cursors" nil t)
-(autoload 'mc/mark-next-like-this "multiple-cursors" nil t)
-(autoload 'mc/mark-previous-like-this "multiple-cursors" nil t)
+;; (autoload 'mc/edit-lines "multiple-cursors" nil t)
+;; (autoload 'mc/mark-next-like-this "multiple-cursors" nil t)
+;; (autoload 'mc/mark-previous-like-this "multiple-cursors" nil t)
 
-(autoload 'move-text-up "move-text" nil t)
-(autoload 'move-text-down "move-text" nil t)
+;; (autoload 'move-text-up "move-text" nil t)
+;; (autoload 'move-text-down "move-text" nil t)
 
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
 
@@ -121,13 +125,13 @@
 (global-set-key (kbd "M-d") #'lr/duplicate-line)
 (global-set-key (kbd "M-r") #'lr/delete-line)
 
-(global-set-key (kbd "M-p") #'move-text-up)
-(global-set-key (kbd "M-n") #'move-text-down)
+;; (global-set-key (kbd "M-p") #'move-text-up)
+;; (global-set-key (kbd "M-n") #'move-text-down)
 
-(global-set-key (kbd "M-e") #'mc/edit-lines)
-(global-set-key (kbd "C-c C-j") #'mc/mark-next-like-this)
-(global-set-key (kbd "C->") #'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") #'mc/mark-previous-like-this)
+;; (global-set-key (kbd "M-e") #'mc/edit-lines)
+;; (global-set-key (kbd "C-c C-j") #'mc/mark-next-like-this)
+;; (global-set-key (kbd "C->") #'mc/mark-next-like-this)
+;; (global-set-key (kbd "C-<") #'mc/mark-previous-like-this)
 
 (global-set-key (kbd "C-=") (lambda () (interactive) (text-scale-increase 1)))
 (global-set-key (kbd "C-+") (lambda () (interactive) (text-scale-increase 1)))
@@ -139,3 +143,7 @@
 (global-set-key (kbd "C-x 6") (lambda () (interactive) (insert "]")))
 
 (global-set-key (kbd "M-3") #'isearch-forward-thing-at-point)
+
+(global-set-key (kbd "C-w") #'kill-ring-save)
+(global-set-key (kbd "C-y") #'yank)
+(global-set-key (kbd "C-t") #'kill-region)
