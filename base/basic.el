@@ -33,6 +33,8 @@
 (set-fringe-mode 0)
 (diredfl-global-mode 1)
 
+(global-auto-revert-mode 1)
+
 (setq inhibit-startup-message t
       initial-scratch-message nil
       initial-major-mode 'fundamental-mode)
