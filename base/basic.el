@@ -24,6 +24,8 @@
 
 (setq-default indent-tabs-mode nil)
 
+(setq vc-follow-symlinks t)
+
 (setq-default tab-width 4)
 (setq-default toggle-word-wrap t)
 

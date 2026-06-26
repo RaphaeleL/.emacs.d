@@ -9,6 +9,8 @@
 (setq initial-scratch-message nil)
 (setq initial-major-mode 'fundamental-mode)
 
+(setq vc-follow-symlinks t)
+
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
@@ -44,15 +46,15 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(set-face-attribute 'default nil :font "Comic Code-16")
+;;(set-face-attribute 'default nil :font "Comic Code-16")
 
 (setq custom-file "~/.emacs.d/output.el")
 (load custom-file t)
 
 (delete-selection-mode 1)
 
-(add-to-list 'default-frame-alist '(width  . 106))
-(add-to-list 'default-frame-alist '(height . 44))
+(add-to-list 'default-frame-alist '(width  . 130))
+(add-to-list 'default-frame-alist '(height . 65))
 
 (setq mac-command-modifier 'meta
       mac-option-modifier 'control
