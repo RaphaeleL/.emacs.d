@@ -24,6 +24,9 @@
 (defvar lr/switch t)                    ;; switch for a modern and old look
 (if lr/switch (lr/modern) (lr/legacy))  ;; initial look and feel on load
 
+(lr/disable-vertico)
+(lr/default-theme)
+
 ;; === Custom File Location ========================
 (setq custom-file "~/.emacs.d/output.el") ;; Save the Output Junk into a seperate file
 (load custom-file)                        ;; -> custom-set-variables, custom-set-faces
