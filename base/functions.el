@@ -50,13 +50,14 @@
   (define-key minibuffer-local-map (kbd "C-p") #'nil))
 
 (defun lr/modern ()
-  (lr/use-font "Comic Code-16")
-  (lr/theme 'lr_gruberdarker)
-  (mood-line-mode 1)
   ;; TODO: enable eglot
+  (lr/use-font "Comic Code-16")
+  ;; (lr/theme 'lr_gruberdarker)
+  (lr/default-theme)
+  (mood-line-mode 1)
   (global-whitespace-mode 0)
   (set-fringe-mode 0)
-  (lr/enable-vertico)
+  (lr/disable-vertico)
   (lr/line-relative))
 
 (defun lr/legacy ()
