@@ -1,7 +1,8 @@
-*;;; -*- lexical-binding: t; -*-
+;; -*- lexical-binding: t; -*-
 
 ;; === Plugin Manager ==============================
 (require 'package)                                     ;; load Emacs' built-in package manager
+(defvar gnutls-algorithm-priority)                     ;; define the variable
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3") ;; workaround for TLS1.3 endpoint issues
 (setq package-archives                                 ;; define packages location
       '(("melpa" . "https://melpa.org/packages/")      ;; -> MELPA for community packages
