@@ -1,10 +1,5 @@
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
-;; Remove this is losing move-text and multiple-cursor
-(require 'package)
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")))
-(package-initialize)
-
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message nil)
 (setq initial-major-mode 'fundamental-mode)
@@ -88,13 +83,6 @@
   (define-key dired-mode-map (kbd "N")
               #'dired-create-empty-file))
 
-;; (autoload 'mc/edit-lines "multiple-cursors" nil t)
-;; (autoload 'mc/mark-next-like-this "multiple-cursors" nil t)
-;; (autoload 'mc/mark-previous-like-this "multiple-cursors" nil t)
-
-;; (autoload 'move-text-up "move-text" nil t)
-;; (autoload 'move-text-down "move-text" nil t)
-
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
 
 (global-set-key (kbd "C-.") #'dired)
@@ -126,14 +114,6 @@
 
 (global-set-key (kbd "M-d") #'lr/duplicate-line)
 (global-set-key (kbd "M-r") #'lr/delete-line)
-
-;; (global-set-key (kbd "M-p") #'move-text-up)
-;; (global-set-key (kbd "M-n") #'move-text-down)
-
-;; (global-set-key (kbd "M-e") #'mc/edit-lines)
-;; (global-set-key (kbd "C-c C-j") #'mc/mark-next-like-this)
-;; (global-set-key (kbd "C->") #'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-<") #'mc/mark-previous-like-this)
 
 (global-set-key (kbd "C-=") (lambda () (interactive) (text-scale-increase 1)))
 (global-set-key (kbd "C-+") (lambda () (interactive) (text-scale-increase 1)))
