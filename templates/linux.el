@@ -1,12 +1,13 @@
+;; -*- lexical-binding: t; -*-
+
 ;; LSP
 (load "~/.emacs.d/base/lsp.el")
 
-;; CORE
+;; Look and Feel
+;(lr/use-font "Comic Code-16")
 (lr/theme 'lr_gruberdarker)
-(global-whitespace-mode 1)
-(vertico-mode 1)
-(vertico-flat-mode 1)
+(global-whitespace-mode 0)
 (mood-line-mode 1)
-(marginalia-mode 1)
-(lr/line-relative)
-(set-fringe-mode 0)
+(lr/disable-vertico)
+(lr/line-off)
+(set-fringe-mode '(8 . 8))

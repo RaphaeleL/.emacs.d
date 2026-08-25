@@ -49,32 +49,15 @@
   (define-key minibuffer-local-map (kbd "C-n") #'nil)
   (define-key minibuffer-local-map (kbd "C-p") #'nil))
 
-(defun lr/modern ()
-  ;; TODO: enable eglot
-  (lr/use-font "Comic Code-16")
-  ;; (lr/theme 'lr_gruberdarker)
-  (lr/default-theme)
-  (mood-line-mode 1)
-  (global-whitespace-mode 0)
-  (set-fringe-mode 0)
-  (lr/disable-vertico)
-  (lr/line-relative))
-
-(defun lr/legacy ()
-  (lr/default-theme)
-  (eglot-shutdown-all)
-  (cond ((eq system-type 'windows-nt) (lr/disable-font))
-        ((eq system-type 'darwin)     (lr/use-font "Comic Code-16"))
-        ((eq system-type 'gnu/linux)  (lr/disable-font)))
-  (global-whitespace-mode 0)
-  (mood-line-mode 1)
-  (company-mode 0)
-  (marginalia-mode 0)
-  (lr/line-off)
-  (lr/disable-vertico)
-  (set-fringe-mode '(8 . 8)))
-
-(defun lr/toggle-ui () (interactive) (setq lr/switch (not lr/switch)) (if lr/switch (lr/modern) (lr/legacy)) (message ""))
+(defvar-local choosen-colors 'plain)
+(defun lr/colorful() (interactive) (setq-local choosen-colors 'colorful) (diredfl-global-mode 1) (lr/theme 'lr_gruberdarker))
+(defun lr/plain()    (interactive) (setq-local choosen-colors 'plain)    (diredfl-global-mode 0) (lr/default-theme))
+(defun lr/toggle-colors ()
+  (interactive)
+  (pcase choosen-colors
+    ('colorful (lr/plain))
+    ('plain (lr/colorful))
+    (_ (lr/colorful))))
 
 (defun lr/disable-font ()
   (interactive)
@@ -165,15 +148,15 @@
 (defun lr/font-increase() (interactive) (text-scale-increase 1) (lr/update-line-number-font-size))
 (defun lr/font-decrease() (interactive) (text-scale-decrease 1) (lr/update-line-number-font-size))
 
-(defun lr/line-normal()   (interactive) (menu-bar--display-line-numbers-mode-absolute))
-(defun lr/line-relative() (interactive) (menu-bar--display-line-numbers-mode-relative))
+(defun lr/line-normal()   (interactive) (menu-bar--display-line-numbers-mode-absolute) (setq-local display-line-numbers 'absolute))
+(defun lr/line-relative() (interactive) (menu-bar--display-line-numbers-mode-relative) (setq-local display-line-numbers 'relative))
 (defun lr/line-off()      (interactive) (menu-bar--display-line-numbers-mode-none))
 (defun lr/toggle-line-numbers ()
   (interactive)
-  (cond
-   ((eq display-line-numbers 'relative) (lr/line-normal))
-   ((eq display-line-numbers t)         (lr/line-relative))
-   (t                                   (lr/line-relative))))
+  (pcase display-line-numbers
+    ('relative (lr/line-off))
+    ('absolute (lr/line-relative))
+    (_         (lr/line-normal))))
 
 (defun lr/toggle-whitespace ()
   (interactive)

@@ -23,10 +23,6 @@
  ((eq system-type 'darwin)     (load "~/.emacs.d/templates/macos.el"   'noerror 'nomessage))   ;; MacOS
  ((eq system-type 'gnu/linux)  (load "~/.emacs.d/templates/linux.el"   'noerror 'nomessage)))  ;; Linux
 
-;; === Look and Feel of Emacs ======================
-(defvar lr/switch t)                    ;; switch for a modern and old look
-(if lr/switch (lr/modern) (lr/legacy))  ;; initial look and feel on load
-
 ;; === Custom File Location ========================
 (setq custom-file "~/.emacs.d/output.el") ;; Save the Output Junk into a seperate file
 (load custom-file)                        ;; -> custom-set-variables, custom-set-faces

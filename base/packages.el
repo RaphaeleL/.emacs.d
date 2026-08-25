@@ -36,18 +36,18 @@
 
 ; === Completion Frameworks (minibuffer/UI) ===
 
-(use-package company    :ensure t :config (global-company-mode 1))                             ;; auto-completion
-(use-package vertico    :ensure t :config (vertico-mode 1) :custom (vertico-count-format nil)) ;; minibuffer completion ui
-(use-package orderless  :ensure t :config nil)                                                 ;; fzf in minibuffer
-(use-package marginalia :ensure t :config (marginalia-mode 1))                                 ;; better minibuffer ui/ux
+;; (use-package company    :ensure t :config (global-company-mode 1))                             ;; auto-completion
+;; (use-package vertico    :ensure t :config (vertico-mode 1) :custom (vertico-count-format nil)) ;; minibuffer completion ui
+;; (use-package orderless  :ensure t :config nil)                                                 ;; fzf in minibuffer
+;; (use-package marginalia :ensure t :config (marginalia-mode 1))                                 ;; better minibuffer ui/ux
 (use-package consult
   :ensure t
   :bind (("C-l"   . consult-line)
          ("C-r"   . consult-ripgrep)
          ("C-x b" . consult-buffer)))
 
-(setq completion-styles '(orderless basic))
-(setq completion-category-overrides '((file (styles basic partial-completion))))
+;; (setq completion-styles '(orderless basic))
+;; (setq completion-category-overrides '((file (styles basic partial-completion))))
 
 ;; NOTE: Default Keybindings which are based on Emacs- or Custom-Functions.
 (use-package emacs
@@ -94,7 +94,8 @@
   (("M-1" . lr/toggle-scratch-buffer)       ("<f1>" . lr/toggle-scratch-buffer)
    ("M-2" . lr/toggle-compilation-buffer)   ("<f2>" . lr/toggle-compilation-buffer)
    ("M-3" . isearch-forward-thing-at-point) ("<f3>" . isearch-forward-thing-at-point)
-   ("M-4" . lr/toggle-ui)                   ("<f4>" . lr/toggle-ui)
+   ("M-4" . lr/toggle-line-numbers)         ("<f4>" . lr/toggle-line-numbers)
+   ("M-5" . lr/toggle-colors)               ("<f5>" . lr/toggle-colors)
    ; ... space for more
    ("M-9" . fundamental-mode)               ("<f9>" . fundamental-mode)))
 

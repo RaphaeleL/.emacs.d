@@ -1,8 +1,9 @@
+;; -*- lexical-binding: t; -*-
+
 ;; CORE
-(disable-theme)
+;; Look and Feel
 (global-whitespace-mode 0)
-(vertico-mode 1)
 (mood-line-mode 1)
-(marginalia-mode 1)
-(lr/line-normal)
 (set-fringe-mode 0)
+(lr/disable-vertico)
+(lr/line-normal)

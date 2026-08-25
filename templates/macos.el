@@ -1,5 +1,16 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Emacs Plus: https://github.com/d12frosted/homebrew-emacs-plus
 ;; (when (eq system-type 'darwin) (add-to-list 'default-frame-alist '(undecorated-round . t)))
+
+;; Look and Feel
+(lr/use-font "Comic Code-16")
+(lr/default-theme) ;; (lr/theme 'lr_gruberdarker)
+(mood-line-mode 1)
+(global-whitespace-mode 0)
+(set-fringe-mode '(8 . 8)) ;; (set-fringe-mode 0)
+(lr/disable-vertico)
+(lr/line-off) ;; (lr/line-relative)
 
 ;; LSP
 (load "~/.emacs.d/base/lsp.el")
