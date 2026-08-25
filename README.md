@@ -10,6 +10,7 @@ In case you want to install emacs from source you need following commands:
 
 ```bash
 git clone --depth 1 https://github.com/emacs-mirror/emacs && cd emacs
+make bootstrap
 
 # Linux
 CFLAGS="-O3 -g0" ./configure --with-ns && make -j
