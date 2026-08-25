@@ -1,3 +1,5 @@
+*;;; -*- lexical-binding: t; -*-
+
 ;; === Plugin Manager ==============================
 (require 'package)                                     ;; load Emacs' built-in package manager
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3") ;; workaround for TLS1.3 endpoint issues
@@ -23,9 +25,6 @@
 ;; === Look and Feel of Emacs ======================
 (defvar lr/switch t)                    ;; switch for a modern and old look
 (if lr/switch (lr/modern) (lr/legacy))  ;; initial look and feel on load
-
-(lr/disable-vertico)
-(lr/default-theme)
 
 ;; === Custom File Location ========================
 (setq custom-file "~/.emacs.d/output.el") ;; Save the Output Junk into a seperate file
