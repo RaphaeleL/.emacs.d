@@ -60,18 +60,22 @@
 (setq-default c-basic-offset 4)
 
 ; Do some C++ Settings
-(setq lsp-enable-on-type-formatting nil)
 (add-hook 'c++-mode-hook (lambda () (setq-local indent-region-function #'c-indent-region)))
-(advice-add 'lsp--on-type-formatting :override #'ignore)
 
-; Do some LSP Settings
-(setq eglot-extend-to-xref t)
-(setq eglot-autoshutdown t)
-(add-hook 'eglot-managed-mode-hook (lambda () (setq-local completion-category-defaults nil)))
-(setq treesit-font-lock-level 4)
+;; Do some LSP Settings
+;; Shorter idle delay makes completion and diagnostics feel responsive.
+(setq eglot-send-changes-idle-time 0.1
+      eglot-extend-to-xref t
+      eglot-autoshutdown t
+      eglot-code-action-indicator "h"
+      eglot-stay-out-of '(flymake))
 
-;; optional: usage of semantic tokens
-(setq eglot-stay-out-of '(flymake))
+;; Eglot's JSON-RPC event log is useful for debugging but expensive during
+;; normal editing.  Re-enable it temporarily when diagnosing a server.
+(when (fboundp 'jsonrpc--log-event)
+  (fset #'jsonrpc--log-event #'ignore))
+
+(setq treesit-font-lock-level 3)
 (add-hook 'eglot-managed-mode-hook
           (lambda ()
             (setq-local completion-category-defaults nil)

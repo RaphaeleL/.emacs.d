@@ -50,8 +50,8 @@
   (define-key minibuffer-local-map (kbd "C-p") #'nil))
 
 (defvar-local choosen-colors 'plain)
-(defun lr/colorful() (interactive) (setq-local choosen-colors 'colorful) (diredfl-global-mode 1) (lr/theme 'lr_gruberdarker))
-(defun lr/plain()    (interactive) (setq-local choosen-colors 'plain)    (diredfl-global-mode 0) (lr/default-theme))
+(defun lr/colorful() (interactive) (setq-local choosen-colors 'colorful) (diredfl-global-mode 1) (global-whitespace-mode 1) (lr/theme 'lr_gruberdarker))
+(defun lr/plain()    (interactive) (setq-local choosen-colors 'plain)    (diredfl-global-mode 0) (global-whitespace-mode 0) (lr/default-theme))
 (defun lr/toggle-colors ()
   (interactive)
   (pcase choosen-colors

@@ -1,8 +1,12 @@
-(defvar efs/file-name-handler-alist-original file-name-handler-alist
-  "Backup of `file-name-handler-alist' before startup optimisations.")
+(defvar efs/file-name-handler-alist-original file-name-handler-alist)
 
+;; Defer expensive work while the init files are being read. Restore normal
+;; values after startup in `efs/restore-startup-settings'.
 (setq gc-cons-threshold most-positive-fixnum
-      file-name-handler-alist nil)
+      gc-cons-percentage 0.6
+      file-name-handler-alist nil
+      package-enable-at-startup nil
+      native-comp-async-report-warnings-errors 'silent)
 
 (defvar efs/gc-cons-threshold (* 64 1024 1024)) ; 64MB steady-state
 (defvar efs/gc-cons-percentage 0.1)
@@ -39,5 +43,4 @@
 (add-hook 'emacs-startup-hook
           (lambda ()
             (message "Emacs ready in %.2f seconds with %d garbage collections."
-                     (float-time (time-subtract after-init-time before-init-time))
-                     gcs-done)))
+                     (float-time (time-subtract after-init-time before-init-time)) gcs-done)))

@@ -25,6 +25,24 @@
 (use-package diredfl :ensure t :after dired :config (diredfl-global-mode 1))
 (use-package dired-x :ensure nil :after dired)
 
+; === Language Server Eglot Stuff ===
+
+(use-package eglot
+  :ensure nil
+  :config
+  (setq eglot-send-changes-idle-time 0.1
+        eglot-extend-to-xref t
+        eglot-autoshutdown t
+        eglot-code-action-indicator "h"
+        eglot-stay-out-of '(flymake))
+  ;; Eglot's JSON-RPC event log is extremely noisy and needlessly expensive.
+  (when (fboundp 'jsonrpc--log-event)
+    (fset #'jsonrpc--log-event #'ignore))
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (setq-local completion-category-defaults nil
+                          eglot-events-buffer-size 0))))
+
 ; === Optional UI Enhancements ===
 
 (use-package mood-line :ensure t :config (mood-line-mode 1))
@@ -34,20 +52,100 @@
       (ansi-color-apply-on-region compilation-filter-start (point-max))))
   :hook (compilation-filter . colorize-compilation-buffer))
 
-; === Completion Frameworks (minibuffer/UI) ===
+; === Modern Completion Frameworks (minibuffer/UI) ===
 
-;; (use-package company    :ensure t :config (global-company-mode 1))                             ;; auto-completion
-;; (use-package vertico    :ensure t :config (vertico-mode 1) :custom (vertico-count-format nil)) ;; minibuffer completion ui
-;; (use-package orderless  :ensure t :config nil)                                                 ;; fzf in minibuffer
-;; (use-package marginalia :ensure t :config (marginalia-mode 1))                                 ;; better minibuffer ui/ux
-(use-package consult
-  :ensure t
-  :bind (("C-l"   . consult-line)
-         ("C-r"   . consult-ripgrep)
-         ("C-x b" . consult-buffer)))
+;; (use-package vertico
+;;   :demand t
+;;   :init (vertico-mode 1)
+;;   :bind (:map vertico-map ("M-DEL" . vertico-directory-delete-word)))
 
-;; (setq completion-styles '(orderless basic))
-;; (setq completion-category-overrides '((file (styles basic partial-completion))))
+;; (use-package vertico-directory :ensure nil :after vertico)
+
+;; (use-package marginalia :after vertico :init (marginalia-mode 1))
+
+;; (use-package orderless
+;;   :after vertico
+;;   :config
+;;   (setq completion-styles '(orderless basic)
+;;         completion-category-defaults nil
+;;         completion-category-overrides '((file (styles basic partial-completion)))))
+
+;; (use-package corfu
+;;   :demand t
+;;   :init (global-corfu-mode 1)
+;;   :bind (:map corfu-map
+;;               ("SPC" . corfu-insert-separator)
+;;               ("C-n" . corfu-next)
+;;               ("C-p" . corfu-previous)))
+
+;; (use-package corfu-popupinfo
+;;   :ensure nil
+;;   :after corfu
+;;   :hook (corfu-mode . corfu-popupinfo-mode)
+;;   :custom (corfu-popupinfo-delay '(0.25 . 0.1)))
+
+;; (use-package cape
+;;   :after corfu
+;;   :init
+;;   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+;;   (add-to-list 'completion-at-point-functions #'cape-file))
+
+;; (use-package kind-icon
+;;   :if (display-graphic-p)
+;;   :after corfu
+;;   :config (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+;; (use-package avy
+;;   :bind (("C-c j" . avy-goto-line)
+;;          ("s-j" . avy-goto-char-timer)
+;;          :map isearch-mode-map
+;;          ("s-j" . avy-isearch)))
+
+;; (use-package embark
+;;   :demand t
+;;   :after avy
+;;   :bind (("C-c a" . embark-act))
+;;   :init
+;;   (defun lr/avy-action-embark (point)
+;;     "Run `embark-act' at the Avy candidate selected at POINT."
+;;     (unwind-protect
+;;         (save-excursion (goto-char point) (embark-act))
+;;       (select-window (cdr (ring-ref avy-ring 0))))
+;;     t)
+;;   (setf (alist-get ?. avy-dispatch-alist) #'lr/avy-action-embark)
+;;   :config
+;;   (when (fboundp 'which-key-mode) (which-key-mode -1))
+;;   (setq embark-auto-prefix-help-delay 1.0)
+;;   (embark-auto-prefix-help-mode))
+
+;; (use-package embark-consult :after (embark consult))
+;; (use-package consult
+;;   :ensure t
+;;   :bind (("C-l"   . consult-line)
+;;          ("C-r"   . consult-ripgrep)
+;;          ("C-x b" . consult-buffer)))
+
+;; Modern built-in completion defaults, kept separate from the optional Vertico setup so the latter can still be disabled per platform.
+; (setq enable-recursive-minibuffers t
+;       completion-cycle-threshold 1
+;       completions-detailed t
+;       tab-always-indent 'complete
+;       completion-styles '(basic initials substring)
+;       completion-auto-help 'always
+;       completions-format 'one-column
+;       completions-max-height 20)
+; (setq minibuffer-visible-completions t)
+; (keymap-set minibuffer-mode-map "TAB" #'minibuffer-complete)
+
+(use-package isearch
+  :ensure nil
+  :custom
+  (lazy-count-prefix-format "(%s/%s) ")
+  (isearch-lazy-count t)
+  (isearch-allow-motion t)
+  (isearch-allow-scroll t)
+  (isearch-repeat-on-direction-change t)
+  (isearch-wrap-pause 'no-ding))
 
 ;; NOTE: Default Keybindings which are based on Emacs- or Custom-Functions.
 (use-package emacs
@@ -83,7 +181,19 @@
          ("C--"     . (lambda () (interactive) (text-scale-decrease 1)))
          ("C-c n"   . lr/toggle-line-numbers)
          ("C-c w"   . lr/toggle-whitespace)
-         ("C-c t"   . lr/transparent)))
+         ("C-c t"   . lr/transparent))
+  :config
+      (when (boundp 'treesit-auto-install-grammar) (setq treesit-auto-install-grammar 'ask))
+      (setq treesit-font-lock-level 3)
+      (add-hook 'prog-mode-hook #'electric-pair-mode)
+      (setq sentence-end-double-space nil
+            save-interprogram-paste-before-kill t
+            kill-do-not-save-duplicates t
+            reb-re-syntax 'string)
+      (add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
+      (advice-add 'save-place-find-file-hook :after
+                  (lambda (&rest _)
+                    (when buffer-file-name (ignore-errors (recenter))))))
 
 ;; NOTE: originally those keymaps were meant to be on the function row, since
 ;;  some keyboards, like the HHKB Boards, dont have a seperated function row,
@@ -138,6 +248,11 @@
                                                ("\\.css\\'"     . web-mode)))
 
 ; === Misc ===
+
+;; Built-in defaults for programming and navigation.
+; (add-hook 'prog-mode-hook #'electric-pair-mode)
+; (global-hl-line-mode 1)
+; (setq global-hl-line-sticky-flag 'window)
 
 (use-package savehist :init (savehist-mode 1))
 (use-package recentf :init (recentf-mode 1))
