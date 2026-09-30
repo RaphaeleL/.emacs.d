@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 (setq inhibit-startup-screen t)
@@ -42,14 +44,15 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;;(set-face-attribute 'default nil :font "Comic Code-16")
+(set-face-attribute 'default nil :height 160)
 
 (setq custom-file "~/.emacs.d/output.el")
 (load custom-file t)
 
 (delete-selection-mode 1)
 
-(add-to-list 'default-frame-alist '(width  . 130))
-(add-to-list 'default-frame-alist '(height . 65))
+; (add-to-list 'default-frame-alist '(width  . 130))
+; (add-to-list 'default-frame-alist '(height . 65))
 
 (setq mac-command-modifier 'meta
       mac-option-modifier 'control
@@ -74,14 +77,9 @@
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (add-hook 'prog-mode-hook #'lr/delete-trailing-whitespace)
 
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (setq-local comment-start "// ")
-            (setq-local comment-end "")))
+(add-hook 'c-mode-common-hook (lambda () (setq-local comment-start "// ") (setq-local comment-end "")))
 
-(with-eval-after-load 'dired
-  (define-key dired-mode-map (kbd "N")
-              #'dired-create-empty-file))
+(with-eval-after-load 'dired (define-key dired-mode-map (kbd "N") #'dired-create-empty-file))
 
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
 

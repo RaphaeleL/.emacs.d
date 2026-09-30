@@ -1,5 +1,6 @@
 ;;; basic.el --- Core UI and editing defaults -*- lexical-binding: t; -*-
 
+; (set-face-attribute 'default nil :height 160)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (with-eval-after-load 'dired (define-key dired-mode-map (kbd "N") 'dired-create-empty-file))
 (add-to-list 'custom-theme-load-path
