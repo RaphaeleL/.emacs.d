@@ -180,6 +180,7 @@
          ("C--"     . (lambda () (interactive) (text-scale-decrease 1)))
          ("C-c n"   . lr/toggle-line-numbers)
          ("C-c w"   . lr/toggle-whitespace)
+         ("C-c f"   . lr/find-corresponding-clang-file)
          ("C-c t"   . lr/transparent))
   :config
       (when (boundp 'treesit-auto-install-grammar) (setq treesit-auto-install-grammar 'ask))
