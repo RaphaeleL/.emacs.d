@@ -9,8 +9,9 @@
                       dockerfile-mode makefile-mode rpm-spec-mode))
   (add-hook (intern (format "%s-hook" mode)) #'lr/on_save))
 
-;; Compile setup
+;; Minibuffer setup
 (add-hook 'minibuffer-setup-hook #'lr/compile-minibuffer-setup)
+(add-hook 'minibuffer-setup-hook #'lr/minibuffer-history-keys)
 
 ;; better modes
 (add-to-list 'auto-mode-alist '("\\(?:[Mm]akefile\\|\\.mk\\)\\'" . makefile-mode))
