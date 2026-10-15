@@ -200,6 +200,9 @@
 ;;  those keymaps are kinda hard to hit. thereby they are also mapped into non
 ;;  function row keybindings. Only to fit into such keyboards as well. In the
 ;;  future this might get solved in other way.
+;;  However, it might make sense to only keep the non–function-row
+;;  keybindings, because those are more universally available across
+;;  different keyboards and reduce redundancy in the keymap.
 (use-package custom-keys :bind
   (("M-1" . lr/toggle-scratch-buffer)       ("<f1>" . lr/toggle-scratch-buffer)
    ("M-2" . lr/toggle-compilation-buffer)   ("<f2>" . lr/toggle-compilation-buffer)
