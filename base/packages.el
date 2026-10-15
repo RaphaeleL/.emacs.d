@@ -36,8 +36,7 @@
         eglot-code-action-indicator "h"
         eglot-stay-out-of '(flymake))
   ;; Eglot's JSON-RPC event log is extremely noisy and needlessly expensive.
-  (when (fboundp 'jsonrpc--log-event)
-    (fset #'jsonrpc--log-event #'ignore))
+  (when (fboundp 'jsonrpc--log-event) (fset #'jsonrpc--log-event #'ignore))
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (setq-local completion-category-defaults nil
