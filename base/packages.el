@@ -209,8 +209,11 @@
    ("M-3" . isearch-forward-thing-at-point) ("<f3>" . isearch-forward-thing-at-point)
    ("M-4" . lr/toggle-line-numbers)         ("<f4>" . lr/toggle-line-numbers)
    ("M-5" . lr/toggle-colors)               ("<f5>" . lr/toggle-colors)
-   ; ... space for more
-   ("M-9" . fundamental-mode)               ("<f9>" . fundamental-mode)))
+   ("M-6" . lr/toggle-font)                 ("<f6>" . lr/toggle-font)
+   ("M-7" . lr/unbound)                     ("<f7>" . lr/unbound)
+   ("M-8" . lr/unbound)                     ("<f8>" . lr/unbound)
+   ("M-9" . fundamental-mode)               ("<f9>" . fundamental-mode)
+   ("M-0" . lr/unbound)                     ("<f0>" . lr/unbound)))
 
 ;; NOTE: We want to Copy to Clipboard, which is done with simpleclip. However
 ;;  simpleclip is not working with multiplecursors. Thereby we are copy/paste
