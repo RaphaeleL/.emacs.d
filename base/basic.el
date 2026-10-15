@@ -14,6 +14,8 @@
 (save-place-mode 1)
 (simpleclip-mode 1)
 
+(setq make-backup-files nil)
+
 (setq window-resize-pixelwise t
       frame-resize-pixelwise  t)
 
