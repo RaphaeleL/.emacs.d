@@ -29,6 +29,8 @@
 
 (setq vc-follow-symlinks t)
 
+(setq window-combination-resize t split-width-threshold 300) ;; split window horizontal
+
 (setq-default tab-width 4)
 (setq-default toggle-word-wrap t)
 
