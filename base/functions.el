@@ -1,15 +1,5 @@
 ;;; functions.el --- lr/* helper functions -*- lexical-binding: t; -*-
 
-(defun lr/toggle-theme ()
-  (interactive)
-  (diredfl-global-mode 1)
-  (let* ((light 'lr_solarized_light)
-         (dark  'lr_gruberdarker)
-         (current (car custom-enabled-themes))
-         (next (if (eq current light) dark light)))
-    (mapc #'disable-theme custom-enabled-themes)
-    (load-theme next t)))
-
 (defun lr/delete-line ()
   (interactive)
   (save-excursion
@@ -33,25 +23,25 @@
   (diredfl-global-mode 0)
   (mapc #'disable-theme custom-enabled-themes))
 
-(defun lr/disable-vertico ()
-  (interactive)
-  (vertico-mode 0)
-  (vertico-flat-mode 0)
-  (marginalia-mode 0)
-  (define-key minibuffer-local-map (kbd "C-n") #'next-history-element)
-  (define-key minibuffer-local-map (kbd "C-p") #'previous-history-element))
+;; (defun lr/disable-vertico ()
+;;   (interactive)
+;;   (vertico-mode 0)
+;;   (vertico-flat-mode 0)
+;;   (marginalia-mode 0)
+;;   (define-key minibuffer-local-map (kbd "C-n") #'next-history-element)
+;;   (define-key minibuffer-local-map (kbd "C-p") #'previous-history-element))
 
-(defun lr/enable-vertico ()
-  (interactive)
-  (vertico-mode 1)
-  (vertico-flat-mode 0)
-  (marginalia-mode 1)
-  (define-key minibuffer-local-map (kbd "C-n") #'nil)
-  (define-key minibuffer-local-map (kbd "C-p") #'nil))
+;; (defun lr/enable-vertico ()
+;;   (interactive)
+;;   (vertico-mode 1)
+;;   (vertico-flat-mode 0)
+;;   (marginalia-mode 1)
+;;   (define-key minibuffer-local-map (kbd "C-n") #'nil)
+;;   (define-key minibuffer-local-map (kbd "C-p") #'nil))
 
 (defvar-local choosen-colors 'plain)
-(defun lr/colorful() (interactive) (setq-local choosen-colors 'colorful) (diredfl-global-mode 1) (global-whitespace-mode 1) (lr/theme 'lr_gruberdarker))
-(defun lr/plain()    (interactive) (setq-local choosen-colors 'plain)    (diredfl-global-mode 0) (global-whitespace-mode 0) (lr/default-theme))
+(defun lr/colorful() (interactive) (setq-local choosen-colors 'colorful) (diredfl-global-mode 1) (lr/theme 'lr_gruberdarker))
+(defun lr/plain()    (interactive) (setq-local choosen-colors 'plain)    (diredfl-global-mode 0) (lr/default-theme))
 (defun lr/toggle-colors ()
   (interactive)
   (pcase choosen-colors
@@ -59,15 +49,24 @@
     ('plain (lr/colorful))
     (_ (lr/colorful))))
 
+(defvar lr/current-toggle-font 'iosevka)
+(defun lr/toggle-font ()
+  (interactive)
+  (let ((font (if (eq lr/current-toggle-font 'iosevka) "Comic Code-16" "Iosevka-16")))
+    (if (member (car (split-string font "-")) (font-family-list))
+        (progn
+          (lr/use-font font)
+          (setq lr/current-toggle-font (if (eq lr/current-toggle-font 'iosevka) 'comic-code 'iosevka))
+          (message "Font: %s" font))
+      (message "Font not installed: %s" font))))
+
 (defun lr/disable-font ()
   (interactive)
   (cond ((eq system-type 'darwin)
          (let ((default-font (or (cdr (assoc 'font default-frame-alist)) "Menlo-14")))
            (set-frame-font default-font t t)
            (setq-default line-spacing nil)
-           (dolist (buf (buffer-list))
-             (with-current-buffer buf
-               (force-window-update (get-buffer-window buf)))))))
+           (dolist (buf (buffer-list)) (with-current-buffer buf (force-window-update (get-buffer-window buf)))))))
   (set-frame-font nil t t)
   (setq-default line-spacing nil)
   (dolist (buf (buffer-list))
@@ -83,7 +82,7 @@
         (force-window-update (get-buffer-window buf))))))
 
 (defvar lr/font-list'("Menlo-16" "Iosevka-16" "Lilex Nerd Font Mono-16" "Consoleet Darwin Smooth-18" "Comic Code-16"))
-(defun lr/enable-font ()
+(defun lr/font ()
   (interactive)
   (let* ((input (completing-read "Choose font: " lr/font-list nil nil)) (font input))
     (when (member (car (split-string font "-")) (font-family-list)) (lr/use-font font))))
@@ -98,6 +97,8 @@
 (defun lr/cut ()     (interactive) (simpleclip-cut    (region-beginning) (region-end)) (deactivate-mark) (sit-for 1))
 (defun lr/copy ()    (interactive) (simpleclip-copy   (region-beginning) (region-end)) (deactivate-mark) (sit-for 1))
 (defun lr/paste ()   (interactive) (simpleclip-paste) (deactivate-mark)  (sit-for 1))
+
+(defun lr/unbound () (interactive) (message "Unbound"))
 
 (defun lr/toggle-mini-buffer-mode ()
   (interactive)
@@ -122,8 +123,9 @@
     (if (get-buffer-window buffer) (delete-window (get-buffer-window buffer)) (switch-to-buffer-other-window buffer))))
 (defun lr/toggle-scratch-buffer () (interactive) (lr/toggle-buffer "*scratch*"))
 (defun lr/toggle-compilation-buffer () (interactive) (lr/toggle-buffer "*compilation*"))
+(defun lr/toggle-shell-buffer () (interactive) (lr/toggle-buffer "*shell*"))
 
-(defun lr/find-corresponding-file ()
+(defun lr/find-corresponding-clang-file ()
   (interactive)
   (let* ((name (buffer-file-name))
          (base (when name (file-name-sans-extension name)))
@@ -154,13 +156,17 @@
 (defun lr/toggle-line-numbers ()
   (interactive)
   (pcase display-line-numbers
-    ('relative (lr/line-off))
-    ('absolute (lr/line-relative))
-    (_         (lr/line-normal))))
+    ('relative (lr/line-normal))
+    ('absolute (lr/line-off))
+    (_         (lr/line-relative))))
 
 (defun lr/toggle-whitespace ()
   (interactive)
   (if (bound-and-true-p global-whitespace-mode) (global-whitespace-mode -1) (global-whitespace-mode 1)))
+
+(defun lr/minibuffer-history-keys ()
+  (local-set-key (kbd "C-p") #'next-history-element) ; swapped on purpose!
+  (local-set-key (kbd "C-n") #'previous-history-element))
 
 (defun lr/compile-minibuffer-setup ()
   (when (eq this-command 'compile)
