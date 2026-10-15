@@ -4,13 +4,19 @@
 ;; (when (eq system-type 'darwin) (add-to-list 'default-frame-alist '(undecorated-round . t)))
 
 ;; Look and Feel
-(lr/use-font "Comic Code-16")
-(lr/default-theme) ;; (lr/theme 'lr_gruberdarker)
+
+;; (lr/use-font "Comic Code-16")
+;; (lr/default-theme)
+;; (set-fringe-mode '(8 . 8))
+(lr/line-off)
+(lr/use-font "Iosevka-16")
+(lr/theme 'lr_gruberdarker)
+(set-fringe-mode 0)
+;; (lr/line-relative)
+
+;; (lr/disable-vertico)
 (mood-line-mode 1)
 (global-whitespace-mode 0)
-(set-fringe-mode '(8 . 8)) ;; (set-fringe-mode 0)
-(lr/disable-vertico)
-(lr/line-off) ;; (lr/line-relative)
 
 ;; LSP
 (load "~/.emacs.d/base/lsp.el")
@@ -19,10 +25,10 @@
 (if (display-graphic-p) (menu-bar-mode 1) (menu-bar-mode -1))
 
 ;; Default Size and Position of Emacs on MacOS
-(add-to-list 'default-frame-alist '(width  . 136))
-(add-to-list 'default-frame-alist '(height . 38))
-;; (add-to-list 'default-frame-alist '(left   . 150))
-;; (add-to-list 'default-frame-alist '(top    . 120))
+;; (add-to-list 'default-frame-alist '(width  . 136))
+;; (add-to-list 'default-frame-alist '(height . 38))
+(add-to-list 'default-frame-alist '(width  . 169))
+(add-to-list 'default-frame-alist '(height . 43))
 
 ;; Key remapping for MacOS
 (setq mac-command-modifier 'meta     ; Command as Meta
