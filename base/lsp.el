@@ -27,6 +27,13 @@
 ; (require 'simpc-mode)
 ; (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
 
+;; Krait Development (https://github.com/RaphaeleL/kraitc)
+(load "~/.emacs.d/modes/krait-mode.el" 'noerror 'nomessage)
+(require 'krait-mode)
+(add-to-list 'auto-mode-alist '("\\.krt\\'" . krait-mode))
+(setq krait-lsp-command '("krait" "--lsp"))
+(add-hook 'krait-mode-hook #'eglot-ensure)
+
 ;; Treesitter or Base Mode
 (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . c-ts-mode))
 
@@ -64,11 +71,7 @@
 
 ;; Do some LSP Settings
 ;; Shorter idle delay makes completion and diagnostics feel responsive.
-(setq eglot-send-changes-idle-time 0.1
-      eglot-extend-to-xref t
-      eglot-autoshutdown t
-      eglot-code-action-indicator "h"
-      eglot-stay-out-of '(flymake))
+(setq eglot-stay-out-of '(flymake))
 
 ;; Eglot's JSON-RPC event log is useful for debugging but expensive during
 ;; normal editing.  Re-enable it temporarily when diagnosing a server.
