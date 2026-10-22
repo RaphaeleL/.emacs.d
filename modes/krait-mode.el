@@ -32,9 +32,8 @@
     (modify-syntax-entry ?_ "w" table)
     ;; `//' line comments ...
     (modify-syntax-entry ?/ ". 124b" table)
-    ;; ... and `/* ... */' block comments.  Nesting is handled by
-    ;; `krait-syntax-propertize' below.
-    (modify-syntax-entry ?* ". 23" table)
+    ;; ... and nestable `/* ... */' block comments (the `n' flag).
+    (modify-syntax-entry ?* ". 23n" table)
     ;; A newline ends `//' comments (but not block comments).
     (modify-syntax-entry ?\n "> b" table)
     ;; Strings and character literals, with backslash escapes.
@@ -47,31 +46,8 @@
   "Syntax table for `krait-mode'.")
 
 (defun krait-syntax-propertize (start end)
-  "Handle nested block comments between START and END for `krait-mode'.
-The syntax table only supports flat `/* ... */' comments, so a nested `/*'
-marks its `*' as a generic string delimiter, and the matching `*/' marks
-its `*' the same way: the pair toggles a pseudo-string inside the comment,
-and the enclosing comment stays open until its own `*/'."
-  (goto-char start)
-  (funcall
-   (syntax-propertize-rules
-    ;; A nested `/*' inside a block comment (but not inside a string or a
-    ;; `//' line comment).
-    ("/\\(\\*\\)"
-     (1 (let ((state (syntax-ppss (match-beginning 0))))
-          (when (and (nth 4 state)                 ; inside a comment,
-                     (not (nth 3 state))           ; not in a nested level,
-                     (let ((cstart (nth 8 state))) ; and it is /*, not //
-                       (and cstart
-                            (eq (char-after cstart) ?/)
-                            (eq (char-after (1+ cstart)) ?*))))
-            (string-to-syntax "|")))))
-    ;; The matching `*/' while inside a nested level.
-    ("\\(\\*\\)/"
-     (1 (let ((state (syntax-ppss (match-beginning 0))))
-          (when (and (nth 4 state) (nth 3 state))
-            (string-to-syntax "|"))))))
-   start end)
+  "Apply `syntax-table' properties between START and END for `krait-mode'.
+Nested block comments need none: the syntax table marks them nestable."
   (krait-syntax-propertize-strings start end))
 
 (defun krait-syntax-propertize-strings (start end)
@@ -223,7 +199,6 @@ With ARG, do it that many times; negative ARG moves forward."
 
 ;;;###autoload
 (define-derived-mode krait-mode prog-mode "Krait"
-  (setq-local indent-line-function 'krait-indent-line)
   :syntax-table krait-mode-syntax-table
   (setq-local indent-line-function #'krait-indent-line)
   (setq-local parse-sexp-lookup-properties t)
