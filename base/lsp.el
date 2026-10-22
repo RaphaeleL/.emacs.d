@@ -27,12 +27,12 @@
 ; (require 'simpc-mode)
 ; (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
 
-;; Krait Development (https://github.com/RaphaeleL/kraitc)
-(load "~/.emacs.d/modes/krait-mode.el" 'noerror 'nomessage)
-(require 'krait-mode)
-(add-to-list 'auto-mode-alist '("\\.krt\\'" . krait-mode))
-(setq krait-lsp-command '("krait" "--lsp"))
-(add-hook 'krait-mode-hook #'eglot-ensure)
+;; Addo Development (https://github.com/RaphaeleL/ardo)
+(load "~/.emacs.d/modes/ardo-mode.el" 'noerror 'nomessage)
+(require 'ardo-mode)
+(add-to-list 'auto-mode-alist '("\\.krt\\'" . ardo-mode))
+(setq ardo-lsp-command '("ardo" "--lsp"))
+(add-hook 'ardo-mode-hook #'eglot-ensure)
 
 ;; Treesitter or Base Mode
 (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . c-ts-mode))
