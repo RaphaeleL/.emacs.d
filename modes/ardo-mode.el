@@ -11,7 +11,7 @@
 
 ;; A major mode for Ardo (*.ardo) source files.  It provides font-lock
 ;; highlighting for the whole lexical surface (directives, keywords,
-;; builtin and capitalized type names, function names, `#bake' constants,
+;; builtin and capitalized type names, function names, `const' constants,
 ;; strings, character literals, numbers), correct handling of nestable
 ;; `/* ... */' block comments (plus `//' line comments and `/** ... */'
 ;; documentation comments), imenu entries, and `beginning-of-defun' /
@@ -100,7 +100,7 @@ the comment face; `/** ... */' comments use `font-lock-doc-face'."
     font-lock-string-face)))
 
 (defconst ardo-mode--defun-regexp
-  "^\\s-*\\(?:pub\\s-+\\)?\\(?:fn\\|struct\\|enum\\|#bake\\|#extern\\)\\_>"
+  "^\\s-*\\(?:pub\\s-+\\)?\\(?:function\\|struct\\|enum\\|const\\|#extern\\)\\_>"
   "Regexp matching the start of a top-level Ardo definition.")
 
 (defun ardo-beginning-of-defun (&optional arg)
@@ -134,9 +134,9 @@ With ARG, do it that many times; negative ARG moves forward."
 
 (defconst ardo-mode-font-lock-keywords
   (let* ((kw (regexp-opt '("and" "as" "break" "case" "continue" "default"
-                           "defer" "deinit" "else" "enum" "fails" "fn" "for" "if"
+                           "defer" "deinit" "else" "enum" "fails" "function" "for" "if"
                            "in" "match" "not" "or" "pub" "ref" "return"
-                           "struct" "then" "to" "until" "while" "using")
+                           "struct" "const" "then" "to" "until" "while" "using" "xx" "try")
                          'symbols))
          (reserved (regexp-opt '("async" "await" "class" "comptime" "impl"
                                  "module" "nil" "none" "some" "trait" "use"
@@ -151,25 +151,27 @@ With ARG, do it that many times; negative ARG moves forward."
          ;; Capitalized identifiers that are not SCREAMING_CASE:
          ;; `Shape', `List', `Point2D', and single-letter type params `T'.
          (user-types "\\_<[[:upper:]]\\(?:\\|[[:alnum:]_]*[[:lower:]][[:alnum:]_]*\\)\\_>")
-         ;; SCREAMING_CASE names: by convention `#bake' constants.
+         ;; SCREAMING_CASE names: by convention `const' constants.
          (constants "\\_<[[:upper:]][[:upper:]_0-9]\\{1,\\}\\_>")
          (number-face (if (facep 'font-lock-number-face)
                           'font-lock-number-face
                         'font-lock-constant-face)))
-    `(;; Directives: #import, #load, #library, #assert, #all, #bake, #copy, #on, #extern, #char, #repeat, #type, #ignore, #entrypoint.
-      ("#\\(?:import\\|load\\|library\\|assert\\|all\\|bake\\|copy\\|on\\|extern\\|char\\|repeat\\|type\\|ignore\\|entrypoint\\)\\_>" 0 font-lock-preprocessor-face)
+    `(;; Directives: #import, #load, #library, #assert, #all, #copy, #on, #extern, #char, #repeat, #type, #ignore, #entrypoint, #if, #target.
+      ("#\\(?:import\\|load\\|library\\|assert\\|all\\|bake\\|copy\\|on\\|extern\\|char\\|repeat\\|type\\|ignore\\|error\\|go\\|call\\|entrypoint\\|pointer\\|deref\\|if\\|target\\|empty\\)\\_>" 0 font-lock-preprocessor-face)
       ;; Loop labels: `'outer for ...', `break 'outer;'.
       ("'[[:alpha:]_][[:alnum:]_]*\\_>\\(?:[^']\\|$\\)" 0 font-lock-constant-face)
-      ;; `#bake NAME' — compile-time constants.
-      ("#bake\\s-+\\([[:word:]]+\\)" 1 font-lock-constant-face)
+      ;; `const NAME' — compile-time constants.
+      ("\\_<const\\s-+\\([[:word:]]+\\)" 1 font-lock-constant-face)
       ;; `fn name'.
-      ("\\_<fn\\s-+\\([[:word:]]+\\)" 1 font-lock-function-name-face)
+      ("\\_<function\\s-+\\([[:word:]]+\\)" 1 font-lock-function-name-face)
       ;; Booleans.
       ("\\_<\\(?:true\\|false\\)\\_>" 0 font-lock-constant-face)
       (,constants 0 font-lock-constant-face)
       (,user-types 0 font-lock-type-face)
       (,types 0 font-lock-type-face)
       (,builtins 0 font-lock-builtin-face)
+      ;; `str(x)' is a builtin only when called: `str.concat' is the str module.
+      ("\\_<\\(str\\)\\s-*(" 1 font-lock-builtin-face)
       (,reserved 0 font-lock-keyword-face)
       (,kw 0 font-lock-keyword-face)
       ;; Numbers.
@@ -224,9 +226,9 @@ With ARG, do it that many times; negative ARG moves forward."
   (setq-local comment-end "")
   (setq-local comment-start-skip "//+\\s-*")
   (setq-local imenu-generic-expression
-              '(("Functions" "\\_<fn\\s-+\\([[:word:]]+\\)" 1)
+              '(("Functions" "\\_<function\\s-+\\([[:word:]]+\\)" 1)
                 ("Types" "\\_<\\(?:struct\\|enum\\)\\s-+\\([[:word:]]+\\)" 1)
-                ("Constants" "#bake\\s-+\\([[:word:]]+\\)" 1)))
+                ("Constants" "const\\s-+\\([[:word:]]+\\)" 1)))
   (setq-local imenu-case-fold-search nil)
   (setq-local beginning-of-defun-function #'ardo-beginning-of-defun)
   (setq-local end-of-defun-function #'ardo-end-of-defun))
@@ -234,7 +236,7 @@ With ARG, do it that many times; negative ARG moves forward."
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.ardo\\'" . ardo-mode))
 
-;; Language server: `ardo --lsp' (see docs/lsp.md).  Eglot (built into
+;; Language server: `ardo --lsp' (see docs/tools/lsp.md).  Eglot (built into
 ;; Emacs 29) and lsp-mode both know it once loaded; start it with `M-x eglot'
 ;; or `M-x lsp', or add `eglot-ensure' to `ardo-mode-hook'.
 (defcustom ardo-lsp-command '("ardo" "--lsp")
