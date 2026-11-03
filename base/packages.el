@@ -37,10 +37,7 @@
         eglot-stay-out-of '(flymake))
   ;; Eglot's JSON-RPC event log is extremely noisy and needlessly expensive.
   (when (fboundp 'jsonrpc--log-event) (fset #'jsonrpc--log-event #'ignore))
-  (add-hook 'eglot-managed-mode-hook
-            (lambda ()
-              (setq-local completion-category-defaults nil
-                          eglot-events-buffer-size 0))))
+  (add-hook 'eglot-managed-mode-hook (lambda () (setq-local completion-category-defaults nil eglot-events-buffer-size 0))))
 
 ; === Optional UI Enhancements ===
 
@@ -53,23 +50,22 @@
 
 ; === Modern Completion Frameworks (minibuffer/UI) ===
 
-(use-package vertico
-  :demand t
-  :init (vertico-mode 1)
-  :bind (:map vertico-map ("M-DEL" . vertico-directory-delete-word)))
+;; (use-package vertico ;; vertical candidate list
+;;   :demand t
+;;   :init (vertico-mode 1)
+;;   :bind (:map vertico-map ("M-DEL" . vertico-directory-delete-word)))
 
-(use-package vertico-directory :ensure nil :after vertico)
+;; (use-package vertico-directory :ensure nil :after vertico) ;; directory-editing commands
+;; (use-package marginalia :after vertico :init (marginalia-mode 1)) ;; notes beside candidates
 
-(use-package marginalia :after vertico :init (marginalia-mode 1))
+;; (use-package orderless ;; how typed text matches candidates
+;;   :after vertico
+;;   :config
+;;   (setq completion-styles '(orderless basic)
+;;         completion-category-defaults nil
+;;         completion-category-overrides '((file (styles basic partial-completion)))))
 
-(use-package orderless
-  :after vertico
-  :config
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles basic partial-completion)))))
-
-(use-package corfu
+(use-package corfu ;; completion popup
   :demand t
   :init (global-corfu-mode 1)
   :custom
@@ -81,52 +77,52 @@
               ("C-n" . corfu-next)
               ("C-p" . corfu-previous)))
 
-(use-package corfu-popupinfo
+(use-package corfu-popupinfo ;; documentation beside the completion popup
   :ensure nil
   :after corfu
   :hook (corfu-mode . corfu-popupinfo-mode)
   :custom (corfu-popupinfo-delay '(0.25 . 0.1)))
 
-(use-package cape
-  :after corfu
-  :init
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  (add-to-list 'completion-at-point-functions #'cape-file))
+;; (use-package cape ;; extra completion sources
+;;   :after corfu
+;;   :init
+;;   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+;;   (add-to-list 'completion-at-point-functions #'cape-file))
 
 ;; (use-package kind-icon
 ;;   :if (display-graphic-p)
 ;;   :after corfu
 ;;   :config (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
-(use-package avy
-  :bind (("C-c j" . avy-goto-line)
-         ("s-j" . avy-goto-char-timer)
-         :map isearch-mode-map
-         ("s-j" . avy-isearch)))
+;; (use-package avy ;; jump to visible text
+;;   :bind (("C-c j" . avy-goto-line)
+;;          ("s-j" . avy-goto-char-timer)
+;;          :map isearch-mode-map
+;;          ("s-j" . avy-isearch)))
 
-(use-package embark
-  :demand t
-  :after avy
-  :bind (("C-c a" . embark-act))
-  :init
-  (defun lr/avy-action-embark (point)
-    "Run `embark-act' at the Avy candidate selected at POINT."
-    (unwind-protect
-        (save-excursion (goto-char point) (embark-act))
-      (select-window (cdr (ring-ref avy-ring 0))))
-    t)
-  (setf (alist-get ?. avy-dispatch-alist) #'lr/avy-action-embark)
-  :config
-  (when (fboundp 'which-key-mode) (which-key-mode -1))
-  (setq embark-auto-prefix-help-delay 1.0)
-  (embark-auto-prefix-help-mode))
+;; (use-package embark ;; act on the thing at point
+;;   :demand t
+;;   :after avy
+;;   :bind (("C-c a" . embark-act))
+;;   :init
+;;   (defun lr/avy-action-embark (point)
+;;     "Run `embark-act' at the Avy candidate selected at POINT."
+;;     (unwind-protect
+;;         (save-excursion (goto-char point) (embark-act))
+;;       (select-window (cdr (ring-ref avy-ring 0))))
+;;     t)
+;;   (setf (alist-get ?. avy-dispatch-alist) #'lr/avy-action-embark)
+;;   :config
+;;   (when (fboundp 'which-key-mode) (which-key-mode -1))
+;;   (setq embark-auto-prefix-help-delay 1.0)
+;;   (embark-auto-prefix-help-mode))
 
-(use-package embark-consult :after (embark consult))
-(use-package consult
-  :ensure t
-  :bind (("C-l"   . consult-line)
-         ("C-r"   . consult-ripgrep)
-         ("C-x b" . consult-buffer)))
+;; (use-package embark-consult :after (embark consult))
+;; (use-package consult
+;;   :ensure t
+;;   :bind (("C-l"   . consult-line)
+;;          ("C-r"   . consult-ripgrep)
+;;          ("C-x b" . consult-buffer)))
 
 ;; Modern built-in completion defaults, kept separate from the optional Vertico setup so the latter can still be disabled per platform.
 (setq enable-recursive-minibuffers t
@@ -134,10 +130,11 @@
       completions-detailed t
       tab-always-indent 'complete
       completion-styles '(basic initials substring)
-      completion-auto-help 'always
+      completion-auto-help 'lazy ;; 'always 'nil
       completions-format 'one-column
       completions-max-height 20)
 (setq minibuffer-visible-completions t)
+(keymap-set minibuffer-local-completion-map "M-TAB" #'minibuffer-completion-help)
 (keymap-set minibuffer-mode-map "TAB" #'minibuffer-complete)
 
 (use-package isearch
@@ -182,6 +179,7 @@
          ("C-="     . (lambda () (interactive) (text-scale-increase 1)))
          ("C-+"     . (lambda () (interactive) (text-scale-increase 1)))
          ("C--"     . (lambda () (interactive) (text-scale-decrease 1)))
+         ("C-c j"   . join-line)
          ("C-c n"   . lr/toggle-line-numbers)
          ("C-c w"   . lr/toggle-whitespace)
          ("C-c f"   . lr/find-corresponding-clang-file)
@@ -211,11 +209,11 @@
   (("M-1" . lr/toggle-scratch-buffer)       ("<f1>" . lr/toggle-scratch-buffer)
    ("M-2" . lr/toggle-compilation-buffer)   ("<f2>" . lr/toggle-compilation-buffer)
    ("M-3" . isearch-forward-thing-at-point) ("<f3>" . isearch-forward-thing-at-point)
-   ("M-4" . lr/toggle-line-numbers)         ("<f4>" . lr/toggle-line-numbers)
-   ("M-5" . lr/toggle-colors)               ("<f5>" . lr/toggle-colors)
-   ("M-6" . lr/toggle-font)                 ("<f6>" . lr/toggle-font)
-   ("M-7" . lr/unbound)                     ("<f7>" . lr/unbound)
-   ("M-8" . lr/unbound)                     ("<f8>" . lr/unbound)
+   ;; ("M-4" . lr/toggle-line-numbers)         ("<f4>" . lr/toggle-line-numbers)
+   ;; ("M-5" . lr/toggle-colors)               ("<f5>" . lr/toggle-colors)
+   ;; ("M-6" . lr/toggle-font)                 ("<f6>" . lr/toggle-font)
+   ;; ("M-7" . lr/unbound)                     ("<f7>" . lr/unbound)
+   ;; ("M-8" . text-mode)                      ("<f8>" . text-mode)
    ("M-9" . fundamental-mode)               ("<f9>" . fundamental-mode)
    ("M-0" . lr/unbound)                     ("<f0>" . lr/unbound)))
 
