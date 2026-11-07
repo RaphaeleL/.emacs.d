@@ -136,18 +136,31 @@ With ARG, do it that many times; negative ARG moves forward."
   (let* ((kw (regexp-opt '("and" "as" "break" "case" "continue" "default"
                            "defer" "deinit" "else" "enum" "fails" "function" "for" "if"
                            "in" "match" "not" "or" "pub" "ref" "return"
-                           "struct" "const" "then" "to" "until" "while" "using" "xx" "try")
+                           "struct" "const" "then" "to" "until" "while" "using" "union" "var" "xx" "try")
                          'symbols))
          (reserved (regexp-opt '("async" "await" "class" "comptime" "impl"
                                  "module" "nil" "none" "some" "trait" "use"
-                                 "yield" "ok" "error")
+                                 "yield")
                                'symbols))
          (types (regexp-opt '("bool" "char" "byte" "short" "ushort" "int"
                               "uint" "long" "ulong" "i8" "i16" "i32" "i64"
                               "u8" "u16" "u32" "u64" "f32" "f64" "float"
                               "double" "string")
                             'symbols))
-         (builtins (regexp-opt '("alloc" "free" "sizeof" "alignof" "offset" "move_out" "assert" "error") 'symbols))
+         (builtins (regexp-opt '("alloc" "free" "sizeof" "alignof" "offset" "move_out" "assert"
+                                 "volatile_load" "volatile_store" "fence"
+                                 "atomic_load" "atomic_store" "atomic_swap" "atomic_add" "atomic_sub"
+                                 "atomic_and" "atomic_or" "atomic_xor" "atomic_cas")
+                               'symbols))
+         ;; Exactly the directives the lexer knows.
+         (directives (concat "#" (regexp-opt '("import" "load" "library" "c_import" "assert" "all" "bake"
+                                               "char" "repeat" "entrypoint" "type" "cast" "ignore" "error"
+                                               "go" "call" "ref" "copy" "on" "pointer" "deref" "extern"
+                                               "c_callback" "export" "trace" "time" "memo" "retry"
+                                               "deprecated" "fields" "autoinit" "embed" "packed" "align"
+                                               "bits" "if" "target" "empty")
+                                             t)
+                             "\\_>"))
          ;; Capitalized identifiers that are not SCREAMING_CASE:
          ;; `Shape', `List', `Point2D', and single-letter type params `T'.
          (user-types "\\_<[[:upper:]]\\(?:\\|[[:alnum:]_]*[[:lower:]][[:alnum:]_]*\\)\\_>")
@@ -156,8 +169,15 @@ With ARG, do it that many times; negative ARG moves forward."
          (number-face (if (facep 'font-lock-number-face)
                           'font-lock-number-face
                         'font-lock-constant-face)))
-    `(;; Directives: #import, #load, #library, #assert, #all, #copy, #on, #extern, #char, #repeat, #type, #ignore, #entrypoint, #if, #target.
-      ("#\\(?:import\\|load\\|library\\|assert\\|all\\|bake\\|copy\\|on\\|extern\\|char\\|repeat\\|type\\|ignore\\|error\\|go\\|call\\|entrypoint\\|pointer\\|deref\\|if\\|target\\|empty\\)\\_>" 0 font-lock-preprocessor-face)
+    `(;; Directives (`#' never starts a comment).
+      (,directives 0 font-lock-preprocessor-face)
+      ;; `---': the default value of the declared type.
+      ("---" 0 font-lock-constant-face)
+      ;; `ok(v)' / `error(e)' and the `error' keyword.
+      ("\\_<\\(ok\\)\\s-*(" 1 font-lock-warning-face)
+      ("\\_<error\\_>" 0 font-lock-warning-face)
+      ("\\_<null\\_>" 0 font-lock-constant-face)
+      ("\\_<\\(?:self\\|it\\)\\_>" 0 font-lock-variable-name-face)
       ;; Loop labels: `'outer for ...', `break 'outer;'.
       ("'[[:alpha:]_][[:alnum:]_]*\\_>\\(?:[^']\\|$\\)" 0 font-lock-constant-face)
       ;; `const NAME' — compile-time constants.
