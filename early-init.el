@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defvar efs/file-name-handler-alist-original file-name-handler-alist)
 
 ;; Defer expensive work while the init files are being read. Restore normal
