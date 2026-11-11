@@ -135,10 +135,10 @@ With ARG, do it that many times; negative ARG moves forward."
 (defconst ardo-mode-font-lock-keywords
   (let* ((kw (regexp-opt '("and" "as" "break" "case" "continue" "default"
                            "defer" "deinit" "else" "enum" "fails" "function" "for" "if"
-                           "in" "match" "not" "or" "pub" "ref" "return"
-                           "struct" "const" "then" "to" "until" "while" "using" "union" "var" "xx" "try")
+                           "in" "match" "not" "or" "pub" "return"
+                           "struct" "const" "compile_time" "then" "to" "until" "while" "using" "union" "var" "xx" "try")
                          'symbols))
-         (reserved (regexp-opt '("async" "await" "class" "comptime" "impl"
+         (reserved (regexp-opt '("async" "await" "class" "impl"
                                  "module" "nil" "none" "some" "trait" "use"
                                  "yield")
                                'symbols))
@@ -153,9 +153,9 @@ With ARG, do it that many times; negative ARG moves forward."
                                  "atomic_and" "atomic_or" "atomic_xor" "atomic_cas")
                                'symbols))
          ;; Exactly the directives the lexer knows.
-         (directives (concat "#" (regexp-opt '("import" "load" "library" "c_import" "assert" "all" "bake"
-                                               "char" "repeat" "entrypoint" "type" "cast" "ignore" "error"
-                                               "go" "call" "ref" "copy" "on" "pointer" "deref" "extern"
+         (directives (concat "#" (regexp-opt '("import" "load" "library" "c_import" "assert" "all"
+                                               "char" "repeat" "type" "cast" "ignore" "error"
+                                               "go" "call" "borrow" "copy" "on" "extern"
                                                "c_callback" "export" "trace" "time" "memo" "retry"
                                                "deprecated" "fields" "autoinit" "embed" "packed" "align"
                                                "bits" "if" "target" "empty")
