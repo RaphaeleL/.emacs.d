@@ -9,7 +9,7 @@
 
 ;;; Commentary:
 
-;; A major mode for Ardo (*.ardo) source files.  It provides font-lock
+;; A major mode for Ardo (*.ao) source files.  It provides font-lock
 ;; highlighting for the whole lexical surface (directives, keywords,
 ;; builtin and capitalized type names, function names, `const' constants,
 ;; strings, character literals, numbers), correct handling of nestable
@@ -135,11 +135,11 @@ With ARG, do it that many times; negative ARG moves forward."
 (defconst ardo-mode-font-lock-keywords
   (let* ((kw (regexp-opt '("and" "as" "break" "case" "continue" "default"
                            "defer" "deinit" "else" "enum" "fails" "function" "for" "if"
-                           "in" "match" "not" "or" "pub" "return"
+                           "in" "is" "match" "not" "or" "pub" "return"
                            "struct" "const" "compile_time" "then" "to" "until" "while" "using" "union" "var" "xx" "try")
                          'symbols))
          (reserved (regexp-opt '("async" "await" "class" "impl"
-                                 "module" "nil" "none" "some" "trait" "use"
+                                 "module" "nil" "trait" "use"
                                  "yield")
                                'symbols))
          (types (regexp-opt '("bool" "char" "byte" "short" "ushort" "int"
@@ -155,9 +155,9 @@ With ARG, do it that many times; negative ARG moves forward."
          ;; Exactly the directives the lexer knows.
          (directives (concat "#" (regexp-opt '("import" "load" "library" "c_import" "assert" "all"
                                                "char" "repeat" "type" "cast" "ignore" "error"
-                                               "go" "call" "borrow" "copy" "on" "extern"
-                                               "c_callback" "export" "trace" "time" "memo" "retry"
-                                               "deprecated" "fields" "autoinit" "embed" "packed" "align"
+                                               "go" "unsafe" "call" "borrow" "copy" "on" "extern"
+                                               "c_callback" "export" "trace" "time" "memo" "retry" "require"
+                                               "deprecated" "fields" "autoinit" "no_eq" "value" "flags" "embed" "packed" "align"
                                                "bits" "if" "target" "empty")
                                              t)
                              "\\_>"))
@@ -176,7 +176,7 @@ With ARG, do it that many times; negative ARG moves forward."
       ;; `ok(v)' / `error(e)' and the `error' keyword.
       ("\\_<\\(ok\\)\\s-*(" 1 font-lock-warning-face)
       ("\\_<error\\_>" 0 font-lock-warning-face)
-      ("\\_<null\\_>" 0 font-lock-constant-face)
+      ("\\_<\\(?:null\\|some\\|none\\)\\_>" 0 font-lock-constant-face)
       ("\\_<\\(?:self\\|it\\)\\_>" 0 font-lock-variable-name-face)
       ;; Loop labels: `'outer for ...', `break 'outer;'.
       ("'[[:alpha:]_][[:alnum:]_]*\\_>\\(?:[^']\\|$\\)" 0 font-lock-constant-face)
@@ -194,6 +194,9 @@ With ARG, do it that many times; negative ARG moves forward."
       ("\\_<\\(str\\)\\s-*(" 1 font-lock-builtin-face)
       (,reserved 0 font-lock-keyword-face)
       (,kw 0 font-lock-keyword-face)
+      ;; `type Name = T;` / `distinct type Name = T;`: only at the start of a declaration
+      ("^[ \t]*\\(?:pub[ \t]+\\)?\\(\\(?:distinct[ \t]+\\)?type\\)[ \t]+\\([A-Za-z_][A-Za-z0-9_]*\\)"
+       (1 font-lock-keyword-face) (2 font-lock-type-face))
       ;; Numbers.
       ("\\_<0[xX][[:xdigit:]_]+\\_>" 0 ',number-face)
       ("\\_<0[bB][01_]+\\_>" 0 ',number-face)
@@ -254,7 +257,7 @@ With ARG, do it that many times; negative ARG moves forward."
   (setq-local end-of-defun-function #'ardo-end-of-defun))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.ardo\\'" . ardo-mode))
+(add-to-list 'auto-mode-alist '("\\.ao\\'" . ardo-mode))
 
 ;; Language server: `ardo --lsp' (see docs/tools/lsp.md).  Eglot (built into
 ;; Emacs 29) and lsp-mode both know it once loaded; start it with `M-x eglot'

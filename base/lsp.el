@@ -30,7 +30,7 @@
 ;; Addo Development (https://github.com/RaphaeleL/ardo)
 (load "~/.emacs.d/modes/ardo-mode.el" 'noerror 'nomessage)
 (require 'ardo-mode)
-(add-to-list 'auto-mode-alist '("\\.krt\\'" . ardo-mode))
+(add-to-list 'auto-mode-alist '("\\.ao\\'" . ardo-mode))
 (setq ardo-lsp-command '("ardo" "--lsp"))
 (add-hook 'ardo-mode-hook #'eglot-ensure)
 
