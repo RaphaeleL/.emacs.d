@@ -81,7 +81,7 @@
       (with-current-buffer buf
         (force-window-update (get-buffer-window buf))))))
 
-(defvar lr/font-list'("Menlo-16" "Iosevka-16" "Lilex Nerd Font Mono-16" "Consoleet Darwin Smooth-18" "Comic Code-16"))
+(defvar lr/font-list'("SF Mono-14" "Menlo-16" "Iosevka-16" "Lilex Nerd Font Mono-16" "Consoleet Darwin Smooth-18" "Comic Code-16"))
 (defun lr/font ()
   (interactive)
   (let* ((input (completing-read "Choose font: " lr/font-list nil nil)) (font input))
