@@ -49,6 +49,7 @@
   "Apply `syntax-table' properties between START and END for `ardo-mode'.
 Nested block comments need none: the syntax table marks them nestable."
   (ardo-syntax-propertize-strings start end)
+  (ardo-syntax-propertize-here-strings start end)
   (ardo-syntax-propertize-labels start end))
 
 (defun ardo-syntax-propertize-labels (start end)
@@ -81,6 +82,28 @@ not end the string; inside raw strings, backslashes are plain punctuation."
           (while (re-search-forward (if raw "[\"\\\\]" "\"") close t)
             (put-text-property (1- (point)) (point) 'syntax-table
                                (string-to-syntax "."))))))))
+
+(defun ardo-syntax-propertize-here-strings (start end)
+  "Mark `#string DELIM' here-strings between START and END.
+The line break after `#string DELIM' and the one before the closing DELIM
+line become string fences; quotes and backslashes inside are punctuation."
+  (goto-char start)
+  (while (re-search-forward
+          "#string[ \t]+\\([[:alpha:]_][[:alnum:]_]*\\)[ \t]*\n" end t)
+    (let ((open (1- (point)))
+          (delim (match-string 1)))
+      (unless (nth 8 (save-excursion (syntax-ppss (match-beginning 0))))
+        (when (re-search-forward
+               (concat "^[ \t]*" (regexp-quote delim) "\\_>") nil t)
+          (let ((close (1- (line-beginning-position))))
+            (when (> close open)
+              (put-text-property open (1+ open) 'syntax-table (string-to-syntax "|"))
+              (put-text-property close (1+ close) 'syntax-table (string-to-syntax "|"))
+              (save-excursion
+                (goto-char (1+ open))
+                (while (re-search-forward "[\"\\\\]" close t)
+                  (put-text-property (1- (point)) (point) 'syntax-table
+                                     (string-to-syntax ".")))))))))))
 
 (defun ardo-syntactic-face (state)
   "Return the font-lock face for the syntactic context STATE.
@@ -155,9 +178,9 @@ With ARG, do it that many times; negative ARG moves forward."
          ;; Exactly the directives the lexer knows.
          (directives (concat "#" (regexp-opt '("import" "load" "library" "c_import" "assert" "all"
                                                "char" "repeat" "type" "cast" "ignore" "error"
-                                               "go" "run" "unsafe" "call" "borrow" "copy" "on" "extern"
+                                               "go" "run" "unsafe" "call" "borrow" "maybe" "copy" "on" "extern"
                                                "c_callback" "export" "decorate" "require"
-                                               "deprecated" "no_trace" "thread_local" "fields" "autoinit" "no_eq" "value" "flags" "embed" "todo" "unreachable" "here" "packed" "align"
+                                               "deprecated" "no_trace" "inline" "noinline" "cold" "pre" "post" "likely" "unlikely" "thread_local" "fields" "autoinit" "no_eq" "value" "flags" "embed" "quote" "insert" "todo" "unreachable" "here" "packed" "align" "key"
                                                "bits" "if" "target" "empty")
                                              t)
                              "\\_>"))
@@ -263,7 +286,7 @@ With ARG, do it that many times; negative ARG moves forward."
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.ao\\'" . ardo-mode))
 
-;; Language server: `ardo --lsp' (see docs/tools/lsp.md).  Eglot (built into
+;; Language server: `ardo --lsp' (see docs/guide/01_start.md).  Eglot (built into
 ;; Emacs 29) and lsp-mode both know it once loaded; start it with `M-x eglot'
 ;; or `M-x lsp', or add `eglot-ensure' to `ardo-mode-hook'.
 (defcustom ardo-lsp-command '("ardo" "--lsp")
