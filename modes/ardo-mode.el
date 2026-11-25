@@ -100,7 +100,7 @@ the comment face; `/** ... */' comments use `font-lock-doc-face'."
     font-lock-string-face)))
 
 (defconst ardo-mode--defun-regexp
-  "^\\s-*\\(?:pub\\s-+\\)?\\(?:function\\|struct\\|enum\\|const\\|#extern\\)\\_>"
+  "^\\s-*\\(?:pub\\s-+\\)?\\(?:\\(?:function\\|struct\\|enum\\|const\\|#extern\\)\\_>\\|[[:alnum:]_.<>, ]+\\s-*::\\)"
   "Regexp matching the start of a top-level Ardo definition.")
 
 (defun ardo-beginning-of-defun (&optional arg)
@@ -134,16 +134,16 @@ With ARG, do it that many times; negative ARG moves forward."
 
 (defconst ardo-mode-font-lock-keywords
   (let* ((kw (regexp-opt '("and" "as" "break" "case" "continue" "default"
-                           "defer" "deinit" "else" "enum" "fails" "function" "for" "if"
+                           "defer" "deinit" "else" "enum" "fails" "func" "function" "for" "if"
                            "in" "is" "match" "not" "or" "pub" "return"
-                           "struct" "const" "compile_time" "then" "to" "until" "while" "using" "union" "var" "xx" "try")
+                           "struct" "const" "then" "to" "until" "while" "using" "union" "var" "xx" "try")
                          'symbols))
          (reserved (regexp-opt '("async" "await" "class" "impl"
                                  "module" "nil" "trait" "use"
                                  "yield")
                                'symbols))
          (types (regexp-opt '("bool" "char" "byte" "short" "ushort" "int"
-                              "uint" "long" "ulong" "i8" "i16" "i32" "i64"
+                              "uint" "long" "ulong" "s8" "s16" "s32" "s64"
                               "u8" "u16" "u32" "u64" "f32" "f64" "float"
                               "double" "string")
                             'symbols))
@@ -155,9 +155,9 @@ With ARG, do it that many times; negative ARG moves forward."
          ;; Exactly the directives the lexer knows.
          (directives (concat "#" (regexp-opt '("import" "load" "library" "c_import" "assert" "all"
                                                "char" "repeat" "type" "cast" "ignore" "error"
-                                               "go" "unsafe" "call" "borrow" "copy" "on" "extern"
-                                               "c_callback" "export" "trace" "time" "memo" "retry" "require"
-                                               "deprecated" "fields" "autoinit" "no_eq" "value" "flags" "embed" "packed" "align"
+                                               "go" "run" "unsafe" "call" "borrow" "copy" "on" "extern"
+                                               "c_callback" "export" "decorate" "require"
+                                               "deprecated" "no_trace" "thread_local" "fields" "autoinit" "no_eq" "value" "flags" "embed" "todo" "unreachable" "here" "packed" "align"
                                                "bits" "if" "target" "empty")
                                              t)
                              "\\_>"))
@@ -176,14 +176,18 @@ With ARG, do it that many times; negative ARG moves forward."
       ;; `ok(v)' / `error(e)' and the `error' keyword.
       ("\\_<\\(ok\\)\\s-*(" 1 font-lock-warning-face)
       ("\\_<error\\_>" 0 font-lock-warning-face)
-      ("\\_<\\(?:null\\|some\\|none\\)\\_>" 0 font-lock-constant-face)
+      ("\\_<\\(?:null\\|none\\)\\_>" 0 font-lock-constant-face)
       ("\\_<\\(?:self\\|it\\)\\_>" 0 font-lock-variable-name-face)
+      ;; Variadics (ADR-207): `xs: ..int', `args: ..', `f(..xs)'.
+      ("\\(?:[:(,][ \t]*\\)\\(\\.\\.\\)[^.]" 1 font-lock-keyword-face)
       ;; Loop labels: `'outer for ...', `break 'outer;'.
       ("'[[:alpha:]_][[:alnum:]_]*\\_>\\(?:[^']\\|$\\)" 0 font-lock-constant-face)
       ;; `const NAME' — compile-time constants.
       ("\\_<const\\s-+\\([[:word:]]+\\)" 1 font-lock-constant-face)
       ;; `fn name'.
       ("\\_<function\\s-+\\([[:word:]]+\\)" 1 font-lock-function-name-face)
+      ;; `name :: func(...)' / `name :: #on Type func(...)' (ADR-210, ADR-215).
+      ("\\_<\\([[:word:]]+\\)\\s-*::\\s-*\\(?:#[[:word:]]+\\(?:([^)]*)\\)?\\s-+\\)*\\(?:[[:word:].<>, ]*\\s-+\\(?:#[[:word:]]+\\(?:([^)]*)\\)?\\s-+\\)*\\)?func\\_>" 1 font-lock-function-name-face)
       ;; Booleans.
       ("\\_<\\(?:true\\|false\\)\\_>" 0 font-lock-constant-face)
       (,constants 0 font-lock-constant-face)
