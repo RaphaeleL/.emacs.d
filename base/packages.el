@@ -65,23 +65,23 @@
 ;;         completion-category-defaults nil
 ;;         completion-category-overrides '((file (styles basic partial-completion)))))
 
-(use-package corfu ;; completion popup
-  :demand t
-  :init (global-corfu-mode 1)
-  :custom
-  (corfu-auto t)
-  (corfu-auto-delay 0.1)
-  (corfu-auto-prefix 1)
-  :bind (:map corfu-map
-              ("SPC" . corfu-insert-separator)
-              ("C-n" . corfu-next)
-              ("C-p" . corfu-previous)))
+;; (use-package corfu ;; completion popup
+;;   :demand t
+;;   :init (global-corfu-mode 1)
+;;   :custom
+;;   (corfu-auto t)
+;;   (corfu-auto-delay 0.1)
+;;   (corfu-auto-prefix 1)
+;;   :bind (:map corfu-map
+;;               ("SPC" . corfu-insert-separator)
+;;               ("C-n" . corfu-next)
+;;               ("C-p" . corfu-previous)))
 
-(use-package corfu-popupinfo ;; documentation beside the completion popup
-  :ensure nil
-  :after corfu
-  :hook (corfu-mode . corfu-popupinfo-mode)
-  :custom (corfu-popupinfo-delay '(0.25 . 0.1)))
+;; (use-package corfu-popupinfo ;; documentation beside the completion popup
+;;   :ensure nil
+;;   :after corfu
+;;   :hook (corfu-mode . corfu-popupinfo-mode)
+;;   :custom (corfu-popupinfo-delay '(0.25 . 0.1)))
 
 ;; (use-package cape ;; extra completion sources
 ;;   :after corfu
