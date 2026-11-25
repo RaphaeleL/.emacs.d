@@ -11,11 +11,18 @@ In case you want to install emacs from source you need following commands:
 ```bash
 git clone --depth 1 https://github.com/emacs-mirror/emacs && cd emacs
 ./autogen.sh
-make bootstrap
-CFLAGS="-O3 -g0" ./configure --with-ns && make -j               # Linux
-CFLAGS="-O3 -march=native -g0" ./configure --with-ns && make -j # MacOS
+
+# MacOS
+CFLAGS="-O2 -mcpu=native -g0" ./configure --with-ns --with-tree-sitter --with-gnutls --with-modules
 make -j$(sysctl -n hw.ncpu)
-make install && open nextstep/Emacs.app
+make install
+cp -R nextstep/Emacs.app /Applications/ && open /Applications/Emacs.app
+
+# Linux 
+CFLAGS="-O2 -march=native -g0" ./configure --with-pgtk --with-tree-sitter --with-gnutls --with-modules
+make -j$(nproc)
+sudo make install
+
 ```
 
 If you want some useful alias' consider
