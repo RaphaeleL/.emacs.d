@@ -9,23 +9,29 @@ git clone --depth 1 --recurse-submodules https://github.com/RaphaeleL/.emacs.d ~
 In case you want to install emacs from source you need following commands:
 
 ```bash
-git clone --depth 1 https://github.com/emacs-mirror/emacs && cd emacs
-./autogen.sh
 
 # MacOS
-CFLAGS="-O2 -mcpu=native -g0" ./configure --with-ns --with-tree-sitter --with-gnutls --with-modules
-make -j$(sysctl -n hw.ncpu)
+brew install pkgconf texinfo gmp gnutls tree-sitter libxml2 ncurses
+brew install autoconf gnu-sed # only needed for building from git:
+make distclean
+ac_cv_func_pipe2=no CC=clang ./configure --prefix="$HOME/.local" \
+  --with-native-compilation --with-gnutls --with-xml2 --with-modules \
+  --with-tree-sitter --with-x --without-ns --without-dbus \
+  --without-imagemagick --without-selinux --disable-acl
+make -j"$(sysctl -n hw.ncpu)"
 make install
-cp -R nextstep/Emacs.app /Applications/ && open /Applications/Emacs.app
 
-# Linux 
-CFLAGS="-O2 -march=native -g0" ./configure --with-pgtk --with-tree-sitter --with-gnutls --with-modules
-make -j$(nproc)
-sudo make install
 
+# Optional: Move the Emacs.app to a better location
+cp -R nextstep/Emacs.app ~/Applications/
+open ~/Applications/Emacs.app
+
+# Optional: Link the emacs binaries to a better location
+ln -sf /Applications/Emacs.app/Contents/MacOS/Emacs ~/.local/bin/emacs
+ln -sf /Applications/Emacs.app/Contents/MacOS/bin/emacsclient ~/.local/bin/emacsclient
 ```
 
-If you want some useful alias' consider
+If you want some useful alias' consider following:
 
 ```bash
 em() { emacs "$@" >/dev/null 2>&1 &; disown }                                 # gui emacs
